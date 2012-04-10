@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 8, 2012 8:28:29 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.example.datamodel.Trf" table="TRF" schema="GUEST">
+        <id name="id" type="long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">position_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="customer" class="com.example.datamodel.Customer" fetch="select">
+            <column name="CUSTOMER_ID" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="destination" class="com.example.datamodel.Destination" fetch="select">
+            <column name="DESTINATION_ID" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="employee" class="com.example.datamodel.Employee" fetch="select">
+            <column name="EMP_ID" precision="10" scale="0" />
+        </many-to-one>
+        <property name="beginDate" type="date">
+            <column name="BEGIN_DATE" length="7" />
+        </property>
+        <property name="endDate" type="date">
+            <column name="END_DATE" length="7" />
+        </property>
+        <property name="status" type="java.lang.Boolean">
+            <column name="STATUS" precision="1" scale="0" />
+        </property>
+        <property name="hotelname" type="string">
+            <column name="HOTELNAME" length="30" />
+        </property>
+        <property name="hotelsite" type="string">
+            <column name="HOTELSITE" length="100" />
+        </property>
+        <property name="carRental" type="java.lang.Boolean">
+            <column name="CAR_RENTAL" precision="1" scale="0" />
+        </property>
+        <property name="carPayment" type="java.lang.Boolean">
+            <column name="CAR_PAYMENT" precision="1" scale="0" />
+        </property>
+        <property name="commentary" type="string">
+            <column name="COMMENTARY" length="1000" />
+        </property>
+    </class>
+</hibernate-mapping>
