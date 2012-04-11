@@ -80,7 +80,15 @@ CONSTRAINT trf_destination_id_fk FOREIGN KEY (destination_id) REFERENCES destina
 CONSTRAINT trf_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id),
 CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id));
 
-
+CREATE TABLE trfstate
+(id numeric(10),
+trf_id numeric(10),
+comment varchar2(1000),
+change_date date,
+status numeric(1),
+CONSTRAINT trfstate_id_pk PRIMARY KEY(id),
+CONSTRAINT trfstate_trf_id_fk FOREIGN KEY(trf_id) REFERENCES trf(id)
+);
 
 CREATE SEQUENCE department_id_seq
 INCREMENT BY 1
