@@ -17,5 +17,8 @@
     <mapping resource="com/example/datamodel/Employee.hbm.xml"/>
     <mapping resource="com/example/datamodel/Customer.hbm.xml"/>
     <mapping resource="com/example/datamodel/Office.hbm.xml"/>
+    <mapping/>
+    <mapping/>
+    <mapping resource="com/example/datamodel/Trfstate.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>
