@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 8, 2012 8:28:29 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 11, 2012 10:55:38 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Trf" table="TRF" schema="GUEST">
         <id name="id" type="long">
@@ -25,9 +25,6 @@
         <property name="endDate" type="date">
             <column name="END_DATE" length="7" />
         </property>
-        <property name="status" type="java.lang.Boolean">
-            <column name="STATUS" precision="1" scale="0" />
-        </property>
         <property name="hotelname" type="string">
             <column name="HOTELNAME" length="30" />
         </property>
@@ -40,8 +37,11 @@
         <property name="carPayment" type="java.lang.Boolean">
             <column name="CAR_PAYMENT" precision="1" scale="0" />
         </property>
-        <property name="commentary" type="string">
-            <column name="COMMENTARY" length="1000" />
-        </property>
+        <set name="trfstates" inverse="true">
+            <key>
+                <column name="TRF_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.example.datamodel.Trfstate" />
+        </set>
     </class>
 </hibernate-mapping>

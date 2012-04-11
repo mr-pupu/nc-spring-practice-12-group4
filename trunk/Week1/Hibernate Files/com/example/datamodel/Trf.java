@@ -1,8 +1,10 @@
 package com.example.datamodel;
-// Generated Apr 8, 2012 8:28:28 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 11, 2012 10:55:37 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -21,12 +23,11 @@ public class Trf  implements java.io.Serializable {
      private Employee employee;
      private Date beginDate;
      private Date endDate;
-     private Boolean status;
      private String hotelname;
      private String hotelsite;
      private Boolean carRental;
      private Boolean carPayment;
-     private String commentary;
+     private Set<Trfstate> trfstates = new HashSet<Trfstate>(0);
 
     public Trf() {
     }
@@ -35,19 +36,18 @@ public class Trf  implements java.io.Serializable {
     public Trf(long id) {
         this.id = id;
     }
-    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, Boolean status, String hotelname, String hotelsite, Boolean carRental, Boolean carPayment, String commentary) {
+    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, String hotelname, String hotelsite, Boolean carRental, Boolean carPayment, Set<Trfstate> trfstates) {
        this.id = id;
        this.customer = customer;
        this.destination = destination;
        this.employee = employee;
        this.beginDate = beginDate;
        this.endDate = endDate;
-       this.status = status;
        this.hotelname = hotelname;
        this.hotelsite = hotelsite;
        this.carRental = carRental;
        this.carPayment = carPayment;
-       this.commentary = commentary;
+       this.trfstates = trfstates;
     }
    
      @Id 
@@ -108,15 +108,6 @@ public class Trf  implements java.io.Serializable {
         this.endDate = endDate;
     }
     
-    @Column(name="STATUS", precision=1, scale=0)
-    public Boolean getStatus() {
-        return this.status;
-    }
-    
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-    
     @Column(name="HOTELNAME", length=30)
     public String getHotelname() {
         return this.hotelname;
@@ -152,14 +143,13 @@ public class Trf  implements java.io.Serializable {
     public void setCarPayment(Boolean carPayment) {
         this.carPayment = carPayment;
     }
-    
-    @Column(name="COMMENTARY", length=1000)
-    public String getCommentary() {
-        return this.commentary;
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="trf")
+    public Set<Trfstate> getTrfstates() {
+        return this.trfstates;
     }
     
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
+    public void setTrfstates(Set<Trfstate> trfstates) {
+        this.trfstates = trfstates;
     }
 
 
