@@ -1,3 +1,4 @@
+DROP TABLE trfstate;
 DROP TABLE trf;
 DROP TABLE employee;
 DROP TABLE department;
@@ -9,6 +10,7 @@ DROP SEQUENCE office_id_seq;
 DROP SEQUENCE destination_id_seq;
 DROP SEQUENCE customer_id_seq;
 DROP SEQUENCE trf_id_seq;
+DROP SEQUENCE trfstate_id_seq;
 DROP SEQUENCE employee_id_seq;
 DROP SEQUENCE department_id_seq;
 DROP SEQUENCE position_id_seq;
@@ -90,32 +92,32 @@ CONSTRAINT trfstate_trf_id_fk FOREIGN KEY(trf_id) REFERENCES trf(id)
 
 CREATE SEQUENCE department_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE position_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE employee_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE office_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 
 CREATE SEQUENCE destination_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE customer_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE trf_id_seq
 INCREMENT BY 1
-START WITH 1
+START WITH 1;
 
 CREATE SEQUENCE trfstate_id_seq
 INCREMENT BY 1
