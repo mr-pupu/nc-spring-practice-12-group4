@@ -69,12 +69,10 @@ customer_id numeric(10),
 emp_id numeric(10),
 begin_date date,
 end_date date,
-status numeric(1),
 hotelname varchar2(30),
 hotelsite varchar2(100),
 car_rental numeric(1),
 car_payment numeric(1),
-commentary varchar2(1000),
 CONSTRAINT trf_id_pk PRIMARY KEY(id),
 CONSTRAINT trf_destination_id_fk FOREIGN KEY (destination_id) REFERENCES destination(id),
 CONSTRAINT trf_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id),
@@ -83,7 +81,7 @@ CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id));
 CREATE TABLE trfstate
 (id numeric(10),
 trf_id numeric(10),
-comment varchar2(1000),
+commentary varchar2(1000),
 change_date date,
 status numeric(1),
 CONSTRAINT trfstate_id_pk PRIMARY KEY(id),
@@ -200,46 +198,5 @@ BEGIN
         SELECT "TRF_ID_SEQ".NEXTVAL INTO :NEW.ID
         FROM DUAL;
     END IF;
-END;
-/
-
-CREATE VIEW managers 
-AS SELECT id, dep_id, is_manager
-FROM employee;
-
-
-CREATE OR REPLACE TRIGGER "MANAGER_TRIGGER"
-BEFORE INSERT ON "EMPLOYEE"
-FOR EACH ROW
-DECLARE
-dummy INTEGER;
-managers_exist EXCEPTION;
-no_managers_exist EXCEPTION;
-  depn NUMBER;
-  empid NUMBER;
-CURSOR dummy_cursor (dep NUMBER) IS
-SELECT id FROM manager WHERE is_manager = 1 AND dep_id = dep;
-
-BEGIN
---check if there are no other managers if we update or insert
---if there are - remove them
-  depn := :NEW.dep_id;
-IF :NEW.IS_MANAGER = 1 THEN
-OPEN dummy_cursor(depn);
-FETCH dummy_cursor INTO dummy;
-IF dummy_cursor%FOUND THEN
-RAISE managers_exist;
-ELSE
-RAISE no_managers_exist;
-END IF;
-CLOSE dummy_cursor;
-END IF;
-EXCEPTION
-  WHEN managers_exist THEN
-  CLOSE dummy_cursor;
-  Raise_application_error(-20034, 'Cannot add another manager');
-  WHEN no_managers_exist THEN
-  CLOSE dummy_cursor;
-  
 END;
 /
