@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 11, 2012 10:55:37 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -27,6 +27,7 @@ public class Trf  implements java.io.Serializable {
      private String hotelsite;
      private Boolean carRental;
      private Boolean carPayment;
+     private Boolean curState;
      private Set<Trfstate> trfstates = new HashSet<Trfstate>(0);
 
     public Trf() {
@@ -36,7 +37,7 @@ public class Trf  implements java.io.Serializable {
     public Trf(long id) {
         this.id = id;
     }
-    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, String hotelname, String hotelsite, Boolean carRental, Boolean carPayment, Set<Trfstate> trfstates) {
+    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, String hotelname, String hotelsite, Boolean carRental, Boolean carPayment, Boolean curState, Set<Trfstate> trfstates) {
        this.id = id;
        this.customer = customer;
        this.destination = destination;
@@ -47,6 +48,7 @@ public class Trf  implements java.io.Serializable {
        this.hotelsite = hotelsite;
        this.carRental = carRental;
        this.carPayment = carPayment;
+       this.curState = curState;
        this.trfstates = trfstates;
     }
    
@@ -142,6 +144,15 @@ public class Trf  implements java.io.Serializable {
     
     public void setCarPayment(Boolean carPayment) {
         this.carPayment = carPayment;
+    }
+    
+    @Column(name="CUR_STATE", precision=1, scale=0)
+    public Boolean getCurState() {
+        return this.curState;
+    }
+    
+    public void setCurState(Boolean curState) {
+        this.curState = curState;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="trf")
     public Set<Trfstate> getTrfstates() {

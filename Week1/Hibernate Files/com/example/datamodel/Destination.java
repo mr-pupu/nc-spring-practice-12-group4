@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 8, 2012 8:28:28 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -17,8 +17,7 @@ public class Destination  implements java.io.Serializable {
 
 
      private long id;
-     private String dname;
-     private String dcountry;
+     private City city;
      private Set<Trf> trfs = new HashSet<Trf>(0);
 
     public Destination() {
@@ -28,17 +27,16 @@ public class Destination  implements java.io.Serializable {
     public Destination(long id) {
         this.id = id;
     }
-    public Destination(long id, String dname, String dcountry, Set<Trf> trfs) {
+    public Destination(long id, City city, Set<Trf> trfs) {
        this.id = id;
-       this.dname = dname;
-       this.dcountry = dcountry;
+       this.city = city;
        this.trfs = trfs;
     }
    
      @Id 
-     @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
+    @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="destination_id")
-    
+     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
         return this.id;
@@ -47,23 +45,14 @@ public class Destination  implements java.io.Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    
-    @Column(name="DNAME", length=20)
-    public String getDname() {
-        return this.dname;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="DEST_CITY_ID")
+    public City getCity() {
+        return this.city;
     }
     
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
-    
-    @Column(name="DCOUNTRY", length=15)
-    public String getDcountry() {
-        return this.dcountry;
-    }
-    
-    public void setDcountry(String dcountry) {
-        this.dcountry = dcountry;
+    public void setCity(City city) {
+        this.city = city;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="destination")
     public Set<Trf> getTrfs() {

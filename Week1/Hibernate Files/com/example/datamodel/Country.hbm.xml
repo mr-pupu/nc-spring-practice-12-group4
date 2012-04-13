@@ -3,21 +3,21 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.example.datamodel.Office" table="OFFICE" schema="GUEST">
+    <class name="com.example.datamodel.Country" table="COUNTRY" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
             <generator class="sequence">
-                <param name="sequence">office_id_seq</param>
+                <param name="sequence">country_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="city" class="com.example.datamodel.City" fetch="select">
-            <column name="CITY_ID" precision="10" scale="0" />
-        </many-to-one>
-        <set name="employees" inverse="true">
+        <property name="countryName" type="string">
+            <column name="COUNTRY_NAME" length="20" />
+        </property>
+        <set name="cities" inverse="true">
             <key>
-                <column name="OFFICE_ID" precision="10" scale="0" />
+                <column name="COUNTRY_ID" precision="10" scale="0" />
             </key>
-            <one-to-many class="com.example.datamodel.Employee" />
+            <one-to-many class="com.example.datamodel.City" />
         </set>
     </class>
 </hibernate-mapping>

@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 8, 2012 8:28:28 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -17,9 +17,8 @@ public class Office  implements java.io.Serializable {
 
 
      private long id;
-     private String oname;
-     private String ocountry;
-     private Set<Department> departments = new HashSet<Department>(0);
+     private City city;
+     private Set<Employee> employees = new HashSet<Employee>(0);
 
     public Office() {
     }
@@ -28,16 +27,16 @@ public class Office  implements java.io.Serializable {
     public Office(long id) {
         this.id = id;
     }
-    public Office(long id, String oname, String ocountry, Set<Department> departments) {
+    public Office(long id, City city, Set<Employee> employees) {
        this.id = id;
-       this.oname = oname;
-       this.ocountry = ocountry;
-       this.departments = departments;
+       this.city = city;
+       this.employees = employees;
     }
    
      @Id 
      @SequenceGenerator(name="office_id",sequenceName="office_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="office_id") 
+
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
@@ -47,31 +46,22 @@ public class Office  implements java.io.Serializable {
     public void setId(long id) {
         this.id = id;
     }
-    
-    @Column(name="ONAME", length=20)
-    public String getOname() {
-        return this.oname;
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="CITY_ID")
+    public City getCity() {
+        return this.city;
     }
     
-    public void setOname(String oname) {
-        this.oname = oname;
-    }
-    
-    @Column(name="OCOUNTRY", length=15)
-    public String getOcountry() {
-        return this.ocountry;
-    }
-    
-    public void setOcountry(String ocountry) {
-        this.ocountry = ocountry;
+    public void setCity(City city) {
+        this.city = city;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="office")
-    public Set<Department> getDepartments() {
-        return this.departments;
+    public Set<Employee> getEmployees() {
+        return this.employees;
     }
     
-    public void setDepartments(Set<Department> departments) {
-        this.departments = departments;
+    public void setEmployees(Set<Employee> employees) {
+        this.employees = employees;
     }
 
 

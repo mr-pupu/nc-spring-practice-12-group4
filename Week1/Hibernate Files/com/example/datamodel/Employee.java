@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 8, 2012 8:28:28 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -17,14 +17,14 @@ public class Employee  implements java.io.Serializable {
 
 
      private long id;
-     private Position position;
+     private Occupation occupation;
+     private Office office;
      private Department department;
      private String firstName;
      private String secondName;
      private String email;
      private String login;
      private String password;
-     private Boolean isManager;
      private Set<Trf> trfs = new HashSet<Trf>(0);
 
     public Employee() {
@@ -34,22 +34,23 @@ public class Employee  implements java.io.Serializable {
     public Employee(long id) {
         this.id = id;
     }
-    public Employee(long id, Position position, Department department, String firstName, String secondName, String email, String login, String password, Boolean isManager, Set<Trf> trfs) {
+    public Employee(long id, Occupation occupation, Office office, Department department, String firstName, String secondName, String email, String login, String password, Set<Trf> trfs) {
        this.id = id;
-       this.position = position;
+       this.occupation = occupation;
+       this.office = office;
        this.department = department;
        this.firstName = firstName;
        this.secondName = secondName;
        this.email = email;
        this.login = login;
        this.password = password;
-       this.isManager = isManager;
        this.trfs = trfs;
     }
    
-    @Id 
+     @Id 
      @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="destination_id")
+
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
@@ -61,12 +62,21 @@ public class Employee  implements java.io.Serializable {
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="POSITION_ID")
-    public Position getPosition() {
-        return this.position;
+    public Occupation getOccupation() {
+        return this.occupation;
     }
     
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setOccupation(Occupation occupation) {
+        this.occupation = occupation;
+    }
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="OFFICE_ID")
+    public Office getOffice() {
+        return this.office;
+    }
+    
+    public void setOffice(Office office) {
+        this.office = office;
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="DEP_ID")
@@ -121,15 +131,6 @@ public class Employee  implements java.io.Serializable {
     
     public void setPassword(String password) {
         this.password = password;
-    }
-    
-    @Column(name="IS_MANAGER", precision=1, scale=0)
-    public Boolean getIsManager() {
-        return this.isManager;
-    }
-    
-    public void setIsManager(Boolean isManager) {
-        this.isManager = isManager;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="employee")
     public Set<Trf> getTrfs() {

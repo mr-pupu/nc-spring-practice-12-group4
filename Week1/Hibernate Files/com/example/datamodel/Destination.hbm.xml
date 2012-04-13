@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 8, 2012 8:28:29 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Destination" table="DESTINATION" schema="GUEST">
         <id name="id" type="long">
@@ -10,12 +10,9 @@
                 <param name="sequence">destination_id_seq</param>
             </generator>
         </id>
-        <property name="dname" type="string">
-            <column name="DNAME" length="20" />
-        </property>
-        <property name="dcountry" type="string">
-            <column name="DCOUNTRY" length="15" />
-        </property>
+        <many-to-one name="city" class="com.example.datamodel.City" fetch="select">
+            <column name="DEST_CITY_ID" precision="10" scale="0" />
+        </many-to-one>
         <set name="trfs" inverse="true">
             <key>
                 <column name="DESTINATION_ID" precision="10" scale="0" />

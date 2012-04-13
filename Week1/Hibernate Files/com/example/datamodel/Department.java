@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 8, 2012 8:28:28 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.HashSet;
@@ -17,10 +17,9 @@ public class Department  implements java.io.Serializable {
 
 
      private long id;
-     private Office office;
      private Department department;
      private String depName;
-     private Boolean role;
+     private Long managerId;
      private Set<Department> departments = new HashSet<Department>(0);
      private Set<Employee> employees = new HashSet<Employee>(0);
 
@@ -31,19 +30,19 @@ public class Department  implements java.io.Serializable {
     public Department(long id) {
         this.id = id;
     }
-    public Department(long id, Office office, Department department, String depName, Boolean role, Set<Department> departments, Set<Employee> employees) {
+    public Department(long id, Department department, String depName, Long managerId, Set<Department> departments, Set<Employee> employees) {
        this.id = id;
-       this.office = office;
        this.department = department;
        this.depName = depName;
-       this.role = role;
+       this.managerId = managerId;
        this.departments = departments;
        this.employees = employees;
     }
    
-     @Id 
+     @Id  
      @SequenceGenerator(name="department_id",sequenceName="department_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="department_id") 
+
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
@@ -52,15 +51,6 @@ public class Department  implements java.io.Serializable {
     
     public void setId(long id) {
         this.id = id;
-    }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="OFFICE_ID")
-    public Office getOffice() {
-        return this.office;
-    }
-    
-    public void setOffice(Office office) {
-        this.office = office;
     }
 @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name="PARENT_ID")
@@ -81,13 +71,13 @@ public class Department  implements java.io.Serializable {
         this.depName = depName;
     }
     
-    @Column(name="ROLE", precision=1, scale=0)
-    public Boolean getRole() {
-        return this.role;
+    @Column(name="MANAGER_ID", precision=10, scale=0)
+    public Long getManagerId() {
+        return this.managerId;
     }
     
-    public void setRole(Boolean role) {
-        this.role = role;
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="department")
     public Set<Department> getDepartments() {
