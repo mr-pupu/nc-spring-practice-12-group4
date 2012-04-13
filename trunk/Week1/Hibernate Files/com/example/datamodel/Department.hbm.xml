@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 8, 2012 8:28:29 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Department" table="DEPARTMENT" schema="GUEST">
         <id name="id" type="long">
@@ -10,17 +10,14 @@
                 <param name="sequence">department_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="office" class="com.example.datamodel.Office" fetch="select">
-            <column name="OFFICE_ID" precision="10" scale="0" />
-        </many-to-one>
         <many-to-one name="department" class="com.example.datamodel.Department" fetch="select">
             <column name="PARENT_ID" precision="10" scale="0" />
         </many-to-one>
         <property name="depName" type="string">
             <column name="DEP_NAME" length="40" />
         </property>
-        <property name="role" type="java.lang.Boolean">
-            <column name="ROLE" precision="1" scale="0" />
+        <property name="managerId" type="java.lang.Long">
+            <column name="MANAGER_ID" precision="10" scale="0" />
         </property>
         <set name="departments" inverse="true">
             <key>
@@ -33,6 +30,15 @@
                 <column name="DEP_ID" precision="10" scale="0" />
             </key>
             <one-to-many class="com.example.datamodel.Employee" />
+        </set>
+        <set name="roles" table="roledep" 
+        	inverse="false" lazy="true" fetch="select" cascade="all" >
+            <key>
+                <column name="DEP_ID" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.example.datamodel.Role">
+                <column name="ROLE_ID" not-null="true" />
+            </many-to-many>
         </set>
     </class>
 </hibernate-mapping>

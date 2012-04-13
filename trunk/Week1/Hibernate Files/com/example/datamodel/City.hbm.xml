@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.example.datamodel.City" table="CITY" schema="GUEST">
+        <id name="id" type="long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">city_id_seq</param>
+            </generator>
+        </id>
+        <many-to-one name="country" class="com.example.datamodel.Country" fetch="select">
+            <column name="COUNTRY_ID" precision="10" scale="0" />
+        </many-to-one>
+        <property name="cityName" type="string">
+            <column name="CITY_NAME" length="20" />
+        </property>
+        <set name="destinations" inverse="true">
+            <key>
+                <column name="DEST_CITY_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.example.datamodel.Destination" />
+        </set>
+        <set name="offices" inverse="true">
+            <key>
+                <column name="CITY_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="com.example.datamodel.Office" />
+        </set>
+    </class>
+</hibernate-mapping>

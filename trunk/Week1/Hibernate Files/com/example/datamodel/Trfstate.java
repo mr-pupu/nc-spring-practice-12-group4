@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 11, 2012 10:55:37 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -36,9 +36,10 @@ public class Trfstate  implements java.io.Serializable {
        this.status = status;
     }
    
-     @Id  
+     @Id 
      @SequenceGenerator(name="trfstate_id",sequenceName="trfstate_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="trfstate_id") 
+
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
