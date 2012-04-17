@@ -87,6 +87,8 @@ CONSTRAINT destination_id_pk PRIMARY KEY(id),
 
 CREATE TABLE customer(
 id numeric(10),
+hotelname varchar2(30),
+hotelsite varchar2(100),
 cust_name varchar2(20),
 CONSTRAINT customer_id_pk PRIMARY KEY(id));
 
@@ -97,8 +99,6 @@ customer_id numeric(10),
 emp_id numeric(10),
 begin_date date,
 end_date date,
-hotelname varchar2(30),
-hotelsite varchar2(100),
 car_rental numeric(1),
 car_payment numeric(1),
   cur_state NUMERIC(1),
