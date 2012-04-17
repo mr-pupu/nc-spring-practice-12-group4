@@ -113,6 +113,7 @@ trf_id numeric(10),
 commentary varchar2(1000),
 change_date date,
 status numeric(1),
+changer numeric(10),
 CONSTRAINT trfstate_id_pk PRIMARY KEY(id),
 CONSTRAINT trfstate_trf_id_fk FOREIGN KEY(trf_id) REFERENCES trf(id)
 );
@@ -316,5 +317,40 @@ EXCEPTION
   WHEN no_managers_exist THEN
   CLOSE dummy_cursor;
   Raise_application_error(-20034, 'Error! Trying to set nonexistent employee as manager');
+END;
+/
+
+CREATE OR REPLACE TRIGGER "CHANGER_TRIGGER"
+BEFORE INSERT OR UPDATE OF "CHANGER" ON "TRFSTATE"
+FOR EACH ROW
+DECLARE
+dummy INTEGER;
+managers_exist EXCEPTION;
+no_managers_exist EXCEPTION;
+  empid NUMBER;
+olddep NUMBER;
+CURSOR dummy_cursor (dep NUMBER) IS
+SELECT id FROM employee WHERE id=dep;
+
+BEGIN
+  empid := :NEW.CHANGER;
+--if we delete, or remove the manager by updating, check if there are managers left
+--if not - rollback
+  IF NOT(:NEW.CHANGER IS NULL) THEN
+OPEN dummy_cursor(empid);
+FETCH dummy_cursor INTO dummy;
+IF dummy_cursor%FOUND THEN
+RAISE managers_exist;
+ELSE
+RAISE no_managers_exist;
+END IF;
+CLOSE dummy_cursor;
+  END IF;
+EXCEPTION
+  WHEN managers_exist THEN
+  CLOSE dummy_cursor;
+  WHEN no_managers_exist THEN
+  CLOSE dummy_cursor;
+  Raise_application_error(-20034, 'Error! Trying to set nonexistent employee trf editor');
 END;
 /
