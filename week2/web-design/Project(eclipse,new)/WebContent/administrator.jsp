@@ -67,6 +67,19 @@
 	          </tr>
 	        </tbody>
 	      </table>
+	      <%=request.getContextPath() %> <br>
+	      <%=request.getLocalAddr() %> <br>
+	      <%=request.getLocalName() %> <br>
+	      <%=request.getPathInfo() %> <br>
+	      <%=request.getPathTranslated() %> <br>
+	      <%=request.getQueryString() %> <br>
+	      <%=request.getRemoteAddr() %> <br>
+	      <%=request.getRemoteHost() %> <br>
+	      <%=request.getRemotePort() %> <br>
+	      <%=request.getRemoteUser() %> <br>
+	      <%=request.getRequestURI() %> <br>
+	      <%=request.getRemotePort() %> <br>
+	      <%=request.getRemoteUser() %> <br>
     	
     	
     </div>

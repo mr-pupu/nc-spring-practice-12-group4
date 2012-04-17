@@ -1,4 +1,4 @@
-package localization;
+package localizations;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,13 +14,14 @@ public class TextLocalization {
 	private static Map<Locale,ResourceBundle> boundles = new HashMap<Locale,ResourceBundle>();
 	private static Map<String,String> namesAndCodes = new HashMap<String, String>();
  
-	static {	
+	static {
+		System.out.println("ololo");
 		locales.add(new Locale("en", "EN"));   //default
 		locales.add(new Locale("ru", "RU"));
 		locales.add(new Locale("ua", "UA"));
 		
 		for (Locale locale : locales) {
-			ResourceBundle resourceBundle = ResourceBundle.getBundle("localization.text", locale);
+			ResourceBundle resourceBundle = ResourceBundle.getBundle("localizations.text", locale);
 			boundles.put(locale, resourceBundle);	
 			localeNames.add(resourceBundle.getString("locale.name"));
 			namesAndCodes.put(resourceBundle.getString("locale.name"), resourceBundle.getString("locale.code"));

@@ -2,6 +2,8 @@ package servlets;
 
 import java.io.IOException;
 import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,19 +12,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import localization.TextLocalization;
+import beans.LocalizationsBean;
+
+import localizations.TextLocalization;
 
 /**
  * Servlet implementation class LoacaleHandler
  */
 public class LoacaleHandler extends ServletHandler {
 	private static final long serialVersionUID = 1L;
+	private static Set<String> boundles = new HashSet<String>();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public LoacaleHandler() {
         super();
+        
         // TODO Auto-generated constructor stub
     }
 
@@ -45,11 +51,7 @@ public class LoacaleHandler extends ServletHandler {
 	
 	private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		String string=(String) request.getParameter("locale");
 		
-		if (string != null ){
-			session.setAttribute("resourceBoundle", TextLocalization.getBoundle(string));
-		}
 		System.out.println("Servlet LocaleHandler was runned");
 		response.sendRedirect(request.getContextPath()+"/");
 	}
