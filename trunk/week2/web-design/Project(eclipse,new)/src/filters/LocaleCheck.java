@@ -12,7 +12,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import localization.TextLocalization;
+import beans.LocalizationsBean;
+
+import localizations.TextLocalization;
 
 /**
  * Servlet Filter implementation class LocaleCheck
@@ -41,8 +43,14 @@ public class LocaleCheck implements Filter {
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		HttpSession session = requestHttp.getSession();
 		//java.util.ResourceBundle locale = (java.util.ResourceBundle)session.getAttribute("resourceBoundle");
-		if (session.getAttribute("resourceBoundle") == null) {
-			session.setAttribute("resourceBoundle", TextLocalization.getDefoultBoundle());
+		if (session.getAttribute("bundle") == null) {
+			session.setAttribute("bundle", "en_EN");
+		}
+		
+		String bundle=(String) request.getParameter("locale");		
+		if (bundle != null & LocalizationsBean.checkBundle(bundle)){
+			session.setAttribute("resourceBoundle", TextLocalization.getBoundle(bundle));
+			session.setAttribute("bundle", bundle);
 		}
 		System.out.println("Filter LocaleCheck done his work");
 		// pass the request along the filter chain
