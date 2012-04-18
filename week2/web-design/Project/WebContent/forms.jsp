@@ -115,86 +115,84 @@ body {
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="accordion-group">
-			<div class="accordion-heading">
-				<a class="accordion-toggle" data-toggle="collapse"
-					data-parent="#accordion2" href="#collapseTwo">
-					<h4>
-						<fmt:message key="page.forms.text2" />
-					</h4>
-				</a>
-			</div>
-			<div id="collapseTwo" class="accordion-body collapse">
-				<div class="accordion-inner">
 
-					<table class="table">
-						<tbody>
-							<tr>
-								<td><fmt:message key="page.forms.filterDepartment" /></td>
-								<td><select class="btn">
-										<option>&lt;All&gt;</option>
-										<option value="PA">ff</option>
-										<option value="CT">gg</option>
-								</select></td>
-								<td><fmt:message key="page.forms.filterTimeframe" /></td>
-								<td><fmt:message key="page.forms.filterTimeframe.from" /><input
-									type="text">XX</td>
-								<td><fmt:message key="page.forms.filterTimeframe.to" /><input
-									type="text">XX</td>
-							</tr>
-						</tbody>
-					</table>
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a class="accordion-toggle" data-toggle="collapse"
+						data-parent="#accordion2" href="#collapseTwo">
+						<h4>
+							<fmt:message key="page.forms.text2" />
+						</h4>
+					</a>
+				</div>
+				<div id="collapseTwo" class="accordion-body collapse">
+					<div class="accordion-inner">
 
-					<table class="table table-bordered table-condensed">
-						<thead>
-							<tr>
-								<th><fmt:message key="table.trfs.destination" /></th>
-								<th><fmt:message key="table.trfs.dateBegin" /></th>
-								<th><fmt:message key="table.trfs.dateEnd" /></th>
-								<th><fmt:message key="table.trfs.status" /></th>
-								<th><fmt:message key="table.trfs.comment" /></th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-							<tr>
-								<td>New York U.S.A</td>
-								<td>12.06.2012</td>
-								<td>12.08.2012</td>
-								<td>Entering</td>
-								<td>Some comment</td>
-							</tr>
-							<tr>
-								<td>Mexico Mexico</td>
-								<td>12.06.2012</td>
-								<td>12.08.2012</td>
-								<td>Entering</td>
-								<td>Another comment</td>
-							</tr>
-						</tbody>
-					</table>
-					<div class="row">
-						<div class="pagination span4 offset3">
-							<ul>
-								<li><a href="#">&larr;</a></li>
-								<li class="active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li class="disabled"><a href="#">...</a></li>
-								<li><a href="#">20</a></li>
-								<li><a href="#">21</a></li>
-								<li><a href="#">&rarr;</a></li>
-							</ul>
+						<table class="table">
+							<tbody>
+								<tr>
+									<td><fmt:message key="page.forms.filterDepartment" /></td>
+									<td><select class="btn">
+											<option>&lt;All&gt;</option>
+											<option value="PA">ff</option>
+											<option value="CT">gg</option>
+									</select></td>
+									<td><fmt:message key="page.forms.filterTimeframe" /></td>
+									<td><fmt:message key="page.forms.filterTimeframe.from" /><input
+										type="text">XX</td>
+									<td><fmt:message key="page.forms.filterTimeframe.to" /><input
+										type="text">XX</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="table table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th><fmt:message key="table.trfs.destination" /></th>
+									<th><fmt:message key="table.trfs.dateBegin" /></th>
+									<th><fmt:message key="table.trfs.dateEnd" /></th>
+									<th><fmt:message key="table.trfs.status" /></th>
+									<th><fmt:message key="table.trfs.comment" /></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+								<tr>
+									<td>New York U.S.A</td>
+									<td>12.06.2012</td>
+									<td>12.08.2012</td>
+									<td>Entering</td>
+									<td>Some comment</td>
+								</tr>
+								<tr>
+									<td>Mexico Mexico</td>
+									<td>12.06.2012</td>
+									<td>12.08.2012</td>
+									<td>Entering</td>
+									<td>Another comment</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row">
+							<div class="pagination span4 offset3">
+								<ul>
+									<li><a href="#">&larr;</a></li>
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li class="disabled"><a href="#">...</a></li>
+									<li><a href="#">20</a></li>
+									<li><a href="#">21</a></li>
+									<li><a href="#">&rarr;</a></li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	</div>
-	<!-- /container -->
-	<jsp:include page="modalform.jsp"></jsp:include>
-	<jsp:include page="scripts.jsp"></jsp:include>
+		<!-- /container -->
+		<jsp:include page="modalform.jsp"></jsp:include>
+		<jsp:include page="scripts.jsp"></jsp:include>
 </body>
 </html>
