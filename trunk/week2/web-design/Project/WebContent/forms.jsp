@@ -42,6 +42,31 @@ body {
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<!-- 
+	Copyright 2009 Itamar Arjuan
+	jsDatePick is distributed under the terms of the GNU General Public License.
+	****************************************************************************************
+-->
+<link rel="stylesheet" type="text/css" media="all" href="/assets/css/jsDatePick_ltr.min.css" />
+<!-- 
+-->
+<script type="text/javascript" src="/assets/js/jsDatePick.min.1.3.js"></script>
+<!-- 
+-->
+<script type="text/javascript">
+	window.onload = function(){
+		var first = new JsDatePick({
+			useMode:2,
+			target:"inputField1",
+			dateFormat:"%d-%M-%Y"
+		}),
+		second = new JsDatePick({
+			useMode:2,
+			target:"inputField2",
+			dateFormat:"%d-%M-%Y"
+		});
+	};
+</script>
 </head>
 <body>
 	<jsp:include page="menu.jsp"></jsp:include>
@@ -138,10 +163,14 @@ body {
 											<option value="CT">gg</option>
 									</select></td>
 									<td><fmt:message key="page.forms.filterTimeframe" /></td>
-									<td><fmt:message key="page.forms.filterTimeframe.from" /><input
-										type="text">XX</td>
-									<td><fmt:message key="page.forms.filterTimeframe.to" /><input
-										type="text">XX</td>
+									<td><fmt:message key="page.forms.filterTimeframe.from" />
+									<input type="text" size="12" id="inputField1" />
+									<img src="/assets/img/calendar/icon_calendar.png" onmousedown="document.getElementById('inputField1').focus();" width=20px; height=20px; id="image1" />
+									<!-- <input	type="text">XX</td> -->
+									<td><fmt:message key="page.forms.filterTimeframe.to" />
+									<input type="text" size="12" id="inputField2" />
+									<img src="/assets/img/calendar/icon_calendar.png" onmousedown="document.getElementById('inputField2').focus();" width=20px; height=20px; id="image2" /> 
+									<!--<input type="text">XX</td>  -->
 								</tr>
 							</tbody>
 						</table>
