@@ -1,17 +1,14 @@
 package users;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Users implements Serializable {
-	private static final long serialVersionUID = 6360011364108881333L;
+public class Users{
 	private static List<User> usersList = new ArrayList<User>();
 	public static String getUserRole(String name, String pass){
 		for (User user : usersList) {

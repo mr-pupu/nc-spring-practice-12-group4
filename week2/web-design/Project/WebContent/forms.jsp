@@ -53,7 +53,7 @@ body {
 					<a class="accordion-toggle" data-toggle="collapse"
 						data-parent="#accordion2" href="#collapseOne">
 						<h4>
-							<fmt:message key="page.employee.text1" />
+							<fmt:message key="page.forms.text1" />
 						</h4>
 					</a>
 				</div>
@@ -65,7 +65,7 @@ body {
 								<tr>
 									<th style="width: 20px;">
 										<button type="submit" class="btn btn-mini span1">
-											<fmt:message key="page.employee.buttonAdd" />
+											<fmt:message key="page.forms.buttonAdd" />
 										</button>
 									</th>
 									<th><fmt:message key="table.trfs.destination" /></th>
@@ -80,7 +80,7 @@ body {
 								<tr>
 									<td><a data-toggle="modal" href="#myModal"
 										class="btn btn-mini span1"><fmt:message
-												key="page.employee.buttonEdit" /></a></td>
+												key="page.forms.buttonEdit" /></a></td>
 									<td>New York U.S.A</td>
 									<td>12.06.2012</td>
 									<td>12.08.2012</td>
@@ -90,7 +90,7 @@ body {
 								<tr>
 									<td><a data-toggle="modal" href="#myModal"
 										class="btn btn-mini span1"><fmt:message
-												key="page.employee.buttonEdit" /></a></td>
+												key="page.forms.buttonEdit" /></a></td>
 									<td>Mexico Mexico</td>
 									<td>12.06.2012</td>
 									<td>12.08.2012</td>
@@ -99,72 +99,98 @@ body {
 								</tr>
 							</tbody>
 						</table>
-
-					</div>
-				</div>
-			</div>
-			<div class="accordion-group">
-				<div class="accordion-heading">
-					<a class="accordion-toggle" data-toggle="collapse"
-						data-parent="#accordion2" href="#collapseTwo">
-						<h4>
-							<fmt:message key="page.employee.text2" />
-						</h4>
-					</a>
-				</div>
-				<div id="collapseTwo" class="accordion-body collapse">
-					<div class="accordion-inner">
-
-						<table class="table">
-							<tbody>
-								<tr>
-									<td>Filter by Department</td>
-									<td><select class="btn">
-											<option>&lt;All&gt;</option>
-											<option value="PA">ff</option>
-											<option value="CT">gg</option>
-									</select></td>
-									<td>Filter by Date :</td>
-									<td>From <input type="text">XX
-									</td>
-									<td>To <input type="text">XX
-									</td>
-								</tr>
-							</tbody>
-						</table>
-
-						<table class="table table-bordered table-condensed">
-							<thead>
-								<tr>
-									<th><fmt:message key="table.trfs.destination" /></th>
-									<th><fmt:message key="table.trfs.dateBegin" /></th>
-									<th><fmt:message key="table.trfs.dateEnd" /></th>
-									<th><fmt:message key="table.trfs.status" /></th>
-									<th><fmt:message key="table.trfs.comment" /></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-								<tr>
-									<td>New York U.S.A</td>
-									<td>12.06.2012</td>
-									<td>12.08.2012</td>
-									<td>Entering</td>
-									<td>Some comment</td>
-								</tr>
-								<tr>
-									<td>Mexico Mexico</td>
-									<td>12.06.2012</td>
-									<td>12.08.2012</td>
-									<td>Entering</td>
-									<td>Another comment</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="row">
+							<div class="pagination span4 offset3">
+								<ul>
+									<li><a href="#">&larr;</a></li>
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li class="disabled"><a href="#">...</a></li>
+									<li><a href="#">20</a></li>
+									<li><a href="#">21</a></li>
+									<li><a href="#">&rarr;</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a class="accordion-toggle" data-toggle="collapse"
+					data-parent="#accordion2" href="#collapseTwo">
+					<h4>
+						<fmt:message key="page.forms.text2" />
+					</h4>
+				</a>
+			</div>
+			<div id="collapseTwo" class="accordion-body collapse">
+				<div class="accordion-inner">
+
+					<table class="table">
+						<tbody>
+							<tr>
+								<td><fmt:message key="page.forms.filterDepartment" /></td>
+								<td><select class="btn">
+										<option>&lt;All&gt;</option>
+										<option value="PA">ff</option>
+										<option value="CT">gg</option>
+								</select></td>
+								<td><fmt:message key="page.forms.filterTimeframe" /></td>
+								<td><fmt:message key="page.forms.filterTimeframe.from" /><input
+									type="text">XX</td>
+								<td><fmt:message key="page.forms.filterTimeframe.to" /><input
+									type="text">XX</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table class="table table-bordered table-condensed">
+						<thead>
+							<tr>
+								<th><fmt:message key="table.trfs.destination" /></th>
+								<th><fmt:message key="table.trfs.dateBegin" /></th>
+								<th><fmt:message key="table.trfs.dateEnd" /></th>
+								<th><fmt:message key="table.trfs.status" /></th>
+								<th><fmt:message key="table.trfs.comment" /></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+							<tr>
+								<td>New York U.S.A</td>
+								<td>12.06.2012</td>
+								<td>12.08.2012</td>
+								<td>Entering</td>
+								<td>Some comment</td>
+							</tr>
+							<tr>
+								<td>Mexico Mexico</td>
+								<td>12.06.2012</td>
+								<td>12.08.2012</td>
+								<td>Entering</td>
+								<td>Another comment</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="row">
+						<div class="pagination span4 offset3">
+							<ul>
+								<li><a href="#">&larr;</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li class="disabled"><a href="#">...</a></li>
+								<li><a href="#">20</a></li>
+								<li><a href="#">21</a></li>
+								<li><a href="#">&rarr;</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	</div>
 	<!-- /container -->

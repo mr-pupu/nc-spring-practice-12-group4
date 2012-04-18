@@ -1,5 +1,8 @@
-
-<%java.util.ResourceBundle locale = (java.util.ResourceBundle)session.getAttribute("resourceBoundle");%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<fmt:setBundle
+	basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,15 +50,20 @@ body {
 						class="btn btn-mini span1">Employee editor button</a>
 				</div>
 				<div class="span10">
-					Rules <br> Chief <br>
+					<fmt:message key="page.administrator.rules" />
+					<br>
+					<fmt:message key="page.administrator.chief" />
+					<br>
 
 					<table class="table table-bordered table-condensed">
 						<thead>
 							<tr>
-								<th>Name</th>
-								<th>Position</th>
-								<th style="width: 55px;">Edit</th>
-								<th style="width: 55px;">Remove</th>
+								<th><fmt:message key="table.employees.name" /></th>
+								<th><fmt:message key="table.employees.position" /></th>
+								<th style="width: 55px;"><fmt:message
+										key="table.employees.edit" /></th>
+								<th style="width: 55px;"><fmt:message
+										key="table.employees.remove" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,18 +72,182 @@ body {
 								<td>John Smith</td>
 								<td>Team Lead</td>
 								<td><button type="submit" class="btn btn-mini"
-										style="width: 55px;">Edit</button></td>
-								<td><button type="submit" class="btn btn-mini">Remove</button></td>
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
 							</tr>
 							<tr>
 								<td>James Brown</td>
 								<td>Developer</td>
 								<td><button type="submit" class="btn btn-mini"
-										style="width: 55px;">Edit</button></td>
-								<td><button type="submit" class="btn btn-mini">Remove</button></td>
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
+							</tr>
+							<tr>
+								<td>James Brown</td>
+								<td>Developer</td>
+								<td><button type="submit" class="btn btn-mini"
+										style="width: 55px;">
+										<fmt:message key="table.employees.edit" />
+									</button></td>
+								<td><button type="submit" class="btn btn-mini">
+										<fmt:message key="table.employees.remove" />
+									</button></td>
 							</tr>
 						</tbody>
 					</table>
+					<div class="row">
+						<div class="pagination span4 offset3">
+							<ul>
+								<li><a href="#">&larr;</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li class="disabled"><a href="#">...</a></li>
+								<li><a href="#">20</a></li>
+								<li><a href="#">21</a></li>
+								<li><a href="#">&rarr;</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
