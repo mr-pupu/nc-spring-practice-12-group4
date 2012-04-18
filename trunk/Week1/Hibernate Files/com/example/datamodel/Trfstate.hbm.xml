@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 18, 2012 3:51:31 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Trfstate" table="TRFSTATE" schema="GUEST">
         <id name="id" type="long">
@@ -10,9 +10,9 @@
                 <param name="sequence">trfstate_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="trf" class="com.example.datamodel.Trf" fetch="select">
+        <property name="trfId" type="java.lang.Long">
             <column name="TRF_ID" precision="10" scale="0" />
-        </many-to-one>
+        </property>
         <property name="commentary" type="string">
             <column name="COMMENTARY" length="1000" />
         </property>
@@ -21,6 +21,9 @@
         </property>
         <property name="status" type="java.lang.Boolean">
             <column name="STATUS" precision="1" scale="0" />
+        </property>
+        <property name="changer" type="java.lang.Long">
+            <column name="CHANGER" precision="10" scale="0" />
         </property>
     </class>
 </hibernate-mapping>

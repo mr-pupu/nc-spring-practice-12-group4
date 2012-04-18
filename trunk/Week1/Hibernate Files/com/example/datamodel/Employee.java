@@ -48,8 +48,8 @@ public class Employee  implements java.io.Serializable {
     }
    
      @Id 
-     @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="destination_id")
+     @SequenceGenerator(name="employee_id",sequenceName="employee_id_seq")
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="employee_id")
 
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)

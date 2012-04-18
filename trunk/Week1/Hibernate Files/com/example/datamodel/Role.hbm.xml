@@ -13,7 +13,7 @@
         <property name="roleName" type="string">
             <column name="ROLE_NAME" length="200" />
         </property>
-        <set name="deps" table="roledep" 
+        <set name="department" table="roledep" 
         	inverse="true" lazy="true" fetch="select" cascade="all" >
             <key>
                 <column name="ROLE_ID" not-null="true" />

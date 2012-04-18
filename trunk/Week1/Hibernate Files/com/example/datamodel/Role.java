@@ -2,6 +2,8 @@ package com.example.datamodel;
 // Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
 
 
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -16,6 +18,7 @@ public class Role  implements java.io.Serializable {
 
      private long id;
      private String roleName;
+     private Set<Department> department = new HashSet<Department>(0);
 
     public Role() {
     }
@@ -51,9 +54,14 @@ public class Role  implements java.io.Serializable {
         this.roleName = roleName;
     }
 
+    @ManyToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY, mappedBy="role")
+    public Set<Department> getDepartment(){
+        return this.department;
+    }
 
-
-
+    public void setDepartment(Set<Department> department){
+        this.department = department;
+    }
 }
 
 
