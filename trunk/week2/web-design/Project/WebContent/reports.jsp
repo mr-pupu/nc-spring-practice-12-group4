@@ -1,5 +1,8 @@
-
-<%java.util.ResourceBundle locale = (java.util.ResourceBundle)session.getAttribute("resourceBoundle");%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<fmt:setBundle
+	basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,22 +52,23 @@ body {
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse"
 						data-parent="#accordion2" href="#collapseOne">
-						<h4>Currently in trip</h4>
+						<h4>
+							<fmt:message key="table.reports.name" />
+						</h4>
 					</a>
 				</div>
 				<div id="collapseOne" class="accordion-body collapse in">
 					<div class="accordion-inner">
-
 						<table class="table table-condensed">
 							<tbody>
 								<tr>
-									<td>Filter by Department</td>
+									<td><fmt:message key="page.reports.filter.department" /></td>
 									<td><select class="btn">
 											<option>&lt;All&gt;</option>
 											<option value="PA">ff</option>
 											<option value="CT">gg</option>
 									</select></td>
-									<td>Filter by Office</td>
+									<td><fmt:message key="page.reports.filter.office" /></td>
 									<td><select class="btn">
 											<option>&lt;All&gt;</option>
 											<option value="PA">ff</option>
@@ -76,11 +80,11 @@ body {
 						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th>Name</th>
-									<th>Office</th>
-									<th>Destination</th>
-									<th>DateBegin</th>
-									<th>DateEnd</th>
+									<th><fmt:message key="table.reports.name" /></th>
+									<th><fmt:message key="table.reports.office" /></th>
+									<th><fmt:message key="table.reports.destination" /></th>
+									<th><fmt:message key="table.reports.dateBegin" /></th>
+									<th><fmt:message key="table.reports.dateEnd" /></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -101,7 +105,19 @@ body {
 								</tr>
 							</tbody>
 						</table>
-
+						<div class="row">
+							<div class="pagination span4 offset3">
+								<ul>
+									<li><a href="#">&larr;</a></li>
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li class="disabled"><a href="#">...</a></li>
+									<li><a href="#">20</a></li>
+									<li><a href="#">21</a></li>
+									<li><a href="#">&rarr;</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -109,7 +125,9 @@ body {
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse"
 						data-parent="#accordion2" href="#collapseTwo">
-						<h4>Planned tips</h4>
+						<h4>
+							<fmt:message key="page.reports.plannedTrips" />
+						</h4>
 					</a>
 				</div>
 				<div id="collapseTwo" class="accordion-body collapse">
@@ -118,13 +136,13 @@ body {
 						<table class="table table-condensed">
 							<tbody>
 								<tr>
-									<td>Filter by Department</td>
+									<td><fmt:message key="page.reports.filter.department" /></td>
 									<td><select class="btn">
 											<option>&lt;All&gt;</option>
 											<option value="PA">ff</option>
 											<option value="CT">gg</option>
 									</select></td>
-									<td>Filter by Office</td>
+									<td><fmt:message key="page.reports.filter.office" /></td>
 									<td><select class="btn">
 											<option>&lt;All&gt;</option>
 											<option value="PA">ff</option>
@@ -136,11 +154,11 @@ body {
 						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th>Name</th>
-									<th>Office</th>
-									<th>Destination</th>
-									<th>DateBegin</th>
-									<th>DateEnd</th>
+									<th><fmt:message key="table.reports.name" /></th>
+									<th><fmt:message key="table.reports.office" /></th>
+									<th><fmt:message key="table.reports.destination" /></th>
+									<th><fmt:message key="table.reports.dateBegin" /></th>
+									<th><fmt:message key="table.reports.dateEnd" /></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -161,6 +179,19 @@ body {
 								</tr>
 							</tbody>
 						</table>
+						<div class="row">
+							<div class="pagination span4 offset3">
+								<ul>
+									<li><a href="#">&larr;</a></li>
+									<li class="active"><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li class="disabled"><a href="#">...</a></li>
+									<li><a href="#">20</a></li>
+									<li><a href="#">21</a></li>
+									<li><a href="#">&rarr;</a></li>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

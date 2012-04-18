@@ -61,7 +61,8 @@ body {
 		<div class="row">
 			<div class="span4">
 				<form class="well form-vertical"
-					action="<%=request.getContextPath()%>/auth" method="post">
+					action="<c:out value="${pageContext.request.contextPath}"/>/auth"
+					method="post">
 					<input type="text" class="span3"
 						placeholder="<fmt:message key="form.login.login"/>" name="login">
 					<br> <input type="password" class="span3"
@@ -78,7 +79,7 @@ body {
 		<%} else { %>
 		<h1>
 			<fmt:message key="page.home.hello1.auth" />
-			<a href="<%=request.getContextPath()%>/quit"><%=session.getAttribute("name") %></a>
+			<a href="<c:out value="${pageContext.request.contextPath}"/>/quit"><%=session.getAttribute("name") %></a>
 		</h1>
 		<p>
 			<fmt:message key="page.home.hello2.auth" />
