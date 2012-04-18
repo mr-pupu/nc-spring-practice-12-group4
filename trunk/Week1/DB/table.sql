@@ -56,7 +56,8 @@ dep_name varchar2(40),
 parent_id numeric(10),
   manager_id NUMERIC(10),
 CONSTRAINT department_id_pk PRIMARY KEY(id),
-CONSTRAINT department_parent_id FOREIGN KEY(parent_id) REFERENCES department(id));
+CONSTRAINT department_parent_id FOREIGN KEY(parent_id) REFERENCES department(id),
+  CONSTRAINT department_manager_id_uk UNIQUE(manager_id));
 
 CREATE TABLE roledep(
   role_id NUMERIC(10),
