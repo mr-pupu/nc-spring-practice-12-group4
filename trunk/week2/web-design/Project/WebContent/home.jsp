@@ -86,7 +86,28 @@ body {
 			<br>
 			<%} %>
 		
-	</div>
+		<br>
+		
+		<-- samples -->
+		Samples for input fields :
+		<div class="control-group">
+            <input id="inputError3"type="text" value="Before checking"><br>
+			<label></label>
+		</div>
+		<div class="control-group error">
+            <input id="inputError1"type="text"><br>
+			<label>Input with error</label>
+		</div>
+		<div class="control-group  warning">
+            <input id="inputError2"type="text"><br>
+			<label>Input with warning</label>
+		</div>
+		<div class="control-group success">
+            <input id="inputError3"type="text"><br>
+			<label>Input success</label>
+		</div>	
+		<-- end of samples ->>
+		
 	<!-- /container -->
 	<jsp:include page="scripts.jsp"></jsp:include>
 </body>
