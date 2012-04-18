@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
+// Generated Apr 18, 2012 3:51:30 PM by Hibernate Tools 3.2.1.GA
 
 
 import java.util.Date;
@@ -16,10 +16,11 @@ public class Trfstate  implements java.io.Serializable {
 
 
      private long id;
-     private Trf trf;
+     private Long trfId;
      private String commentary;
      private Date changeDate;
      private Boolean status;
+     private Long changer;
 
     public Trfstate() {
     }
@@ -28,18 +29,18 @@ public class Trfstate  implements java.io.Serializable {
     public Trfstate(long id) {
         this.id = id;
     }
-    public Trfstate(long id, Trf trf, String commentary, Date changeDate, Boolean status) {
+    public Trfstate(long id, Long trfId, String commentary, Date changeDate, Boolean status, Long changer) {
        this.id = id;
-       this.trf = trf;
+       this.trfId = trfId;
        this.commentary = commentary;
        this.changeDate = changeDate;
        this.status = status;
+       this.changer = changer;
     }
    
      @Id 
      @SequenceGenerator(name="trfstate_id",sequenceName="trfstate_id_seq")
-    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="trfstate_id") 
-
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="trfstate_id")
     
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
@@ -49,14 +50,14 @@ public class Trfstate  implements java.io.Serializable {
     public void setId(long id) {
         this.id = id;
     }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="TRF_ID")
-    public Trf getTrf() {
-        return this.trf;
+    
+    @Column(name="TRF_ID", precision=10, scale=0)
+    public Long getTrfId() {
+        return this.trfId;
     }
     
-    public void setTrf(Trf trf) {
-        this.trf = trf;
+    public void setTrfId(Long trfId) {
+        this.trfId = trfId;
     }
     
     @Column(name="COMMENTARY", length=1000)
@@ -84,6 +85,15 @@ public class Trfstate  implements java.io.Serializable {
     
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+    
+    @Column(name="CHANGER", precision=10, scale=0)
+    public Long getChanger() {
+        return this.changer;
+    }
+    
+    public void setChanger(Long changer) {
+        this.changer = changer;
     }
 
 

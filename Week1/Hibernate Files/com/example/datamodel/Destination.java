@@ -1,9 +1,7 @@
 package com.example.datamodel;
-// Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA
+// Generated Apr 18, 2012 3:51:30 PM by Hibernate Tools 3.2.1.GA
 
 
-import java.util.HashSet;
-import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -17,8 +15,7 @@ public class Destination  implements java.io.Serializable {
 
 
      private long id;
-     private City city;
-     private Set<Trf> trfs = new HashSet<Trf>(0);
+     private Long destCityId;
 
     public Destination() {
     }
@@ -27,16 +24,15 @@ public class Destination  implements java.io.Serializable {
     public Destination(long id) {
         this.id = id;
     }
-    public Destination(long id, City city, Set<Trf> trfs) {
+    public Destination(long id, Long destCityId) {
        this.id = id;
-       this.city = city;
-       this.trfs = trfs;
+       this.destCityId = destCityId;
     }
    
      @Id 
-    @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
+     @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="destination_id")
-     
+    
     @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
         return this.id;
@@ -45,22 +41,14 @@ public class Destination  implements java.io.Serializable {
     public void setId(long id) {
         this.id = id;
     }
-@ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="DEST_CITY_ID")
-    public City getCity() {
-        return this.city;
+    
+    @Column(name="DEST_CITY_ID", precision=10, scale=0)
+    public Long getDestCityId() {
+        return this.destCityId;
     }
     
-    public void setCity(City city) {
-        this.city = city;
-    }
-@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="destination")
-    public Set<Trf> getTrfs() {
-        return this.trfs;
-    }
-    
-    public void setTrfs(Set<Trf> trfs) {
-        this.trfs = trfs;
+    public void setDestCityId(Long destCityId) {
+        this.destCityId = destCityId;
     }
 
 

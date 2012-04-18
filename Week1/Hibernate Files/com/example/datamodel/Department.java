@@ -22,7 +22,8 @@ public class Department  implements java.io.Serializable {
      private Long managerId;
      private Set<Department> departments = new HashSet<Department>(0);
      private Set<Employee> employees = new HashSet<Employee>(0);
-
+     private Set<Role> role = new HashSet<Role>(0);
+     
     public Department() {
     }
 
@@ -96,9 +97,14 @@ public class Department  implements java.io.Serializable {
         this.employees = employees;
     }
 
+@ManyToMany(cascade= CascadeType.ALL, fetch= FetchType.LAZY, mappedBy="department")
+    public Set<Role> getRole(){
+        return this.role;
+    }
 
-
-
+    public void setRole(Set<Role> role){
+        this.role = role;
+    }
 }
 
 

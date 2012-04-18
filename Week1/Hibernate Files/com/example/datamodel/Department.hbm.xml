@@ -31,7 +31,7 @@
             </key>
             <one-to-many class="com.example.datamodel.Employee" />
         </set>
-        <set name="roles" table="roledep" 
+        <set name="role" table="roledep" 
         	inverse="false" lazy="true" fetch="select" cascade="all" >
             <key>
                 <column name="DEP_ID" not-null="true" />
