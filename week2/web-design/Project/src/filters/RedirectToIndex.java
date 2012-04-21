@@ -33,7 +33,7 @@ public class RedirectToIndex implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		System.out.print("Filter !!!");
+		System.out.println("FilterRedirectToIndex was entered");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/");
         dispatcher.forward(request, response);
 		// pass the request along the filter chain

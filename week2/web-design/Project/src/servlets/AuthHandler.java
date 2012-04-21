@@ -38,7 +38,7 @@ public class AuthHandler extends ServletHandler {
 
 	private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("Auth handler");
+		System.out.println("Servlet AuthHandler was runned");
 		String login = request.getParameter("login");
 		String pass = request.getParameter("password");
 		String messageTitle;
@@ -66,7 +66,6 @@ public class AuthHandler extends ServletHandler {
 			messageType = "info";
 		}
 		sendMessage(request, messageTitle, messageText, messageType);
-		System.out.println("Servlet AuthHandler was runned");
 		response.sendRedirect(request.getContextPath()+"/");
 	}
 }

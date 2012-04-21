@@ -64,13 +64,13 @@
   </filter-mapping>
   <servlet>
     <description></description>
-    <display-name>FormsHandler</display-name>
-    <servlet-name>FormsHandler</servlet-name>
-    <servlet-class>servlets.FormsHandler</servlet-class>
+    <display-name>TrfsHandler</display-name>
+    <servlet-name>TrfsHandler</servlet-name>
+    <servlet-class>servlets.TrfsHandler</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>FormsHandler</servlet-name>
-    <url-pattern>/forms</url-pattern>
+    <servlet-name>TrfsHandler</servlet-name>
+    <url-pattern>/trfs</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -92,4 +92,50 @@
     <servlet-name>AdministratorHandler</servlet-name>
     <url-pattern>/administrator</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MyTrfsHandler</display-name>
+    <servlet-name>MyTrfsHandler</servlet-name>
+    <servlet-class>servlets.MyTrfsHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MyTrfsHandler</servlet-name>
+    <url-pattern>/mytrfs</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <display-name>TrfsAccess</display-name>
+    <filter-name>TrfsAccess</filter-name>
+    <filter-class>filters.TrfsAccess</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>TrfsAccess</filter-name>
+    <url-pattern>/trfs</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>MyTrfsAccess</display-name>
+    <filter-name>MyTrfsAccess</filter-name>
+    <filter-class>filters.MyTrfsAccess</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>MyTrfsAccess</filter-name>
+    <url-pattern>/mytrfs</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>AdministratorAccess</display-name>
+    <filter-name>AdministratorAccess</filter-name>
+    <filter-class>filters.AdministratorAccess</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>AdministratorAccess</filter-name>
+    <url-pattern>/administrator</url-pattern>
+  </filter-mapping>
+  <filter>
+    <display-name>ReportsAccess</display-name>
+    <filter-name>ReportsAccess</filter-name>
+    <filter-class>filters.ReportsAccess</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>ReportsAccess</filter-name>
+    <url-pattern>/reports</url-pattern>
+  </filter-mapping>
 </web-app>

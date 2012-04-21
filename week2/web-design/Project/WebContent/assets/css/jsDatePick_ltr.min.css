@@ -13,7 +13,7 @@
 	right: 10px;
 	width: 33px;
 	height: 13px;
-	background: url(img/closeButton_normal.gif) left top no-repeat;
+	background: url(../img/calendar/closeButton_normal.gif) left top no-repeat;
 }
 
 .JsDatePickBox 
@@ -25,7 +25,7 @@
 	right: 10px;
 	width: 33px;
 	height: 13px;
-	background: url(img/closeButton_over.gif) left top no-repeat;
+	background: url(../img/calendar/closeButton_over.gif) left top no-repeat;
 }
 
 .JsDatePickBox 
@@ -37,7 +37,7 @@
 	right: 10px;
 	width: 33px;
 	height: 13px;
-	background: url(img/closeButton_down.gif) left top no-repeat;
+	background: url(../img/calendar/closeButton_down.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxLeftWall {
@@ -52,7 +52,7 @@
 	padding: 0;
 	width: 7px;
 	height: 8px;
-	background: url(img/boxTopLeftCorner.png) left top no-repeat;
+	background: url(../img/calendar/boxTopLeftCorner.png) left top no-repeat;
 	overflow: hidden;
 }
 
@@ -61,7 +61,7 @@
 	padding: 0;
 	width: 7px;
 	height: 8px;
-	background: url(img/boxBottomLeftCorner.png) left top no-repeat;
+	background: url(../img/calendar/boxBottomLeftCorner.png) left top no-repeat;
 	overflow: hidden;
 }
 
@@ -69,7 +69,7 @@
 	margin: 0;
 	padding: 0;
 	width: 7px;
-	background: url(img/boxSideWallPx.gif) #fff left top repeat-y;
+	background: url(../img/calendar/boxSideWallPx.gif) #fff left top repeat-y;
 	overflow: hidden;
 }
 
@@ -85,7 +85,7 @@
 	padding: 0;
 	width: 7px;
 	height: 8px;
-	background: url(img/boxTopRightCorner.png) left top no-repeat;
+	background: url(../img/calendar/boxTopRightCorner.png) left top no-repeat;
 	overflow: hidden;
 }
 
@@ -94,7 +94,7 @@
 	padding: 0;
 	width: 7px;
 	height: 8px;
-	background: url(img/boxBottomRightCorner.png) left top no-repeat;
+	background: url(../img/calendar/boxBottomRightCorner.png) left top no-repeat;
 	overflow: hidden;
 }
 
@@ -102,7 +102,7 @@
 	margin: 0;
 	padding: 0;
 	width: 7px;
-	background: url(img/boxSideWallPx.gif) #fff right top repeat-y;
+	background: url(../img/calendar/boxSideWallPx.gif) #fff right top repeat-y;
 	overflow: hidden;
 }
 
@@ -113,7 +113,7 @@
 	left: 7px;
 	width: 198px;
 	height: 4px;
-	background: url(img/boxTopPx.gif) #fff left top repeat-x;
+	background: url(../img/calendar/boxTopPx.gif) #fff left top repeat-x;
 }
 
 .JsDatePickBox .bottomWall {
@@ -123,7 +123,7 @@
 	left: 7px;
 	width: 198px;
 	height: 4px;
-	background: url(img/boxTopPx.gif) #fff left top repeat-x;
+	background: url(../img/calendar/boxTopPx.gif) #fff left top repeat-x;
 }
 
 .JsDatePickBox .hiddenBoxLeftWall {
@@ -220,7 +220,7 @@
 	position: absolute;
 	top: 0;
 	right: 22px;
-	background: url(img/monthForward_normal.gif) left top no-repeat;
+	background: url(../img/calendar/monthForward_normal.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .monthForwardButtonOver {
@@ -231,7 +231,7 @@
 	position: absolute;
 	top: 0;
 	right: 22px;
-	background: url(img/monthForward_over.gif) left top no-repeat;
+	background: url(../img/calendar/monthForward_over.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .monthForwardButtonDown {
@@ -242,7 +242,7 @@
 	position: absolute;
 	top: 0;
 	right: 22px;
-	background: url(img/monthForward_down.gif) left top no-repeat;
+	background: url(../img/calendar/monthForward_down.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .monthBackwardButton {
@@ -253,7 +253,7 @@
 	position: absolute;
 	top: 0;
 	left: 22px;
-	background: url(img/monthBackward_normal.gif) left top no-repeat;
+	background: url(../img/calendar/monthBackward_normal.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .monthBackwardButtonOver {
@@ -264,7 +264,7 @@
 	position: absolute;
 	top: 0;
 	left: 22px;
-	background: url(img/monthBackward_over.gif) left top no-repeat;
+	background: url(../img/calendar/monthBackward_over.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .monthBackwardButtonDown {
@@ -275,7 +275,7 @@
 	position: absolute;
 	top: 0;
 	left: 22px;
-	background: url(img/monthBackward_down.gif) left top no-repeat;
+	background: url(../img/calendar/monthBackward_down.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearForwardButton {
@@ -286,7 +286,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: url(img/yearForward_normal.gif) left top no-repeat;
+	background: url(../img/calendar/yearForward_normal.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearForwardButtonOver {
@@ -297,7 +297,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: url(img/yearForward_over.gif) left top no-repeat;
+	background: url(../img/calendar/yearForward_over.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearForwardButtonDown {
@@ -308,7 +308,7 @@
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: url(img/yearForward_down.gif) left top no-repeat;
+	background: url(../img/calendar/yearForward_down.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearBackwardButton {
@@ -319,7 +319,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(img/yearBackward_normal.gif) left top no-repeat;
+	background: url(../img/calendar/yearBackward_normal.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearBackwardButtonOver {
@@ -330,7 +330,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(img/yearBackward_over.gif) left top no-repeat;
+	background: url(../img/calendar/yearBackward_over.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .yearBackwardButtonDown {
@@ -341,7 +341,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: url(img/yearBackward_down.gif) left top no-repeat;
+	background: url(../img/calendar/yearBackward_down.gif) left top no-repeat;
 }
 
 .JsDatePickBox .boxMainInner .skipDay {

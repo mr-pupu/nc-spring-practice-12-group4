@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class MainHendler
@@ -38,6 +39,11 @@ public class MainHandler extends ServletHandler {
 	
 	private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Servlet MainHandler was runned");
-		doDispatcher(request, response, "home.jsp");
+		HttpSession session = request.getSession();
+		if (session.getAttribute("role") != null) {
+			doDispatcher(request, response, "mytrfs.jsp");
+		} else {
+			doDispatcher(request, response, "index.jsp");
+		}
 	}
 }
