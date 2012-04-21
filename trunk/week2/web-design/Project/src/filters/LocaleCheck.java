@@ -35,21 +35,17 @@ public class LocaleCheck implements Filter {
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		
+		System.out.println("Filter LocalCheck was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		HttpSession session = requestHttp.getSession();
 		//java.util.ResourceBundle locale = (java.util.ResourceBundle)session.getAttribute("resourceBoundle");
 		if (session.getAttribute("bundle") == null) {
 			session.setAttribute("bundle", "en_EN");
 		}
-		
 		String bundle=(String) request.getParameter("locale");		
 		if (bundle != null & LocalizationsBean.checkBundle(bundle)){
 			session.setAttribute("bundle", bundle);
 		}
-		
-		 
-		System.out.println("Filter LocaleCheck done his work");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}

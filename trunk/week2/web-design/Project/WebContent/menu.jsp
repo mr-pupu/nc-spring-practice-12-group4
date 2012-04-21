@@ -14,36 +14,56 @@
 			</a> <a class="brand" href="#"><fmt:message key="menu.projectName" /></a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li><a href="<%=request.getContextPath()%>"><fmt:message
-								key="menu.home" /></a></li>
-					<%	if (session.getAttribute("name") != null) {%>
-					<li><a href="<%=request.getContextPath()%>/forms"><fmt:message
-								key="menu.forms" /></a></li>
-					<li><a href="<%=request.getContextPath()%>/administrator"><fmt:message
-								key="menu.administrator" /></a></li>
-					<li><a href="<%=request.getContextPath()%>/reports"><fmt:message
-								key="menu.reports" /></a></li>
-					<%	} %>
+					<c:if test="${sessionScope.role==null}">
+						<li class="active"><a
+							href="<c:out value="${pageContext.request.contextPath}"/>"><fmt:message
+									key="menu.home" /></a></li>
+					</c:if>
+					<c:if test="${sessionScope.role!=null}">
+						<li <c:if test="${param.page=='mytrfs'}">class="active"</c:if>><a
+							href="<c:out value="${pageContext.request.contextPath}"/>/mytrfs"><fmt:message
+									key="menu.mytrfs" /></a></li>
+					</c:if>
+					<c:if test="${sessionScope.role=='Travel support'}">
+						<li <c:if test="${param.page=='trfs'}">class="active"</c:if>><a
+							href="<c:out value="${pageContext.request.contextPath}"/>/trfs"><fmt:message
+									key="menu.trfs" /></a></li>
+					</c:if>
+					<c:if test="${sessionScope.role=='Administrator'}">
+						<li <c:if test="${param.page=='administrator'}">class="active"</c:if>><a
+							href="<c:out value="${pageContext.request.contextPath}"/>/administrator"><fmt:message
+									key="menu.administrator" /></a></li>
+					</c:if>
+					<c:if test="${sessionScope.role!=null}">
+						<li <c:if test="${param.page=='reports'}">class="active"</c:if>><a
+							href="<c:out value="${pageContext.request.contextPath}"/>/reports"><fmt:message
+									key="menu.reports" /></a></li>
+					</c:if>
 				</ul>
-				<%	if (session.getAttribute("name") == null) {%>
-				<form class="navbar-form pull-right"
-					action="<c:out value="${pageContext.request.contextPath}"/>/auth"
-					method="post">
-					<input type="text" class="input-small" name="login"
-						placeholder="<fmt:message key="form.login.login"/>"> <input
-						type="password" class="input-small"
-						placeholder="<fmt:message key="form.login.password"/>"
-						name="password">
-					<button type="submit" class="btn">
-						<fmt:message key="form.login.signIn" />
-					</button>
-				</form>
-				<%	} else { %>
-				<p class="navbar-text pull-right">
-					<fmt:message key="menu.logged" />
-					<a href="<c:out value="${pageContext.request.contextPath}"/>/quit"><%=session.getAttribute("name") %></a>
-				</p>
-				<%	} %>
+				<c:choose>
+					<c:when test="${sessionScope.name==null}">
+						<form class="navbar-form pull-right"
+							action="<c:out value="${pageContext.request.contextPath}"/>/auth"
+							method="post">
+							<input type="text" class="input-small" name="login"
+								placeholder="<fmt:message key="form.login.login"/>"> <input
+								type="password" class="input-small"
+								placeholder="<fmt:message key="form.login.password"/>"
+								name="password">
+							<button type="submit" class="btn">
+								<fmt:message key="form.login.signIn" />
+							</button>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<p class="navbar-text pull-right">
+							<fmt:message key="menu.logged" />
+							<a
+								href="<c:out value="${pageContext.request.contextPath}"/>/quit"><c:out
+									value="${sessionScope.name}" /></a>
+						</p>
+					</c:otherwise>
+				</c:choose>
 				<ul class="nav pull-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <fmt:message key="locale.name" /> <b

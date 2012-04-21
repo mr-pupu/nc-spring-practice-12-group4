@@ -41,7 +41,9 @@ body {
 	href="<%=request.getContextPath() %>/assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-	<jsp:include page="menu.jsp"></jsp:include>
+	<c:import url="menu.jsp">
+		<c:param name="page" value="administrator"></c:param>
+	</c:import>
 	<div class="container">
 		<div class="container-fluid">
 			<div class="row-fluid">

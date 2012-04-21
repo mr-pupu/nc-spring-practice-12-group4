@@ -44,7 +44,9 @@ body {
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="menu.jsp"></jsp:include>
+	<c:import url="menu.jsp">
+		<c:param name="page" value="reports"></c:param>
+	</c:import>
 	<div class="container">
 		<br>
 		<div class="accordion" id="accordion2">

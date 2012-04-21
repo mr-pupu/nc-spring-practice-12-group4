@@ -9,7 +9,7 @@ g_l.YEAR_BCK = "Move a year backward";
 g_l.CLOSE = "Close the calendar";
 g_l.ERROR_2 = g_l.ERROR_1 = "Date object invalid!";
 g_l.ERROR_4 = g_l.ERROR_3 = "Target invalid";
-g_jsDatePickImagePath = "img/";
+g_jsDatePickImagePath = "assets/img/calendar/";
 g_jsDatePickDirectionality = "ltr";
 g_arrayOfUsedJsDatePickCalsGlobalNumbers = [];
 g_arrayOfUsedJsDatePickCals = [];
@@ -132,7 +132,7 @@ JsDatePick.prototype.setConfiguration = function(a) {
 	this.oConfiguration.dateFormat = (a.dateFormat != null) ? a.dateFormat
 			: "%m-%d-%Y";
 	this.oConfiguration.imgPath = (g_jsDatePickImagePath.length != null) ? g_jsDatePickImagePath
-			: "img/";
+			: "assets/img/calendar/";
 	this.oConfiguration.weekStartDay = (a.weekStartDay != null) ? a.weekStartDay
 			: 1;
 	this.selectedDayObject = {};
