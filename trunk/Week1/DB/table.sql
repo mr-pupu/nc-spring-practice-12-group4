@@ -83,13 +83,13 @@ CONSTRAINT employee_position_id_fk FOREIGN KEY(position_id) REFERENCES occupatio
 CREATE TABLE destination(
 id numeric(10),
   dest_city_id NUMERIC(10),
+  hotelname varchar2(30),
+  hotelsite varchar2(100),
 CONSTRAINT destination_id_pk PRIMARY KEY(id),
   CONSTRAINT destination_dest_city_id_fk FOREIGN KEY(dest_city_id) REFERENCES city(id));
 
 CREATE TABLE customer(
 id numeric(10),
-hotelname varchar2(30),
-hotelsite varchar2(100),
 cust_name varchar2(20),
 CONSTRAINT customer_id_pk PRIMARY KEY(id));
 
