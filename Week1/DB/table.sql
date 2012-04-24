@@ -295,15 +295,16 @@ managers_exist EXCEPTION;
 no_managers_exist EXCEPTION;
   empid NUMBER;
 olddep NUMBER;
-CURSOR dummy_cursor (dep NUMBER) IS
-SELECT id FROM employee WHERE id=dep;
+CURSOR dummy_cursor (dep NUMBER, depnum NUMBER) IS
+SELECT id FROM employee WHERE id=dep AND dep_id=depnum;
 
 BEGIN
   empid := :NEW.MANAGER_ID;
+  olddep := :NEW.ID;
 --if we delete, or remove the manager by updating, check if there are managers left
 --if not - rollback
   IF NOT(:NEW.MANAGER_ID IS NULL) THEN
-OPEN dummy_cursor(empid);
+OPEN dummy_cursor(empid, olddep);
 FETCH dummy_cursor INTO dummy;
 IF dummy_cursor%FOUND THEN
 RAISE managers_exist;
@@ -317,7 +318,8 @@ EXCEPTION
   CLOSE dummy_cursor;
   WHEN no_managers_exist THEN
   CLOSE dummy_cursor;
-  Raise_application_error(-20034, 'Error! Trying to set nonexistent employee as manager');
+  Raise_application_error(-20034, 'Error! The employee you are appointing as manager is either nonexistent or belonging to 
+    another department');
 END;
 /
 
@@ -355,3 +357,12 @@ EXCEPTION
   Raise_application_error(-20034, 'Error! Trying to set nonexistent employee trf editor');
 END;
 /
+
+CREATE INDEX department_dep_name_idx
+  ON department(dep_name);
+
+CREATE INDEX city_city_name_idx
+  ON city(city_name);
+
+CREATE INDEX country_country_name_idx
+  ON country(country_name);
