@@ -19,7 +19,7 @@ public class Trfstate  implements java.io.Serializable {
      private Long trfId;
      private String commentary;
      private Date changeDate;
-     private Boolean status;
+     private Short status;
      private Long changer;
 
     public Trfstate() {
@@ -29,7 +29,7 @@ public class Trfstate  implements java.io.Serializable {
     public Trfstate(long id) {
         this.id = id;
     }
-    public Trfstate(long id, Long trfId, String commentary, Date changeDate, Boolean status, Long changer) {
+    public Trfstate(long id, Long trfId, String commentary, Date changeDate, Short status, Long changer) {
        this.id = id;
        this.trfId = trfId;
        this.commentary = commentary;
@@ -79,11 +79,11 @@ public class Trfstate  implements java.io.Serializable {
     }
     
     @Column(name="STATUS", precision=1, scale=0)
-    public Boolean getStatus() {
+    public Short getStatus() {
         return this.status;
     }
     
-    public void setStatus(Boolean status) {
+    public void setStatus(Short status) {
         this.status = status;
     }
     

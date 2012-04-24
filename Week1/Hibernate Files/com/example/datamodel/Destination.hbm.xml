@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 18, 2012 3:51:31 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 23, 2012 1:17:12 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Destination" table="DESTINATION" schema="GUEST">
         <id name="id" type="long">
@@ -12,6 +12,12 @@
         </id>
         <property name="destCityId" type="java.lang.Long">
             <column name="DEST_CITY_ID" precision="10" scale="0" />
+        </property>
+        <property name="hotelname" type="string">
+            <column name="HOTELNAME" length="30" />
+        </property>
+        <property name="hotelsite" type="string">
+            <column name="HOTELSITE" length="100" />
         </property>
     </class>
 </hibernate-mapping>

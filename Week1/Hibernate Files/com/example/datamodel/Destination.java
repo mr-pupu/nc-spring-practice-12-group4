@@ -1,5 +1,5 @@
 package com.example.datamodel;
-// Generated Apr 18, 2012 3:51:30 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 23, 2012 1:17:11 PM by Hibernate Tools 3.2.1.GA
 
 
 import javax.persistence.*;
@@ -16,6 +16,8 @@ public class Destination  implements java.io.Serializable {
 
      private long id;
      private Long destCityId;
+     private String hotelname;
+     private String hotelsite;
 
     public Destination() {
     }
@@ -24,12 +26,14 @@ public class Destination  implements java.io.Serializable {
     public Destination(long id) {
         this.id = id;
     }
-    public Destination(long id, Long destCityId) {
+    public Destination(long id, Long destCityId, String hotelname, String hotelsite) {
        this.id = id;
        this.destCityId = destCityId;
+       this.hotelname = hotelname;
+       this.hotelsite = hotelsite;
     }
    
-     @Id 
+    @Id 
      @SequenceGenerator(name="destination_id",sequenceName="destination_id_seq")
     @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="destination_id")
     
@@ -49,6 +53,24 @@ public class Destination  implements java.io.Serializable {
     
     public void setDestCityId(Long destCityId) {
         this.destCityId = destCityId;
+    }
+    
+    @Column(name="HOTELNAME", length=30)
+    public String getHotelname() {
+        return this.hotelname;
+    }
+    
+    public void setHotelname(String hotelname) {
+        this.hotelname = hotelname;
+    }
+    
+    @Column(name="HOTELSITE", length=100)
+    public String getHotelsite() {
+        return this.hotelsite;
+    }
+    
+    public void setHotelsite(String hotelsite) {
+        this.hotelsite = hotelsite;
     }
 
 
