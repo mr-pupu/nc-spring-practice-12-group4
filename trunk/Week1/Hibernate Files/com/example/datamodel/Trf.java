@@ -23,11 +23,9 @@ public class Trf  implements java.io.Serializable {
      private Employee employee;
      private Date beginDate;
      private Date endDate;
-     private String hotelname;
-     private String hotelsite;
      private Boolean carRental;
      private Boolean carPayment;
-     private Boolean curState;
+     private short curState;
      private Set<Trfstate> trfstates = new HashSet<Trfstate>(0);
 
     public Trf() {
@@ -37,15 +35,13 @@ public class Trf  implements java.io.Serializable {
     public Trf(long id) {
         this.id = id;
     }
-    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, String hotelname, String hotelsite, Boolean carRental, Boolean carPayment, Boolean curState, Set<Trfstate> trfstates) {
+    public Trf(long id, Customer customer, Destination destination, Employee employee, Date beginDate, Date endDate, Boolean carRental, Boolean carPayment, Short curState, Set<Trfstate> trfstates) {
        this.id = id;
        this.customer = customer;
        this.destination = destination;
        this.employee = employee;
        this.beginDate = beginDate;
        this.endDate = endDate;
-       this.hotelname = hotelname;
-       this.hotelsite = hotelsite;
        this.carRental = carRental;
        this.carPayment = carPayment;
        this.curState = curState;
@@ -110,24 +106,6 @@ public class Trf  implements java.io.Serializable {
         this.endDate = endDate;
     }
     
-    @Column(name="HOTELNAME", length=30)
-    public String getHotelname() {
-        return this.hotelname;
-    }
-    
-    public void setHotelname(String hotelname) {
-        this.hotelname = hotelname;
-    }
-    
-    @Column(name="HOTELSITE", length=100)
-    public String getHotelsite() {
-        return this.hotelsite;
-    }
-    
-    public void setHotelsite(String hotelsite) {
-        this.hotelsite = hotelsite;
-    }
-    
     @Column(name="CAR_RENTAL", precision=1, scale=0)
     public Boolean getCarRental() {
         return this.carRental;
@@ -147,13 +125,14 @@ public class Trf  implements java.io.Serializable {
     }
     
     @Column(name="CUR_STATE", precision=1, scale=0)
-    public Boolean getCurState() {
+    public Short getCurState() {
         return this.curState;
     }
     
-    public void setCurState(Boolean curState) {
+    public void setCurState(Short curState) {
         this.curState = curState;
     }
+    
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="trf")
     public Set<Trfstate> getTrfstates() {
         return this.trfstates;
