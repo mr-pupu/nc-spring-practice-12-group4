@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="com.example.datamodel.Trf" table="TRF" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
             <generator class="sequence">
-                <param name="sequence">position_id_seq</param>
+                <param name="sequence">trf_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="customer" class="com.example.datamodel.Customer" fetch="select">
-            <column name="CUSTOMER_ID" precision="10" scale="0" />
-        </many-to-one>
         <many-to-one name="destination" class="com.example.datamodel.Destination" fetch="select">
             <column name="DESTINATION_ID" precision="10" scale="0" />
         </many-to-one>
-        <many-to-one name="employee" class="com.example.datamodel.Employee" fetch="select">
+        <property name="customerId" type="java.lang.Long">
+            <column name="CUSTOMER_ID" precision="10" scale="0" />
+        </property>
+        <property name="empId" type="java.lang.Long">
             <column name="EMP_ID" precision="10" scale="0" />
-        </many-to-one>
+        </property>
         <property name="beginDate" type="date">
             <column name="BEGIN_DATE" length="7" />
         </property>
