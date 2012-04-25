@@ -92,3 +92,11 @@ CREATE OR replace VIEW trf_state_department
   INNER JOIN trfstate tst ON tst.trf_id = tr.id
 GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.car_payment, tr.cur_state,
   tr.customer_id, tr.destination_id, cty.city_name, ctry.country_name, emp.id, dep.dep_name;
+
+--this view represents employees and their roles depending on departments
+CREATE OR replace VIEW emp_role
+  AS
+SELECT role.*, emp.id empid, emp.login, emp.password
+FROM employee emp INNER JOIN department dep ON emp.id = dep.id
+  INNER JOIN roledep ON dep.id = roledep.dep_id 
+INNER JOIN role ON role.id = roledep.role_id;

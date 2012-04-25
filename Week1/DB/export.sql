@@ -80,17 +80,28 @@ Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSI
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (35,'Kira','Noock','k.noock@gmail.com','Kira','ikira',7,5,3);
 REM INSERTING into DESTINATION
 SET DEFINE OFF;
-Insert into DESTINATION (ID,DEST_CITY_ID,HOTELNAME,HOTELSITE) values (1,1,'Hayat','hayat.com');
-Insert into DESTINATION (ID,DEST_CITY_ID,HOTELNAME,HOTELSITE) values (2,2,'Hilton','hilton.com');
-Insert into DESTINATION (ID,DEST_CITY_ID,HOTELNAME,HOTELSITE) values (3,3,'Downtown','downtown.com');
-Insert into DESTINATION (ID,DEST_CITY_ID,HOTELNAME,HOTELSITE) values (4,5,'Hilton','hilton.com');
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (1,1,'Hayat','hayat.com');
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (2,2,'Hilton','hilton.com');
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (3,3,'Downtown','downtown.com');
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (4,5,'Hilton','hilton.com');
 REM INSERTING into ROLE
 SET DEFINE OFF;
 Insert into ROLE (ID,ROLE_NAME) values (1,'Common Deaprtment');
 Insert into ROLE (ID,ROLE_NAME) values (2,'Travel Deaprtment');
-Insert into ROLE (ID,ROLE_NAME) values (3,'IT Deaprtment');
+Insert into ROLE (ID,ROLE_NAME) values (3,'IT Department');
 REM INSERTING into ROLEDEP
 SET DEFINE OFF;
+INSERT INTO roledep (dep_id, role_id) VALUES (1,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (1,2);
+INSERT INTO roledep (dep_id, role_id) VALUES (1,3);
+INSERT INTO roledep (dep_id, role_id) VALUES (2,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (3,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (3,2);
+INSERT INTO roledep (dep_id, role_id) VALUES (4,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (4,2);
+INSERT INTO roledep (dep_id, role_id) VALUES (5,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (6,1);
+INSERT INTO roledep (dep_id, role_id) VALUES (7,1);
 REM INSERTING into TRF
 SET DEFINE OFF;
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,CAR_PAYMENT,CUR_STATE) values (1,1,1,1,to_date('13-MAR-90','DD-MON-RR'),to_date('23-MAR-90','DD-MON-RR'),0,1,1);
