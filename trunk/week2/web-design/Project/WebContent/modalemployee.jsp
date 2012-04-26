@@ -1,8 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<fmt:setBundle
-	basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 <div id="myModal" class="modal hide fade"
 	style="width: 600px; margin: -250px 0 -0 -320px;">
 	<div class="modal-header">
