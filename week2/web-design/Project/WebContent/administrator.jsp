@@ -1,8 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<fmt:setBundle
-	basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
+<jsp:include page="init.jsp"></jsp:include>
 <!DOCTYPE html>
 <html lang="en">
 <head>

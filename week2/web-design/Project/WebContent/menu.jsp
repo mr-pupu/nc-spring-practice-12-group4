@@ -1,10 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<jsp:useBean id="localeBean" scope="application"
-	class="beans.LocalizationsBean"></jsp:useBean>
-<fmt:setBundle
-	basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 <div class="navbar  navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">

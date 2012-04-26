@@ -41,10 +41,42 @@ body {
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<!-- 
+	Copyright 2009 Itamar Arjuan
+	jsDatePick is distributed under the terms of the GNU General Public License.
+	****************************************************************************************
+-->
+<link rel="stylesheet" type="text/css" media="all"
+	href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
+<!-- 
+-->
+<script type="text/javascript"
+	src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
+<!-- 
+-->
+<script type="text/javascript">
+	window.onload = function(){
+		var first = new JsDatePick({
+			useMode:2,
+			target:"inputField1",
+			dateFormat:"%d-%M-%Y"
+		}),
+		second = new JsDatePick({
+			useMode:2,
+			target:"inputField2",
+			dateFormat:"%d-%M-%Y"
+		});
+		third = new JsDatePick({
+			useMode:2,
+			target:"inputField3",
+			dateFormat:"%d-%M-%Y"
+		});
+	};
+</script>
 </head>
 <body>
 	<c:import url="menu.jsp">
-		<c:param name="page" value="reports"></c:param>
+		<c:param name="page" value="trfs"></c:param>
 	</c:import>
 	<div class="container">
 		<br>
@@ -54,43 +86,34 @@ body {
 					<a class="accordion-toggle" data-toggle="collapse"
 						data-parent="#accordion2" href="#collapseOne">
 						<h4>
-							<fmt:message key="table.reports.name" />
+							<fmt:message key="page.forms.text1" />
 						</h4>
 					</a>
 				</div>
 				<div id="collapseOne" class="accordion-body collapse in">
 					<div class="accordion-inner">
-						<table class="table table-condensed">
-							<tbody>
-								<tr>
-									<td><fmt:message key="page.reports.filter.department" /></td>
-									<td><select class="btn">
-											<option>&lt;All&gt;</option>
-											<option value="PA">ff</option>
-											<option value="CT">gg</option>
-									</select></td>
-									<td><fmt:message key="page.reports.filter.office" /></td>
-									<td><select class="btn">
-											<option>&lt;All&gt;</option>
-											<option value="PA">ff</option>
-											<option value="CT">gg</option>
-									</select></td>
-								</tr>
-							</tbody>
-						</table>
+
 						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th><fmt:message key="table.reports.name" /></th>
-									<th><fmt:message key="table.reports.office" /></th>
-									<th><fmt:message key="table.reports.destination" /></th>
-									<th><fmt:message key="table.reports.dateBegin" /></th>
-									<th><fmt:message key="table.reports.dateEnd" /></th>
+									<th style="width: 20px;">
+										<button type="submit" class="btn btn-mini span1">
+											<fmt:message key="page.forms.buttonAdd" />
+										</button>
+									</th>
+									<th><fmt:message key="table.trfs.destination" /></th>
+									<th><fmt:message key="table.trfs.dateBegin" /></th>
+									<th><fmt:message key="table.trfs.dateEnd" /></th>
+									<th><fmt:message key="table.trfs.status" /></th>
+									<th><fmt:message key="table.trfs.comment" /></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
 								<tr>
+									<td><a data-toggle="modal" href="#myModal"
+										class="btn btn-mini span1"><fmt:message
+												key="page.forms.buttonEdit" /></a></td>
 									<td>New York U.S.A</td>
 									<td>12.06.2012</td>
 									<td>12.08.2012</td>
@@ -98,6 +121,9 @@ body {
 									<td>Some comment</td>
 								</tr>
 								<tr>
+									<td><a data-toggle="modal" href="#myModal"
+										class="btn btn-mini span1"><fmt:message
+												key="page.forms.buttonEdit" /></a></td>
 									<td>Mexico Mexico</td>
 									<td>12.06.2012</td>
 									<td>12.08.2012</td>
@@ -122,44 +148,66 @@ body {
 					</div>
 				</div>
 			</div>
+
 			<div class="accordion-group">
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse"
 						data-parent="#accordion2" href="#collapseTwo">
 						<h4>
-							<fmt:message key="page.reports.plannedTrips" />
+							<fmt:message key="page.forms.text2" />
 						</h4>
 					</a>
 				</div>
 				<div id="collapseTwo" class="accordion-body collapse">
 					<div class="accordion-inner">
+						 
+						 <form class="form-horizontal">
+        					<fieldset>
+							<div class="control-group">
+								<label class="control-label" for="appendedInput">Calendar will be here</label>
+								<div class="controls">
+									<div class="input-append">
+										<input class="span2" id="inputField3" size="16" type="text"><span
+											class="add-on" onmousedown="document.getElementById('inputField3').focus();"><i class="icon-calendar"></i></span>
+									</div>
+								</div>
+							</div>
+							</fieldset>
+						</form>
+					
 
-						<table class="table table-condensed">
+
+						<table class="table">
 							<tbody>
 								<tr>
-									<td><fmt:message key="page.reports.filter.department" /></td>
+									<td><fmt:message key="page.forms.filterDepartment" /></td>
 									<td><select class="btn">
 											<option>&lt;All&gt;</option>
 											<option value="PA">ff</option>
 											<option value="CT">gg</option>
 									</select></td>
-									<td><fmt:message key="page.reports.filter.office" /></td>
-									<td><select class="btn">
-											<option>&lt;All&gt;</option>
-											<option value="PA">ff</option>
-											<option value="CT">gg</option>
-									</select></td>
+									<td><fmt:message key="page.forms.filterTimeframe" /></td>
+									<td><fmt:message key="page.forms.filterTimeframe.from" />
+										<input type="text" size="12" id="inputField1" /> 
+										<img src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
+										onmousedown="document.getElementById('inputField1').focus();"
+										width=20px; height=20px; id="image1" /> <!-- <input	type="text">XX</td> -->
+									<td><fmt:message key="page.forms.filterTimeframe.to" /> <input
+										type="text" size="12" id="inputField2" /> <img
+										src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
+										onmousedown="document.getElementById('inputField2').focus();"
+										width=20px; height=20px; id="image2" /> <!--<input type="text">XX</td>  -->
 								</tr>
 							</tbody>
 						</table>
 						<table class="table table-bordered table-condensed">
 							<thead>
 								<tr>
-									<th><fmt:message key="table.reports.name" /></th>
-									<th><fmt:message key="table.reports.office" /></th>
-									<th><fmt:message key="table.reports.destination" /></th>
-									<th><fmt:message key="table.reports.dateBegin" /></th>
-									<th><fmt:message key="table.reports.dateEnd" /></th>
+									<th><fmt:message key="table.trfs.destination" /></th>
+									<th><fmt:message key="table.trfs.dateBegin" /></th>
+									<th><fmt:message key="table.trfs.dateEnd" /></th>
+									<th><fmt:message key="table.trfs.status" /></th>
+									<th><fmt:message key="table.trfs.comment" /></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -197,8 +245,6 @@ body {
 				</div>
 			</div>
 		</div>
-		<br>
-		<button type="submit" class="btn">Exel report</button>
 	</div>
 	<!-- /container -->
 	<jsp:include page="modalform.jsp"></jsp:include>
