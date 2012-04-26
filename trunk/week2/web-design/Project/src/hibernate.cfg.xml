@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.OracleDialect</property>
+    <property name="hibernate.connection.driver_class">oracle.jdbc.OracleDriver</property>
+    <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
+    <property name="hibernate.connection.username">guest</property>
+    <property name="hibernate.connection.password">Guests</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    <mapping resource="database/mapping/City.hbm.xml"/>
+    <mapping resource="database/mapping/Role.hbm.xml"/>
+    <mapping resource="database/mapping/Occupation.hbm.xml"/>
+    <mapping resource="database/mapping/Country.hbm.xml"/>
+    <mapping resource="database/mapping/Customer.hbm.xml"/>
+    <mapping resource="database/mapping/Office.hbm.xml"/>
+    <mapping resource="database/mapping/Department.hbm.xml"/>
+    <mapping resource="database/mapping/Employee.hbm.xml"/>
+    <mapping resource="database/mapping/Trf.hbm.xml"/>
+    <mapping resource="database/mapping/Destination.hbm.xml"/>
+    <mapping resource="database/mapping/Trfstate.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

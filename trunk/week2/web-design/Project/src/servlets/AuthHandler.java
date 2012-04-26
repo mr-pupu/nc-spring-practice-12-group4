@@ -1,6 +1,9 @@
 package servlets;
 
+import database.mapping.Role;
+import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,12 +48,13 @@ public class AuthHandler extends ServletHandler {
 		String messageText;
 		String messageType;
 		if ((login != null) && (pass != null)) {
-			String role = users.Users.getUserRole(login, pass);
+//			String role = users.Users.getUserRole(login, pass);
+                    List<String> roles = HibernateUtil.DepRoleByLogin(login, pass);
 			//if (login.equals("user") && pass.equals("pass")) {
-			if (role != null) {
+			if (!roles.isEmpty()) {
 				HttpSession session = request.getSession();
 				session.setAttribute("name", login);
-				session.setAttribute("role", role);
+				session.setAttribute("role", roles);
 				messageTitle = "Congratulations !";
 				messageText = "Authorization process succed";
 				messageType = "success";			
