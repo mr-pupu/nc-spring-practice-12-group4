@@ -78,7 +78,8 @@ position_id numeric(10),
 CONSTRAINT employee_id_pk PRIMARY KEY(id),
 CONSTRAINT employee_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id),
 CONSTRAINT employee_position_id_fk FOREIGN KEY(position_id) REFERENCES occupation(id),
-  CONSTRAINT employee_office_id_fk FOREIGN KEY(office_id) REFERENCES office(id));
+  CONSTRAINT employee_office_id_fk FOREIGN KEY(office_id) REFERENCES office(id),
+  CONSTRAINT employee_login_uk UNIQUE(login));
 
 CREATE TABLE destination(
 id numeric(10),
@@ -103,10 +104,12 @@ end_date date,
 car_rental numeric(1),
 car_payment numeric(1),
   cur_state NUMERIC(1),
+  project_manager NUMERIC(10),
 CONSTRAINT trf_id_pk PRIMARY KEY(id),
 CONSTRAINT trf_destination_id_fk FOREIGN KEY (destination_id) REFERENCES destination(id),
 CONSTRAINT trf_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id),
-CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id));
+CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id),
+  constraint trf_project_manager FOREIGN KEY(project_manager) references employee(id));
 
 CREATE TABLE trfstate
 (id numeric(10),
@@ -366,3 +369,21 @@ CREATE INDEX city_city_name_idx
 
 CREATE INDEX country_country_name_idx
   ON country(country_name);
+
+--password hashing trigger by Allan Farfur
+CREATE OR REPLACE TRIGGER "PASSWORD_HASH_TRIGGER"
+BEFORE INSERT OR UPDATE OF "PASSWORD" ON "EMPLOYEE"
+FOR EACH ROW
+DECLARE
+password_null EXCEPTION;
+BEGIN
+    IF (:NEW.PASSWORD IS NULL) THEN
+    RAISE password_null;
+ELSE
+:NEW.PASSWORD := dbms_obfuscation_toolkit.MD5(input_string => :NEW.PASSWORD); 
+END IF;
+EXCEPTION
+WHEN password_null THEN
+  Raise_application_error(-20034, 'Error! Trying to have empty password');
+END;
+/

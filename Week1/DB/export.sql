@@ -86,8 +86,8 @@ Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (3,3,'Downtown',
 Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (4,5,'Hilton','hilton.com');
 REM INSERTING into ROLE
 SET DEFINE OFF;
-Insert into ROLE (ID,ROLE_NAME) values (1,'Common Deaprtment');
-Insert into ROLE (ID,ROLE_NAME) values (2,'Travel Deaprtment');
+Insert into ROLE (ID,ROLE_NAME) values (1,'Common Department');
+Insert into ROLE (ID,ROLE_NAME) values (2,'Travel Department');
 Insert into ROLE (ID,ROLE_NAME) values (3,'IT Department');
 REM INSERTING into ROLEDEP
 SET DEFINE OFF;
@@ -112,3 +112,11 @@ SET DEFINE OFF;
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) values (1,1,'rejected: wrong date',to_date('17-APR-12','DD-MON-RR'),2,23);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) values (2,1,'aaccepted: ok',to_date('02-APR-12','DD-MON-RR'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) values (3,2,'canceled: employee fired',to_date('17-OCT-12','DD-MON-RR'),0,7);
+
+UPDATE department SET manager_id=4 where id=1;
+UPDATE department SET manager_id=11 where id=2;
+UPDATE department SET manager_id=15 where id=3;
+UPDATE department SET manager_id=19 where id=4;
+UPDATE department SET manager_id=26 where id=5;
+UPDATE department SET manager_id=29 where id=6;
+UPDATE department SET manager_id=35 where id=7;
