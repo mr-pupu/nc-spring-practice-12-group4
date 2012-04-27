@@ -22,7 +22,7 @@ public class Trf implements java.io.Serializable {
     private Date endDate;
     private Boolean carRental;
     private Boolean carPayment;
-    private Boolean curState;
+    private Short curState;
     private Set<Trfstate> trfstates = new HashSet<Trfstate>(0);
 
     public Trf() {
@@ -32,7 +32,7 @@ public class Trf implements java.io.Serializable {
         this.id = id;
     }
 
-    public Trf(long id, Customer customer, Destination destination, Employee employeeByProjectManager, Employee employeeByEmpId, Date beginDate, Date endDate, Boolean carRental, Boolean carPayment, Boolean curState, Set<Trfstate> trfstates) {
+    public Trf(long id, Customer customer, Destination destination, Employee employeeByProjectManager, Employee employeeByEmpId, Date beginDate, Date endDate, Boolean carRental, Boolean carPayment, Short curState, Set<Trfstate> trfstates) {
         this.id = id;
         this.customer = customer;
         this.destination = destination;
@@ -137,11 +137,11 @@ public class Trf implements java.io.Serializable {
     }
 
     @Column(name = "CUR_STATE", precision = 1, scale = 0)
-    public Boolean getCurState() {
+    public Short getCurState() {
         return this.curState;
     }
 
-    public void setCurState(Boolean curState) {
+    public void setCurState(Short curState) {
         this.curState = curState;
     }
 
