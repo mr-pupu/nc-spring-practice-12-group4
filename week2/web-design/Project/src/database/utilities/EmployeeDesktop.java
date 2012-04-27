@@ -1,6 +1,6 @@
-package TRF;
+package database.utilities;
 
-import com.example.datamodel.Trf;
+import database.mapping.Trf;
 import java.util.List;
 import org.hibernate.Session;
 

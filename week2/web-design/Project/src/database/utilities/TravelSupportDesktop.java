@@ -1,6 +1,6 @@
-package TRF;
+package database.utilities;
 
-import com.example.datamodel.Trf;
+import database.mapping.Trf;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
@@ -12,7 +12,7 @@ public class TravelSupportDesktop {
     public static List<Trf> ReadyTRFsSameCountry(Integer id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_office "
                 + "WHERE cur_state=3 AND country_name="
                 + "(SELECT country_name "
@@ -39,7 +39,7 @@ public class TravelSupportDesktop {
         Session s = HibernateUtil.getSession();
 
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_state_office "
                 + "WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual) "
                 + "AND country_name = "
@@ -72,7 +72,7 @@ public class TravelSupportDesktop {
     public static List TrfLastMonthSameCountryFilterByDepartment(Integer id, String department) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_state_department "
                 + "WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual) "
                 + "AND dep_name=:department "
@@ -107,7 +107,7 @@ public class TravelSupportDesktop {
     public static List TrfSameCountryFilterByDate(Integer id, Date begin_date, Date end_date) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_office "
                 + "WHERE begin_date > :begin_date AND end_date>:end_date "
                 + "AND country_name="
@@ -138,7 +138,7 @@ public class TravelSupportDesktop {
           public static List TrfSameCountryFilterByDateDepartment(Integer id, Date begin_date, Date end_date, String department) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_department_office "
                 + "WHERE begin_date > :begin_date AND end_date>:end_date "
                 + "AND dep_name=:department "
