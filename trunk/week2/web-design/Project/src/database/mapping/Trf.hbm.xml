@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 27, 2012 12:30:06 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="database.mapping.Trf" table="TRF" schema="GUEST">
         <id name="id" type="long">
@@ -10,15 +10,18 @@
                 <param name="sequence">trf_id_seq</param>
             </generator>
         </id>
+        <many-to-one name="customer" class="database.mapping.Customer" fetch="select">
+            <column name="CUSTOMER_ID" precision="10" scale="0" />
+        </many-to-one>
         <many-to-one name="destination" class="database.mapping.Destination" fetch="select">
             <column name="DESTINATION_ID" precision="10" scale="0" />
         </many-to-one>
-        <property name="customerId" type="java.lang.Long">
-            <column name="CUSTOMER_ID" precision="10" scale="0" />
-        </property>
-        <property name="empId" type="java.lang.Long">
+        <many-to-one name="employeeByProjectManager" class="database.mapping.Employee" fetch="select">
+            <column name="PROJECT_MANAGER" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="employeeByEmpId" class="database.mapping.Employee" fetch="select">
             <column name="EMP_ID" precision="10" scale="0" />
-        </property>
+        </many-to-one>
         <property name="beginDate" type="date">
             <column name="BEGIN_DATE" length="7" />
         </property>
@@ -31,7 +34,7 @@
         <property name="carPayment" type="java.lang.Boolean">
             <column name="CAR_PAYMENT" precision="1" scale="0" />
         </property>
-        <property name="curState" type="java.lang.Short">
+        <property name="curState" type="java.lang.Boolean">
             <column name="CUR_STATE" precision="1" scale="0" />
         </property>
         <set name="trfstates" inverse="true">

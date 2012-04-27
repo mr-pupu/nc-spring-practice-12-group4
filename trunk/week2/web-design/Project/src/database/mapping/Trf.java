@@ -1,5 +1,5 @@
 package database.mapping;
-// Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import java.util.HashSet;
@@ -14,14 +14,15 @@ import javax.persistence.*;
 public class Trf implements java.io.Serializable {
 
     private long id;
+    private Customer customer;
     private Destination destination;
-    private Long customerId;
-    private Long empId;
+    private Employee employeeByProjectManager;
+    private Employee employeeByEmpId;
     private Date beginDate;
     private Date endDate;
     private Boolean carRental;
     private Boolean carPayment;
-    private Short curState;
+    private Boolean curState;
     private Set<Trfstate> trfstates = new HashSet<Trfstate>(0);
 
     public Trf() {
@@ -31,11 +32,12 @@ public class Trf implements java.io.Serializable {
         this.id = id;
     }
 
-    public Trf(long id, Destination destination, Long customerId, Long empId, Date beginDate, Date endDate, Boolean carRental, Boolean carPayment, Short curState, Set<Trfstate> trfstates) {
+    public Trf(long id, Customer customer, Destination destination, Employee employeeByProjectManager, Employee employeeByEmpId, Date beginDate, Date endDate, Boolean carRental, Boolean carPayment, Boolean curState, Set<Trfstate> trfstates) {
         this.id = id;
+        this.customer = customer;
         this.destination = destination;
-        this.customerId = customerId;
-        this.empId = empId;
+        this.employeeByProjectManager = employeeByProjectManager;
+        this.employeeByEmpId = employeeByEmpId;
         this.beginDate = beginDate;
         this.endDate = endDate;
         this.carRental = carRental;
@@ -57,6 +59,16 @@ public class Trf implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CUSTOMER_ID")
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DESTINATION_ID")
     public Destination getDestination() {
         return this.destination;
@@ -66,22 +78,24 @@ public class Trf implements java.io.Serializable {
         this.destination = destination;
     }
 
-    @Column(name = "CUSTOMER_ID", precision = 10, scale = 0)
-    public Long getCustomerId() {
-        return this.customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROJECT_MANAGER")
+    public Employee getEmployeeByProjectManager() {
+        return this.employeeByProjectManager;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setEmployeeByProjectManager(Employee employeeByProjectManager) {
+        this.employeeByProjectManager = employeeByProjectManager;
     }
 
-    @Column(name = "EMP_ID", precision = 10, scale = 0)
-    public Long getEmpId() {
-        return this.empId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EMP_ID")
+    public Employee getEmployeeByEmpId() {
+        return this.employeeByEmpId;
     }
 
-    public void setEmpId(Long empId) {
-        this.empId = empId;
+    public void setEmployeeByEmpId(Employee employeeByEmpId) {
+        this.employeeByEmpId = employeeByEmpId;
     }
 
     @Temporal(TemporalType.DATE)
@@ -123,11 +137,11 @@ public class Trf implements java.io.Serializable {
     }
 
     @Column(name = "CUR_STATE", precision = 1, scale = 0)
-    public Short getCurState() {
+    public Boolean getCurState() {
         return this.curState;
     }
 
-    public void setCurState(Short curState) {
+    public void setCurState(Boolean curState) {
         this.curState = curState;
     }
 
