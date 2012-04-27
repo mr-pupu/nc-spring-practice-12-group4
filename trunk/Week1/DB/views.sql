@@ -9,7 +9,7 @@ FROM department sub, department sup
   --for a given employee (provided he has one)
 CREATE OR replace VIEW employee_managers_department
   AS
-SELECT emp.id, emp.first_name, emp.second_name, emp.dep_id, sup.id supid, manager.first_name manname, manager.second_name mansurname
+SELECT emp.id, emp.first_name, emp.login, emp.second_name, emp.dep_id, sup.id supid, manager.first_name manname, manager.second_name mansurname
 FROM employee emp INNER JOIN department sub ON emp.dep_id = sub.id, department sup INNER JOIN employee manager
   ON sup.manager_id = manager.id
   WHERE sub.parent_id = sup.id;
@@ -18,7 +18,7 @@ FROM employee emp INNER JOIN department sub ON emp.dep_id = sub.id, department s
   --of upper level departments (provided they exist)
 CREATE OR replace VIEW employee_managers
   AS
-SELECT emp.id, emp.first_name, emp.second_name, dep.dep_name, man.first_name manname, man.second_name mansurname
+SELECT emp.id, emp.first_name, emp.login, emp.second_name, dep.dep_name, man.first_name manname, man.second_name mansurname
   FROM employee emp INNER JOIN department dep ON emp.dep_id=dep.id
   INNER JOIN employee man ON dep.manager_id = man.id;
 
@@ -57,7 +57,7 @@ SELECT tr.*, cty.city_name, ctry.country_name, dep.dep_name
 --this view joins employee, city and country tables
 CREATE OR replace VIEW emp_office
   AS
-SELECT ctry.country_name, emp.id, cty.city_name
+SELECT ctry.country_name, emp.id, emp.login, cty.city_name
 FROM employee emp INNER JOIN office o ON emp.office_id = o.id
   INNER JOIN city cty ON cty.id = o.city_id
   INNER JOIN country ctry ON ctry.id = cty.country_id;
@@ -78,7 +78,7 @@ CREATE OR replace VIEW trf_state_office
   INNER JOIN country ctry ON ctry.id = cty.country_id
   INNER JOIN trfstate tst ON tst.trf_id = tr.id
 GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.car_payment, tr.cur_state,
-  tr.customer_id, tr.destination_id, cty.city_name, ctry.country_name, emp.id;
+  tr.customer_id, tr.project_manager, tr.destination_id, cty.city_name, ctry.country_name, emp.id;
 
 --this view joins trf, employee, office, department, trf_state, city and country tables
 CREATE OR replace VIEW trf_state_department
@@ -97,6 +97,6 @@ GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.car_pay
 CREATE OR replace VIEW emp_role
   AS
 SELECT role.*, emp.id empid, emp.login, emp.password
-FROM employee emp INNER JOIN department dep ON emp.id = dep.id
+FROM employee emp INNER JOIN department dep ON emp.dep_id = dep.id
   INNER JOIN roledep ON dep.id = roledep.dep_id 
 INNER JOIN role ON role.id = roledep.role_id;
