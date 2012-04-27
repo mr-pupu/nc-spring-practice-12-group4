@@ -1,5 +1,5 @@
 package database.mapping;
-// Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA
+// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
 
 import java.util.Date;
 import javax.persistence.*;
@@ -15,7 +15,7 @@ public class Trfstate implements java.io.Serializable {
     private Trf trf;
     private String commentary;
     private Date changeDate;
-    private Short status;
+    private Boolean status;
     private Long changer;
 
     public Trfstate() {
@@ -25,7 +25,7 @@ public class Trfstate implements java.io.Serializable {
         this.id = id;
     }
 
-    public Trfstate(long id, Trf trf, String commentary, Date changeDate, Short status, Long changer) {
+    public Trfstate(long id, Trf trf, String commentary, Date changeDate, Boolean status, Long changer) {
         this.id = id;
         this.trf = trf;
         this.commentary = commentary;
@@ -76,11 +76,11 @@ public class Trfstate implements java.io.Serializable {
     }
 
     @Column(name = "STATUS", precision = 1, scale = 0)
-    public Short getStatus() {
+    public Boolean getStatus() {
         return this.status;
     }
 
-    public void setStatus(Short status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
