@@ -4,7 +4,7 @@
  */
 package database.utilities;
 
-import database.mapping.Role;
+import database.mapping.Employee;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -20,6 +20,8 @@ public class HibernateUtil {
     private static final SessionFactory sessionFactory;
     private static final ThreadLocal curSession = new ThreadLocal();
     private static final ThreadLocal curTransaction = new ThreadLocal();
+    private static Session session;
+    private static Transaction transaction;
 
     static {
         try {
@@ -33,8 +35,22 @@ public class HibernateUtil {
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
-        //the list of occupations
+
+    /**
+     * Return the employee of given id
+     *
+     * @param id
+     * @return
+     */
+    public static List getEmployee(Integer id) {
+        Session s = getSession();
+        String statement = "SELECT * "
+                + "FROM employee "
+                + "WHERE id=:id";
+        return (List) s.createSQLQuery(statement).addEntity(Employee.class).setInteger("id", id).list();
+    }
+
+    //the list of occupations
     public static List OccupationsList() {
         Session s = getSession();
         String stmt = "select pos_name "
@@ -69,7 +85,7 @@ public class HibernateUtil {
                 + "FROM emp_role "
                 + "WHERE login=:login AND password="
                 + "to_char(dbms_obfuscation_toolkit.MD5(input_string =>:password))";
-                
+
 //                "select role.id "
 //                + "from role join roledep on role.id=roledep.role_id "
 //                + "join department on roledep.dep_id=department.id "
@@ -79,48 +95,57 @@ public class HibernateUtil {
         return (List) s.createSQLQuery(prepared_statement).
                 setString("login", login).setString("password", password).list();
     }
-    
+
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
     /**
      * Get current Hibernate session or initialize it if it's null
+     *
      * @return Hibernate session instance
      */
     public static Session getSession() {
-        Session s = (Session)curSession.get();
-        try{
-            if (s == null) {
-                s = sessionFactory.openSession();
-                curSession.set(s);
+//        Session s = (Session) curSession.get();
+        try {
+            if (session == null) {
+                session = sessionFactory.openSession();
+                curSession.set(session);
+                System.out.println("Session opened " + session);
             }
-        }
-        catch (HibernateException ex) {
+//            if (s == null) {
+//                s = sessionFactory.openSession();
+//                curSession.set(s);
+//            }
+        } catch (HibernateException ex) {
             System.out.println("Error during session creation " + ex);
         }
-        return s;
+        return session;
 //        return sessionFactory.getCurrentSession();
     }
-    
-        /**
+
+    /**
      * Close current Hibernate session
      */
     public static void closeSession() {
         if (curSession != null) {
-            Session s = (Session) curSession.get();
-            curSession.set(null);
+//            Session s = (Session) curSession.get();
             try {
-                if (s != null) {
-                    s.flush();
+                if (session != null) {
+                    session.flush();
+                    session.close();
+                    System.out.println("Session flushed");
                 }
-                s.close();
+                curSession.set(null);
+                curSession.remove();
+                session = null;
             } catch (HibernateException e) {
                 System.out.println("Close current session error: " + e.getMessage());
             }
         }
 //        getSession().close();
     }
-    
+
     /**
      * Begin Hibernate transaction
      */
@@ -174,23 +199,20 @@ public class HibernateUtil {
         }
 //        getSession().getTransaction().rollback();
     }
-    
+
     /**
      * Save given object into database
      */
-    public static void save(Object o) {
+    public static void save(Object o){
         try {
             beginTransaction();
             getSession().saveOrUpdate(o);
             commitTransaction();
-        }
-        catch(RuntimeException e) {
-            System.out.println("Exception while saving data " + e.getCause());
-            rollbackTransaction();
+        } catch (RuntimeException e) {
+            throw(e);
         }
     }
-    
-    
+
     /**
      * Delete given object from database
      */
@@ -199,11 +221,9 @@ public class HibernateUtil {
             beginTransaction();
             getSession().delete(o);
             commitTransaction();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             System.out.println("Exception while removing data " + e);
             rollbackTransaction();
         }
     }
 }
-

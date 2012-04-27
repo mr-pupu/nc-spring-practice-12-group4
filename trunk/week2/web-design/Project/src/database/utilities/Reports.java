@@ -1,7 +1,6 @@
-package TRF;
-import com.example.datamodel.Trf;
+package database.utilities;
+import database.mapping.Trf;
 import java.util.List;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 public class Reports {
@@ -27,7 +26,7 @@ public class Reports {
 //                "and begin_date<(select sysdate from dual) and end_date>(select sysdate from dual) ";
         
         String prepared_statement = "select id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "from trf_office " +
                 "where country_name=:country "+
                 "and city_name=:city "+
@@ -48,7 +47,7 @@ public class Reports {
 //                + "from employee "
 //                + "where dep_id in (select id from department where dep_name=:department))";
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_department "
                 + "WHERE begin_date<sysdate AND end_date>sysdate "
                 + "AND dep_name = :department";
@@ -70,7 +69,7 @@ public class Reports {
 //                "and dep_name=:department";
         
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_department_office "
                 + "WHERE city_name = :city AND country_name = :country "
                 + "AND dep_name = :department "
@@ -99,7 +98,7 @@ public class Reports {
 //                + "(extract (year from trf.begin_date))=(select to_char(sysdate,'yyyy') from dual) "
 //                + "and (extract (year from trf.end_date))=(select to_char(sysdate,'yyyy') from dual)";
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_office "
                 + "WHERE cur_state = 0 "
                 + "AND (extract (year from begin_date))=(select to_char(sysdate,'yyyy') from dual) "
@@ -125,7 +124,7 @@ public class Reports {
         public static List PlannedTrfSameDepartment(String department) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_department "
                 + "WHERE begin_date>sysdate AND cur_state=3 "
                 + "AND dep_name=:department";
@@ -135,7 +134,7 @@ public class Reports {
         public static List PlannedTrfSameDepartmentOffice(String city, String country, String department) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_department_office "
                 + "WHERE begin_date > sysdate AND cur_state=3 "
                 + "AND dep_name=:department AND city_name=:city "
@@ -150,7 +149,7 @@ public class Reports {
         public static List PlannedTrfSameOffice(String city, String country) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
                 + "FROM trf_office "
                 + "WHERE begin_date>sysdate AND cur_date=3 "
                 + "AND city_name=:city AND country_name=:country";

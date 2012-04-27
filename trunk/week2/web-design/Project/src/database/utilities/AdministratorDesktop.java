@@ -1,4 +1,4 @@
-package TRF;
+package database.utilities;
 
 import java.util.List;
 import org.hibernate.Session;

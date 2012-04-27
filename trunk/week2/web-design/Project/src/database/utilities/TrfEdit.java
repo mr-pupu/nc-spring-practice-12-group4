@@ -1,13 +1,11 @@
+package database.utilities;
 
-package TRF;
-
-import com.example.datamodel.Trfstate;
+import database.mapping.Trfstate;
 import java.util.List;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 public class TrfEdit {
-    
+
     //current status of given trf
     public static List CurrentTrfStatus(Integer trf_id) {
         Session s = HibernateUtil.getSession();
@@ -21,7 +19,7 @@ public class TrfEdit {
     //the list of given project manager's employee
     public static List ProjectManagerEmployees(Integer pm_id) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "SELECT first_name || ' ' || second_name "
+        String prepared_statement = "SELECT second_name || ', ' || first_name "
                 + "FROM department_employee "
                 + "WHERE manager_id=:pm_id";
 //                "select first_name, second_name "
@@ -44,7 +42,46 @@ public class TrfEdit {
         return (List) s.createSQLQuery(prepared_statement).setInteger("pm_id", pm_id).list();
     }
 
+    /**
+     * Obtain the employee's project manager through his login
+     */
+    public static List DepManagerNameByLogin(String login) {
+        Session s = HibernateUtil.getSession();
+        String prepared_statement = "SELECT mansurname || ', ' || manname "
+                + "FROM employee_managers_department "
+                + "WHERE login=:login";
+        return (List) s.createSQLQuery(prepared_statement).setString("login", login).list();
+    }
+    /**
+     * Get 
+     * @param login
+     * @return 
+     */
+    public static List ParentDepManagerNameByLogin(String login) {
+        Session s = HibernateUtil.getSession();
+        String prepared_statement = "SELECT mansurname ||', '|| manname "
+                + "FROM employee_managers_department "
+                + "WHERE login=:login";
+        return (List) s.createSQLQuery(prepared_statement).setString("login", login).list();
+    }
+    
+    public static List LineManager(String login) {
+        Session s = HibernateUtil.getSession();
+        List dep = DepManagerNameByLogin(login);
+        if (!dep.isEmpty()) {
+            return dep;
+        }
+        List pardep = ParentDepManagerNameByLogin(login);
+        if (!pardep.isEmpty()) {
+            return pardep;
+        }
+        String pps = "SELECT second_name || ', ' || first_name "
+                + "FROM employee "
+                + "WHERE login=:login";
+        return (List) s.createSQLQuery(pps).setString("login", login).list();
+    }
     //the list of countries
+
     public static List Countries() {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "select country_name "
@@ -56,7 +93,7 @@ public class TrfEdit {
     //name of manager of given employee
     public static List DepManagerName(Integer id) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "SELECT manname ||' '|| mansurname "
+        String prepared_statement = "SELECT mansurname ||', '|| manname "
                 + "FROM employee_managers "
                 + "WHERE id=:id";
 //                "select first_name, second_name "
@@ -141,6 +178,14 @@ public class TrfEdit {
         return (List) s.createSQLQuery(stmt).setInteger("emp_id", emp_id).list();
     }
 
+    //get office name by employee's login
+    public static List GetLocationForEmpByLogin(String login) {
+        Session s = HibernateUtil.getSession();
+        String stmt = "SELECT country_name || ' ' || city_name "
+                + "FROM emp_office "
+                + "WHERE login=:login";
+        return (List) s.createSQLQuery(stmt).setString("login", login).list();
+    }
     //the list of cities of given country
 //    public static List СountryCities(String country) {
 //        Session s = HibernateUtil.getSession();
@@ -154,13 +199,11 @@ public class TrfEdit {
 //
 //        return (List) s.createSQLQuery(prepared_statement).setString("country", country).list();
 //    }
-
     //this list can be obtained simply by calling something like this:
     //Country c = new Country()
     //Set<City> a = c.getCities()
-    
     //trf history
-     public static List TrfHistory(Integer trf_id) {
+    public static List TrfHistory(Integer trf_id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement =//"select commentary, change_date, status "+
                 "select * "
