@@ -6,9 +6,6 @@
     <class name="com.example.datamodel.Office" table="OFFICE" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
-            <generator class="sequence">
-                <param name="sequence">office_id_seq</param>
-            </generator>
         </id>
         <many-to-one name="city" class="com.example.datamodel.City" fetch="select">
             <column name="CITY_ID" precision="10" scale="0" />

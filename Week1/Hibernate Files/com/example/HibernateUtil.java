@@ -58,7 +58,7 @@ public class TRFHibernateUtil {
 //        return sessionFactory.getCurrentSession();
     }
     
-        /**
+    /**
      * Close current Hibernate session
      */
     public static void closeSession() {

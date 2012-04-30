@@ -55,7 +55,7 @@ public class TRFHibernateUtil {
         return s;
     }
     
-        /**
+    /**
      * Close current Hibernate session
      */
     public static void closeSession() {
