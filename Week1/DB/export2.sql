@@ -27,11 +27,11 @@ Insert into OCCUPATION (ID,POS_NAME) values (5,'Sales Manager');
 Insert into OCCUPATION (ID,POS_NAME) values (6,'Travel Manager');
 REM INSERTING into OFFICE
 SET DEFINE OFF;
-Insert into OFFICE (ID,CITY_ID) values (1,1);
-Insert into OFFICE (ID,CITY_ID) values (2,2);
-Insert into OFFICE (ID,CITY_ID) values (3,3);
-Insert into OFFICE (ID,CITY_ID) values (4,4);
-Insert into OFFICE (ID,CITY_ID) values (5,5);
+Insert into OFFICE (ID,OFFICE_NAME, CITY_ID) values (1,'Santiago(Chili) office',1);
+Insert into OFFICE (ID,OFFICE_NAME, CITY_ID) values (2,'Talca office',2);
+Insert into OFFICE (ID,OFFICE_NAME, CITY_ID) values (3,'Habana office',3);
+Insert into OFFICE (ID,OFFICE_NAME, CITY_ID) values (4,'Santiago(Cuba) office',4);
+Insert into OFFICE (ID,OFFICE_NAME, CITY_ID) values (5,'Trinidad office',5);
 REM INSERTING into DEPARTMENT
 SET DEFINE OFF;
 --Chili departments:
@@ -212,16 +212,16 @@ INSERT INTO roledep (dep_id, role_id) VALUES (27,1);
 REM INSERTING into TRF
 SET DEFINE OFF;
 --trf states: 0 — entering, 1 — rejected, 2 — cancelled, 3 — ready, 4 - completed
-Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE) 
-values (1,1,1,1,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',0);
-Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE) 
-values (2,2,2,4,to_date('27-JUN-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',1);
-Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE) 
-values (3,3,3,7,to_date('20-FEB-11','DD-MON-RR'),to_date('21-FEB-11','DD-MON-RR'),'1','1',2);
-Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE) 
-values (4,4,1,10,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',3);
-Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE) 
-values (5,1,1,13,to_date('27-JUN-12','DD-MON-RR'),to_date('03-JUL-12','DD-MON-RR'),'1','0',4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (1,1,1,1,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',0, 1);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (2,2,2,4,to_date('27-JUN-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',1, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (3,3,3,7,to_date('20-FEB-11','DD-MON-RR'),to_date('21-FEB-11','DD-MON-RR'),'1','1',2, 7);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (4,4,1,10,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',3, 10);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (5,1,1,13,to_date('27-JUN-12','DD-MON-RR'),to_date('03-JUL-12','DD-MON-RR'),'1','0',4, 13);
 
 
 REM INSERTING into TRFSTATE
