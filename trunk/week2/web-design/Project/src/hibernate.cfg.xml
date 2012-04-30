@@ -10,16 +10,19 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.current_session_context_class">thread</property>
     <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
+    
     <mapping resource="database/mapping/City.hbm.xml"/>
-    <mapping resource="database/mapping/Role.hbm.xml"/>
-    <mapping resource="database/mapping/Occupation.hbm.xml"/>
     <mapping resource="database/mapping/Country.hbm.xml"/>
     <mapping resource="database/mapping/Customer.hbm.xml"/>
-    <mapping resource="database/mapping/Office.hbm.xml"/>
     <mapping resource="database/mapping/Department.hbm.xml"/>
-    <mapping resource="database/mapping/Employee.hbm.xml"/>
-    <mapping resource="database/mapping/Trf.hbm.xml"/>
     <mapping resource="database/mapping/Destination.hbm.xml"/>
+    <mapping resource="database/mapping/Employee.hbm.xml"/>
+    <mapping resource="database/mapping/Occupation.hbm.xml"/>
+    <mapping resource="database/mapping/Office.hbm.xml"/>
+    <mapping resource="database/mapping/Role.hbm.xml"/>
+    <mapping resource="database/mapping/Roledep.hbm.xml"/>
+    <mapping resource="database/mapping/Trf.hbm.xml"/>
     <mapping resource="database/mapping/Trfstate.hbm.xml"/>
+
   </session-factory>
 </hibernate-configuration>
