@@ -10,17 +10,6 @@ DROP TABLE occupation;
 DROP TABLE city;
 DROP TABLE country;
 DROP TABLE role;
-DROP SEQUENCE office_id_seq;
-DROP SEQUENCE destination_id_seq;
-DROP SEQUENCE customer_id_seq;
-DROP SEQUENCE trf_id_seq;
-DROP SEQUENCE trfstate_id_seq;
-DROP SEQUENCE employee_id_seq;
-DROP SEQUENCE department_id_seq;
-DROP SEQUENCE occupation_id_seq;
-DROP SEQUENCE city_id_seq;
-DROP SEQUENCE country_id_seq;
-DROP SEQUENCE role_id_seq;
 
 CREATE TABLE country(
   id NUMERIC(10),
@@ -52,7 +41,7 @@ CREATE TABLE occupation(
 
 CREATE TABLE role(
   id NUMERIC(10),
-  role_name VARCHAR2(200),
+  role_name VARCHAR2(100),
  CONSTRAINT role_id_pk PRIMARY KEY(id)
 );
 
@@ -134,59 +123,28 @@ CREATE TABLE trfstate(
  CONSTRAINT trfstate_trf_id_fk FOREIGN KEY(trf_id) REFERENCES trf(id)
 );
 
-CREATE SEQUENCE department_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE occupation_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE employee_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE office_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-
-CREATE SEQUENCE destination_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE customer_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE trf_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE trfstate_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-
-CREATE SEQUENCE role_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE city_id_seq
-INCREMENT BY 1
-START WITH 1;
-
-CREATE SEQUENCE country_id_seq
-INCREMENT BY 1
-START WITH 1;
 
 CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
     BEFORE INSERT ON "DEPARTMENT"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM department
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
+    
     IF :NEW.ID IS NULL THEN
-        SELECT "DEPARTMENT_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID := dummy;
     END IF;
 END;
 /
@@ -194,10 +152,23 @@ END;
 CREATE OR REPLACE TRIGGER "OCCUPATION_ID_TRIGGER"
     BEFORE INSERT ON "OCCUPATION"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM occupation
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "OCCUPATION_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -205,10 +176,23 @@ END;
 CREATE OR REPLACE TRIGGER "EMPLOYEE_ID_TRIGGER"
     BEFORE INSERT ON "EMPLOYEE"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM employee
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "EMPLOYEE_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -216,10 +200,23 @@ END;
 CREATE OR REPLACE TRIGGER "OFFICE_ID_TRIGGER"
     BEFORE INSERT ON "OFFICE"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM office
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "OFFICE_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -227,10 +224,23 @@ END;
 CREATE OR REPLACE TRIGGER "DESTINATION_ID_TRIGGER"
     BEFORE INSERT ON "DESTINATION"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM destination
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "DESTINATION_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -238,10 +248,23 @@ END;
 CREATE OR REPLACE TRIGGER "CUSTOMER_ID_TRIGGER"
     BEFORE INSERT ON "CUSTOMER"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM customer
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "CUSTOMER_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -249,10 +272,23 @@ END;
 CREATE OR REPLACE TRIGGER "TRFSTATE_ID_TRIGGER"
     BEFORE INSERT ON "TRFSTATE"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM trfstate
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "TRFSTATE_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -260,10 +296,23 @@ END;
 CREATE OR REPLACE TRIGGER "TRF_ID_TRIGGER"
     BEFORE INSERT ON "TRF"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM trf
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "TRF_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -271,10 +320,23 @@ END;
 CREATE OR REPLACE TRIGGER "COUNTRY_ID_TRIGGER"
     BEFORE INSERT ON "COUNTRY"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM country
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "COUNTRY_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -282,10 +344,23 @@ END;
 CREATE OR REPLACE TRIGGER "CITY_ID_TRIGGER"
     BEFORE INSERT ON "CITY"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM city
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "CITY_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -293,10 +368,23 @@ END;
 CREATE OR REPLACE TRIGGER "ROLE_ID_TRIGGER"
     BEFORE INSERT ON "ROLE"
     FOR EACH ROW
+    DECLARE
+        dummy INTEGER;
+        CURSOR dummy_cursor (checked_id NUMBER) IS
+        SELECT id FROM role
+        where id=checked_id;
 BEGIN
+    dummy := 1;
+    open dummy_cursor (dummy);
+    fetch dummy_cursor into dummy;
+    while (dummy_cursor%FOUND) loop
+        dummy:=dummy+1;
+        close dummy_cursor;
+        open dummy_cursor (dummy);
+        fetch dummy_cursor into dummy;
+    end loop;
     IF :NEW.ID IS NULL THEN
-        SELECT "ROLE_ID_SEQ".NEXTVAL INTO :NEW.ID
-        FROM DUAL;
+        :NEW.ID :=dummy;
     END IF;
 END;
 /
@@ -345,7 +433,6 @@ CREATE OR REPLACE TRIGGER "CHANGER_TRIGGER"
         managers_exist EXCEPTION;
         no_managers_exist EXCEPTION;
         empid NUMBER;
-        olddep NUMBER;
         CURSOR dummy_cursor (dep NUMBER) IS
         SELECT id FROM employee WHERE id=dep;
 BEGIN
