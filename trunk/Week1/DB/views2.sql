@@ -77,7 +77,7 @@ CREATE OR replace VIEW trf_state_office
   INNER JOIN city cty ON cty.id = o.city_id
   INNER JOIN country ctry ON ctry.id = cty.country_id
   INNER JOIN trfstate tst ON tst.trf_id = tr.id
-GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.car_payment, tr.cur_state,
+GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.pay_by_cash, tr.cur_state,
   tr.customer_id, tr.project_manager, tr.destination_id, cty.city_name, ctry.country_name, emp.id;
 
 --this view joins trf, employee, office, department, trf_state, city and country tables
@@ -90,7 +90,7 @@ CREATE OR replace VIEW trf_state_department
   INNER JOIN country ctry ON ctry.id = cty.country_id
   INNER JOIN department dep ON dep.id = emp.dep_id
   INNER JOIN trfstate tst ON tst.trf_id = tr.id
-GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.car_payment, tr.cur_state,
+GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.pay_by_cash, tr.cur_state,
   tr.customer_id, tr.destination_id, cty.city_name, ctry.country_name, emp.id, dep.dep_name;
 
 --this view represents employees and their roles depending on departments
