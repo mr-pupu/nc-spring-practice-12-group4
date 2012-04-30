@@ -9,5 +9,9 @@
   <table-filter match-name="OFFICE"/>
   <table-filter match-name="TRFSTATE"/>
   <table-filter match-name="EMPLOYEE"/>
-  <table-filter match-name="POSITION"/>
+  <table-filter match-name="OCCUPATION"/>
+  <table-filter match-name="CITY"/>
+  <table-filter match-name="COUNTRY"/>
+  <table-filter match-name="ROLEDEP"/>
+  <table-filter match-name="ROLE"/>
 </hibernate-reverse-engineering>
