@@ -10,7 +10,10 @@ DROP TABLE occupation;
 DROP TABLE city;
 DROP TABLE country;
 DROP TABLE role;
+DROP SEQUENCE trf_id_seq;
+DROP SEQUENCE trfstate_id_seq;
 
+--Creating tables:
 CREATE TABLE country(
   id NUMERIC(10),
   country_name VARCHAR2(20),
@@ -124,6 +127,18 @@ CREATE TABLE trfstate(
 );
 
 
+--Creating sequences:
+--//start with = (number of inserted rows in export2.sql)+1;
+CREATE SEQUENCE trf_id_seq
+INCREMENT BY 1
+START WITH 6;
+
+CREATE SEQUENCE trfstate_id_seq
+INCREMENT BY 1
+START WITH 12;
+
+
+--Creating triggers:
 CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
     BEFORE INSERT ON "DEPARTMENT"
     FOR EACH ROW
@@ -269,53 +284,29 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER "TRFSTATE_ID_TRIGGER"
-    BEFORE INSERT ON "TRFSTATE"
+CREATE OR REPLACE TRIGGER "TRF_ID_TRIGGER"
+    BEFORE INSERT ON "TRF"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM trfstate
-        where id=checked_id;
 BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "TRF_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
 
-CREATE OR REPLACE TRIGGER "TRF_ID_TRIGGER"
-    BEFORE INSERT ON "TRF"
+CREATE OR REPLACE TRIGGER "TRFSTATE_ID_TRIGGER"
+    BEFORE INSERT ON "TRFSTATE"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM trf
-        where id=checked_id;
 BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "TRFSTATE_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
+
+
 
 CREATE OR REPLACE TRIGGER "COUNTRY_ID_TRIGGER"
     BEFORE INSERT ON "COUNTRY"
@@ -389,6 +380,7 @@ BEGIN
 END;
 /
 
+--manager trigger by Oleg Lunin
 CREATE OR REPLACE TRIGGER "MANAGER_TRIGGER"
     BEFORE INSERT OR UPDATE OF "MANAGER_ID" ON "DEPARTMENT"
     FOR EACH ROW
@@ -425,6 +417,7 @@ BEGIN
 END;
 /
 
+--changer trigger by Oleg Lunin
 CREATE OR REPLACE TRIGGER "CHANGER_TRIGGER"
     BEFORE INSERT OR UPDATE OF "CHANGER" ON "TRFSTATE"
     FOR EACH ROW
@@ -458,15 +451,6 @@ BEGIN
 END;
 /
 
-CREATE INDEX department_dep_name_idx
-  ON department(dep_name);
-
-CREATE INDEX city_city_name_idx
-  ON city(city_name);
-
-CREATE INDEX country_country_name_idx
-  ON country(country_name);
-
 --password hashing trigger by Allan Farfur
 CREATE OR REPLACE TRIGGER "PASSWORD_HASH_TRIGGER"
     BEFORE INSERT OR UPDATE OF "PASSWORD" ON "EMPLOYEE"
@@ -486,3 +470,16 @@ BEGIN
         Raise_application_error(-20034, 'Error! Trying to have empty password');
 END;
 /
+
+
+--Creating indexes:
+CREATE INDEX department_dep_name_idx
+  ON department(dep_name);
+
+CREATE INDEX city_city_name_idx
+  ON city(city_name);
+
+CREATE INDEX country_country_name_idx
+  ON country(country_name);
+
+
