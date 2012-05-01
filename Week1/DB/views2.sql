@@ -96,7 +96,7 @@ GROUP BY tr.id, tr.emp_id, tr.begin_date, tr.end_date, tr.car_rental, tr.pay_by_
 --this view represents employees and their roles depending on departments
 CREATE OR replace VIEW emp_role
   AS
-SELECT role.*, emp.id empid, emp.login, emp.password
+SELECT deprole.*, emp.id empid, emp.login, emp.password
 FROM employee emp INNER JOIN department dep ON emp.dep_id = dep.id
   INNER JOIN roledep ON dep.id = roledep.dep_id 
-INNER JOIN role ON role.id = roledep.role_id;
+INNER JOIN deprole ON deprole.id = roledep.role_id;

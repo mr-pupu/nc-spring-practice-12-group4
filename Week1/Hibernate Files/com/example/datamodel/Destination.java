@@ -1,5 +1,5 @@
-package com.example.datamodel;
-// Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA
+package database.mapping;
+// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;

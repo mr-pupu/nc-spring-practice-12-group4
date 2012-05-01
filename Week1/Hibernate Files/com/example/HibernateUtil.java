@@ -2,14 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example;
+package database.utilities;
 
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import database.mapping.Employee;
+import java.util.List;
+import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
-import org.hibernate.cfg.Configuration;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -17,11 +15,13 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Master
  */
-public class TRFHibernateUtil {
+public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static final ThreadLocal curSession = new ThreadLocal();
     private static final ThreadLocal curTransaction = new ThreadLocal();
+    private static Session session;
+    private static Transaction transaction;
 
     static {
         try {
@@ -35,48 +35,117 @@ public class TRFHibernateUtil {
             throw new ExceptionInInitializerError(ex);
         }
     }
-    
+
+    /**
+     * Return the employee of given id
+     *
+     * @param id
+     * @return
+     */
+    public static List getEmployee(Integer id) {
+        Session s = getSession();
+        String statement = "SELECT * "
+                + "FROM employee "
+                + "WHERE id=:id";
+        return (List) s.createSQLQuery(statement).addEntity(Employee.class).setInteger("id", id).list();
+    }
+
+    //the list of occupations
+    public static List OccupationsList() {
+        Session s = getSession();
+        String stmt = "select pos_name "
+                + "from occupation";
+        SQLQuery query = s.createSQLQuery(stmt);
+        return (List) query.list();
+    }
+
+    //id of employee with given login
+    public static List EmpIdByLogin(String login) {
+        Session s = getSession();
+        String prepared_statement = "select id "
+                + "from employee "
+                + "where login=:login";
+        return (List) s.createSQLQuery(prepared_statement).setString("login", login).list();
+    }
+
+    //ID of office in which given employee works
+    public static List EmpOffice(Integer emp_id) {
+        Session s = getSession();
+        String prepared_statement = "select office_id "
+                + "from employee "
+                + "where id=:emp_id";
+
+        return (List) s.createSQLQuery(prepared_statement).setInteger("emp_id", emp_id).list();
+    }
+
+    //Role of employee with given login and password
+    public static List DepRoleByLogin(String login, String password) {
+        Session s = getSession();
+        String prepared_statement = "SELECT id, role_name "
+                + "FROM emp_role "
+                + "WHERE login=:login AND password="
+                + "to_char(dbms_obfuscation_toolkit.MD5(input_string =>:password))";
+
+//                "select role.id "
+//                + "from role join roledep on role.id=roledep.role_id "
+//                + "join department on roledep.dep_id=department.id "
+//                + "join employee on employee.dep_id=department.id "
+//                + "where employee.login=:login";
+
+        return (List) s.createSQLQuery(prepared_statement).
+                setString("login", login).setString("password", password).list();
+    }
+
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
+
     /**
      * Get current Hibernate session or initialize it if it's null
+     *
      * @return Hibernate session instance
      */
     public static Session getSession() {
-        Session s = (Session)curSession.get();
-        try{
-            if (s == null) {
-                s = sessionFactory.openSession();
-                curSession.set(s);
+//        Session s = (Session) curSession.get();
+        try {
+            if (session == null) {
+                session = sessionFactory.openSession();
+                curSession.set(session);
+                System.out.println("Session opened " + session);
             }
-        }
-        catch (HibernateException ex) {
+//            if (s == null) {
+//                s = sessionFactory.openSession();
+//                curSession.set(s);
+//            }
+        } catch (HibernateException ex) {
             System.out.println("Error during session creation " + ex);
         }
-        return s;
+        return session;
 //        return sessionFactory.getCurrentSession();
     }
-    
+
     /**
      * Close current Hibernate session
      */
     public static void closeSession() {
         if (curSession != null) {
-            Session s = (Session) curSession.get();
-            curSession.set(null);
+//            Session s = (Session) curSession.get();
             try {
-                if (s != null) {
-                    s.flush();
+                if (session != null) {
+                    session.flush();
+                    session.close();
+                    System.out.println("Session flushed");
                 }
-                s.close();
+                curSession.set(null);
+                curSession.remove();
+                session = null;
             } catch (HibernateException e) {
                 System.out.println("Close current session error: " + e.getMessage());
             }
         }
 //        getSession().close();
     }
-    
+
     /**
      * Begin Hibernate transaction
      */
@@ -130,23 +199,20 @@ public class TRFHibernateUtil {
         }
 //        getSession().getTransaction().rollback();
     }
-    
+
     /**
      * Save given object into database
      */
-    public static void save(Object o) {
+    public static void save(Object o){
         try {
             beginTransaction();
             getSession().saveOrUpdate(o);
             commitTransaction();
-        }
-        catch(RuntimeException e) {
-            System.out.println("Exception while saving data " + e.getCause());
-            rollbackTransaction();
+        } catch (RuntimeException e) {
+            throw(e);
         }
     }
-    
-    
+
     /**
      * Delete given object from database
      */
@@ -155,11 +221,9 @@ public class TRFHibernateUtil {
             beginTransaction();
             getSession().delete(o);
             commitTransaction();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             System.out.println("Exception while removing data " + e);
             rollbackTransaction();
         }
     }
 }
-

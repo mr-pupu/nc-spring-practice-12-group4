@@ -1,5 +1,5 @@
-package com.example.datamodel;
-// Generated Apr 25, 2012 3:55:54 PM by Hibernate Tools 3.2.1.GA
+package database.mapping;
+// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,9 +13,10 @@ import javax.persistence.*;
 public class City implements java.io.Serializable {
 
     private long id;
+    private Country country;
     private String cityName;
-    private Long countryId;
     private Set<Destination> destinations = new HashSet<Destination>(0);
+    private Set<Office> offices = new HashSet<Office>(0);
 
     public City() {
     }
@@ -24,11 +25,12 @@ public class City implements java.io.Serializable {
         this.id = id;
     }
 
-    public City(long id, String cityName, Long countryId, Set<Destination> destinations) {
+    public City(long id, Country country, String cityName, Set<Destination> destinations, Set<Office> offices) {
         this.id = id;
+        this.country = country;
         this.cityName = cityName;
-        this.countryId = countryId;
         this.destinations = destinations;
+        this.offices = offices;
     }
 
     @Id
@@ -43,6 +45,16 @@ public class City implements java.io.Serializable {
         this.id = id;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COUNTRY_ID")
+    public Country getCountry() {
+        return this.country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
     @Column(name = "CITY_NAME", length = 20)
     public String getCityName() {
         return this.cityName;
@@ -52,15 +64,6 @@ public class City implements java.io.Serializable {
         this.cityName = cityName;
     }
 
-    @Column(name = "COUNTRY_ID", precision = 10, scale = 0)
-    public Long getCountryId() {
-        return this.countryId;
-    }
-
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
-    }
-
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "city")
     public Set<Destination> getDestinations() {
         return this.destinations;
@@ -68,5 +71,14 @@ public class City implements java.io.Serializable {
 
     public void setDestinations(Set<Destination> destinations) {
         this.destinations = destinations;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "city")
+    public Set<Office> getOffices() {
+        return this.offices;
+    }
+
+    public void setOffices(Set<Office> offices) {
+        this.offices = offices;
     }
 }

@@ -164,11 +164,11 @@ Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (1,1,'Hayat','ha
 Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (2,2,'Hilton','hilton.com');
 Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (3,3,'Downtown','downtown.com');
 Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (4,5,'Brown','brown.com');
-REM INSERTING into ROLE
+REM INSERTING into DEPROLE
 SET DEFINE OFF;
-Insert into ROLE (ID,ROLE_NAME) values (1,'Common Department');
-Insert into ROLE (ID,ROLE_NAME) values (2,'Travel Department');
-Insert into ROLE (ID,ROLE_NAME) values (3,'IT Department');
+Insert into DEPROLE (ID,ROLE_NAME) values (1,'Common Department');
+Insert into DEPROLE (ID,ROLE_NAME) values (2,'Travel Department');
+Insert into DEPROLE (ID,ROLE_NAME) values (3,'IT Department');
 REM INSERTING into ROLEDEP
 SET DEFINE OFF;
 INSERT INTO roledep (dep_id, role_id) VALUES (1,1);

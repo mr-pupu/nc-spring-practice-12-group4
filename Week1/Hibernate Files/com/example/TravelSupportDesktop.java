@@ -1,7 +1,8 @@
-package TRF;
+package database.utilities;
 
+import database.mapping.Trf;
+import java.util.Date;
 import java.util.List;
-import mapping.Trf;
 import org.hibernate.Session;
 
 public class TravelSupportDesktop {
@@ -10,15 +11,23 @@ public class TravelSupportDesktop {
     // works in the same country as logged employee
     public static List<Trf> ReadyTRFsSameCountry(Integer id) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "
-                + "office on employee.office_id=office.id join city on "
-                + "office.city_id=city.id join country on "
-                + "city.country_id=country.id "
-                + "where trf.cur_state=3 and country.id in "
-                + "(select country.id from country join city "
-                + "on country.id=city.country_id join office "
-                + "on office.city_id=city.id join employee "
-                + "on employee.office_id=office.id where employee.id=:id)";
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "FROM trf_office "
+                + "WHERE cur_state=3 AND country_name="
+                + "(SELECT country_name "
+                + "FROM emp_office "
+                + "WHERE id=:id)";
+                
+//                "select * from trf join employee on  trf.emp_id=employee.id join "
+//                + "office on employee.office_id=office.id join city on "
+//                + "office.city_id=city.id join country on "
+//                + "city.country_id=country.id "
+//                + "where trf.cur_state=3 and country.id in "
+//                + "(select country.id from country join city "
+//                + "on country.id=city.country_id join office "
+//                + "on office.city_id=city.id join employee "
+//                + "on employee.office_id=office.id where employee.id=:id)";
 
         return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).list();
     }
@@ -29,20 +38,29 @@ public class TravelSupportDesktop {
     public static List TrfLastMonthSameCountry(Integer id) {
         Session s = HibernateUtil.getSession();
 
-        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "+
-                 "office on employee.office_id=office.id join city on "+ 
-                 "office.city_id=city.id join country on  "+
-                 "city.country_id=country.id  "+
-                 "join department on department.id=employee.dep_id  "+
-                 "where country.id in  "+
-                   "              (select country.id from country join city  "+
-                   "              on country.id=city.country_id join office  "+
-                   "                             on office.city_id=city.id join employee  "+
-                   "                            on employee.office_id=office.id where employee.id=:id) "+ 
-                "and trf.id in (select trf_id from trfstate where change_date in "+
- "(select (max (change_date)) "+
- "from trfstate "+
- "group by trf_id) and extract (month from change_date)=(select to_char(sysdate,'mm') from dual))"; 
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "FROM trf_state_office "
+                + "WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual) "
+                + "AND country_name = "
+                + "(SELECT country_name "
+                + "FROM emp_office "
+                + "WHERE id=:id)";
+                
+//                "select * from trf join employee on  trf.emp_id=employee.id join "+
+//                 "office on employee.office_id=office.id join city on "+ 
+//                 "office.city_id=city.id join country on  "+
+//                 "city.country_id=country.id  "+
+//                 "join department on department.id=employee.dep_id  "+
+//                 "where country.id in  "+
+//                   "              (select country.id from country join city  "+
+//                   "              on country.id=city.country_id join office  "+
+//                   "                             on office.city_id=city.id join employee  "+
+//                   "                            on employee.office_id=office.id where employee.id=:id) "+ 
+//                "and trf.id in (select trf_id from trfstate where change_date in "+
+// "(select (max (change_date)) "+
+// "from trfstate "+
+// "group by trf_id) and extract (month from change_date)=(select to_char(sysdate,'mm') from dual))"; 
 
         return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).list();
     }
@@ -53,21 +71,31 @@ public class TravelSupportDesktop {
     // and filter by given department
     public static List TrfLastMonthSameCountryFilterByDepartment(Integer id, String department) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "+
-                 "office on employee.office_id=office.id join city on "+ 
-                 "office.city_id=city.id join country on  "+
-                 "city.country_id=country.id  "+
-                 "join department on department.id=employee.dep_id  "+
-                 "where country.id in  "+
-                   "              (select country.id from country join city  "+
-                   "              on country.id=city.country_id join office  "+
-                   "                             on office.city_id=city.id join employee  "+
-                   "                            on employee.office_id=office.id where employee.id=:id) "+ 
-                "and trf.id in (select trf_id from trfstate where change_date in "+
- "(select (max (change_date)) "+
- "from trfstate "+
- "group by trf_id) and extract (month from change_date)=(select to_char(sysdate,'mm') from dual)) "+ 
-                "and department.dep_name=:department";
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "FROM trf_state_department "
+                + "WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual) "
+                + "AND dep_name=:department "
+                + "AND country_name = "
+                + "(SELECT country_name "
+                + "FROM emp_office "
+                + "WHERE id=:id)";
+                
+//                "select * from trf join employee on  trf.emp_id=employee.id join "+
+//                 "office on employee.office_id=office.id join city on "+ 
+//                 "office.city_id=city.id join country on  "+
+//                 "city.country_id=country.id  "+
+//                 "join department on department.id=employee.dep_id  "+
+//                 "where country.id in  "+
+//                   "              (select country.id from country join city  "+
+//                   "              on country.id=city.country_id join office  "+
+//                   "                             on office.city_id=city.id join employee  "+
+//                   "                            on employee.office_id=office.id where employee.id=:id) "+ 
+//                "and trf.id in (select trf_id from trfstate where change_date in "+
+// "(select (max (change_date)) "+
+// "from trfstate "+
+// "group by trf_id) and extract (month from change_date)=(select to_char(sysdate,'mm') from dual)) "+ 
+//                "and department.dep_name=:department";
 
         return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).setString("department", department).list();
     }
@@ -76,45 +104,64 @@ public class TravelSupportDesktop {
     //TRFs, in which employee from "Employee Name" field works in the same country
     //as logged employee
     //filter by TRF's date
-    public static List TrfSameCountryFilterByDate(Integer id, String begin_date, String end_date) {
+    public static List TrfSameCountryFilterByDate(Integer id, Date begin_date, Date end_date) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * from trf "
-                + "join employee on trf.emp_id=employee.id join "
-                + "office on employee.office_id=office.id join city on "
-                + "office.city_id=city.id join country on "
-                + "city.country_id =country.id "
-                + "where country.id in "
-                + "(select country.id from country join city "
-                + "on country.id=city.country_id join office "
-                + "on office.city_id=city.id join employee "
-                + "on employee.office_id=office.id where employee.id=:id)"
-                + "and trf.begin_date>:begin_date and trf.end_date<:end_date";
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "FROM trf_office "
+                + "WHERE begin_date > :begin_date AND end_date>:end_date "
+                + "AND country_name="
+                + "(SELECT country_name "
+                + "FROM emp_office "
+                + "WHERE id=:id)";
+                
+//                "select * from trf "
+//                + "join employee on trf.emp_id=employee.id join "
+//                + "office on employee.office_id=office.id join city on "
+//                + "office.city_id=city.id join country on "
+//                + "city.country_id =country.id "
+//                + "where country.id in "
+//                + "(select country.id from country join city "
+//                + "on country.id=city.country_id join office "
+//                + "on office.city_id=city.id join employee "
+//                + "on employee.office_id=office.id where employee.id=:id)"
+//                + "and trf.begin_date>:begin_date and trf.end_date<:end_date";
 
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).setString("begin_date", begin_date).
-                setString("end_date", end_date).list();
+        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).setDate("begin_date", begin_date).
+                setDate("end_date", end_date).list();
     }
 
   
     //TRFs, in which employee from "Employee Name" field works in the same country
     //as logged employee
     //filter by TRF's date and department
-          public static List TrfSameCountryFilterByDateDepartment(Integer id, String begin_date, String end_date, String department) {
+          public static List TrfSameCountryFilterByDateDepartment(Integer id, Date begin_date, Date end_date, String department) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * from trf "
-                + "join employee on trf.emp_id=employee.id join "
-                + "office on employee.office_id=office.id join city on "
-                + "office.city_id=city.id join country on "
-                + "city.country_id =country.id "
-                + "join department on department.id=employee.dep_id "
-                + "where country.id in "
-                + "(select country.id from country join city "
-                + "on country.id=city.country_id join office "
-                + "on office.city_id=city.id join employee "
-                + "on employee.office_id=office.id where employee.id=:id)"
-                + "and trf.begin_date>:begin_date and trf.end_date<:end_date "
-                + "and department.dep_name=:department";
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "FROM trf_department_office "
+                + "WHERE begin_date > :begin_date AND end_date>:end_date "
+                + "AND dep_name=:department "
+                + "AND country_name="
+                + "(SELECT country_name "
+                + "FROM emp_office "
+                + "WHERE id=:id)";
+                
+//                "select * from trf "
+//                + "join employee on trf.emp_id=employee.id join "
+//                + "office on employee.office_id=office.id join city on "
+//                + "office.city_id=city.id join country on "
+//                + "city.country_id =country.id "
+//                + "join department on department.id=employee.dep_id "
+//                + "where country.id in "
+//                + "(select country.id from country join city "
+//                + "on country.id=city.country_id join office "
+//                + "on office.city_id=city.id join employee "
+//                + "on employee.office_id=office.id where employee.id=:id)"
+//                + "and trf.begin_date>:begin_date and trf.end_date<:end_date "
+//                + "and department.dep_name=:department";
         return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("department", department).
-                setInteger("id", id).setString("begin_date", begin_date).
-                setString("end_date", end_date).list();
+                setInteger("id", id).setDate("begin_date", begin_date).
+                setDate("end_date", end_date).list();
     }
 }
