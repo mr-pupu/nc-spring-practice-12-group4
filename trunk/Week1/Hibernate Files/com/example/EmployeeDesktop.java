@@ -1,7 +1,7 @@
-package TRF;
+package database.utilities;
 
+import database.mapping.Trf;
 import java.util.List;
-import mapping.Trf;
 import org.hibernate.Session;
 
 public class EmployeeDesktop {

@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 27, 2012 12:30:06 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.example.datamodel.Employee" table="EMPLOYEE" schema="GUEST">
+    <class name="database.mapping.Employee" table="EMPLOYEE" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
             <generator class="sequence">
                 <param name="sequence">employee_id_seq</param>
             </generator>
         </id>
-        <many-to-one name="occupation" class="com.example.datamodel.Occupation" fetch="select">
+        <many-to-one name="occupation" class="database.mapping.Occupation" fetch="select">
             <column name="POSITION_ID" precision="10" scale="0" />
         </many-to-one>
-        <many-to-one name="office" class="com.example.datamodel.Office" fetch="select">
+        <many-to-one name="office" class="database.mapping.Office" fetch="select">
             <column name="OFFICE_ID" precision="10" scale="0" />
         </many-to-one>
-        <many-to-one name="department" class="com.example.datamodel.Department" fetch="select">
+        <many-to-one name="department" class="database.mapping.Department" fetch="select">
             <column name="DEP_ID" precision="10" scale="0" />
         </many-to-one>
         <property name="firstName" type="string">
@@ -29,16 +29,22 @@
             <column name="EMAIL" length="256" />
         </property>
         <property name="login" type="string">
-            <column name="LOGIN" length="20" />
+            <column name="LOGIN" length="20" unique="true" />
         </property>
         <property name="password" type="string">
             <column name="PASSWORD" length="30" />
         </property>
-        <set name="trfs" inverse="true">
+        <set name="trfsForEmpId" inverse="true">
             <key>
                 <column name="EMP_ID" precision="10" scale="0" />
             </key>
-            <one-to-many class="com.example.datamodel.Trf" />
+            <one-to-many class="database.mapping.Trf" />
+        </set>
+        <set name="trfsForProjectManager" inverse="true">
+            <key>
+                <column name="PROJECT_MANAGER" precision="10" scale="0" />
+            </key>
+            <one-to-many class="database.mapping.Trf" />
         </set>
     </class>
 </hibernate-mapping>

@@ -9,7 +9,7 @@ DROP TABLE office;
 DROP TABLE occupation;
 DROP TABLE city;
 DROP TABLE country;
-DROP TABLE role;
+DROP TABLE deprole;
 DROP SEQUENCE trf_id_seq;
 DROP SEQUENCE trfstate_id_seq;
 
@@ -42,7 +42,7 @@ CREATE TABLE occupation(
  CONSTRAINT occupation_id_pk PRIMARY KEY(id)
 );
 
-CREATE TABLE role(
+CREATE TABLE deprole(
   id NUMERIC(10),
   role_name VARCHAR2(100),
  CONSTRAINT role_id_pk PRIMARY KEY(id)
@@ -61,7 +61,7 @@ CREATE TABLE department(
 CREATE TABLE roledep(
   role_id NUMERIC(10),
   dep_id NUMERIC(10),
- CONSTRAINT roledep_role_id_fk FOREIGN KEY(role_id) REFERENCES role(id),
+ CONSTRAINT roledep_role_id_fk FOREIGN KEY(role_id) REFERENCES deprole(id),
  CONSTRAINT roledep_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id)
 );
 
@@ -356,13 +356,13 @@ BEGIN
 END;
 /
 
-CREATE OR REPLACE TRIGGER "ROLE_ID_TRIGGER"
-    BEFORE INSERT ON "ROLE"
+CREATE OR REPLACE TRIGGER "DEPROLE_ID_TRIGGER"
+    BEFORE INSERT ON "DEPROLE"
     FOR EACH ROW
     DECLARE
         dummy INTEGER;
         CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM role
+        SELECT id FROM deprole
         where id=checked_id;
 BEGIN
     dummy := 1;
@@ -461,9 +461,9 @@ BEGIN
     IF (:NEW.PASSWORD IS NULL) THEN
         RAISE password_null;
     ELSE
-        :NEW.PASSWORD := dbms_obfuscation_toolkit.MD5(input_string => :NEW.PASSWORD); 
+        --:NEW.PASSWORD := dbms_obfuscation_toolkit.MD5(input_string => :NEW.PASSWORD); 
         --if don't have oracle XE 11g server: 
-        --:NEW.PASSWORD := dbms_utility.get_hash_value(:NEW.PASSWORD, 0, 4096); 
+        :NEW.PASSWORD := dbms_utility.get_hash_value(:NEW.PASSWORD, 0, 4096); 
     END IF;
     EXCEPTION
         WHEN password_null THEN

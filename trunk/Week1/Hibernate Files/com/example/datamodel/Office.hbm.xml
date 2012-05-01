@@ -1,20 +1,23 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 27, 2012 12:30:06 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.example.datamodel.Office" table="OFFICE" schema="GUEST">
+    <class name="database.mapping.Office" table="OFFICE" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">office_id_seq</param>
+            </generator>
         </id>
-        <many-to-one name="city" class="com.example.datamodel.City" fetch="select">
+        <many-to-one name="city" class="database.mapping.City" fetch="select">
             <column name="CITY_ID" precision="10" scale="0" />
         </many-to-one>
         <set name="employees" inverse="true">
             <key>
                 <column name="OFFICE_ID" precision="10" scale="0" />
             </key>
-            <one-to-many class="com.example.datamodel.Employee" />
+            <one-to-many class="database.mapping.Employee" />
         </set>
     </class>
 </hibernate-mapping>

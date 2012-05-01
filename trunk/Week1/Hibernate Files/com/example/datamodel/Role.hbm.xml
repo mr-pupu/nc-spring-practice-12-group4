@@ -1,24 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 13, 2012 2:20:12 AM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated Apr 27, 2012 12:30:06 PM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
-    <class name="com.example.datamodel.Role" table="ROLE" schema="GUEST">
+    <class name="database.mapping.Role" table="ROLE" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
-            <generator class="sequence">
-                <param name="sequence">role_id_seq</param>
-            </generator>
+            <generator class="assigned" />
         </id>
         <property name="roleName" type="string">
             <column name="ROLE_NAME" length="200" />
         </property>
-        <set name="department" table="roledep" 
+		<set name="department" table="roledep" 
         	inverse="true" lazy="true" fetch="select" cascade="all" >
             <key>
                 <column name="ROLE_ID" not-null="true" />
             </key>
-            <many-to-many entity-name="com.example.datamodel.Department">
+            <many-to-many entity-name="database.mapping.Department">
                 <column name="DEP_ID" not-null="true" />
             </many-to-many>
         </set>
