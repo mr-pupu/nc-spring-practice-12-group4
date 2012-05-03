@@ -38,6 +38,8 @@ body {
 	href="<%=request.getContextPath() %>/assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="<%=request.getContextPath() %>/assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/flick/jquery-ui-1.7.2.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/ui.jqgrid.css" mce_href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/ui.jqgrid.css" />
 </head>
 <body>
 	<c:import url="menu.jsp">
@@ -47,7 +49,9 @@ body {
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span2">
-					Tree will be here <br> <a data-toggle="modal" href="#myModal"
+                                    <table id="addtree"></table>
+                                    <div id="paddtree"> </div>
+					<a data-toggle="modal" href="#myModal"
 						class="btn btn-mini span1">Employee editor button</a>
 				</div>
 				<div class="span10">
@@ -259,5 +263,6 @@ body {
 	<!-- /container -->
 	<jsp:include page="modalemployee.jsp"></jsp:include>
 	<jsp:include page="scripts.jsp"></jsp:include>
+        <jsp:include page="administratorJQGridScript.jsp"></jsp:include>
 </body>
 </html>
