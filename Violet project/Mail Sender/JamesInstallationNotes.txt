@@ -1,0 +1,19 @@
+Apache James mail server installation notes: 
+1. Download James 2.3.2 release from the link given below:
+	http://james.apache.org/download.cgi#Apache_James_2.3.2_is_the_stable_version
+2. Unpack files and run server using bin/run.sh (unix) or bin/phoenix.sh
+3. configuration file: \apps\james\SAR-INF\config.xml
+ 3.1. To change server name edit section: 
+ 	<servernames autodetect="true" autodetectIP="true">
+       		<servername>hardosoft.com</servername>
+	</servernames>
+ 3.2. To specify DNS-server edit section:
+	<dnsserver>
+      		<servers>
+ 			<server>8.8.8.8</server>
+      		</servers>
+   	   	<autodiscover>true</autodiscover>
+     	   	<authoritative>false</authoritative>
+   	</dnsserver>
+4. To connect to admin tool(default login and pass: "root") use telnet, port 4555
+5. To connect to James SMTP server use telnet, port 25
