@@ -1,21 +1,22 @@
 package database.utilities;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Session;
 
 public class AdministratorDesktop {
 
     //the list of departments
-    public static List Departments() {
+    public static List<String> Departments() {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "select dep_name "
                 + "from department_selfjoin ";
 
-        return (List) s.createSQLQuery(prepared_statement).list();
+        return (List<String>) s.createSQLQuery(prepared_statement).list();
     }
 
     //the list of departments which are subsidiary for the given
-    public static List ChildDeps(String dep) {
+    public static List<String> ChildDeps(String dep) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "select dep_name "
 //                + "from department "
@@ -27,12 +28,13 @@ public class AdministratorDesktop {
         String prepared_statement = "select dep_name "
                 + "from department_selfjoin "
                 + "where supname=:dep";
-        
-        return (List) s.createSQLQuery(prepared_statement).setString("dep", dep).list();
+
+        return (List<String>) s.createSQLQuery(prepared_statement).setString("dep", dep).list();
     }
 
     //the list of employees who work in current department or its subsidiaries
-    public static List EmpNamePosForDepAndChildDep(Integer id) {
+    //Олег, проверь, нужно ли выводить емплои рекурсивно и внеси соотв. изменения
+    public static List<String[]> EmpNamePosForDepAndChildDep(Integer id, Integer page, Integer num) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "SELECT employee.first_name "
 //                + //"SELECT employee.first_name, employee.second_name, occupation.pos_name "+
@@ -43,26 +45,55 @@ public class AdministratorDesktop {
 //                + "select id "
 //                + "from department "
 //                + "where department.parent_id=:id)";
-        
-        String prepared_statement = "SELECT first_name || ' ' || second_name "
-                + "FROM department_employee "
-                + "WHERE id = :id OR parent_id = :id";
-                
-        return (List) s.createSQLQuery(prepared_statement).setInteger("id", id).list();
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+        String prepared_statement = "SELECT first_name, second_name"
+                + " FROM  (select rownum r, first_name, second_name from department_employee "
+                + "WHERE id =:id OR parent_id=:id) where r>:from and r<:to";
+
+
+        List rows = s.createSQLQuery(prepared_statement).setInteger("id", id).setInteger("from", from).
+                setInteger("to", to).list();
+        List<String[]> res = new ArrayList<String[]>();
+
+        if (!rows.isEmpty()) {
+            //   for(Object row : rows)
+            for (int i = 0; i < rows.size(); i++) {
+                String[] srow = new String[2];
+                srow[0] = (String) ((Object[]) rows.get(i))[0];
+                srow[1] = (String) ((Object[]) rows.get(i))[1];
+                res.add(srow);
+            }
+        }
+        return res;
     }
 
     //the list of emps who work in current department
-    public static List EmpNameForDep(String dep_name) {
+    //ne fiksit - Pasha sam sdelal konvertacujy nygnyjy
+    public static List<String[]> EmpNameForDep(String dep_name) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "SELECT employee.first_name "
 //                + //"SELECT employee.first_name, employee.second_name "+
 //                "from employee join department on employee.dep_id=department.id "
 //                + "where department.dep_name=:dep_name";
-        
-        String prepared_statement = "SELECT first_name || ' ' || second_name "
+
+        String prepared_statement = "SELECT first_name, second_name, pos_name "
                 + "FROM department_employee "
                 + "where dep_name=:dep_name";
-        
-        return (List) s.createSQLQuery(prepared_statement).setString("dep_name", dep_name).list();
+
+        List rows = s.createSQLQuery(prepared_statement).setString("dep_name", dep_name).list();
+        List<String[]> res = new ArrayList<String[]>();
+
+        if (!rows.isEmpty()) {
+            //   for(Object row : rows)
+            for (int i = 0; i < rows.size(); i++) {
+                String[] srow = new String[3];
+                srow[0] = (String) ((Object[]) rows.get(i))[0];
+                srow[1] = (String) ((Object[]) rows.get(i))[1];
+                srow[2] = (String) ((Object[]) rows.get(i))[2];
+                res.add(srow);
+            }
+        }
+        return res;
     }
 }
