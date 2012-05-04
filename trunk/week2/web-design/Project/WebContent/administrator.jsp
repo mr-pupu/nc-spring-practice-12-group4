@@ -263,6 +263,14 @@ body {
 	<!-- /container -->
 	<jsp:include page="modalemployee.jsp"></jsp:include>
 	<jsp:include page="scripts.jsp"></jsp:include>
-        <jsp:include page="administratorJQGridScript.jsp"></jsp:include>
+<script type="text/javascript"
+src="<%=request.getContextPath()%>/assets/js/jquery.jqGrid.src.js"></script>	
+<script type="text/javascript"
+src="<%=request.getContextPath()%>/assets/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript">
+src="<%=request.getContextPath()%>/assets/js/i18n/grid.locale-en.js"></script>
+<script type="text/javascript">
+src="<%=request.getContextPath()%>/assets/js/i18n/administratorJQGridScript.js"></script>
+administratorJQGridScript
 </body>
 </html>
