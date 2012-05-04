@@ -39,6 +39,8 @@ body {
 	href="<c:out value="${pageContext.request.contextPath}"/>/assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
 	href="<c:out value="${pageContext.request.contextPath}"/>/assets/ico/apple-touch-icon-57-precomposed.png">
+<link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
 </head>
 <body>
 	<% System.out.println("before import"); %>
@@ -88,6 +90,7 @@ body {
 					<br>
 			</c:otherwise>
 		</c:choose>
+        <table id="list4"></table>
 
 		<!-- samples Samples for input fields :
 		<br>

@@ -26,8 +26,6 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/assets/js/jquery.jqGrid.src.js"></script>	
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/assets/js/jquery.js"></script>
-<script type="text/javascript"
 	src="<%=request.getContextPath()%>/assets/js/i18n/grid.locale-en.js"></script>
 <script type="text/javascript">
 	$(function() {
