@@ -54,6 +54,10 @@ body {
 	src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
 <!-- 
 -->
+<script type="text/javascript"
+	src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
+	<jsp:include page="scripts.jsp"></jsp:include>
+        
 <script type="text/javascript">
 	window.onload = function(){
 		var first = new JsDatePick({
@@ -71,6 +75,7 @@ body {
 			target:"inputField3",
 			dateFormat:"%d-%M-%Y"
 		});
+                $(".modal").modal(options)
 	};
 </script>
 </head>
@@ -208,6 +213,6 @@ body {
 	</div>
 	<!-- /container -->
 	<jsp:include page="modalform.jsp"></jsp:include>
-	<jsp:include page="scripts.jsp"></jsp:include>
 </body>
 </html>
+<script src="<%=request.getContextPath()%>/assets/js/modal-trf-edit-by-id.js"></script>
