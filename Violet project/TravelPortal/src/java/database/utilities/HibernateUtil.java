@@ -5,6 +5,9 @@
 package database.utilities;
 
 //import database.mapping.Employee;
+import database.mapping.Country;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -49,7 +52,13 @@ public class HibernateUtil {
                 + "WHERE id=:id";
         return (List) s.createSQLQuery(statement).addEntity(Employee.class).setInteger("id", id).list();
     }*/
-
+public static List<Country> CountryList() {
+        Session s = getSession();
+        String query = "SELECT * "
+                + "FROM country";
+        SQLQuery q = s.createSQLQuery(query);
+        return (List<Country>)q.addEntity(Country.class).list();
+    }
     //the list of occupations
     public static List OccupationsList() {
         Session s = getSession();

@@ -44,7 +44,7 @@ public class MainHandler extends ServletHandler {
 		HttpSession session = request.getSession();
 		
 		if (session.getAttribute("deprole") != null) {
-			doDispatcher(request, response, "mytrfs.jsp");
+			response.sendRedirect(request.getContextPath()+"/mytrfs");
 		} else {
 			doDispatcher(request, response, "index.jsp");
 		}

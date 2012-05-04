@@ -1,6 +1,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<c:set var="deproles" scope="session" value="${sessionScope.deprole}"></c:set>
 <div class="navbar  navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -10,27 +11,27 @@
 			</a> <a class="brand" href="#"><fmt:message key="menu.projectName" /></a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<c:if test="${sessionScope.role==null}">
+					<c:if test="${deproles==null}">
 						<li class="active"><a
 							href="<c:out value="${pageContext.request.contextPath}"/>"><fmt:message
 									key="menu.home" /></a></li>
 					</c:if>
-					<c:if test="${sessionScope.role!=null}">
+					<c:if test="${deproles!=null}">
 						<li <c:if test="${param.page=='mytrfs'}">class="active"</c:if>><a
 							href="<c:out value="${pageContext.request.contextPath}"/>/mytrfs"><fmt:message
 									key="menu.mytrfs" /></a></li>
 					</c:if>
-					<c:if test="${sessionScope.role=='Travel support'}">
+					<c:if test="${deproles.contains('Travel Department')}">
 						<li <c:if test="${param.page=='trfs'}">class="active"</c:if>><a
 							href="<c:out value="${pageContext.request.contextPath}"/>/trfs"><fmt:message
 									key="menu.trfs" /></a></li>
 					</c:if>
-					<c:if test="${sessionScope.role=='Administrator'}">
+					<c:if test="${deproles.contains('IT Department')}">
 						<li <c:if test="${param.page=='administrator'}">class="active"</c:if>><a
 							href="<c:out value="${pageContext.request.contextPath}"/>/administrator"><fmt:message
 									key="menu.administrator" /></a></li>
 					</c:if>
-					<c:if test="${sessionScope.role!=null}">
+					<c:if test="${deproles!=null}">
 						<li <c:if test="${param.page=='reports'}">class="active"</c:if>><a
 							href="<c:out value="${pageContext.request.contextPath}"/>/reports"><fmt:message
 									key="menu.reports" /></a></li>

@@ -111,7 +111,7 @@ body {
 							<tbody>
 								<tr>
 								<tr>
-									<td><a data-toggle="modal" href="#myModal"
+                                    <td><a href="#1"
 										class="btn btn-mini span1"><fmt:message
 												key="page.forms.buttonEdit" /></a></td>
 									<td>New York U.S.A</td>
@@ -121,7 +121,7 @@ body {
 									<td>Some comment</td>
 								</tr>
 								<tr>
-									<td><a data-toggle="modal" href="#myModal"
+                                    <td><a href="#2"
 										class="btn btn-mini span1"><fmt:message
 												key="page.forms.buttonEdit" /></a></td>
 									<td>Mexico Mexico</td>
@@ -209,5 +209,9 @@ body {
 	<!-- /container -->
 	<jsp:include page="modalform.jsp"></jsp:include>
 	<jsp:include page="scripts.jsp"></jsp:include>
+   <script type="text/javascript"
+    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
+    <script type="text/javascript"
+    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/modal-trf-edit-by-id.js"></script>
 </body>
 </html>
