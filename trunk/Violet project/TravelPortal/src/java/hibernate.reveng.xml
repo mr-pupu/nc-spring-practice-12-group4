@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-schema="GUEST"/>
+
+  <table-filter match-name="CITY"/>
+  <table-filter match-name="COUNTRY"/>
+  <table-filter match-name="CUSTOMER"/>
+  <table-filter match-name="DEPARTMENT"/>
+  <table-filter match-name="DESTINATION"/>
+  <table-filter match-name="EMPLOYEE"/>
+  <table-filter match-name="OCCUPATION"/>
+  <table-filter match-name="OFFICE"/>
+  <table-filter match-name="DEPROLE"/>
+  <table-filter match-name="TRF"/>
+  <table-filter match-name="TRFSTATE"/>
+
+</hibernate-reverse-engineering>
