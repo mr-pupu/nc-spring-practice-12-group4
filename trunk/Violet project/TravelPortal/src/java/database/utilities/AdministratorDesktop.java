@@ -13,6 +13,15 @@ public class AdministratorDesktop {
 
         return (List) s.createSQLQuery(prepared_statement).list();
     }
+    
+    //list of departments without children
+    public static List HeadDepartments() {
+        Session s = HibernateUtil.getSession();
+        String prepared_statement = "SELECT id "
+                + "FROM department WHERE parent_id IS NULL ";
+
+        return (List) s.createSQLQuery(prepared_statement).list();
+    }
 
     //the list of departments which are subsidiary for the given
     public static List ChildDeps(String dep) {
