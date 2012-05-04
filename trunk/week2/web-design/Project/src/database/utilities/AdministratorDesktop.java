@@ -96,4 +96,26 @@ public class AdministratorDesktop {
         }
         return res;
     }
+    
+    public static String[] getLeafsDeps() {
+        Session s = HibernateUtil.getSession();
+        String statement = "SELECT dep_name"
+                + " FROM department dep"
+                + "  WHERE id NOT IN"
+                + "   (SELECT id"
+                + "   FROM department"
+                + "   WHERE id IN"
+                + "     (SELECT parent_id FROM department"
+                + "     )"
+                + "   )";
+        List rows = s.createSQLQuery(statement).list();
+        String[] res = null;
+        if (!rows.isEmpty()) {
+            res = new String[rows.size()];
+            for (int i = 0; i < rows.size(); ++i) {
+                res[i] = (String) rows.get(i);
+            }
+        }
+        return res;
+    }
 }
