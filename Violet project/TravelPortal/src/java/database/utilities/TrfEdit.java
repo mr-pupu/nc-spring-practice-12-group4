@@ -1,5 +1,6 @@
 package database.utilities;
 
+import database.mapping.Customer;
 import database.mapping.Trfstate;
 import java.util.List;
 import org.hibernate.Session;
@@ -142,9 +143,9 @@ public class TrfEdit {
     //list of customers
     public static List Customers() {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select cust_name "
+        String prepared_statement = "select * "
                 + "from customer";
-        return (List) s.createSQLQuery(prepared_statement).list();
+        return (List) s.createSQLQuery(prepared_statement).addEntity(Customer.class).list();
     }
 
     //location of given employee (country and city)
