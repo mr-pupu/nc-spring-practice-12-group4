@@ -3,6 +3,19 @@
  * and open the template in the editor.
  * author : Merle
  */
+$("#country").change(function() {
+  changeCountry($("#country option:selected").attr("sysId"));
+});
+
+$(document).ready(function(){
+    checkTrfId() 
+});
+    
+$(window).bind('hashchange', function() {
+    //window.location.reload();
+    //alert(window.location)
+    checkTrfId()
+});
 
 function checkTrfId(){
     var q = window.location;
@@ -33,9 +46,10 @@ function fillTrfForm(data){
     $('#lineManager').text(data['lineManagerName']);
     prepareComboBox($("#projectManager"), data['projectManagers'], data['projectManagerId'])
     $('#hotelName').val(data['hotelName']);
-    $('#hotelWebSite').val(data['hotelSite']);
+    $('#hotelSite').val(data['hotelSite']);
+    prepareComboBox($("#customer"), data['customers'], data['customerId'])
     if (data['payByCash']) {$('#payByCash').attr("checked","checked")} else {$('#payByCash').removeAttr("checked")}
-    if (data['carRental']) {$('#car').attr("checked","checked")} else {$('#car').removeAttr("checked")}
+    if (data['carRental']) {$('#car').attr("checked","true")} else {$('#car').removeAttr("checked")}
     $("#accordion3").show();
 }
 
@@ -46,9 +60,22 @@ function prepareComboBox(combobox, data, id){
         if (key == id) {
             selected = 'selected="selected"';
         }
-        combobox.prepend( $('<option ' + selected + ' elemid="' + key + '">' + value + '</option>'))
+        combobox.prepend( $('<option ' + selected + ' sysid="' + key + '">' + value + '</option>'))
     });
     
+}
+
+function changeCountry(id){
+    //loading message here
+    $.getJSON(getContextPath() + "/ajaxcities?id="+id,
+        function (data){
+            var string ="";
+            $.each(data, function(key, value) { 
+                string += '[' + key + ',' + value + '] ';
+            });
+            //alert(string);
+            prepareComboBox($("#city"), data['cities'], id);
+        });
 }
 
 function getTrfUsingAJAX(id){
@@ -60,12 +87,40 @@ function getTrfUsingAJAX(id){
         });
 }
 
-$(document).ready(checkTrfId() );
+$(document).ready(function(){
+    checkTrfId()
+    
+});
     
 $(window).bind('hashchange', function() {
     //window.location.reload();
     //alert(window.location)
     checkTrfId()
 });
-  
+
+function processTRF(mode){
+    alert('processTRF');
+    var resultMap = [
+        {'beginDate':$('#beginDate').val()}, 
+        {'endDate':$('#endDate').val()},
+        {'cityId':$("#city option:selected").attr("sysId")},
+        {'projectManagerId':$("#projectManager option:selected").attr("sysId")},
+        {'hotelName':$('#hotelName').val()},
+        {'hotelSite':$('#hotelSite').val()},
+        {'customerId':$("#customer option:selected").attr("sysId")},
+        {'car':($('#car').attr("checked")!=undefined).toString()},
+        {'payByCash':($('#payByCash').attr("checked")!=undefined).toString()},
+        {'mode':mode}];
+        alert(JSON.stringify(resultMap));
+        $.ajax({
+          url: getContextPath() + "/ajaxtrfsprocess",
+          type: "POST",
+          data: {"ajaxdata" : JSON.stringify(resultMap)},
+          dataType: "json",
+          success: function(result) {
+ 	     alert('success')
+        }
+        
+});
+}
  

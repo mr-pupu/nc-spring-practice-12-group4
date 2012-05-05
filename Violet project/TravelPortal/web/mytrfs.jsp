@@ -50,9 +50,12 @@
           href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
     <!-- 
     -->
+    
+    <jsp:include page="scripts.jsp"></jsp:include>
     <script type="text/javascript"
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
-    
+<script type="text/javascript"
+	src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
     <!-- 
     -->
     <script type="text/javascript">
@@ -61,7 +64,7 @@
                 useMode:2,
                 target:"inputField1",
                 dateFormat:"%d-%M-%Y"
-            }),
+            });
             second = new JsDatePick({
                 useMode:2,
                 target:"inputField2",
@@ -211,13 +214,15 @@
                 </div>
             </div>
         </div>
+                                
+                <table id="list4"></table>
     </div>
     <!-- /container -->
     <jsp:include page="modalform.jsp"></jsp:include>
-    <jsp:include page="scripts.jsp"></jsp:include>
-    <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
     <script type="text/javascript"
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/modal-trf-edit-by-id.js"></script>
+    
+<script type="text/javascript"
+	src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/calendar-init.js"></script>
 </body>
 </html>
