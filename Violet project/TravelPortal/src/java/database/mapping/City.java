@@ -1,5 +1,5 @@
 package database.mapping;
-// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
+// Generated May 7, 2012 12:41:52 AM by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,71 +12,76 @@ import javax.persistence.*;
 @Table(name = "CITY", schema = "GUEST")
 public class City implements java.io.Serializable {
 
-    private long id;
-    private Country country;
-    private String cityName;
-    private Set<Destination> destinations = new HashSet<Destination>(0);
-    private Set<Office> offices = new HashSet<Office>(0);
+     private long id;
+     private Country country;
+     private String cityName;
+     private Set<Destination> destinations = new HashSet<Destination>(0);
+     private Set<Office> offices = new HashSet<Office>(0);
 
     public City() {
     }
 
+	
     public City(long id) {
         this.id = id;
     }
-
     public City(long id, Country country, String cityName, Set<Destination> destinations, Set<Office> offices) {
-        this.id = id;
-        this.country = country;
-        this.cityName = cityName;
-        this.destinations = destinations;
-        this.offices = offices;
+       this.id = id;
+       this.country = country;
+       this.cityName = cityName;
+       this.destinations = destinations;
+       this.offices = offices;
     }
-
-    @Id
-    @Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
+   
+    @Id 
+    @SequenceGenerator(name = "city_id", sequenceName = "city_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_id")
+    @Column(name="ID", unique=true, nullable=false, precision=10, scale=0)
     public long getId() {
         return this.id;
     }
-
+    
     public void setId(long id) {
         this.id = id;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COUNTRY_ID")
+@ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="COUNTRY_ID")
     public Country getCountry() {
         return this.country;
     }
-
+    
     public void setCountry(Country country) {
         this.country = country;
     }
-
-    @Column(name = "CITY_NAME", length = 20)
+    
+    @Column(name="CITY_NAME", length=20)
     public String getCityName() {
         return this.cityName;
     }
-
+    
     public void setCityName(String cityName) {
         this.cityName = cityName;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "city")
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="city")
     public Set<Destination> getDestinations() {
         return this.destinations;
     }
-
+    
     public void setDestinations(Set<Destination> destinations) {
         this.destinations = destinations;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "city")
+@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="city")
     public Set<Office> getOffices() {
         return this.offices;
     }
-
+    
     public void setOffices(Set<Office> offices) {
         this.offices = offices;
     }
+
+
+
+
 }
+
+

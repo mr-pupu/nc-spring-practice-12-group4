@@ -1,11 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Apr 27, 2012 12:30:06 PM by Hibernate Tools 3.2.1.GA -->
+<!-- Generated May 7, 2012 12:41:52 AM by Hibernate Tools 3.2.1.GA -->
 <hibernate-mapping>
     <class name="database.mapping.Country" table="COUNTRY" schema="GUEST">
         <id name="id" type="long">
             <column name="ID" precision="10" scale="0" />
+           <generator class="sequence">
+                <param name="sequence">country_id_seq</param>
+            </generator>
         </id>
         <property name="countryName" type="string">
             <column name="COUNTRY_NAME" length="20" />
