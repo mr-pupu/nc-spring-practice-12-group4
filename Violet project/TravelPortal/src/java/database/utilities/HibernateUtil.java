@@ -6,8 +6,6 @@ package database.utilities;
 
 //import database.mapping.Employee;
 import database.mapping.Country;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -22,9 +20,9 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static final ThreadLocal curSession = new ThreadLocal();
-    private static final ThreadLocal curTransaction = new ThreadLocal();
-    private static Session session;
-    private static Transaction transaction;
+//    private static final ThreadLocal curTransaction = new ThreadLocal();
+//    private static Session session;
+//    private static Transaction transaction;
 
     static {
         try {
@@ -116,12 +114,12 @@ public static List<Country> CountryList() {
      * @return Hibernate session instance
      */
     public static Session getSession() {
-//        Session s = (Session) curSession.get();
+       Session s = (Session) curSession.get();
         try {
-            if (session == null) {
-                session = sessionFactory.openSession();
-                curSession.set(session);
-                System.out.println("Session opened " + session);
+            if (s == null) {
+                s = sessionFactory.openSession();
+                curSession.set(s);
+                System.out.println("Session opened " + s);
             }
 //            if (s == null) {
 //                s = sessionFactory.openSession();
@@ -130,7 +128,7 @@ public static List<Country> CountryList() {
         } catch (HibernateException ex) {
             System.out.println("Error during session creation " + ex);
         }
-        return session;
+        return s;
 //        return sessionFactory.getCurrentSession();
     }
 
@@ -138,19 +136,14 @@ public static List<Country> CountryList() {
      * Close current Hibernate session
      */
     public static void closeSession() {
-        if (curSession != null) {
-//            Session s = (Session) curSession.get();
+            Session s = (Session) curSession.get();
+            if (curSession != null) {
             try {
-                if (session != null) {
-                    session.flush();
-                    session.close();
+                if (s != null) {
+                    s.close();
                     System.out.println("Session flushed");
                 }
                 curSession.set(null);
-                curSession.remove();
-                curTransaction.set(null);
-                curTransaction.remove();
-                session = null;
             } catch (HibernateException e) {
                 System.out.println("Close current session error: " + e.getMessage());
             }
@@ -163,17 +156,17 @@ public static List<Country> CountryList() {
      */
     public static void beginTransaction() {
         System.out.println("Begin transaction");
-        Transaction tx = (Transaction) curTransaction.get();
-        try {
-            if (tx == null) {
-                tx = getSession().beginTransaction();
-                System.err.println("DOGGY");
-                curTransaction.set(tx);
-            }
-        } catch (HibernateException e) {
-            System.out.println("Begin transaction error: " + e.getMessage());
-        }
-//        getSession().beginTransaction();
+//        Transaction tx = getSession().getTransaction();
+//        try {
+//            if (tx == null) {
+//                tx = getSession().beginTransaction();
+//                System.err.println("DOGGY");
+//                curTransaction.set(tx);
+//            }
+//        } catch (HibernateException e) {
+//            System.out.println("Begin transaction error: " + e.getMessage());
+//        }
+        getSession().beginTransaction();
     }
 
     /**
@@ -181,18 +174,18 @@ public static List<Country> CountryList() {
      */
     public static void commitTransaction() {
         System.out.println("Commit transaction");
-        Transaction tx = (Transaction) curTransaction.get();
-        try {
-            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
-                tx.commit();
-                System.out.println("commit");
-            }
-            curTransaction.set(null);
-        } catch (HibernateException e) {
-            rollbackTransaction();
-            System.out.println("Commit transaction error: " + e);
-        }
-//        getSession().getTransaction().commit();
+//        Transaction tx = (Transaction) curTransaction.get();
+//        try {
+//            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
+//                tx.commit();
+//                System.out.println("commit");
+//            }
+//            curTransaction.set(null);
+//        } catch (HibernateException e) {
+//            rollbackTransaction();
+//            System.out.println("Commit transaction error: " + e);
+//        }
+        getSession().getTransaction().commit();
     }
 
     /**
@@ -200,16 +193,16 @@ public static List<Country> CountryList() {
      */
     public static void rollbackTransaction() {
         System.out.println("Rollback transaction");
-        Transaction tx = (Transaction) curTransaction.get();
-        try {
-            curTransaction.set(null);
-            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
-                tx.rollback();
-            }
-        } catch (HibernateException e) {
-            System.out.println("Rollback transaction error: " + e);
-        }
-//        getSession().getTransaction().rollback();
+//        Transaction tx = (Transaction) curTransaction.get();
+//        try {
+//            curTransaction.set(null);
+//            if (tx != null && !tx.wasCommitted() && !tx.wasRolledBack()) {
+//                tx.rollback();
+//            }
+//        } catch (HibernateException e) {
+//            System.out.println("Rollback transaction error: " + e);
+//        }
+        getSession().getTransaction().rollback();
     }
 
     /**
