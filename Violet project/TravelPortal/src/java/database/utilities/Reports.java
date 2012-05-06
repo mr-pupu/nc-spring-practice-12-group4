@@ -1,21 +1,32 @@
 package database.utilities;
+
 import database.mapping.Trf;
 import java.util.List;
 import org.hibernate.Session;
 
 public class Reports {
 
-       //TRF with current date
-        public static List CurrentTrf() {
+    //TRF with current date
+    public static List<Trf> CurrentTrf(Integer page, Integer num) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * "
-                + "from trf "
-                + "where begin_date<sysdate and end_date>sysdate ";
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).list();
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+        String prepared_statement = "select id,destination_id,customer_id,"
+                + "emp_id,begin_date,end_date, car_rental, pay_by_cash,"
+                + " cur_state, project_manager "
+                + "from (select rownum r, trf.* from trf "
+                + "where begin_date<sysdate and end_date>sysdate) "
+                + "where r>:from and r<:to";
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).list();
     }
 
-      //TRF with current date filter by office
-        public static List CurrentTrfSameOffice(String city, String country) {
+    //TRF with current date filter by office
+    public static List<Trf> CurrentTrfSameOffice(String city, String country, Integer page, Integer num) {
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "+ 
 //                "office on employee.office_id=office.id join city on  "+
@@ -24,21 +35,25 @@ public class Reports {
 //                "where country_name=:country  "+
 //                "and city_name=:city "+
 //                "and begin_date<(select sysdate from dual) and end_date>(select sysdate from dual) ";
-        
+
         String prepared_statement = "select id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "from trf_office " +
-                "where country_name=:country "+
-                "and city_name=:city "+
-                "and begin_date<sysdate and end_date>sysdate ";
-        
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("city", city).
+                + "begin_date, end_date, car_rental,pay_by_cash, cur_state, project_manager "
+                + "from (select rownum r, trf_office.* from trf_office "
+                + "where country_name=:country "
+                + "and city_name=:city "
+                + "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).setString("city", city).
                 setString("country", country).list();
     }
 
-        //TRF with current date filter by department
-        public static List CurrentTrfSameDepartment(String department) {
+    //TRF with current date filter by department
+    public static List<Trf> CurrentTrfSameDepartment(String department, Integer page, Integer num) {
         Session s = HibernateUtil.getSession();
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
 //        String prepared_statement = "select * "
 //                + "from trf "
 //                + "where begin_date<(select sysdate from dual) and end_date>(select sysdate from dual) "
@@ -47,16 +62,20 @@ public class Reports {
 //                + "from employee "
 //                + "where dep_id in (select id from department where dep_name=:department))";
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "FROM trf_department "
+                + "begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager "
+                + "FROM (select rownum r,trf_department.* "
+                + "from trf_department "
                 + "WHERE begin_date<sysdate AND end_date>sysdate "
-                + "AND dep_name = :department";
-        
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("department", department).list();
+                + "AND dep_name = :department) where r>:from and r<:to ";
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).
+                setString("department", department).list();
     }
 
-        //TRF with current date filter by department and office
-        public static List CurrentTrfSameDepartmentOffice(String city, String country, String department) {
+    //TRF with current date filter by department and office
+    public static List<Trf> CurrentTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "+ 
 //                "office on employee.office_id=office.id join city on  "+
@@ -67,23 +86,28 @@ public class Reports {
 //                "and city_name=:city "+
 //                "and begin_date<(select sysdate from dual) and end_date>(select sysdate from dual) "+
 //                "and dep_name=:department";
-        
-        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "FROM trf_department_office "
-                + "WHERE city_name = :city AND country_name = :country "
-                + "AND dep_name = :department "
-                + "AND begin_date < sysdate AND end_date > sysdate";
-        
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("city", city).
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id,  "
+                + " begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager  "
+                + "FROM (select rownum r,trf_department_office.*  "
+                + "from trf_department_office "
+                + "WHERE city_name =:city AND country_name = :country  "
+                + "AND dep_name =:department "
+                + "AND begin_date < sysdate AND end_date > sysdate) where r>:from and r<:to";
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).
+                setString("city", city).
                 setString("department", department).setString("country", country).list();
     }
-      
+
     //Excel Report Button
     //all TRFs with "Entering" state
     // with current year 
     //with the same country as logged employee
-     public static List CurrentStatSameCountry(Integer id) {
+    public static List<Trf> CurrentStatSameCountry(Integer id) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "
 //                + "office on employee.office_id=office.id join city on "
@@ -108,56 +132,84 @@ public class Reports {
                 + "FROM emp_office "
                 + "WHERE id = :id) ";
 
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).list();
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).list();
     }
 
     //planned trf with "Ready" current status
-    public static List PlannedTrf() {
-    Session s = HibernateUtil.getSession();
-        String prepared_statement = "select * "
-                + "from trf "
-                + "where begin_date>sysdate and cur_state=3 ";
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).list();
-     }
+    public static List<Trf> PlannedTrf(Integer page, Integer num) {
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
 
-     //planned trf with "Ready" current status + filter by department
-        public static List PlannedTrfSameDepartment(String department) {
         Session s = HibernateUtil.getSession();
-        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "FROM trf_department "
-                + "WHERE begin_date>sysdate AND cur_state=3 "
-                + "AND dep_name=:department";
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("department", department).list();
+        String prepared_statement = "select id,destination_id,customer_id, "
+                + "emp_id,begin_date,end_date, car_rental, "
+                + "pay_by_cash, cur_state, project_manager "
+                + "from (select rownum r, trf.* "
+                + " from trf "
+                + "where begin_date> sysdate and cur_state=3) "
+                + "where r>:from and r<:to";
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).
+                list();
     }
-        //planned trf with "Ready" current status + filter by department+filter by office
-        public static List PlannedTrfSameDepartmentOffice(String city, String country, String department) {
+
+    //planned trf with "Ready" current status + filter by department
+    public static List<Trf> PlannedTrfSameDepartment(String department, Integer page, Integer num) {
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "FROM trf_department_office "
-                + "WHERE begin_date > sysdate AND cur_state=3 "
-                + "AND dep_name=:department AND city_name=:city "
-                + "AND country_name=:country";
-                
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
-                setString("city", city).
+                + "begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager "
+                + "FROM (select rownum r, trf_department.* from trf_department "
+                + "WHERE begin_date>sysdate AND cur_state=3 "
+                + "AND dep_name=:department) where r>:from and r<:to";
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setInteger("from", from).
+                setInteger("to", to).setString("department", department).list();
+    }
+    //planned trf with "Ready" current status + filter by department+filter by office
+
+    public static List<Trf> PlannedTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+
+        Session s = HibernateUtil.getSession();
+        String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
+                + "begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager "
+                + "FROM (select rownum r, trf_department.* from trf_department "
+                + "WHERE begin_date>sysdate AND cur_state=3 "
+                + "AND dep_name=:department "
+                + "AND city_name=:city "
+                + "AND country_name=:country) "
+                + "where r>:from and r<:to";
+
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).
+                setString("city", city).setInteger("from", from).
+                setInteger("to", to).
                 setString("country", country).
                 setString("department", department).list();
     }
-        //planned trf with "Ready" current status + filter by office
-        public static List PlannedTrfSameOffice(String city, String country) {
+    //planned trf with "Ready" current status + filter by office
+
+    public static List<Trf> PlannedTrfSameOffice(String city, String country, Integer page, Integer num) {
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
-                + "FROM trf_office "
-                + "WHERE begin_date>sysdate AND cur_date=3 "
-                + "AND city_name=:city AND country_name=:country";
-                
-        return (List) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("city", city).setString("country", country).list();
+                + "begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager "
+                + "FROM (select rownum r, trf_office.* from trf_office "
+                + "WHERE begin_date>sysdate AND cur_state=3 "
+                + "AND city_name=:city AND country_name=:country) where r>:from and r<:to";
+
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("from", from).
+                setInteger("to", to).setString("city", city).setString("country", country).list();
     }
-        
-        //location of offices
+
+    //location of offices
     public static List GetOfficesLocation() {
         Session s = HibernateUtil.getSession();
 //        String stmt = "select country_name as country, city.city_name as name "
@@ -179,5 +231,4 @@ public class Reports {
 //        return res;
         return (List) s.createSQLQuery(stmt).list();
     }
-
 }
