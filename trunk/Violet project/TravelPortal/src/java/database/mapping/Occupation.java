@@ -1,5 +1,5 @@
 package database.mapping;
-// Generated Apr 27, 2012 12:30:04 PM by Hibernate Tools 3.2.1.GA
+// Generated May 7, 2012 12:41:52 AM by Hibernate Tools 3.2.1.GA
 
 import java.util.HashSet;
 import java.util.Set;
@@ -30,6 +30,8 @@ public class Occupation implements java.io.Serializable {
     }
 
     @Id
+    @SequenceGenerator(name = "occupation_id", sequenceName = "occupation_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "occupation_id")
     @Column(name = "ID", unique = true, nullable = false, precision = 10, scale = 0)
     public long getId() {
         return this.id;
