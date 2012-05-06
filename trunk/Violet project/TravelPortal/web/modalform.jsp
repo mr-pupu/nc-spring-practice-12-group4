@@ -3,7 +3,7 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <fmt:setBundle
     basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
-<div id="myModal" class="modal hide fade">
+<div id="myModal" class="modal hide fade" style="width: 750px; margin: -250px 0 -0 -380px;">
     <div class="modal-header">
         <a href="#" class="close" data-dismiss="modal">&times;</a>
         <h3>
@@ -27,11 +27,12 @@
                     <div class="accordion-inner">
                         <form class="form-horizontal">
 
-                            <table class="table table-condensed">
+                            <table cellspacing="10">
                                 <tbody>
-                                    <tr>
+                                    <tr style="height : 30px;">
                                         <td><fmt:message key="modal.form.employeeName" /></td>
                                         <td id="employee"></td>
+                                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                         <td><fmt:message key="modal.form.office" /></td>
                                         <td id="office"></td>
                                     </tr>
@@ -39,65 +40,62 @@
                                         <td><fmt:message key="modal.form.departureDate" /></td>
                                         <td>
                                             <div class="input-append" rel="calendarDiv">
-                                                <input class="span2" id="beginDate" size="16" type="text"><span
+                                                <input style="width : 70px;" id="beginDate" size="16" type="text"><span
                                                     class="add-on"><i class="icon-calendar"></i></span>
                                             </div>                              
                                         </td>
+                                        <td></td>
                                         <td><fmt:message key="modal.form.returnDate" /> :</td>
                                         <td>
                                             <div class="input-append" rel="calendarDiv">
-                                                <input class="span2" id="endDate" size="16" type="text"><span
+                                                <input style="width : 70px;" id="endDate" size="16" type="text"><span
                                                     class="add-on"><i class="icon-calendar"></i></span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.destinationCountry" /></td>
-                                        <td><select class="combobox span3" id="country">
+                                        <td><select class="combobox" style="width : 180px;" id="country">
                                             </select></td>
+                                        <td></td>
                                         <td><fmt:message key="modal.form.destinationCity" /></td>
-                                        <td><select class="combobox" id="city">
+                                        <td><select class="combobox" style="width : 180px;" id="city">
                                             </select></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.lineManager" /> :</td>
                                         <td id="lineManager"></td>
+                                        <td></td>
                                         <td><fmt:message key="modal.form.projectManager" /></td>
                                         <td <c:if test="${!deproles.contains('Travel Department')}">
                                                 disabled
-                                            </c:if> ><select class="combobox" id="projectManager">
+                                            </c:if> ><select class="combobox" style="width : 180px;" id="projectManager">
                                             </select></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.hotelName" /> :</td>
-                                        <td><input type="text" class="span2" id="hotelName"></td>
+                                        <td><input type="text" style="width : 170px;" id="hotelName"></td>           
+                                        <td></td>
                                         <td><fmt:message key="modal.form.hotelWebSite" /> :</td>
-                                        <td><input type="text" class="span2" id="hotelSite"></td>
+                                        <td><input type="text" style="width : 170px;" id="hotelSite"></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.customer" /></td>
-                                        <td><select class="combobox" id="customer">
+                                        <td><select class="combobox" style="width : 180px;" id="customer">
                                             </select></td>
                                         <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td><label class="checkbox">
                                                 <input type="checkbox" <c:if test="${!deproles.contains('Travel Department')}">
                                                        disabled
                                                     </c:if> id="car"/><fmt:message key="modal.form.car" />
-                                            </label>
-                                        </td>
-                                        <td></td>
+                                            </label></td>
                                         <td><label class="checkbox">
                                                 <input type="checkbox" id="payByCash"/><fmt:message key="modal.form.payByCash" />
-                                            </label>
-                                        </td>
-                                        <td></td>
+                                            </label></td>
                                     </tr>
                                 </tbody>
                             </table>
-
+                                            <br><br><br>
                         </form>
                     </div>
                 </div>
