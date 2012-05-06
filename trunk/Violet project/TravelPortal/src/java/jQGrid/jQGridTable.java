@@ -9,10 +9,16 @@ import database.utilities.EmployeeDesktop;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -30,56 +36,65 @@ public class jQGridTable extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       PrintWriter out = response.getWriter();
-       try {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response){
+          
+          
+      
           if (request.getParameter("action").equals("fetchData")) {
-                response.setContentType("text/xml;charset=UTF-8");                
+         
+                response.setContentType("application/json;charset=UTF-8");                
+                        String dep = request.getParameter("dep"); 
+                        String id = request.getParameter("id"); 
+                       
+                      //  System.out.print(dep);
+                        List trfs=EmployeeDesktop.EmpTRFs(Integer.parseInt(id));
+                       List cells = new ArrayList();
+                      
 
-                String status = request.getParameter("status");
+  JSONObject json = new JSONObject();
+  json.put("total",trfs.size());
+  json.put("page",1);
+  json.put("records",10);
+  //{"total": ,"page": ,"records": ,"rows": [{"id": ,"cell":["value"]}]}
+  //json .put("rows",rows);
+  
+  for(int i=0;i<trfs.size();i++){
+      JQGridRow row=new JQGridRow();
+      for(int j=0; j<trfs.size();j++){
+        row.setId(j);
+      
+      cells.add(trfs.get(j).toString());
+      cells.add(trfs.get(j).toString());
+      cells.add(trfs.get(j).toString());
+      cells.add(trfs.get(j).toString());
+      cells.add(trfs.get(j).toString());
+      }
+     row.setCell(cells);
+     json.put("row", row);
+  }
+          }
+         
+// List rows = new ArrayList();
+//  for (int i=0; i<AdministratorDesktop.EmpNameForDep(dep).size();i++){
+//      JQGridRow row = new JQGridRow();
+//row.setId(i);
+//List cells = new ArrayList();
+//cells.add(i);
+//cells.add(2);
+//cells.add(i);
+//cells.add(2);
+//cells.add(i);
+//row.setCell(cells);
+//rows.add(row);
+//}
+//    
+//}
+//  json.put("rows", rows);
 
-                String rows = request.getParameter("rows");
-                String page = request.getParameter("page");
-                String dep = request.getParameter("dep");
 
-                int totalPages = 0;
-                int totalCount = 15;
-                
-                if (totalCount > 0) {
-                    if (totalCount % Integer.parseInt(rows) == 0) {
-                        totalPages = totalCount / Integer.parseInt(rows);
-                    } else {
-                        totalPages = (totalCount / Integer.parseInt(rows)) + 1;
-                    }
 
-                } else {
-                    totalPages = 0;
-                }
-                out.print("<?xml version='1.0' encoding='utf-8'?>\n");
-                out.print("<rows>");
-                out.print("<page>" + request.getParameter("page") + "</page>");
-
-                out.print("<total>" + totalPages + "</total>");
-                out.print("<records>" + 15 + "</records>");
-                int srNo = 1;
-                
-                for (int i=0;i<AdministratorDesktop.EmpNameForDep(dep).size();i++) {
-                    out.print("<row id='" + i + "'>");
-                    out.print("<cell>" + srNo + "</cell>");
-                    out.print("<cell>"+AdministratorDesktop.EmpNameForDep(dep).get(i).toString()+"</cell>");
-                    out.print("<cell>"+"3"+"</cell>");
-                    out.print("<cell><![CDATA[<a href='View.jsp'>Personal Info</a>]]></cell>");
-                    out.print("</row>");
-                    srNo++;                
-                }
-                out.print("</rows>");
-            }
-
-        } finally {
-            out.close();
-        }
-    }
+       
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -121,4 +136,5 @@ public class jQGridTable extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+}
 }
