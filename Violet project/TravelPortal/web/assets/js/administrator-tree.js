@@ -64,7 +64,7 @@ $(function() {
             //            document.getElementById("a").setAttribute("href", '#'+id);
             jQuery("#emptable").jqGrid('setGridParam', 
             {
-                url: getContextPath() + "/ajaxemployeehandle?id=" + id + "&page=1"
+                url: getContextPath() + "/ajaxemployeehandle?id=" + id
                 }).trigger("reloadGrid");
             setCheckBoxes(id);
         }
