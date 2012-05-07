@@ -160,10 +160,10 @@ Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSI
 
 REM INSERTING into DESTINATION
 SET DEFINE OFF;
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (1,1,'Hayat','hayat.com');
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (2,2,'Hilton','hilton.com');
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (3,3,'Downtown','downtown.com');
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE) values (4,5,'Brown','brown.com');
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (1,1,'Hayat','hayat.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (2,2,'Hilton','hilton.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (3,3,'Downtown','downtown.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (4,5,'Brown','brown.com',0);
 REM INSERTING into DEPROLE
 SET DEFINE OFF;
 Insert into DEPROLE (ID,ROLE_NAME) values (1,'Common Department');

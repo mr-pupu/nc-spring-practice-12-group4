@@ -10,8 +10,17 @@ DROP TABLE occupation;
 DROP TABLE city;
 DROP TABLE country;
 DROP TABLE deprole;
+DROP SEQUENCE department_id_seq;
+DROP SEQUENCE occupation_id_seq;
+DROP SEQUENCE employee_id_seq;
+DROP SEQUENCE office_id_seq;
+DROP SEQUENCE destination_id_seq;
+DROP SEQUENCE customer_id_seq;
 DROP SEQUENCE trf_id_seq;
 DROP SEQUENCE trfstate_id_seq;
+DROP SEQUENCE country_id_seq;
+DROP SEQUENCE city_id_seq;
+DROP SEQUENCE deprole_id_seq;
 
 --Creating tables:
 CREATE TABLE country(
@@ -26,6 +35,7 @@ CREATE TABLE city(
   country_id NUMERIC(10),
  CONSTRAINT city_id_pk PRIMARY KEY(id),
  CONSTRAINT country_country_id_fk FOREIGN KEY(country_id) REFERENCES country(id)
+ ON DELETE SET NULL
 );
 
 CREATE TABLE office(
@@ -34,6 +44,7 @@ CREATE TABLE office(
   city_id NUMERIC(10),
  CONSTRAINT office_id_pk PRIMARY KEY(id),
  CONSTRAINT office_city_id_fk FOREIGN KEY(city_id) REFERENCES city(id)
+ ON DELETE SET NULL
 );
 
 CREATE TABLE occupation(
@@ -54,15 +65,16 @@ CREATE TABLE department(
   parent_id numeric(10),
   manager_id NUMERIC(10),
  CONSTRAINT department_id_pk PRIMARY KEY(id),
- CONSTRAINT department_parent_id FOREIGN KEY(parent_id) REFERENCES department(id) on delete CASCADE,
+ CONSTRAINT department_parent_id FOREIGN KEY(parent_id) REFERENCES department(id),
  CONSTRAINT department_manager_id_uk UNIQUE(manager_id)
 );
 
 CREATE TABLE roledep(
   role_id NUMERIC(10),
   dep_id NUMERIC(10),
- CONSTRAINT roledep_role_id_fk FOREIGN KEY(role_id) REFERENCES deprole(id),
- CONSTRAINT roledep_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id)
+ CONSTRAINT roledep_role_id_fk FOREIGN KEY(role_id) REFERENCES deprole(id)
+ ON DELETE CASCADE,
+ CONSTRAINT roledep_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id) ON DELETE CASCADE
 );
 
 CREATE TABLE employee(
@@ -76,9 +88,12 @@ CREATE TABLE employee(
   position_id numeric(10),
   office_id NUMERIC(10),
  CONSTRAINT employee_id_pk PRIMARY KEY(id),
- CONSTRAINT employee_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id),
- CONSTRAINT employee_position_id_fk FOREIGN KEY(position_id) REFERENCES occupation(id),
- CONSTRAINT employee_office_id_fk FOREIGN KEY(office_id) REFERENCES office(id),
+ CONSTRAINT employee_dep_id_fk FOREIGN KEY(dep_id) REFERENCES department(id)
+ ON DELETE SET NULL,
+ CONSTRAINT employee_position_id_fk FOREIGN KEY(position_id) REFERENCES occupation(id)
+ ON DELETE SET NULL,
+ CONSTRAINT employee_office_id_fk FOREIGN KEY(office_id) REFERENCES office(id)
+ ON DELETE SET NULL,
  CONSTRAINT employee_login_uk UNIQUE(login)
 );
 
@@ -87,8 +102,10 @@ CREATE TABLE destination(
   city_id NUMERIC(10),
   hotelname varchar2(30),
   hotelsite varchar2(100),
+  is_approved char check (is_approved in (0,1)),
  CONSTRAINT destination_id_pk PRIMARY KEY(id),
  CONSTRAINT destination_dest_city_id_fk FOREIGN KEY(city_id) REFERENCES city(id)
+ ON DELETE CASCADE
 );
 
 CREATE TABLE customer(
@@ -109,10 +126,14 @@ CREATE TABLE trf(
   cur_state NUMERIC(1),
   project_manager NUMERIC(10),
  CONSTRAINT trf_id_pk PRIMARY KEY(id),
- CONSTRAINT trf_destination_id_fk FOREIGN KEY (destination_id) REFERENCES destination(id),
- CONSTRAINT trf_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id),
- CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id),
+ CONSTRAINT trf_destination_id_fk FOREIGN KEY (destination_id) REFERENCES destination(id)
+ ON DELETE SET NULL,
+ CONSTRAINT trf_customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id)
+ ON DELETE SET NULL,
+ CONSTRAINT trf_emp_id_fk FOREIGN KEY (emp_id) REFERENCES employee(id)
+ ON DELETE CASCADE,
  CONSTRAINT trf_project_manager FOREIGN KEY(project_manager) references employee(id)
+ ON DELETE SET NULL
 );
 
 CREATE TABLE trfstate(
@@ -124,11 +145,36 @@ CREATE TABLE trfstate(
   changer numeric(10),
  CONSTRAINT trfstate_id_pk PRIMARY KEY(id),
  CONSTRAINT trfstate_trf_id_fk FOREIGN KEY(trf_id) REFERENCES trf(id)
+ ON DELETE CASCADE
 );
 
 
 --Creating sequences:
 --//start with = (number of inserted rows in export2.sql)+1;
+CREATE SEQUENCE department_id_seq
+INCREMENT BY 1
+START WITH 28;
+
+CREATE SEQUENCE occupation_id_seq
+INCREMENT BY 1
+START WITH 7;
+
+CREATE SEQUENCE employee_id_seq
+INCREMENT BY 1
+START WITH 82;
+
+CREATE SEQUENCE office_id_seq
+INCREMENT BY 1
+START WITH 6;
+
+CREATE SEQUENCE destination_id_seq
+INCREMENT BY 1
+START WITH 5;
+
+CREATE SEQUENCE customer_id_seq
+INCREMENT BY 1
+START WITH 4;
+
 CREATE SEQUENCE trf_id_seq
 INCREMENT BY 1
 START WITH 6;
@@ -137,9 +183,22 @@ CREATE SEQUENCE trfstate_id_seq
 INCREMENT BY 1
 START WITH 12;
 
+CREATE SEQUENCE country_id_seq
+INCREMENT BY 1
+START WITH 3;
+
+CREATE SEQUENCE city_id_seq
+INCREMENT BY 1
+START WITH 6;
+
+CREATE SEQUENCE deprole_id_seq
+INCREMENT BY 1
+START WITH 4;
+
 
 --Creating triggers:
-CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
+
+/*CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
     BEFORE INSERT ON "DEPARTMENT"
     FOR EACH ROW
     DECLARE
@@ -162,52 +221,38 @@ BEGIN
         :NEW.ID := dummy;
     END IF;
 END;
+/*/
+
+CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
+    BEFORE INSERT ON "DEPARTMENT"
+    FOR EACH ROW
+BEGIN
+    IF :NEW.ID IS NULL THEN
+        SELECT "DEPARTMENT_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
+    END IF;
+END;
 /
 
 CREATE OR REPLACE TRIGGER "OCCUPATION_ID_TRIGGER"
     BEFORE INSERT ON "OCCUPATION"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM occupation
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "OCCUPATION_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
     
+    
 CREATE OR REPLACE TRIGGER "EMPLOYEE_ID_TRIGGER"
     BEFORE INSERT ON "EMPLOYEE"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM employee
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "EMPLOYEE_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -215,23 +260,10 @@ END;
 CREATE OR REPLACE TRIGGER "OFFICE_ID_TRIGGER"
     BEFORE INSERT ON "OFFICE"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM office
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+   BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "OFFICE_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -239,23 +271,10 @@ END;
 CREATE OR REPLACE TRIGGER "DESTINATION_ID_TRIGGER"
     BEFORE INSERT ON "DESTINATION"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM destination
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "DESTINATION_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -263,23 +282,10 @@ END;
 CREATE OR REPLACE TRIGGER "CUSTOMER_ID_TRIGGER"
     BEFORE INSERT ON "CUSTOMER"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM customer
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "CUSTOMER_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -311,23 +317,10 @@ END;
 CREATE OR REPLACE TRIGGER "COUNTRY_ID_TRIGGER"
     BEFORE INSERT ON "COUNTRY"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM country
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "COUNTRY_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -335,23 +328,10 @@ END;
 CREATE OR REPLACE TRIGGER "CITY_ID_TRIGGER"
     BEFORE INSERT ON "CITY"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM city
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "CITY_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
@@ -359,97 +339,16 @@ END;
 CREATE OR REPLACE TRIGGER "DEPROLE_ID_TRIGGER"
     BEFORE INSERT ON "DEPROLE"
     FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        CURSOR dummy_cursor (checked_id NUMBER) IS
-        SELECT id FROM deprole
-        where id=checked_id;
-BEGIN
-    dummy := 1;
-    open dummy_cursor (dummy);
-    fetch dummy_cursor into dummy;
-    while (dummy_cursor%FOUND) loop
-        dummy:=dummy+1;
-        close dummy_cursor;
-        open dummy_cursor (dummy);
-        fetch dummy_cursor into dummy;
-    end loop;
+    BEGIN
     IF :NEW.ID IS NULL THEN
-        :NEW.ID :=dummy;
+        SELECT "DEPROLE_ID_SEQ".NEXTVAL INTO :NEW.ID
+        FROM DUAL;
     END IF;
 END;
 /
 
---manager trigger by Oleg Lunin
-CREATE OR REPLACE TRIGGER "MANAGER_TRIGGER"
-    BEFORE INSERT OR UPDATE OF "MANAGER_ID" ON "DEPARTMENT"
-    FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        managers_exist EXCEPTION;
-        no_managers_exist EXCEPTION;
-        empid NUMBER;
-        olddep NUMBER;
-        CURSOR dummy_cursor (dep NUMBER, depnum NUMBER) IS
-        SELECT id FROM employee WHERE id=dep AND dep_id=depnum;
-BEGIN
-    empid := :NEW.MANAGER_ID;
-    olddep := :NEW.ID;
---if we delete, or remove the manager by updating, check if there are managers left
---if not - rollback
-    IF NOT(:NEW.MANAGER_ID IS NULL) THEN
-        OPEN dummy_cursor(empid, olddep);
-        FETCH dummy_cursor INTO dummy;
-        IF dummy_cursor%FOUND THEN
-            RAISE managers_exist;
-        ELSE
-            RAISE no_managers_exist;
-        END IF;
-        CLOSE dummy_cursor;
-    END IF;
-    EXCEPTION
-        WHEN managers_exist THEN
-        CLOSE dummy_cursor;
-        WHEN no_managers_exist THEN
-        CLOSE dummy_cursor;
-        Raise_application_error(-20034, 'Error! The employee you are appointing as manager 
-        is either nonexistent or belonging to another department');
-END;
-/
 
---changer trigger by Oleg Lunin
-CREATE OR REPLACE TRIGGER "CHANGER_TRIGGER"
-    BEFORE INSERT OR UPDATE OF "CHANGER" ON "TRFSTATE"
-    FOR EACH ROW
-    DECLARE
-        dummy INTEGER;
-        managers_exist EXCEPTION;
-        no_managers_exist EXCEPTION;
-        empid NUMBER;
-        CURSOR dummy_cursor (dep NUMBER) IS
-        SELECT id FROM employee WHERE id=dep;
-BEGIN
-    empid := :NEW.CHANGER;
---if we delete, or remove the manager by updating, check if there are managers left
---if not - rollback
-    IF NOT(:NEW.CHANGER IS NULL) THEN
-        OPEN dummy_cursor(empid);
-        FETCH dummy_cursor INTO dummy;
-        IF dummy_cursor%FOUND THEN
-            RAISE managers_exist;
-        ELSE
-            RAISE no_managers_exist;
-        END IF;
-        CLOSE dummy_cursor;
-    END IF;
-    EXCEPTION
-        WHEN managers_exist THEN
-        CLOSE dummy_cursor;
-        WHEN no_managers_exist THEN
-        CLOSE dummy_cursor;
-        Raise_application_error(-20034, 'Error! Trying to set nonexistent employee trf editor');
-END;
-/
+
 
 --password hashing trigger by Allan Farfur
 CREATE OR REPLACE TRIGGER "PASSWORD_HASH_TRIGGER"
