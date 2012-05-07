@@ -11,11 +11,12 @@ $(function() {
     
     jQuery("#emptable").jqGrid(
     {
-        url:getContextPath() + "/ajaxemployeehandle?id=1&page="+$("#emptable").getGridParam('selrow'),
+        url:getContextPath() + "/ajaxemployeehandle?id=1",
         datatype : "json",
-        height : 222,
+        height : 'auto',
+        mtype: "POST",
         rowNum:10, //Number of records we want to show per page
-        //rowList:[10,25,50,100], //Row List, to allow user to select how many rows they want to see per page
+        rowList:[10,25,50,100], //Row List, to allow user to select how many rows they want to see per page
         colNames : ['Name', 'Position'],
         colModel : [
         {
@@ -25,8 +26,10 @@ $(function() {
         }, {
             name : 'position',
             index : 'position',
-            width : 250
+            width : 350
         }],
+        //        autowidth: true,
+        scrollOffset:0,
         viewrecords: true,
         jsonReader: {
             //                root: 'rows',
@@ -46,51 +49,19 @@ $(function() {
         },
         pager: $('#divid')
     });
-    //        var mydata = [ {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            }, {
-    //                name : ' ',
-    //                position: ' '
-    //            } ];
-    //        for ( var i = 0; i <= mydata.length; i++)
-    //            jQuery("#emptable").jqGrid('addRowData', i + 1, mydata[i]);
     var myGrid = jQuery("#emptable");
     $("#cb_"+myGrid[0].id).hide();
         
     $("#emptable").jqGrid('navGrid','#divid',
     {
+        //        modal:true,
         edit:false,
         add:false,
         del:false, 
-        search:true,
-        refresh: true,
-        searchtext:"Search",
-        refreshtext: "Refresh",
-        'cloneToTop':true
+        search:false,
+        refresh: true
+//        searchtext:"Search",
+//        refreshtext: "Refresh"
+//        'cloneToTop':true
     }); 
 });
