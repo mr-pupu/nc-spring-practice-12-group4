@@ -3,17 +3,17 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
 
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Bootstrap, from Twitter</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8">
+            <title>Bootstrap, from Twitter</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="">
+            <meta name="author" content="">
 
-        <!-- Le styles -->
-        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+            <!-- Le styles -->
+            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
               rel="stylesheet">
         <style type="text/css">
             body {
@@ -22,8 +22,8 @@
             }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/path.js">
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/adminjs/remove.js">
@@ -62,6 +62,7 @@
     <c:import url="menu.jsp">
         <c:param name="page" value="administrator"></c:param>
     </c:import>
+
     <div class="container">
         <div class="container-fluid">
             <div class="row-fluid">

@@ -16,12 +16,12 @@ $(function() {
         height : "auto",
         multiselect: 'true',
         mtype:'POST',
-//        subGrid: 'true',
-//        subGridOptions: {
-//            "plusicon" : "ui-icon-triangle-1-e", 
-//            "minusicon" : "ui-icon-triangle-1-s", 
-//            "openicon" : "ui-icon-arrowreturn-1-e"
-//        },
+        //        subGrid: 'true',
+        //        subGridOptions: {
+        //            "plusicon" : "ui-icon-triangle-1-e", 
+        //            "minusicon" : "ui-icon-triangle-1-s", 
+        //            "openicon" : "ui-icon-arrowreturn-1-e"
+        //        },
         colNames : ['id', 'name' ],
         colModel : [ {
             name : 'id',
@@ -58,13 +58,15 @@ $(function() {
         ExpandColumn: 'name', 
         ExpandColClick: true,
         tree_root_level: 0,
-        //pager:"#tree",
+        pager:"#tree",
         autowidth: true,
         onSelectRow: function(id){
-//            document.getElementById("a").setAttribute("href", '#'+id);
-        jQuery("#emptable").jqGrid('setGridParam', 
-        {url: getContextPath() + "/ajaxemployeehandle?id=" + id}).trigger("reloadGrid");
-        setCheckBoxes(id);
+            //            document.getElementById("a").setAttribute("href", '#'+id);
+            jQuery("#emptable").jqGrid('setGridParam', 
+            {
+                url: getContextPath() + "/ajaxemployeehandle?id=" + id + "&page=1"
+                }).trigger("reloadGrid");
+            setCheckBoxes(id);
         }
     })
     $("#tree").jqGrid('navGrid','#tree',
@@ -80,20 +82,19 @@ $(function() {
     }); 
 });
 
-/*function setCheckboxes(id){
-    
-    $.getJSON(getContextPath() + "/checkboxeshandle", function setc);
-    var size=3;
-    $.each(i){
-        
-    }
-    $.each(data, function(key, value) { 
-        string += '[' + key + ',' + value + '] ';
-        document.getElementById("").setAttribute("href", '#'+id);
-    });
-    return 0;
-}*/
-
+//function setCheckboxes(id){
+//    
+//    /*$.getJSON(getContextPath() + "/checkboxeshandle", function setc);
+//    var size=3;
+//    $.each(i){*/
+//        
+//    }
+//    $.each(data, function(key, value) { 
+//        string += '[' + key + ',' + value + '] ';
+//        document.getElementById("").setAttribute("href", '#'+id);
+//    });
+//    return 0;
+//}
 
         
         
