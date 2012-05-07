@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>TravelPortal</display-name>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>TravelPortal</display-name>
     <servlet>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
@@ -42,6 +42,38 @@
         <url-pattern>/ajaxtrfshandle</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AJAXCitiesHandler</servlet-name>
+        <servlet-class>servlets.ajax.AJAXCitiesHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AJAXTrfsProcess</servlet-name>
+        <servlet-class>servlets.ajax.AJAXTrfsProcess</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AJAXHotelsHandler</servlet-name>
+        <servlet-class>servlets.ajax.AJAXHotelsHandler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AJAXDestinationCreation</servlet-name>
+        <servlet-class>servlets.ajax.AJAXDestinationCreation</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXCitiesHandler</servlet-name>
+        <url-pattern>/ajaxcities</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AJAXTrfsProcess</servlet-name>
+        <url-pattern>/ajaxtrfsprocess</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AJAXHotelsHandler</servlet-name>
+        <url-pattern>/ajaxhotels</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AJAXDestinationCreation</servlet-name>
+        <url-pattern>/ajaxdest</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AJAXEmployeeHandler</servlet-name>
         <servlet-class>servlets.ajax.AJAXEmployeeHandler</servlet-class>
     </servlet>
@@ -49,7 +81,7 @@
         <servlet-name>AJAXEmployeeHandler</servlet-name>
         <url-pattern>/ajaxemployeehandle</url-pattern>
     </servlet-mapping>
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>JQGridServlet</servlet-name>
         <url-pattern>/JQGridServlet</url-pattern>
     </servlet-mapping>
@@ -57,15 +89,15 @@
         <servlet-name>jQGridTable</servlet-name>
         <url-pattern>/jQGridTable</url-pattern>
     </servlet-mapping>
-  <welcome-file-list>
-    <welcome-file>index</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <description></description>
-    <display-name>MainHandler</display-name>
-    <servlet-name>MainHandler</servlet-name>
-    <servlet-class>servlets.MainHandler</servlet-class>
-  </servlet>
+    <welcome-file-list>
+        <welcome-file>index</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <description/>
+        <display-name>MainHandler</display-name>
+        <servlet-name>MainHandler</servlet-name>
+        <servlet-class>servlets.MainHandler</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>JQGridServlet</servlet-name>
         <servlet-class>servlets.JQGridServlet</servlet-class>
@@ -74,128 +106,128 @@
         <servlet-name>jQGridTable</servlet-name>
         <servlet-class>jQGrid.jQGridTable</servlet-class>
     </servlet>
-  <servlet-mapping>
-    <servlet-name>MainHandler</servlet-name>
-    <url-pattern>/index</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>AuthHandler</display-name>
-    <servlet-name>AuthHandler</servlet-name>
-    <servlet-class>servlets.AuthHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AuthHandler</servlet-name>
-    <url-pattern>/auth</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>QuitHandler</display-name>
-    <servlet-name>QuitHandler</servlet-name>
-    <servlet-class>servlets.QuitHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>QuitHandler</servlet-name>
-    <url-pattern>/quit</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ServletHandler</display-name>
-    <servlet-name>ServletHandler</servlet-name>
-    <servlet-class>servlets.ServletHandler</servlet-class>
-  </servlet>
-  <filter>
-    <display-name>LocaleCheck</display-name>
-    <filter-name>LocaleCheck</filter-name>
-    <filter-class>filters.LocaleCheck</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LocaleCheck</filter-name>
-    <url-pattern>*</url-pattern>
-  </filter-mapping>
-  <servlet>
-    <description></description>
-    <display-name>TrfsHandler</display-name>
-    <servlet-name>TrfsHandler</servlet-name>
-    <servlet-class>servlets.TrfsHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>TrfsHandler</servlet-name>
-    <url-pattern>/trfs</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>ReportsHandler</display-name>
-    <servlet-name>ReportsHandler</servlet-name>
-    <servlet-class>servlets.ReportsHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ReportsHandler</servlet-name>
-    <url-pattern>/reports</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>AdministratorHandler</display-name>
-    <servlet-name>AdministratorHandler</servlet-name>
-    <servlet-class>servlets.AdministratorHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>AdministratorHandler</servlet-name>
-    <url-pattern>/administrator</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>MyTrfsHandler</display-name>
-    <servlet-name>MyTrfsHandler</servlet-name>
-    <servlet-class>servlets.MyTrfsHandler</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MyTrfsHandler</servlet-name>
-    <url-pattern>/mytrfs</url-pattern>
-  </servlet-mapping>
-  <filter>
-    <display-name>TrfsAccess</display-name>
-    <filter-name>TrfsAccess</filter-name>
-    <filter-class>filters.TrfsAccess</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>TrfsAccess</filter-name>
-    <url-pattern>/trfs</url-pattern>
-  </filter-mapping>
-  <filter>
-    <display-name>MyTrfsAccess</display-name>
-    <filter-name>MyTrfsAccess</filter-name>
-    <filter-class>filters.MyTrfsAccess</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>MyTrfsAccess</filter-name>
-    <url-pattern>/mytrfs</url-pattern>
-  </filter-mapping>
-  <filter>
-    <display-name>AdministratorAccess</display-name>
-    <filter-name>AdministratorAccess</filter-name>
-    <filter-class>filters.AdministratorAccess</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>AdministratorAccess</filter-name>
-    <url-pattern>/administrator</url-pattern>
-  </filter-mapping>
-  <filter>
-    <display-name>ReportsAccess</display-name>
-    <filter-name>ReportsAccess</filter-name>
-    <filter-class>filters.ReportsAccess</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>ReportsAccess</filter-name>
-    <url-pattern>/reports</url-pattern>
-  </filter-mapping>
-  <filter>
-    <display-name>RedirectToIndex</display-name>
-    <filter-name>RedirectToIndex</filter-name>
-    <filter-class>filters.RedirectToIndex</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>RedirectToIndex</filter-name>
-    <url-pattern>*.jsp</url-pattern>
-  </filter-mapping>
+    <servlet-mapping>
+        <servlet-name>MainHandler</servlet-name>
+        <url-pattern>/index</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>AuthHandler</display-name>
+        <servlet-name>AuthHandler</servlet-name>
+        <servlet-class>servlets.AuthHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AuthHandler</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>QuitHandler</display-name>
+        <servlet-name>QuitHandler</servlet-name>
+        <servlet-class>servlets.QuitHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuitHandler</servlet-name>
+        <url-pattern>/quit</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>ServletHandler</display-name>
+        <servlet-name>ServletHandler</servlet-name>
+        <servlet-class>servlets.ServletHandler</servlet-class>
+    </servlet>
+    <filter>
+        <display-name>LocaleCheck</display-name>
+        <filter-name>LocaleCheck</filter-name>
+        <filter-class>filters.LocaleCheck</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LocaleCheck</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+    <servlet>
+        <description/>
+        <display-name>TrfsHandler</display-name>
+        <servlet-name>TrfsHandler</servlet-name>
+        <servlet-class>servlets.TrfsHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TrfsHandler</servlet-name>
+        <url-pattern>/trfs</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>ReportsHandler</display-name>
+        <servlet-name>ReportsHandler</servlet-name>
+        <servlet-class>servlets.ReportsHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportsHandler</servlet-name>
+        <url-pattern>/reports</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>AdministratorHandler</display-name>
+        <servlet-name>AdministratorHandler</servlet-name>
+        <servlet-class>servlets.AdministratorHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdministratorHandler</servlet-name>
+        <url-pattern>/administrator</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <description/>
+        <display-name>MyTrfsHandler</display-name>
+        <servlet-name>MyTrfsHandler</servlet-name>
+        <servlet-class>servlets.MyTrfsHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyTrfsHandler</servlet-name>
+        <url-pattern>/mytrfs</url-pattern>
+    </servlet-mapping>
+    <filter>
+        <display-name>TrfsAccess</display-name>
+        <filter-name>TrfsAccess</filter-name>
+        <filter-class>filters.TrfsAccess</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>TrfsAccess</filter-name>
+        <url-pattern>/trfs</url-pattern>
+    </filter-mapping>
+    <filter>
+        <display-name>MyTrfsAccess</display-name>
+        <filter-name>MyTrfsAccess</filter-name>
+        <filter-class>filters.MyTrfsAccess</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>MyTrfsAccess</filter-name>
+        <url-pattern>/mytrfs</url-pattern>
+    </filter-mapping>
+    <filter>
+        <display-name>AdministratorAccess</display-name>
+        <filter-name>AdministratorAccess</filter-name>
+        <filter-class>filters.AdministratorAccess</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AdministratorAccess</filter-name>
+        <url-pattern>/administrator</url-pattern>
+    </filter-mapping>
+    <filter>
+        <display-name>ReportsAccess</display-name>
+        <filter-name>ReportsAccess</filter-name>
+        <filter-class>filters.ReportsAccess</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ReportsAccess</filter-name>
+        <url-pattern>/reports</url-pattern>
+    </filter-mapping>
+    <filter>
+        <display-name>RedirectToIndex</display-name>
+        <filter-name>RedirectToIndex</filter-name>
+        <filter-class>filters.RedirectToIndex</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RedirectToIndex</filter-name>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
 </web-app>
