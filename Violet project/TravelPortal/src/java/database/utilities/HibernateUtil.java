@@ -6,6 +6,8 @@ package database.utilities;
 
 //import database.mapping.Employee;
 import database.mapping.Country;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.hibernate.*;
 import org.hibernate.cfg.AnnotationConfiguration;
@@ -37,56 +39,44 @@ public class HibernateUtil {
         }
     }
 
-    /**
-     * Return the employee of given id
-     *
-     * @param id
-     * @return
-     */
-    /*public static List getEmployee(Integer id) {
-        Session s = getSession();
-        String statement = "SELECT * "
-                + "FROM employee "
-                + "WHERE id=:id";
-        return (List) s.createSQLQuery(statement).addEntity(Employee.class).setInteger("id", id).list();
-    }*/
-public static List<Country> CountryList() {
+    public static List<Country> CountryList() {
         Session s = getSession();
         String query = "SELECT * "
                 + "FROM country";
         SQLQuery q = s.createSQLQuery(query);
-        return (List<Country>)q.addEntity(Country.class).list();
+        return (List<Country>) q.addEntity(Country.class).list();
     }
     //the list of occupations
-    public static List OccupationsList() {
+
+    public static List<String> OccupationsList() {
         Session s = getSession();
         String stmt = "select pos_name "
                 + "from occupation";
         SQLQuery query = s.createSQLQuery(stmt);
-        return (List) query.list();
+        return (List<String>) query.list();
     }
 
     //id of employee with given login
-    public static List EmpIdByLogin(String login) {
+    public static List<String> EmpIdByLogin(String login) {
         Session s = getSession();
         String prepared_statement = "select id "
                 + "from employee "
                 + "where login=:login";
-        return (List) s.createSQLQuery(prepared_statement).setString("login", login).list();
+        return (List<String>) s.createSQLQuery(prepared_statement).setString("login", login).list();
     }
 
     //ID of office in which given employee works
-    public static List EmpOffice(Integer emp_id) {
+    public static List<String> EmpOffice(Integer emp_id) {
         Session s = getSession();
         String prepared_statement = "select office_id "
                 + "from employee "
                 + "where id=:emp_id";
 
-        return (List) s.createSQLQuery(prepared_statement).setInteger("emp_id", emp_id).list();
+        return (List<String>) s.createSQLQuery(prepared_statement).setInteger("emp_id", emp_id).list();
     }
 
     //Deprole of employee with given login and password
-    public static List DepDeproleByLogin(String login, String password) {
+    public static List<String> DepDeproleByLogin(String login, String password) {
         Session s = getSession();
         String prepared_statement = "SELECT id, role_name "
                 + "FROM emp_role "
@@ -100,8 +90,18 @@ public static List<Country> CountryList() {
 //                + "join employee on employee.dep_id=department.id "
 //                + "where employee.login=:login";
 
-        return (List) s.createSQLQuery(prepared_statement).
+        ArrayList arrList = (ArrayList) s.createSQLQuery(prepared_statement).
                 setString("login", login).setString("password", password).list();
+
+        //editor : Vlad
+        //ArrayList<Objects[BigDecimal, String]>  =>  ArrayList<String>
+        ArrayList<String> outList = new ArrayList<String>();
+        for (Iterator it = arrList.iterator(); it.hasNext();) {
+            Object[] objects = (Object[]) it.next();
+            outList.add((String) objects[1]);
+        }
+
+        return outList;
     }
 
     public static SessionFactory getSessionFactory() {
@@ -114,7 +114,7 @@ public static List<Country> CountryList() {
      * @return Hibernate session instance
      */
     public static Session getSession() {
-       Session s = (Session) curSession.get();
+        Session s = (Session) curSession.get();
         try {
             if (s == null) {
                 s = sessionFactory.openSession();
@@ -136,8 +136,8 @@ public static List<Country> CountryList() {
      * Close current Hibernate session
      */
     public static void closeSession() {
-            Session s = (Session) curSession.get();
-            if (curSession != null) {
+        Session s = (Session) curSession.get();
+        if (curSession != null) {
             try {
                 if (s != null) {
                     s.close();
@@ -208,13 +208,17 @@ public static List<Country> CountryList() {
     /**
      * Save given object into database
      */
-    public static void save(Object o){
+    public static void save(Object o) {
+        Session s = getSession();
+        Transaction tx = s.beginTransaction();
         try {
-            beginTransaction();
-            getSession().saveOrUpdate(o);
-            commitTransaction();
+            tx.begin();
+            s.saveOrUpdate(o);
+            tx.commit();
         } catch (RuntimeException e) {
-            throw(e);
+            tx.rollback();
+            s.close();
+            System.out.println("Something went wrong");
         }
     }
 
@@ -222,13 +226,15 @@ public static List<Country> CountryList() {
      * Delete given object from database
      */
     public static void delete(Object o) {
+        Session s = getSession();
+        Transaction tx = s.beginTransaction();
         try {
-            beginTransaction();
-            getSession().delete(o);
-            commitTransaction();
+            s.delete(o);
+            tx.commit();
         } catch (RuntimeException e) {
             System.out.println("Exception while removing data " + e);
-            rollbackTransaction();
+            tx.rollback();
+            s.close();
         }
     }
 }

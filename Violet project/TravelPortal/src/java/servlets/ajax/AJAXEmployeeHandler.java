@@ -4,10 +4,8 @@
  */
 package servlets.ajax;
 
-import database.mapping.Employee;
 import database.utilities.AdministratorDesktop;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import org.json.simple.JSONObject;
  *
  * @author Merle
  */
-public class AJAXEmployeeHandler extends AJAXHandler {
+public class AJAXEmployeeHandler extends AJAXSendHandler {
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.

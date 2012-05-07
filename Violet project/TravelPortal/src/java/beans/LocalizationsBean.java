@@ -1,17 +1,16 @@
 package beans;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.nio.charset.Charset;
+import java.util.*;
 
 public class LocalizationsBean {
 	private static Map<String, String> localizations = new HashMap<String,String>();
 	private static String bundlePath = "localizations.text";
 	public LocalizationsBean(){
-		System.out.println("ololol");
+            
+                Locale.setDefault(new Locale("en", "US"));
+                System.out.println("Charset : " + Charset.defaultCharset().displayName());
+                
 		List<Locale> locales = new ArrayList<Locale>();
 		locales.add(new Locale("en", "EN"));   //default
 		locales.add(new Locale("ru", "RU"));

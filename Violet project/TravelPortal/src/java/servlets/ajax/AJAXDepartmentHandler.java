@@ -4,11 +4,7 @@
  */
 package servlets.ajax;
 
-import database.mapping.Department;
-import database.mapping.Trf;
-import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +15,7 @@ import org.json.simple.JSONObject;
  *
  * @author Gangbang34
  */
-public class AJAXDepartmentHandler extends AJAXHandler {
+public class AJAXDepartmentHandler extends AJAXSendHandler {
 
     /**
      * Processes requests for both HTTP
