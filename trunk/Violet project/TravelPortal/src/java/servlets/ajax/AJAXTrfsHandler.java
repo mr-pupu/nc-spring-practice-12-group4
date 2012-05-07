@@ -11,16 +11,20 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.Session;
 import org.json.simple.JSONObject;
 
 /**
  *
  * @author Merle
  */
-public class AJAXTrfsHandler extends AJAXHandler {
+public class AJAXTrfsHandler extends AJAXSendHandler {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,7 +36,8 @@ public class AJAXTrfsHandler extends AJAXHandler {
     }
 
     /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +46,8 @@ public class AJAXTrfsHandler extends AJAXHandler {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,11 +62,16 @@ public class AJAXTrfsHandler extends AJAXHandler {
         System.out.println("AJAXTrfEditHandler runned");
         String idString = request.getParameter("id");
         JSONObject jsonObject = new JSONObject();
-        if (idString != null){
+        if (idString != null) {
             try {
                 Long id = Long.parseLong(idString);
-                Trf trf = (Trf) HibernateUtil.getSession().get(Trf.class, (Long) id);
+                Session hibernateSession = HibernateUtil.getSession();
+                Trf trf = (Trf) hibernateSession.get(Trf.class, (Long) id);
                 if (trf != null) {
+
+                    request.getSession().setAttribute("hibernateSession", hibernateSession);
+                    request.getSession().setAttribute("trf", trf);
+
                     putEmployeeToJSON(jsonObject, trf.getEmployeeByEmpId());
                     putOfficeToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
 
@@ -69,16 +80,17 @@ public class AJAXTrfsHandler extends AJAXHandler {
                     putCitiesAndCountriesToJSON(jsonObject, trf.getDestination().getCity());
 
                     putLineManagerByEmployeeLogin(jsonObject, trf.getEmployeeByEmpId().getLogin());
-
                     putProjectManagerToJSON(jsonObject, trf.getEmployeeByProjectManager());
 
-                    jsonObject.put("hotelName", trf.getDestination().getHotelname());
-                    jsonObject.put("hotelSite", trf.getDestination().getHotelsite());
+                    jsonObject.put("destinationId", trf.getDestination().getId());
+                    putDestinationsToJSON(jsonObject, trf.getDestination().getCity());
 
-                    jsonObject.put("customerName", trf.getCustomer().getCustName());
+                    putCustomersToJSON(jsonObject, trf.getCustomer());
 
                     jsonObject.put("carRental", trf.getCarRental());
                     jsonObject.put("payByCash", trf.getPayByCash());
+
+                    jsonObject.put("state", trf.getCurState());
 
                     jsonObject.writeJSONString(response.getWriter());
                 } else {

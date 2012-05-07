@@ -3,7 +3,6 @@ package servlets.admin_servlets;
 
 import database.mapping.Department;
 import database.mapping.Deprole;
-import database.mapping.Employee;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.util.Set;
@@ -11,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.LockMode;
 import org.json.simple.JSONObject;
 import servlets.ServletHandler;
 
