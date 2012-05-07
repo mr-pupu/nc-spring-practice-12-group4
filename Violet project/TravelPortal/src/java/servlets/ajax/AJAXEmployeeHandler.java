@@ -19,8 +19,11 @@ import org.json.simple.JSONObject;
  */
 public class AJAXEmployeeHandler extends AJAXSendHandler {
 
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+    /**
+     * Processes requests for both HTTP
+     * <code>GET</code> and
+     * <code>POST</code> methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -32,7 +35,8 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
     }
 
     /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     * response)
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,7 +45,8 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
     }
 
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     * response)
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -56,17 +61,27 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
         System.out.println("AJAXEmployeeHandler runned");
         String idString = request.getParameter("id");
         String pageString = request.getParameter("page");
-        System.out.println("Page:"+pageString);
+        System.out.println("Page:" + pageString);
+        String recordString = request.getParameter("rows");
+        System.out.println("Records " + recordString);
         JSONObject jsonObject = new JSONObject();
-        if (idString != null){
+        if (idString != null) {
             try {
 //                AdministratorDesktop ad = new AdministratorDesktop();
                 Long id = Long.parseLong(idString);
+                int page = Integer.parseInt(pageString);
+                int rows = Integer.parseInt(recordString);
+                //total amount of entries
+                long count = AdministratorDesktop.CountEmpsInDepsAndSubdeps(id.intValue());
+                if ((page-1)*rows > count) {
+                    page = 1;
+                }
                 if (id != null) {
-                    String[][] emps = AdministratorDesktop.EmpNamePosForDepAndChildDep(id.intValue());
+//                    String[][] emps = AdministratorDesktop.EmpNamePosForDepAndChildDep(id.intValue());
+                    String[][] emps = AdministratorDesktop.SubsidiaryEmployeesPaged(id.intValue(), page, rows);
                     JSONArray ja = new JSONArray();
-                     
-                    for(int i=0; i<emps.length; i++){
+
+                    for (int i = 0; i < emps.length; i++) {
                         JSONObject jo = new JSONObject();
                         jo.put("id", emps[i][0].toString());
 //                        jo.put("id", String.valueOf(i+1));
@@ -78,12 +93,12 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
                         jo.put("cell", jaj);
                         ja.add(jo);
                     }
-                    int rows_per_page=10;
-                    
+                    int rows_per_page = 10;
+
                     jsonObject.put("rows", ja);
-                    jsonObject.put("records", emps.length);
-                    jsonObject.put("total", emps.length/rows_per_page +1);
-                    jsonObject.put("page", pageString);
+                    jsonObject.put("records", count);
+                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
+                    jsonObject.put("page", page);
                     System.out.println(jsonObject);
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
@@ -96,4 +111,3 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
         }
     }
 }
-
