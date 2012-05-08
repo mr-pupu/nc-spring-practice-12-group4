@@ -107,7 +107,7 @@ public class Reports {
     //all TRFs with "Entering" state
     // with current year 
     //with the same country as logged employee
-    public static List<Trf> CurrentStatSameCountry(Integer id) {
+    public static List<Trf> CurrentStatSameCountry(String login) {
         Session s = HibernateUtil.getSession();
 //        String prepared_statement = "select * from trf join employee on  trf.emp_id=employee.id join "
 //                + "office on employee.office_id=office.id join city on "
@@ -122,7 +122,7 @@ public class Reports {
 //                + "(extract (year from trf.begin_date))=(select to_char(sysdate,'yyyy') from dual) "
 //                + "and (extract (year from trf.end_date))=(select to_char(sysdate,'yyyy') from dual)";
         String prepared_statement = "SELECT id, destination_id, customer_id, emp_id, "
-                + "begin_date, end_date, car_rental, car_payment, cur_state, project_manager "
+                + "begin_date, end_date, car_rental, pay_by_cash, cur_state, project_manager "
                 + "FROM trf_office "
                 + "WHERE cur_state = 0 "
                 + "AND (extract (year from begin_date))=(select to_char(sysdate,'yyyy') from dual) "
@@ -130,9 +130,9 @@ public class Reports {
                 + "AND country_name = "
                 + "(SELECT country_name "
                 + "FROM emp_office "
-                + "WHERE id = :id) ";
+                + "WHERE login = :name) ";
 
-        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setInteger("id", id).list();
+        return (List<Trf>) s.createSQLQuery(prepared_statement).addEntity(Trf.class).setString("name", login).list();
     }
 
     //planned trf with "Ready" current status
