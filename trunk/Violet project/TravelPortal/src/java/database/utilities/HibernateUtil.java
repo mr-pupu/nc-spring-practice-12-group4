@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package database.utilities;
-
+import java.math.BigDecimal;
 //import database.mapping.Employee;
 import database.mapping.Country;
 import database.mapping.Occupation;
@@ -67,12 +67,14 @@ public class HibernateUtil {
     }
 
     //id of employee with given login
-    public static List<String> EmpIdByLogin(String login) {
+//edited by Merle
+    public static Long EmpIdByLogin(String login) {
         Session s = getSession();
         String prepared_statement = "select id "
                 + "from employee "
                 + "where login=:login";
-        return (List<String>) s.createSQLQuery(prepared_statement).setString("login", login).list();
+        List<BigDecimal> idslist = s.createSQLQuery(prepared_statement).setString("login", login).list();
+        return idslist.get(0).longValue();
     }
 
     //ID of office in which given employee works
