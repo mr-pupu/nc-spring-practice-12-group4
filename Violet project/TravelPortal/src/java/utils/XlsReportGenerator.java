@@ -12,7 +12,7 @@ import org.apache.poi.hssf.usermodel.*;
  * @author
  */
 public class XlsReportGenerator {
-    public static byte[] getReport(Integer empId)
+    public static byte[] getReport(String login)
     {
         HSSFWorkbook workbook = new HSSFWorkbook();
 
@@ -27,7 +27,7 @@ public class XlsReportGenerator {
         rowName.createCell(4).setCellValue("Date End");
         rowName.createCell(5).setCellValue("Current status");
 
-        List reportData = database.utilities.Reports.CurrentStatSameCountry(empId);
+        List reportData = database.utilities.Reports.CurrentStatSameCountry(login);
         DateFormat reportDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         for (int i = 0; i < reportData.size(); i++) {
