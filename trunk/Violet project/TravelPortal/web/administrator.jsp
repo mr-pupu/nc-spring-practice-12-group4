@@ -9,8 +9,8 @@
             <meta charset="utf-8">
             <title>Bootstrap, from Twitter</title>
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="">
-            <meta name="author" content="">
+            <meta name="description" content="administrative page">
+            <meta name="author" content="Allan">
 
             <!-- Le styles -->
             <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
@@ -36,6 +36,9 @@
     </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/employee-administrator-table.js">
+    </script>
+    <script type="text/javascript"
+        src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
     </script>
     <link
         href="<%=request.getContextPath()%>/assets/css/bootstrap-responsive.css"
@@ -102,8 +105,8 @@
                     <select class="combobox"  id="chief" >  </select>
                     <br>
                     <div align="right">
-                        <a data-toggle="modal" href="#myModal" class="btn btn-success">New</a>
-                        <a id="a" data-toggle="modal" href="#" class="btn btn-success">Edit</a>
+                        <a href="#editEmployeeModal" class="btn btn-success">New</a>
+                        <a id="a" href="#1" class="btn btn-success">Edit</a>
                         <button type="submit" 
                                 onclick="if(jQuery('#emptable').getGridParam('selrow')!=null){
                                 if (confirm('Confirm deletion?')) {
