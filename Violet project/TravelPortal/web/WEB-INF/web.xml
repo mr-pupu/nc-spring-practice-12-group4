@@ -5,6 +5,10 @@
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReportSaver</servlet-name>
+        <servlet-class>servlets.ReportSaver</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
@@ -88,6 +92,10 @@
     <servlet-mapping>
         <servlet-name>jQGridTable</servlet-name>
         <url-pattern>/jQGridTable</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportSaver</servlet-name>
+        <url-pattern>/ReportSaver</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index</welcome-file>
