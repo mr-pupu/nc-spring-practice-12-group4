@@ -34,6 +34,14 @@ function getEmployeeUsingAJAX(id){
     $.getJSON(getContextPath() + "/ajaxemployeeshandle?id="+id,
         function (data){
             fillEmployeeForm(data, id);
+            if(id>0){
+                $('#modalTitle').text('Employee editing');
+                $('#employeeCommit').text('Save changes');
+            }
+            else{
+                $('#modalTitle').text('Employee creating');
+                $('#employeeCommit').text('Create employee');
+            }
         });
     
 }
