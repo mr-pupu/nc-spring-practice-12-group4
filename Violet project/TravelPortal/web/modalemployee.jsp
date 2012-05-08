@@ -13,7 +13,7 @@
 			<fmt:message key="modal.employee.header" />
 		</h2>
 	</div>
-	<div class="modal-body">
+	<div class="modal-body" >
 		<table class="table table-condensed" >
 			<tbody >
 				<tr>
@@ -52,6 +52,6 @@
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn btn btn-success" onclick='processEmployee()'>Save changes</a> 
-                <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                <a href="#" class="btn" onclick="$('#editEmployeeModal').modal('hide')">Cancel</a>
 	</div>
 </div>
