@@ -92,12 +92,12 @@
                                             </select></td>
                                         <td></td>
                                         <td><label class="checkbox">
-                                                <input type="checkbox" <c:if test="${!deproles.contains('Travel Department')}">
-                                                       disabled
-                                                    </c:if> id="car"/><fmt:message key="modal.form.car" />
+                                                <input type="checkbox" id="car"/><fmt:message key="modal.form.car" />
                                             </label></td>
                                         <td><label class="checkbox">
-                                                <input type="checkbox" id="payByCash"/><fmt:message key="modal.form.payByCash" />
+                                                <input type="checkbox" id="payByCash" <c:if test="${!deproles.contains('Travel Department')}">
+                                                       disabled
+                                                    </c:if>/><fmt:message key="modal.form.payByCash" />
                                             </label></td>
                                     </tr>
                                 </tbody>
@@ -162,10 +162,10 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn btn-success" onclick='processTRF("commit")'>Commit</a> 
-            <a href="#" class="btn btn-success" onclick='processTRF("complete")'>Complete</a> 
-            <a href="#" class="btn btn-primary" onclick='processTRF("save")'>Save changes</a> 
-            <a href="#" class="btn btn-danger" onclick='processTRF("reject")'>Reject</a> 
-            <a href="#" class="btn btn-danger" onclick='processTRF("cansel")'>Cancel</a>
+            <a href="#" class="btn btn-success" onclick='processTRF("3")'>Commit</a> 
+            <a href="#" class="btn btn-success" onclick='processTRF("4")'>Complete</a> 
+            <a href="#" class="btn btn-primary" onclick='processTRF("0")'>Save changes</a> 
+            <a href="#" class="btn btn-danger" onclick='processTRF("1")'>Reject</a> 
+            <a href="#" class="btn btn-danger" onclick='processTRF("2")'>Cancel</a>
         </div>
     </div>
