@@ -92,7 +92,8 @@ function processEmployee(){
             },
         dataType: "json",
         success: function(result) {
-            //alert('success')
+            $('#editEmployeeModal').modal('hide')
+            $("#emptable").trigger("reloadGrid") 
         }
         
     });
