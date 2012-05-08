@@ -22,11 +22,11 @@ $(function() {
         {
             name : 'name',
             index : 'name',
-            width : 460
+            width : 400
         }, {
             name : 'position',
             index : 'position',
-            width : 350
+            width : 300
         }],
         //        autowidth: true,
         scrollOffset:0,
