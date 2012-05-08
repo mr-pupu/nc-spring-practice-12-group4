@@ -5,14 +5,22 @@
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>ReportSaver</servlet-name>
-        <servlet-class>servlets.ReportSaver</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>AJAXEmployeeEditHandler</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXEmployeeEditHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXEmployeeEditHandler</servlet-name>
+        <url-pattern>/ajaxemployeeshandle</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ReportSaver</servlet-name>
+        <servlet-class>servlets.ReportSaver</servlet-class>
+    </servlet>
     <servlet>
         <servlet-name>CheckboxesHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.CheckboxesHandler</servlet-class>
@@ -53,6 +61,14 @@
         <servlet-name>AJAXTrfsProcess</servlet-name>
         <servlet-class>servlets.ajax.AJAXTrfsProcess</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AJAXEmployeeProcess</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXEmployeeProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXEmployeeProcess</servlet-name>
+        <url-pattern>/ajaxemployeeprocess</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>AJAXHotelsHandler</servlet-name>
         <servlet-class>servlets.ajax.AJAXHotelsHandler</servlet-class>
