@@ -4,9 +4,11 @@
  */
 package servlets.ajax;
 
+import database.mapping.Employee;
 import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -60,45 +62,74 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXTrfEditHandler runned");
-        String idString = request.getParameter("id");
-        JSONObject jsonObject = new JSONObject();
-        if (idString != null) {
-            try {
-                Long id = Long.parseLong(idString);
-                Session hibernateSession = HibernateUtil.getSession();
-                Trf trf = (Trf) hibernateSession.get(Trf.class, (Long) id);
-                if (trf != null) {
+        if (request.getParameter("new") != null){
+            Session hibernateSession = HibernateUtil.getSession();
+            JSONObject jsonObject = new JSONObject();
+            String employeeLogin = (String)request.getSession().getAttribute("name");
+            Long employeeId = HibernateUtil.EmpIdByLogin(employeeLogin);
+            Employee employee = (Employee) hibernateSession.get(Employee.class, employeeId);
+            
+            putEmployeeToJSON(jsonObject, employee);
+            putOfficeToJSON(jsonObject, employee.getOffice());
 
-                    request.getSession().setAttribute("hibernateSession", hibernateSession);
-                    request.getSession().setAttribute("trf", trf);
+            putDatesToJson(jsonObject, new Date(), new Date());
 
-                    putEmployeeToJSON(jsonObject, trf.getEmployeeByEmpId());
-                    putOfficeToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
+            putCountriesToJson(jsonObject);    ///!!!!!!!!!!!!!!!!
 
-                    putDatesToJson(jsonObject, trf.getBeginDate(), trf.getEndDate());
+            putLineManagerByEmployeeLogin(jsonObject, employeeLogin);
+            putProjectManagerToJSON(jsonObject, employee);
 
-                    putCitiesAndCountriesToJSON(jsonObject, trf.getDestination().getCity());
+            //jsonObject.put("destinationId", trf.getDestination().getId());              ///!!!!!!!!!!!!!!!!
+            //putDestinationsToJSON(jsonObject, trf.getDestination().getCity());          ///!!!!!!!!!!!!!!!!
 
-                    putLineManagerByEmployeeLogin(jsonObject, trf.getEmployeeByEmpId().getLogin());
-                    putProjectManagerToJSON(jsonObject, trf.getEmployeeByProjectManager());
+            putCustomersToJSON(jsonObject);
 
-                    jsonObject.put("destinationId", trf.getDestination().getId());
-                    putDestinationsToJSON(jsonObject, trf.getDestination().getCity());
+            //jsonObject.put("carRental", false);
+            //jsonObject.put("payByCash", false);
 
-                    putCustomersToJSON(jsonObject, trf.getCustomer());
+            jsonObject.put("state", -1);
+            jsonObject.writeJSONString(response.getWriter());
+        } else {
+            String idString = request.getParameter("id");
+            JSONObject jsonObject = new JSONObject();
+            if (idString != null) {
+                try {
+                    Long id = Long.parseLong(idString);
+                    Session hibernateSession = HibernateUtil.getSession();
+                    Trf trf = (Trf) hibernateSession.get(Trf.class, (Long) id);
+                    if (trf != null) {
 
-                    jsonObject.put("carRental", trf.getCarRental());
-                    jsonObject.put("payByCash", trf.getPayByCash());
+                        //request.getSession().setAttribute("hibernateSession", hibernateSession);
+                        //request.getSession().setAttribute("trf", trf);
 
-                    jsonObject.put("state", trf.getCurState());
+                        putEmployeeToJSON(jsonObject, trf.getEmployeeByEmpId());
+                        putOfficeToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
 
-                    jsonObject.writeJSONString(response.getWriter());
-                } else {
-                    System.out.println("TRF = null");
-                    jsonObject.writeJSONString(response.getWriter());
+                        putDatesToJson(jsonObject, trf.getBeginDate(), trf.getEndDate());
+
+                        putCitiesAndCountriesToJSON(jsonObject, trf.getDestination().getCity());
+
+                        putLineManagerByEmployeeLogin(jsonObject, trf.getEmployeeByEmpId().getLogin());
+                        putProjectManagerToJSON(jsonObject, trf.getEmployeeByProjectManager());
+
+                        jsonObject.put("destinationId", trf.getDestination().getId());
+                        putDestinationsToJSON(jsonObject, trf.getDestination().getCity());
+
+                        putCustomersToJSON(jsonObject, trf.getCustomer());
+
+                        jsonObject.put("carRental", trf.getCarRental());
+                        jsonObject.put("payByCash", trf.getPayByCash());
+
+                        jsonObject.put("state", trf.getCurState());
+
+                        jsonObject.writeJSONString(response.getWriter());
+                    } else {
+                        System.out.println("TRF = null");
+                        jsonObject.writeJSONString(response.getWriter());
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.print("Wrong id format");
                 }
-            } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
             }
         }
     }

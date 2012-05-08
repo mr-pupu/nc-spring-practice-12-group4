@@ -103,21 +103,25 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             endDate = getDateFromString(resultStrings.get("endDate"));
             beginDate = getDateFromString(resultStrings.get("beginDate"));
 
+            //Check values here
+            
             Trf currTrf = (Trf) request.getSession().getAttribute("trf");
             Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
 
-            currTrf.setBeginDate(beginDate);
             currTrf.setEndDate(endDate);
+            currTrf.setBeginDate(beginDate);
             currTrf.setPayByCash(payByCash);
             currTrf.setCarRental(car);
             currTrf.setCustomer((Customer) hibernateSession.get(Customer.class, (Long) customerId));
             currTrf.setEmployeeByProjectManager((Employee) hibernateSession.get(Employee.class, (Long) projectManagerId));
             currTrf.setDestination((Destination) hibernateSession.get(Destination.class, (Long) destinationId));
-            currTrf.setCurState(state);
-
-            HibernateUtil.getSession().beginTransaction();
-            HibernateUtil.getSession().save(currTrf);
-            HibernateUtil.getSession().getTransaction().commit();
+            if (!state.equals(new Long(0))){
+                currTrf.setCurState(state);
+            }
+            
+            hibernateSession.beginTransaction();
+            hibernateSession.save(currTrf);
+            hibernateSession.getTransaction().commit();
 
             System.out.println("changes done");
         } catch (Exception e) {
