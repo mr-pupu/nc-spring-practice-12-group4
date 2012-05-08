@@ -108,6 +108,15 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("customerId", customer.getId());
     }
 
+    public static void putCustomersToJSON(JSONObject jsonObject) {
+       List<Customer> customers = TrfEdit.Customers();
+        Map<Long, String> customersMap = new HashMap<Long, String>();
+        for (Customer eachCustomer : customers) {
+            customersMap.put(eachCustomer.getId(), eachCustomer.getCustName());
+        }
+        jsonObject.put("customers", customersMap);
+    }
+
     public static void putDestinationsToJSON(JSONObject jsonObject, City city) {
         Set<Destination> destinations = (city.getDestinations());
         Map<Long, String> hotelNames = new HashMap<Long, String>();
