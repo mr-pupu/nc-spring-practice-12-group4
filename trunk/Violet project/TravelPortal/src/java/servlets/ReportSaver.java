@@ -32,9 +32,14 @@ public class ReportSaver extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/x-msexcel");
         response.setHeader("Content-Disposition", "attachment;filename=\"TrfReport.xls\"");
+        String login = (String) request.getSession().getAttribute("name");
         ServletOutputStream sos= response.getOutputStream();
         try {
-            //  sos.write(utils.XlsReportGenerator.getReport());
+            byte[] report = utils.XlsReportGenerator.getReport(login);
+            if(report!=null)
+             sos.write(report);
+            else
+                System.out.println("asdas");
         } finally {
             sos.close();
         }
