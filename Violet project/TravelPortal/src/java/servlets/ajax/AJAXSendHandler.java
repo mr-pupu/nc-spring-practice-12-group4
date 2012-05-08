@@ -47,6 +47,24 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         }
         jsonObject.put("countries", countriesMap);
     }
+    
+    public static void putPositionsToJSON(JSONObject jsonObject) {
+       List<Occupation> positions = HibernateUtil.OccupationsList();
+       Map<Long, String> positionsMap = new HashMap<Long, String>();
+       for (Occupation pos: positions) {
+            positionsMap.put(pos.getId(), pos.getPosName());
+        }
+        jsonObject.put("positions", positionsMap);
+    }
+    
+     public static void putOfficesToJSON(JSONObject jsonObject) {
+       List<Office> offices = HibernateUtil.OfficesList();
+       Map<Long, String> officesMap = new HashMap<Long, String>();
+       for (Office office: offices) {
+            officesMap.put(office.getId(), office.getOfficeName());
+        }
+        jsonObject.put("offices", officesMap);
+    }
 
     public static void putCitiesToJson(JSONObject jsonObject, Country country) {
         Set<City> cities = country.getCities();
