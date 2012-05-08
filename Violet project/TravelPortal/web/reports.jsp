@@ -185,7 +185,7 @@
             </div>
         </div>
         <br>
-        <button type="submit" class="btn">Excel report</button>
+        <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
     </div>
     <!-- /container -->
     <jsp:include page="modalform.jsp"></jsp:include>
