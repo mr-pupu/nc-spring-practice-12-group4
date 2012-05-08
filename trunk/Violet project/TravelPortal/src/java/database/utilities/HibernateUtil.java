@@ -6,6 +6,8 @@ package database.utilities;
 
 //import database.mapping.Employee;
 import database.mapping.Country;
+import database.mapping.Occupation;
+import database.mapping.Office;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,12 +50,20 @@ public class HibernateUtil {
     }
     //the list of occupations
 
-    public static List<String> OccupationsList() {
+    public static List<Occupation> OccupationsList() {
         Session s = getSession();
-        String stmt = "select pos_name "
+        String stmt = "select id, pos_name "
                 + "from occupation";
         SQLQuery query = s.createSQLQuery(stmt);
-        return (List<String>) query.list();
+        return (List<Occupation>) query.addEntity(Occupation.class).list();
+    }
+    
+    public static List<Office> OfficesList() {
+        Session s = getSession();
+        String stmt = "select * "
+                + "from office";
+        SQLQuery query = s.createSQLQuery(stmt);
+        return (List<Office>) query.addEntity(Office.class).list();
     }
 
     //id of employee with given login
