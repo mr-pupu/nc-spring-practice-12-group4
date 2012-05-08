@@ -1,3 +1,7 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<jsp:include page="init.jsp"></jsp:include>
 <!-- Le styles -->
 <link href="<%=request.getContextPath() %>/assets/css/bootstrap.css"
       rel="stylesheet">
@@ -29,6 +33,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
 </head>
+
+    <jsp:include page="scripts.jsp"></jsp:include>
 <body>
     <c:import url="menu.jsp">
         <c:param name="page" value="reports"></c:param>
@@ -190,10 +196,8 @@
                         <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
                             </c:if>
 
-        <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
-    </div>
+        </div>
     <!-- /container -->
     <jsp:include page="modalform.jsp"></jsp:include>
-    <jsp:include page="scripts.jsp"></jsp:include>
 </body>
 </html>
