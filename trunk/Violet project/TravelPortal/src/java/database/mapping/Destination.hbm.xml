@@ -19,7 +19,7 @@
         <property name="hotelsite" type="string">
             <column name="HOTELSITE" length="100" />
         </property>
-        <property name="isApproved" type="java.lang.Character">
+        <property name="isApproved" type="java.lang.Boolean">
             <column name="IS_APPROVED" length="1" />
         </property>
         <set name="trfs" inverse="true">

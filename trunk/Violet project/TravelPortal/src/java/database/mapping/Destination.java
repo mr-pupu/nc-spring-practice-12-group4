@@ -18,7 +18,7 @@ public class Destination  implements java.io.Serializable {
      private City city;
      private String hotelname;
      private String hotelsite;
-     private Character isApproved;
+     private Boolean isApproved;
      private Set<Trf> trfs = new HashSet<Trf>(0);
 
     public Destination() {
@@ -28,7 +28,7 @@ public class Destination  implements java.io.Serializable {
     public Destination(long id) {
         this.id = id;
     }
-    public Destination(long id, City city, String hotelname, String hotelsite, Character isApproved, Set<Trf> trfs) {
+    public Destination(long id, City city, String hotelname, String hotelsite, Boolean isApproved, Set<Trf> trfs) {
        this.id = id;
        this.city = city;
        this.hotelname = hotelname;
@@ -77,11 +77,11 @@ public class Destination  implements java.io.Serializable {
     }
     
     @Column(name="IS_APPROVED", length=1)
-    public Character getIsApproved() {
+    public Boolean getIsApproved() {
         return this.isApproved;
     }
     
-    public void setIsApproved(Character isApproved) {
+    public void setIsApproved(Boolean isApproved) {
         this.isApproved = isApproved;
     }
 @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY, mappedBy="destination")
