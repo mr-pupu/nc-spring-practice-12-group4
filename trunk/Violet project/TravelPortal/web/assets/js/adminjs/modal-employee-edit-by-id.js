@@ -33,22 +33,29 @@ function getEmployeeUsingAJAX(id){
     $('#editEmployeeModal').modal('show');
     $.getJSON(getContextPath() + "/ajaxemployeeshandle?id="+id,
         function (data){
-            fillEmployeeForm(data);
+            fillEmployeeForm(data, id);
         });
+    
 }
 
-function fillEmployeeForm(data){
+function fillEmployeeForm(data, id){
     var string ="";
     $.each(data, function(key, value) { 
         string += '[' + key + ',' + value + '] ';
     });
     //alert(string);
-    $('#firstName').val(data['firstName']);
-    $('#lastName').val(data['lastName']);
-    prepareComboBox($("#position"), data['positions'], data['positionId']);
-    prepareComboBox($("#office"), data['offices'], data['officeId']);
-    $('#email').val(data['email']);
-    $('#login').val(data['login']);
+    if(id>0){
+        $('#firstName').val(data['firstName']);
+        $('#lastName').val(data['lastName']);
+        prepareComboBox($("#position"), data['positions'], data['positionId']);
+        prepareComboBox($("#office"), data['offices'], data['officeId']);
+        $('#email').val(data['email']);
+        $('#login').val(data['login']);
+    }
+    else{
+        prepareComboBox($("#position"), data['positions'], 1);
+        prepareComboBox($("#office"), data['offices'], 1);
+    }
 }
 
 function prepareComboBox(combobox, data, id){

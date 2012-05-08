@@ -72,6 +72,7 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                 Session hibernateSession = HibernateUtil.getSession();
                 System.out.println("ID: "+String.valueOf(id));
                 Employee emp = (Employee) hibernateSession.get(Employee.class, (Long) id);
+
                 if (emp != null) {
 
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
@@ -95,6 +96,9 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
                     System.out.println("Employee = null");
+                    request.getSession().setAttribute("hibernateSession", hibernateSession);
+                     putPositionsToJSON(jsonObject);
+                     putOfficesToJSON(jsonObject);
                     jsonObject.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
