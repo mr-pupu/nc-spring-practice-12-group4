@@ -101,18 +101,6 @@
         <servlet-name>AJAXEmployeeHandler</servlet-name>
         <url-pattern>/ajaxemployeehandle</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>JQGridServlet</servlet-name>
-        <url-pattern>/JQGridServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>jQGridTable</servlet-name>
-        <url-pattern>/jQGridTable</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ReportSaver</servlet-name>
-        <url-pattern>/ReportSaver</url-pattern>
-    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index</welcome-file>
     </welcome-file-list>
