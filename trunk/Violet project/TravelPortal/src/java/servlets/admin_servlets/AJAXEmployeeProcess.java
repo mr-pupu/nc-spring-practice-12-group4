@@ -100,9 +100,7 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
             currEmployee.setEmail(email);
             currEmployee.setLogin(login);
 
-            HibernateUtil.getSession().beginTransaction();
-            HibernateUtil.getSession().save(currEmployee);
-            HibernateUtil.getSession().getTransaction().commit();
+            HibernateUtil.save(currEmployee);
 
             System.out.println("changes done");
         } catch (Exception e) {
