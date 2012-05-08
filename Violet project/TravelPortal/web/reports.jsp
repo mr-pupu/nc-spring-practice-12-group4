@@ -185,6 +185,11 @@
             </div>
         </div>
         <br>
+
+<c:if test="${deproles.contains('Travel Department')}">
+                        <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
+                            </c:if>
+
         <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
     </div>
     <!-- /container -->
