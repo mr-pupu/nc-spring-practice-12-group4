@@ -105,8 +105,8 @@
                     <select class="combobox"  id="chief" >  </select>
                     <br>
                     <div align="right">
-                        <a href="#editEmployeeModal" class="btn btn-success">New</a>
-                        <a id="a" href="#1" class="btn btn-success">Edit</a>
+                        <a href="#-1" class="btn btn-success">New</a>
+                        <a id="a" href="#" class="btn btn-success">Edit</a>
                         <button type="submit" 
                                 onclick="if(jQuery('#emptable').getGridParam('selrow')!=null){
                                 if (confirm('Confirm deletion?')) {
