@@ -37,10 +37,12 @@ function getEmployeeUsingAJAX(id){
             if(id>0){
                 $('#modalTitle').text('Employee editing');
                 $('#employeeCommit').text('Save changes');
+                $('#password').removeAttr("checked")
             }
             else{
                 $('#modalTitle').text('Employee creating');
                 $('#employeeCommit').text('Create employee');
+                $('#password').attr("checked","true")
             }
         });
     
@@ -57,12 +59,18 @@ function fillEmployeeForm(data, id){
         $('#lastName').val(data['lastName']);
         prepareComboBox($("#position"), data['positions'], data['positionId']);
         prepareComboBox($("#office"), data['offices'], data['officeId']);
+        prepareComboBox($("#department"), data['departments'], data['departmentId']);
         $('#email').val(data['email']);
         $('#login').val(data['login']);
     }
     else{
+        $('#firstName').val('');
+        $('#lastName').val('');
         prepareComboBox($("#position"), data['positions'], 1);
         prepareComboBox($("#office"), data['offices'], 1);
+        prepareComboBox($("#department"), data['departments'], 1);
+        $('#email').val(data['']);
+        $('#login').val(data['']);
     }
 }
 
@@ -92,10 +100,16 @@ function processEmployee(){
             'officeId':$("#office option:selected").attr("sysId")
         },
         {
+            'departmentId':$("#department option:selected").attr("sysId")
+        },
+        {
             'email':$('#email').val()
         }, 
         {
             'login':$('#login').val()
+        },
+        {
+            'password':($('#password').attr("checked")!=undefined).toString()
         }
 
         ];

@@ -30,6 +30,8 @@ $(function() {
         }],
         //        autowidth: true,
         scrollOffset:0,
+        pgtext : "{0} of {1}",
+        recordtext : "{0} - {1} of {2}",
         viewrecords: true,
         jsonReader: {
             //                root: 'rows',
