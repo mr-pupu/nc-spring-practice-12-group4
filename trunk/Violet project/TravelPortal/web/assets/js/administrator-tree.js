@@ -58,7 +58,7 @@ $(function() {
         ExpandColumn: 'name', 
         ExpandColClick: true,
         tree_root_level: 0,
-        pager:"#tree",
+        //pager:"#tree",
         autowidth: true,
         onSelectRow: function(id){
             //            document.getElementById("a").setAttribute("href", '#'+id);

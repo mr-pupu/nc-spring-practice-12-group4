@@ -6,10 +6,10 @@
 <fmt:setBundle
     basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 <div id="editEmployeeModal" class="modal hide fade"
-	style="width: 400px; margin: -250px 0 -0 -220px;">
+	style="width: 420px; margin: -250px 0 -0 -220px;">
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">&times;</a>
-		<h2>
+		<h2 id="modalTitle">
 			<fmt:message key="modal.employee.header" />
 		</h2>
 	</div>
@@ -17,41 +17,49 @@
 		<table class="table table-condensed" >
 			<tbody >
 				<tr>
-					<td style="width: 50%;"><fmt:message
+					<td style="width : 100px;"><fmt:message
 							key="modal.employee.firstName" /></td>
-					<td><input id="firstName" type="text" class=""></td>
+					<td><input id="firstName" type="text" class="" style="width : 240px;"></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="modal.employee.lastName" /></td>
-                                        <td><input id="lastName" type="text" class=""></td>
+					<td style="width : 100px;"><fmt:message key="modal.employee.lastName" /></td>
+                                        <td><input id="lastName" type="text" class="" style="width : 240px;"></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="modal.employee.position" /></td>
-					<td><select class="combobox" style="width : 180px;" id="position">
+					<td style="width : 100px;"><fmt:message key="modal.employee.position" /></td>
+					<td><select class="combobox" style="width : 240px;" id="position">
                                             </select></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="modal.employee.office" /></td>
-					<td><select class="combobox" style="width : 180px;" id="office">
+					<td style="width : 100px;"><fmt:message key="modal.employee.office" /></td>
+					<td><select class="combobox" style="width : 240px;" id="office">
+                                            </select></td>
+				</tr>
+                                <tr>
+					<td style="width : 100px;">Department:</td>
+					<td><select class="combobox" style="width : 240px;" id="department">
                                             </select></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="modal.employee.email" /></td>
-                                        <td><input id="email" type="text" class=""></td>
+					<td style="width : 100px;"><fmt:message key="modal.employee.email" /></td>
+                                        <td><input id="email" type="text" class="" style="width : 240px;"></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="form.login.login" /></td>
-                                        <td><input id="login" type="text" class=""></td>
+					<td style="width : 100px;"><fmt:message key="form.login.login" /></td>
+                                        <td><input id="login" type="text" class="" style="width : 240px;"></td>
 				</tr>
 				<tr>
-					<td><fmt:message key="form.login.password" /></td>
-                                        
+                                    <td colspan="2"><label class="checkbox" <td style="width : 150px;">
+                                                <input type="checkbox" id="password"/>
+                                                Generate new password
+                                            </label>
+                                    </td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn btn btn-success" onclick='processEmployee()'>Save changes</a> 
+		<a id="employeeCommit" href="#" class="btn btn btn-success" onclick='processEmployee()'>Save changes</a> 
                 <a href="#" class="btn" onclick="$('#editEmployeeModal').modal('hide')">Cancel</a>
 	</div>
 </div>

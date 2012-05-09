@@ -6,6 +6,7 @@ package database.utilities;
 import java.math.BigDecimal;
 //import database.mapping.Employee;
 import database.mapping.Country;
+import database.mapping.Department;
 import database.mapping.Occupation;
 import database.mapping.Office;
 import java.util.ArrayList;
@@ -64,6 +65,14 @@ public class HibernateUtil {
                 + "from office";
         SQLQuery query = s.createSQLQuery(stmt);
         return (List<Office>) query.addEntity(Office.class).list();
+    }
+    
+    public static List<Department> DepartmentsList() {
+        Session s = getSession();
+        String stmt = "select * "
+                + "from department";
+        SQLQuery query = s.createSQLQuery(stmt);
+        return (List<Department>) query.addEntity(Department.class).list();
     }
 
     //id of employee with given login

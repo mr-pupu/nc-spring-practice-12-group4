@@ -71,9 +71,9 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                 Long id = Long.parseLong(idString);
                 Session hibernateSession = HibernateUtil.getSession();
                 System.out.println("ID: "+String.valueOf(id));
-                Employee emp = (Employee) hibernateSession.get(Employee.class, (Long) id);
-
-                if (emp != null) {
+                Employee emp;
+                if(id>0){
+                    emp = (Employee) hibernateSession.get(Employee.class, (Long) id);
 
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
                     request.getSession().setAttribute("employee", emp);
@@ -85,8 +85,14 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                     putPositionsToJSON(jsonObject);
                     jsonObject.put("positionId", emp.getOccupation().getId());
                     putOfficesToJSON(jsonObject);
-                    System.out.println(jsonObject);
                     jsonObject.put("officeId", emp.getOffice().getId());
+                    
+                    System.out.println(jsonObject);
+                    
+                    putDepartmentsToJSON(jsonObject);
+                    jsonObject.put("departmentId", emp.getDepartment().getId());
+                    
+                    
                     
                     jsonObject.put("email", emp.getEmail());
                     jsonObject.put("login", emp.getLogin());
@@ -96,9 +102,13 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
                     System.out.println("Employee = null");
+                    emp = new Employee();
+                    
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
-                     putPositionsToJSON(jsonObject);
-                     putOfficesToJSON(jsonObject);
+                    request.getSession().setAttribute("employee", emp);
+                    putPositionsToJSON(jsonObject);
+                    putOfficesToJSON(jsonObject);
+                    putDepartmentsToJSON(jsonObject);
                     jsonObject.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
