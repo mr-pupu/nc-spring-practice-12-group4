@@ -61,6 +61,14 @@
         <servlet-name>CheckboxesHandler</servlet-name>
         <url-pattern>/checkboxeshandle</url-pattern>
     </servlet-mapping>
+	<servlet>
+        <servlet-name>ReportsDataHandler</servlet-name>
+        <servlet-class>servlets.reports.ReportsDataHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportsDataHandler</servlet-name>
+        <url-pattern>/reportsdatahandler</url-pattern>    
+    </servlet-mapping>
     <servlet>
         <servlet-name>AJAXDepartmentHandler</servlet-name>
         <servlet-class>servlets.ajax.AJAXDepartmentHandler</servlet-class>
