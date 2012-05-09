@@ -9,6 +9,22 @@
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
+        <servlet>
+        <servlet-name>AJAXAllMyTRFs</servlet-name>
+        <servlet-class>servlets.ajax.AJAXAllMyTRFs</servlet-class>
+    </servlet>
+        <servlet>
+        <servlet-name>AJAXInProgressTRF</servlet-name>
+        <servlet-class>servlets.ajax.AJAXInProgressTRF</servlet-class>
+    </servlet>
+        <servlet-mapping>
+        <servlet-name>AJAXInProgressTRF</servlet-name>
+        <url-pattern>/ajaxinprogresstrf</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>AJAXAllMyTRFs</servlet-name>
+        <url-pattern>/ajaxallmytrfs</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>AJAXDepartmentChiefHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefHandler</servlet-class>

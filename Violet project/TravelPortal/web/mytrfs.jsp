@@ -2,18 +2,30 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Bootstrap, from Twitter</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="">
-            <meta name="author" content="">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Bootstrap, from Twitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-            <!-- Le styles -->
-            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
-              rel="stylesheet">
+        <!-- Le styles -->
+        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+              rel="stylesheet">      <jsp:include page="scripts.jsp"></jsp:include>
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/path.js">
+        </script>
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/in-progress-trf.js">
+        </script>
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/all-my-trfs.js">
+        </script>
+
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
         <style type="text/css">
             body {
                 padding-top: 60px;
@@ -52,8 +64,8 @@
     -->
 
     <jsp:include page="scripts.jsp"></jsp:include>
-        <script type="text/javascript"
-        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
+    <script type="text/javascript"
+    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
     <script type="text/javascript"
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
     <!-- 
@@ -88,134 +100,25 @@
         <c:param name="page" value="mytrfs"></c:param>
     </c:import>
     <div class="container">
-        <br>
-        <div class="accordion" id="accordion2">
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse"
-                       data-parent="#accordion2" href="#collapseOne">
-                        <h4>
-                            <fmt:message key="page.forms.text1" />
-                        </h4>
-                    </a>
-                </div>
-                <div id="collapseOne" class="accordion-body collapse in">
-                    <div class="accordion-inner">
-
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20px;">
-                                        <button type="submit" class="btn btn-mini span1">
-                                            <fmt:message key="page.forms.buttonAdd" />
-                                        </button>
-                                    </th>
-                                    <th><fmt:message key="table.trfs.destination" /></th>
-                                    <th><fmt:message key="table.trfs.dateBegin" /></th>
-                                    <th><fmt:message key="table.trfs.dateEnd" /></th>
-                                    <th><fmt:message key="table.trfs.status" /></th>
-                                    <th><fmt:message key="table.trfs.comment" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td><a href="#1"
-                                           class="btn btn-mini span1"><fmt:message
-                                                key="page.forms.buttonEdit" /></a></td>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                                <tr>
-                                    <td><a href="#2"
-                                           class="btn btn-mini span1"><fmt:message
-                                                key="page.forms.buttonEdit" /></a></td>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion-group">
-                <div class="accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse"
-                       data-parent="#accordion2" href="#collapseTwo">
-                        <h4>
-                            <fmt:message key="page.forms.text2" />
-                        </h4>
-                    </a>
-                </div>
-                <div id="collapseTwo" class="accordion-body collapse">
-                    <div class="accordion-inner">
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th><fmt:message key="table.trfs.destination" /></th>
-                                    <th><fmt:message key="table.trfs.dateBegin" /></th>
-                                    <th><fmt:message key="table.trfs.dateEnd" /></th>
-                                    <th><fmt:message key="table.trfs.status" /></th>
-                                    <th><fmt:message key="table.trfs.comment" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                                <tr>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div>
+            <a href="#1"
+               class="btn span1"><fmt:message
+                    key="page.forms.buttonEdit" /></a>
+            <a href="#2"
+               class="btn span1">New</a>
+            <br>
         </div>
+            <br> 
+        <div>                 
+            <table id="inprogress"></table>
+            <div id="progresspager"></div> 
+        </div>
+        <br>
+            <table id="alltrfs"></table>
+            <div id="trfspager"></div> 
 
-        <table id="list4"></table>
+        </div>
+    </div>
     </div>
     <!-- /container -->
     <jsp:include page="modalform.jsp"></jsp:include>
