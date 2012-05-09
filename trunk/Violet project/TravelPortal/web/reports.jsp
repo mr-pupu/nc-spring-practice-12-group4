@@ -11,16 +11,24 @@
         padding-bottom: 40px;
     }
 </style>
+        <jsp:include page="scripts.jsp"></jsp:include>
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
+        </script>
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/planned-trips.js">
+        </script>
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/current-trips.js">
+        </script>
+
+        <link
+            href="<%=request.getContextPath()%>/assets/css/bootstrap-responsive.css"
+            rel="stylesheet">
 <link
     href="<%=request.getContextPath() %>/assets/css/bootstrap-responsive.css"
     rel="stylesheet">
 
-<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-<!-- Le fav and touch icons -->
 <link rel="shortcut icon"
       href="<%=request.getContextPath() %>/assets/ico/favicon.ico">
 <link rel="apple-touch-icon-precomposed" sizes="114x114"
@@ -29,6 +37,9 @@
       href="<%=request.getContextPath() %>/assets/ico/apple-touch-icon-72-precomposed.png">
 <link rel="apple-touch-icon-precomposed"
       href="<%=request.getContextPath() %>/assets/ico/apple-touch-icon-57-precomposed.png">
+
+<link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
 </head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
@@ -41,19 +52,23 @@
     </c:import>
     <div class="container">
         <br>
-        <div class="accordion" id="accordion2">
+
+<c:if test="${deproles.contains('Travel Department')}">
+                        <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
+                        <br>
+                            </c:if>  <br>
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse"
                        data-parent="#accordion2" href="#collapseOne">
                         <h4>
-                            <fmt:message key="table.reports.name" />
+                            Current TRFs:
                         </h4>
                     </a>
                 </div>
                 <div id="collapseOne" class="accordion-body collapse in">
                     <div class="accordion-inner">
-                        <table class="table table-condensed">
+                        <table>
                             <tbody>
                                 <tr>
                                     <td><fmt:message key="page.reports.filter.department" /></td>
@@ -71,47 +86,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th><fmt:message key="table.reports.name" /></th>
-                                    <th><fmt:message key="table.reports.office" /></th>
-                                    <th><fmt:message key="table.reports.destination" /></th>
-                                    <th><fmt:message key="table.reports.dateBegin" /></th>
-                                    <th><fmt:message key="table.reports.dateEnd" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                                <tr>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        
+                                    
+                            <table id="currenttrips"></table>
+                            <div id="currentpager"></div>          
                     </div>
                 </div>
             </div>
@@ -133,69 +111,27 @@
                                     <td><fmt:message key="page.reports.filter.department" /></td>
                                     <td><select class="btn">
                                             <option>&lt;All&gt;</option>
-                                            <option value="PA">ff</option>
-                                            <option value="CT">gg</option>
+                                            <option value="PA">Dept1</option>
+                                            <option value="CT">Dept2</option>
                                         </select></td>
                                     <td><fmt:message key="page.reports.filter.office" /></td>
                                     <td><select class="btn">
                                             <option>&lt;All&gt;</option>
-                                            <option value="PA">ff</option>
-                                            <option value="CT">gg</option>
+                                            <option value="PA">Office1</option>
+                                            <option value="CT">Office2</option>
                                         </select></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th><fmt:message key="table.reports.name" /></th>
-                                    <th><fmt:message key="table.reports.office" /></th>
-                                    <th><fmt:message key="table.reports.destination" /></th>
-                                    <th><fmt:message key="table.reports.dateBegin" /></th>
-                                    <th><fmt:message key="table.reports.dateEnd" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                                <tr>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                       
+                            <table id="plannedtrips"></table>
+                            <div id="plannedpager"></div>
                         <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
-                </div>
+            
             </div>
         </div>
-        <br>
-
-<c:if test="${deproles.contains('Travel Department')}">
-                        <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
-                            </c:if>
-
         </div>
     <!-- /container -->
     <jsp:include page="modalform.jsp"></jsp:include>

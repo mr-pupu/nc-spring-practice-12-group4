@@ -4,15 +4,26 @@
     <servlet>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
+    </servlet>  
+    <servlet>
+        <servlet-name>AJAXPlannedTrips</servlet-name>
+        <servlet-class>servlets.ajax.AJAXPlannedTrips</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
         <servlet>
+        <servlet-name>AJAXCurrentTrips</servlet-name>
+        <servlet-class>servlets.ajax.AJAXCurrentTrips</servlet-class>
+    </servlet>
+        <servlet>
         <servlet-name>AJAXAllMyTRFs</servlet-name>
         <servlet-class>servlets.ajax.AJAXAllMyTRFs</servlet-class>
-    </servlet>
+    </servlet>    <servlet-mapping>
+        <servlet-name>AJAXCurrentTrips</servlet-name>
+        <url-pattern>/ajaxcurrenttrips</url-pattern>
+    </servlet-mapping>
         <servlet>
         <servlet-name>AJAXInProgressTRF</servlet-name>
         <servlet-class>servlets.ajax.AJAXInProgressTRF</servlet-class>
@@ -45,6 +56,10 @@
         <servlet-name>AJAXDepartmentRolesProcess</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentRolesProcess</servlet-class>
     </servlet>
+        <servlet-mapping>
+        <servlet-name>AJAXPlannedTrips</servlet-name>
+        <url-pattern>/ajaxplannedtrips</url-pattern>
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AJAXDepartmentRolesProcess</servlet-name>
         <url-pattern>/ajaxdeprolesprocess</url-pattern>
@@ -69,6 +84,10 @@
         <servlet-name>ReportSaver</servlet-name>
         <servlet-class>servlets.ReportSaver</servlet-class>
     </servlet>
+    <servlet-mapping>
+        <servlet-name>ReportSaver</servlet-name>
+        <url-pattern>/ReportSaver</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>CheckboxesHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.CheckboxesHandler</servlet-class>
