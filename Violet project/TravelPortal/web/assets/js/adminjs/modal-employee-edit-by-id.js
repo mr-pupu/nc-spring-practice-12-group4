@@ -81,7 +81,7 @@ function prepareComboBox(combobox, data, id){
         if (key == id) {
             selected = 'selected="selected"';
         }
-        combobox.prepend( $('<option ' + selected + ' sysid="' + key + '">' + key + '-' + value + '</option>'))
+        combobox.prepend( $('<option ' + selected + ' sysid="' + key + '">'+ value + '</option>'))
     });
 }
 

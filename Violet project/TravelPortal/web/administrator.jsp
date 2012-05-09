@@ -40,6 +40,9 @@
     <script type="text/javascript"
         src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
     </script>
+    <script type="text/javascript"
+        src="<%=request.getContextPath()%>/assets/js/adminjs/department-chief.js">
+    </script>
     <link
         href="<%=request.getContextPath()%>/assets/css/bootstrap-responsive.css"
         rel="stylesheet">
@@ -102,7 +105,10 @@
                     <fmt:message key="page.administrator.chief" />
                     &nbsp;
                     &nbsp;
-                    <select class="combobox"  id="chief" >  </select>
+                    <select class="combobox"  id="depChief"  onchange="if 
+                    (confirm('Confirm chief change?')) {
+                                     processChiefChange()
+                                }">  </select>
                     <br>
                     <div align="right">
                         <a href="#-1" class="btn btn-success">New</a>
