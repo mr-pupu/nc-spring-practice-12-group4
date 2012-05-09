@@ -66,7 +66,7 @@ $(function() {
             {
                 url: getContextPath() + "/ajaxemployeehandle?id=" + id
                 }).trigger("reloadGrid");
-            //setCheckBoxes(id);
+            setCheckboxesAJAX(id);
             setDepartmentChiefAJAX(id);
         }
     })
