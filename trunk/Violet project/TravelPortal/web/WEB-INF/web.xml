@@ -18,12 +18,28 @@
         <url-pattern>/ajaxdepartmentchiefhandle</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AJAXDepartmentRolesHandler</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXDepartmentRolesHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXDepartmentRolesHandler</servlet-name>
+        <url-pattern>/ajaxdeproleshandle</url-pattern>
+    </servlet-mapping>
+     <servlet>
+        <servlet-name>AJAXDepartmentRolesProcess</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXDepartmentRolesProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXDepartmentRolesProcess</servlet-name>
+        <url-pattern>/ajaxdeprolesprocess</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AJAXDepartmentChiefProcess</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefProcess</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AJAXDepartmentChiefProcess</servlet-name>
-        <url-pattern>/ajaxdepchiefrocess</url-pattern>
+        <url-pattern>/ajaxdepchiefprocess</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AJAXEmployeeEditHandler</servlet-name>

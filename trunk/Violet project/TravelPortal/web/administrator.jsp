@@ -3,17 +3,17 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
 
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <title>Bootstrap, from Twitter</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="administrative page">
-            <meta name="author" content="Allan">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bootstrap, from Twitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="administrative page">
+        <meta name="author" content="Allan">
 
-            <!-- Le styles -->
-            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+        <!-- Le styles -->
+        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
               rel="stylesheet">
         <style type="text/css">
             body {
@@ -22,14 +22,21 @@
             }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
-            <script type='text/javascript'
-                    src="<%=request.getContextPath()%>/assets/js/path.js">
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/adminjs/remove.js">
         </script>
         <script type='text/javascript'
 <!--                src="<%=request.getContextPath()%>/assets/js/grid.treegrid.js">-->
+
+    </script>
+    <script type="text/javascript"
+            src="<%=request.getContextPath()%>/assets/js/adminjs/department-roles.js">
+    </script>
+    <script type="text/javascript"
+            src="<%=request.getContextPath()%>/assets/js/adminjs/department-chief.js">
     </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/administrator-tree.js">
@@ -38,10 +45,7 @@
             src="<%=request.getContextPath()%>/assets/js/employee-administrator-table.js">
     </script>
     <script type="text/javascript"
-        src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
-    </script>
-    <script type="text/javascript"
-        src="<%=request.getContextPath()%>/assets/js/adminjs/department-chief.js">
+            src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
     </script>
     <link
         href="<%=request.getContextPath()%>/assets/css/bootstrap-responsive.css"
@@ -92,13 +96,19 @@
                     <fmt:message key="page.administrator.roles" />
                     &nbsp;
                     &nbsp;
-                    <input type="checkbox" id="check1" class="checkbox" checked disabled> Common department
+                    <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
+                        processRoleChange(id)}" id="check1" class="checkbox" 
+                        checked disabled> Common department
                     &nbsp;
                     &nbsp;
-                    <input type="checkbox" id="check3" enabled class="checkbox"> IT department
+                    <input type="checkbox"onchange="if (confirm('Confirm Role change?')) {
+                        processRoleChange(id)}" id="check3" enabled 
+                        class="checkbox"> IT department
                     &nbsp;
                     &nbsp;
-                    <input type="checkbox" id="check2" enabled class="checkbox"> Travel support department
+                    <input type="checkbox" onchange="if (confirm('Confirm Role change?')) {
+                        processRoleChange(id)}" id="check2" enabled 
+                        class="checkbox"> Travel support department
 
                     <br>
                     <br>
@@ -107,8 +117,8 @@
                     &nbsp;
                     <select class="combobox"  id="depChief"  onchange="if 
                     (confirm('Confirm chief change?')) {
-                                     processChiefChange()
-                                }">  </select>
+                        processChiefChange()
+                    }">  </select>
                     <br>
                     <div align="right">
                         <a href="#-1" class="btn btn-success">New</a>

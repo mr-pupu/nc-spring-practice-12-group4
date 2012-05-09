@@ -66,6 +66,22 @@ abstract public class AJAXSendHandler extends AJAXHandler {
        jsonObject.put("depemployees", depemployeesMap);
     }
     
+    public static void putDepRolesToJSON(JSONObject jsonObject, Department dep) {
+       Set<Deprole> deproles= dep.getDeprole();
+       List<Deprole> allroles = HibernateUtil.DeprolesList();
+       ArrayList<Long> deprolesid= new ArrayList<Long>(); 
+       Map<Long, String> allrolesMap = new HashMap<Long, String>();
+       for (Deprole role: allroles) {
+            allrolesMap.put(role.getId(), role.getRoleName());
+       }
+       for (Deprole role: deproles){
+           deprolesid.add(role.getId());
+       }
+       jsonObject.put("allroles", allrolesMap);
+       jsonObject.put("deproles", deprolesid);
+       jsonObject.put("rolesNumber", allroles.size());
+    }
+    
      public static void putOfficesToJSON(JSONObject jsonObject) {
        List<Office> offices = HibernateUtil.OfficesList();
        Map<Long, String> officesMap = new HashMap<Long, String>();
