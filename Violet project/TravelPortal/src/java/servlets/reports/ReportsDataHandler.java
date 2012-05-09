@@ -34,7 +34,7 @@ public class ReportsDataHandler extends HttpServlet {
             Session hibernateSession = HibernateUtil.getSession();
             request.getSession().setAttribute("hibernateSession", hibernateSession);
             AJAXSendHandler.putAllDepartmentToJSON(jsonObject);
-            AJAXSendHandler.putAllOfficesToJSON(jsonObject);
+            AJAXSendHandler.putOfficesToJSON(jsonObject);
             jsonObject.writeJSONString(response.getWriter());
         } finally {            
             out.close();
