@@ -1,8 +1,14 @@
+<%@page import="database.mapping.Deprole"%>
+<%@page import="java.util.List"%>
+<%@page import="database.utilities.HibernateUtil"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
-
+<%
+    List<Deprole> roles = HibernateUtil.DeprolesList();
+    request.setAttribute("list", roles);
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -22,8 +28,8 @@
             }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/path.js">
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/adminjs/remove.js">
@@ -93,23 +99,26 @@
                     <table id="tree"></table> <br> 
                 </div>
                 <div class="span8" >
-                    <fmt:message key="page.administrator.roles" />
-                    &nbsp;
-                    &nbsp;
-                    <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
-                        processRoleChange(id)}" id="check1" class="checkbox" 
-                        checked disabled> Common department
-                    &nbsp;
-                    &nbsp;
-                    <input type="checkbox"onchange="if (confirm('Confirm Role change?')) {
-                        processRoleChange(id)}" id="check3" enabled 
-                        class="checkbox"> IT department
-                    &nbsp;
-                    &nbsp;
-                    <input type="checkbox" onchange="if (confirm('Confirm Role change?')) {
-                        processRoleChange(id)}" id="check2" enabled 
-                        class="checkbox"> Travel support department
-
+                    <!--                    <fmt:message key="page.administrator.roles" />
+                                        &nbsp;
+                                        &nbsp;
+                                        <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
+                                            processRoleChange(id)}" id="check1" class="checkbox" 
+                                            checked disabled> Common department
+                                        &nbsp;
+                                        &nbsp;
+                                        <input type="checkbox"onchange="if (confirm('Confirm Role change?')) {
+                                            processRoleChange(id)}" id="check3" enabled 
+                                            class="checkbox"> IT department
+                                        &nbsp;
+                                        &nbsp;
+                                        <input type="checkbox" onchange="if (confirm('Confirm Role change?')) {
+                                            processRoleChange(id)}" id="check2" enabled 
+                                            class="checkbox"> Travel support department-->
+                    <c:forEach items="${list}" var="role">
+                        <input type="checkbox" class="checkbox" id="check<c:out value="${role.id}"/>">
+                            <c:out value="${role.roleName}"/>&nbsp;&nbsp;
+                    </c:forEach>
                     <br>
                     <br>
                     <fmt:message key="page.administrator.chief" />
