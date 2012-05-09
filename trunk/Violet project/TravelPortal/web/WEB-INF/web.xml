@@ -10,6 +10,22 @@
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>AJAXDepartmentChiefHandler</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXDepartmentChiefHandler</servlet-name>
+        <url-pattern>/ajaxdepartmentchiefhandle</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AJAXDepartmentChiefProcess</servlet-name>
+        <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefProcess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXDepartmentChiefProcess</servlet-name>
+        <url-pattern>/ajaxdepchiefrocess</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AJAXEmployeeEditHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXEmployeeEditHandler</servlet-class>
     </servlet>
