@@ -8,7 +8,7 @@
 <div id="editEmployeeModal" class="modal hide fade"
 	style="width: 420px; margin: -250px 0 -0 -220px;">
 	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
+		<a href="#" class="close" onclick="$('#editEmployeeModal').modal('hide')">&times;</a>
 		<h2 id="modalTitle">
 			<fmt:message key="modal.employee.header" />
 		</h2>
