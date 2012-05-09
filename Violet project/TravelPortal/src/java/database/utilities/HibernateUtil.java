@@ -3,12 +3,9 @@
  * and open the template in the editor.
  */
 package database.utilities;
+import database.mapping.*;
 import java.math.BigDecimal;
 //import database.mapping.Employee;
-import database.mapping.Country;
-import database.mapping.Department;
-import database.mapping.Occupation;
-import database.mapping.Office;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,6 +70,14 @@ public class HibernateUtil {
                 + "from department";
         SQLQuery query = s.createSQLQuery(stmt);
         return (List<Department>) query.addEntity(Department.class).list();
+    }
+    
+    public static List<Deprole> DeprolesList() {
+        Session s = getSession();
+        String stmt = "select * "
+                + "from deprole";
+        SQLQuery query = s.createSQLQuery(stmt);
+        return (List<Deprole>) query.addEntity(Deprole.class).list();
     }
 
     //id of employee with given login
@@ -240,6 +245,7 @@ public class HibernateUtil {
             tx.rollback();
             s.close();
             System.out.println("Something went wrong");
+            System.out.println(e);
         }
     }
 
