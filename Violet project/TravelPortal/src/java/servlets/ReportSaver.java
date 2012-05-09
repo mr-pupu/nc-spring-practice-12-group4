@@ -38,8 +38,6 @@ public class ReportSaver extends HttpServlet {
             byte[] report = utils.XlsReportGenerator.getReport(login);
             if(report!=null)
              sos.write(report);
-            else
-                System.out.println("asdas");
         } finally {
             sos.close();
         }
