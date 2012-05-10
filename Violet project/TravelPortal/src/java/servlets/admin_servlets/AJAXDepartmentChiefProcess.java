@@ -5,9 +5,6 @@
 package servlets.admin_servlets;
 
 import database.mapping.Department;
-import database.mapping.Employee;
-import database.mapping.Occupation;
-import database.mapping.Office;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.util.HashMap;
@@ -15,12 +12,10 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import servlets.ajax.AJAXGetHandler;
-import utils.PasswordGenerator;
 
 /**
  *
@@ -95,10 +90,5 @@ public class AJAXDepartmentChiefProcess extends AJAXGetHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        //ToDo check values
-
-        //ToDo commit changes
     }
 }

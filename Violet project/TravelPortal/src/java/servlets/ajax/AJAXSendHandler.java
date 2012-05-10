@@ -8,11 +8,7 @@ import database.mapping.*;
 import database.utilities.AdministratorDesktop;
 import database.utilities.HibernateUtil;
 import database.utilities.TrfEdit;
-import java.io.IOException;
 import java.util.*;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -65,10 +61,11 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         }
         jsonObject.put("departments", departmentsMap);
         System.out.print(jsonObject);
-    }
-    /* Methods that put all offices and item <all> to json string
-     * @param json string with form data
-     * author OleksandrDudinskyi
+    }   
+    
+    /**
+     * @author Allan
+     * @param jsonObject 
      */
     public static void putPositionsToJSON(JSONObject jsonObject) {
        List<Occupation> positions = HibernateUtil.OccupationsList();
@@ -79,6 +76,11 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("positions", positionsMap);
     }
     
+    /**
+     * author Allan
+     * @param jsonObject
+     * @param dep 
+     */
     public static void putDepEmployersToJSON(JSONObject jsonObject, Department dep) {
        Set<Employee> depemployees= dep.getEmployees();
        Map<Long, String> depemployeesMap = new HashMap<Long, String>();
@@ -88,6 +90,11 @@ abstract public class AJAXSendHandler extends AJAXHandler {
        jsonObject.put("depemployees", depemployeesMap);
     }
     
+    /**
+     * author Allan
+     * @param jsonObject
+     * @param dep 
+     */
     public static void putDepRolesToJSON(JSONObject jsonObject, Department dep) {
        Set<Deprole> deproles= dep.getDeprole();
        List<Deprole> allroles = HibernateUtil.DeprolesList();
@@ -104,7 +111,11 @@ abstract public class AJAXSendHandler extends AJAXHandler {
        jsonObject.put("rolesNumber", allroles.size());
     }
     
-     public static void putOfficesToJSON(JSONObject jsonObject) {
+    /**
+     * author Allan
+     * @param jsonObject 
+     */
+    public static void putOfficesToJSON(JSONObject jsonObject) {
        List<Office> offices = HibernateUtil.OfficesList();
        Map<Long, String> officesMap = new HashMap<Long, String>();
        for (Office office: offices) {
@@ -113,6 +124,10 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("offices", officesMap);
     }
      
+    /**
+     * @author Allan
+     * @param jsonObject 
+     */
     public static void putDepartmentsToJSON(JSONObject jsonObject) {
        List<Department> departments = HibernateUtil.DepartmentsList();
        Map<Long, String> departmentsMap = new HashMap<Long, String>();

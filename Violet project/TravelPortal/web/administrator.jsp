@@ -16,7 +16,7 @@
         <title>Bootstrap, from Twitter</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="administrative page">
-        <meta name="author" content="Allan">
+        <meta name="author" content="Allan and Gangbang34">
 
         <!-- Le styles -->
         <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
@@ -99,25 +99,9 @@
                     <table id="tree"></table> <br> 
                 </div>
                 <div class="span8" >
-                    <!--                    <fmt:message key="page.administrator.roles" />
-                                        &nbsp;
-                                        &nbsp;
-                                        <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
-                                            processRoleChange(id)}" id="check1" class="checkbox" 
-                                            checked disabled> Common department
-                                        &nbsp;
-                                        &nbsp;
-                                        <input type="checkbox"onchange="if (confirm('Confirm Role change?')) {
-                                            processRoleChange(id)}" id="check3" enabled 
-                                            class="checkbox"> IT department
-                                        &nbsp;
-                                        &nbsp;
-                                        <input type="checkbox" onchange="if (confirm('Confirm Role change?')) {
-                                            processRoleChange(id)}" id="check2" enabled 
-                                            class="checkbox"> Travel support department-->
                     <c:forEach items="${list}" var="role">
                         <input type="checkbox" class="checkbox" id="check<c:out value="${role.id}"/>">
-                            <c:out value="${role.roleName}"/>&nbsp;&nbsp;
+                        <c:out value="${role.roleName}"/>&nbsp;&nbsp;
                     </c:forEach>
                     <br>
                     <br>

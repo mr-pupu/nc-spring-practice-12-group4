@@ -15,7 +15,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Merle
+ * @author Gangbang34 and Allan
  */
 public class AJAXEmployeeHandler extends AJAXSendHandler {
 
@@ -67,7 +67,6 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
         JSONObject jsonObject = new JSONObject();
         if (idString != null) {
             try {
-//                AdministratorDesktop ad = new AdministratorDesktop();
                 Long id = Long.parseLong(idString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
@@ -77,23 +76,18 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
                     page = 1;
                 }
                 if (id != null) {
-//                    String[][] emps = AdministratorDesktop.EmpNamePosForDepAndChildDep(id.intValue());
                     String[][] emps = AdministratorDesktop.SubsidiaryEmployeesPaged(id.intValue(), page, rows);
                     JSONArray ja = new JSONArray();
 
                     for (int i = 0; i < emps.length; i++) {
                         JSONObject jo = new JSONObject();
                         jo.put("id", emps[i][0].toString());
-//                        jo.put("id", String.valueOf(i+1));
                         JSONArray jaj = new JSONArray();
-//                        jo.put("Name", emps[i][1]);
-//                        jo.put("Position", emps[i][2]);
                         jaj.add(emps[i][1]);
                         jaj.add(emps[i][2]);
                         jo.put("cell", jaj);
                         ja.add(jo);
                     }
-                    int rows_per_page = 10;
 
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);

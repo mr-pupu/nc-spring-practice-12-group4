@@ -66,7 +66,6 @@ public class AJAXDepartmentRolesHandler extends AJAXSendHandler {
         if (idString != null) {
             try {
                 Long id = Long.parseLong(idString);
-                //Session hibernateSession = HibernateUtil.getSession();
                 System.out.println("ID: "+String.valueOf(id));
                 
                 Department dep= (Department) HibernateUtil.getSession().get(Department.class, (Long) id);

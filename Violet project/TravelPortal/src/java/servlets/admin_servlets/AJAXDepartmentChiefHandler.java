@@ -6,15 +6,12 @@ package servlets.admin_servlets;
 
 
 import database.mapping.Department;
-import database.mapping.Employee;
-import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.hibernate.Session;
 import org.json.simple.JSONObject;
 import servlets.ajax.AJAXSendHandler;
 
@@ -69,7 +66,6 @@ public class AJAXDepartmentChiefHandler extends AJAXSendHandler {
         if (idString != null) {
             try {
                 Long id = Long.parseLong(idString);
-                //Session hibernateSession = HibernateUtil.getSession();
                 System.out.println("ID: "+String.valueOf(id));
                 
                 Department dep= (Department) HibernateUtil.getSession().get(Department.class, (Long) id);
