@@ -62,8 +62,6 @@
           href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
     <!-- 
     -->
-
-    <jsp:include page="scripts.jsp"></jsp:include>
     <script type="text/javascript"
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
     <script type="text/javascript"
