@@ -1,3 +1,5 @@
+--Author Gangbang34
+
 --This view represents the department table joined to itself via the foreign key parent_id
 CREATE OR replace VIEW department_selfjoin
   AS

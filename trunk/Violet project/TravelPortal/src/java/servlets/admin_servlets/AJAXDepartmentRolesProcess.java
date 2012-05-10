@@ -98,10 +98,5 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        //ToDo check values
-
-        //ToDo commit changes
     }
 }

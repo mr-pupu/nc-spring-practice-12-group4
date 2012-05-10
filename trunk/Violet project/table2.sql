@@ -1,3 +1,5 @@
+--Author Gangbang34 (edited by Allan)
+
 DROP TABLE roledep;
 DROP TABLE trfstate;
 DROP TABLE trf;
@@ -198,6 +200,7 @@ START WITH 4;
 
 --Creating triggers:
 
+--index trigger by Allan
 /*CREATE OR REPLACE TRIGGER "DEPARTMENT_ID_TRIGGER"
     BEFORE INSERT ON "DEPARTMENT"
     FOR EACH ROW
@@ -350,7 +353,7 @@ END;
 
 
 
---password hashing trigger by Allan Farfur
+--password hashing trigger by Allan
 CREATE OR REPLACE TRIGGER "PASSWORD_HASH_TRIGGER"
     BEFORE INSERT OR UPDATE OF "PASSWORD" ON "EMPLOYEE"
     FOR EACH ROW
