@@ -103,3 +103,31 @@ SELECT deprole.*, emp.id empid, emp.login, emp.password
 FROM employee emp INNER JOIN department dep ON emp.dep_id = dep.id
   INNER JOIN roledep ON dep.id = roledep.dep_id 
 INNER JOIN deprole ON deprole.id = roledep.role_id;
+
+
+--Author Sitner and Poluhovich
+CREATE OR REPLACE FORCE VIEW "GUEST"."EMPLOYEE_TRFS" ("ID", "EMP_ID", "LOGIN", "BEGIN_DATE", "END_DATE", "CUR_STATE", "COMMENTARY", "CITY_NAME", "COUNTRY_NAME")
+AS
+  SELECT trf.id,
+    trf.emp_id,
+    employee.login,
+    trf.begin_date,
+    trf.end_date,
+    trf.cur_state,
+    trfstate.commentary,
+    city.city_name,
+    country.country_name
+  FROM trf
+  INNER JOIN destination
+  ON destination.id=trf.destination_id
+  INNER JOIN city
+  ON city.id=destination.city_id
+  INNER JOIN country
+  ON country.id=city.country_id
+  INNER JOIN employee
+  ON trf.emp_id=employee.id
+  INNER JOIN trfstate
+  ON trf.id          = trfstate.trf_id
+  WHERE trfstate.id IN
+    ( SELECT DISTINCT (MAX (ID)) FROM trfstate GROUP BY trf_id
+);
