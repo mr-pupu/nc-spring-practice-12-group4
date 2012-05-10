@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets.ajax;
+package servlets.admin_servlets;
 
 import database.utilities.AdministratorDesktop;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import servlets.ajax.AJAXSendHandler;
 
 /**
  *
