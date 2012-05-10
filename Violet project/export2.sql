@@ -70,7 +70,7 @@ SET DEFINE OFF;
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (1,'John','Smith','j.smith@gmail.com','John','ijohn',1,1,1); --with trf
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (2,'Jack','White','j.white@gmail.com','Jack','ijack',1,2,1);
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (3,'Steven','Duck','s.duck@gmail.com','Steven','isteven',1,3,1);
-Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (4,'Ted','Winston','t.winston@gmail.com','Ted','ited',2,1,1); --travel, with trf
+Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (4,'Ted','Winston','t.winston@gmail.com','Ted','ited',2,1,1); --travel, with many trfs
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (5,'Andrew','Wilkinson','a.wilkinson@gmail.com','Andy','iandy',2,6,1); --travel, with trf
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (6,'Indigo','Viloto','i.viloto@gmail.com','Indigo','iindigo',2,6,1); --travel
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (7,'Viki','Krusty','v.krusty@gmail.com','Viki','iviki',4,1,1); --admin, with trf
@@ -102,7 +102,7 @@ Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSI
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (32,'Marge','Simpson','m.simpson@gmail.com','Marge','imarge',11,2,2);
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (33,'Homer','Simpson','h.simpson@gmail.com','Hommy','ihommy',11,4,2);
 --Habana(Cuba) employees:
-Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (34,'Gandy','Yorke','g.yorke@gmail.com','Gandy','igandy',12,1,3);
+Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (34,'Gandy','Yorke','g.yorke@gmail.com','Gandy','igandy',12,1,3); --with trf
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (35,'Van','Gomez','v.gomez@gmail.com','Van','ivan',12,2,3);
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (36,'Rowen','Bun','r.bun@gmail.com','Rowen','irowen',12,3,3);
 Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSITION_ID,OFFICE_ID) values (37,'Nick','Wizard','n.wizard@gmail.com','Nick','inick',13,1,3); --travel
@@ -216,13 +216,44 @@ SET DEFINE OFF;
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
 values (1,1,1,1,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',0, 1);
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
-values (2,2,2,4,to_date('27-JUN-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',1, 4);
+values (2,3,3,7,to_date('20-FEB-11','DD-MON-RR'),to_date('21-FEB-11','DD-MON-RR'),'1','1',2, 7);
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
-values (3,3,3,7,to_date('20-FEB-11','DD-MON-RR'),to_date('21-FEB-11','DD-MON-RR'),'1','1',2, 7);
+values (3,4,1,10,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',3, 10);
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
-values (4,4,1,10,to_date('13-MAR-11','DD-MON-RR'),to_date('23-MAR-11','DD-MON-RR'),'0','1',3, 10);
+values (4,1,1,13,to_date('27-JUN-12','DD-MON-RR'),to_date('03-JUL-12','DD-MON-RR'),'1','0',4, 13);
+
+--Teds trf:
 Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
-values (5,1,1,13,to_date('27-JUN-12','DD-MON-RR'),to_date('03-JUL-12','DD-MON-RR'),'1','0',4, 13);
+values (5,2,2,4,to_date('27-JUL-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',0, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (6,2,2,4,to_date('17-JUL-12','DD-MON-RR'),to_date('20-JUL-12','DD-MON-RR'),'0','1',1, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (7,2,2,4,to_date('27-JUN-12','DD-MON-RR'),to_date('12-JUL-12','DD-MON-RR'),'0','1',3, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (8,2,2,4,to_date('07-JUN-12','DD-MON-RR'),to_date('17-JUN-12','DD-MON-RR'),'0','1',3, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (9,2,2,4,to_date('27-MAY-12','DD-MON-RR'),to_date('05-JUN-12','DD-MON-RR'),'0','1',0, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (10,2,2,4,to_date('14-MAY-12','DD-MON-RR'),to_date('24-MAY-12','DD-MON-RR'),'0','1',3, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (11,2,2,4,to_date('03-MAY-12','DD-MON-RR'),to_date('11-MAY-12','DD-MON-RR'),'0','1',3, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (12,2,2,4,to_date('23-APR-12','DD-MON-RR'),to_date('30-APR-12','DD-MON-RR'),'0','1',4, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (13,2,2,4,to_date('17-APR-12','DD-MON-RR'),to_date('20-APR-12','DD-MON-RR'),'0','1',2, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (14,2,2,4,to_date('09-APR-12','DD-MON-RR'),to_date('14-APR-12','DD-MON-RR'),'0','1',4, 4);
+
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (15,2,2,5,to_date('27-JUL-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',3, 4);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (16,2,2,5,to_date('17-JUL-12','DD-MON-RR'),to_date('20-JUL-12','DD-MON-RR'),'0','1',3, 4);
+
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (17,2,2,34,to_date('27-JUL-12','DD-MON-RR'),to_date('30-JUL-12','DD-MON-RR'),'1','0',3, 34);
+Insert into TRF (ID,DESTINATION_ID,CUSTOMER_ID,EMP_ID,BEGIN_DATE,END_DATE,CAR_RENTAL,PAY_BY_CASH,CUR_STATE, PROJECT_MANAGER) 
+values (18,2,2,34,to_date('17-JUL-12','DD-MON-RR'),to_date('20-JUL-12','DD-MON-RR'),'0','1',3, 34);
+
 
 
 REM INSERTING into TRFSTATE
@@ -230,25 +261,69 @@ SET DEFINE OFF;
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (1,1,'not finished',to_date('17-FEB-11','DD-MON-RR'),0,1);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (2,2,'not finished',to_date('02-JUN-12','DD-MON-RR'),0,4);
+values (2,2,'not finished',to_date('01-FEB-11','DD-MON-RR'),0,7);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (3,2,'Talca trip',to_date('03-JUN-12','DD-MON-RR'),3,4);
+values (3,2,'canceled: family problem',to_date('02-FEB-11','DD-MON-RR'),2,7);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (4,2,'rejected: wrong end date',to_date('03-JUN-12','DD-MON-RR'),1,5);
+values (4,3,'not finished',to_date('01-MAR-12','DD-MON-RR'),0,10);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (5,3,'not finished',to_date('01-FEB-11','DD-MON-RR'),0,7);
+values (5,3,'Trinidad trip',to_date('01-MAR-12','DD-MON-RR'),3,10);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (6,3,'canceled: family problem',to_date('02-FEB-11','DD-MON-RR'),2,7);
+values (6,4,'not finished',to_date('02-JUN-12','DD-MON-RR'),0,13);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (7,4,'not finished',to_date('01-MAR-12','DD-MON-RR'),0,10);
+values (7,4,'Talca trip',to_date('03-JUN-12','DD-MON-RR'),3,13);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (8,4,'Trinidad trip',to_date('01-MAR-12','DD-MON-RR'),3,10);
+values (8,4,'completed: ok',to_date('04-JUN-12','DD-MON-RR'),4,5);
+
+
+--Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+--values (2,2,'not finished',to_date('02-JUN-12','DD-MON-RR'),0,4);
+--Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+--values (3,2,'Talca trip',to_date('03-JUN-12','DD-MON-RR'),3,4);
+--Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+--values (2,2,'rejected: wrong end date',to_date('03-JUN-12','DD-MON-RR'),1,5);
+
+--Ted trfs states:
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (9,5,'not finished',to_date('02-JUN-12','DD-MON-RR'),0,13);
+values (9,5,'not finished',to_date('10-MAY-12','DD-MON-RR'),0,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (10,5,'Talca trip',to_date('03-JUN-12','DD-MON-RR'),3,13);
+values (10,6,'wrong date',to_date('10-MAY-12','DD-MON-RR'),1,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (11,5,'completed: ok',to_date('04-JUN-12','DD-MON-RR'),4,5);
+values (11,6,'my trip',to_date('09-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (12,7,'my trip',to_date('09-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (13,8,'my trip',to_date('09-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (14,9,'not finished',to_date('08-MAY-12','DD-MON-RR'),0,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (15,10,'my trip',to_date('08-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (16,10,'not finished',to_date('08-MAY-12','DD-MON-RR'),0,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (17,11,'my trip',to_date('07-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (18,12,'all ok',to_date('07-MAY-12','DD-MON-RR'),4,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (19,12,'my trip',to_date('07-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (20,13,'wrong date',to_date('06-MAY-12','DD-MON-RR'),2,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (21,13,'my trip',to_date('06-MAY-12','DD-MON-RR'),3,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (22,14,'all ok',to_date('06-MAY-12','DD-MON-RR'),4,4);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (23,14,'my trip',to_date('06-MAY-12','DD-MON-RR'),3,4);
+
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (24,15,'my trip (Andrew)',to_date('05-MAY-12','DD-MON-RR'),3,5);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (25,16,'my trip (Andrew)',to_date('05-MAY-12','DD-MON-RR'),3,5);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (26,17,'my trip (Gandy)',to_date('05-MAY-12','DD-MON-RR'),3,34);
+Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
+values (27,18,'my trip (Gandy)',to_date('05-MAY-12','DD-MON-RR'),3,34);
+
 
 
 
