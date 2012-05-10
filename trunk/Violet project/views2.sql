@@ -131,3 +131,35 @@ AS
   WHERE trfstate.id IN
     ( SELECT DISTINCT (MAX (ID)) FROM trfstate GROUP BY trf_id
 );
+
+--Author Sitner and Poluhovich
+CREATE OR REPLACE FORCE VIEW "GUEST"."TRFS_REPORT" ("ID", "FIRST_NAME", "SECOND_NAME", "BEGIN_DATE", "END_DATE", "OFFICE_CITY", "OFFICE_COUNTRY", "DEST_CITY", "DEST_COUNTRY", "DEP_NAME", "CUR_STATE")
+AS
+  SELECT tr.ID,
+    emp.first_name,
+    emp.second_name,
+    tr.begin_date,
+    tr.end_date,
+    cty.city_name      AS office_city,
+    ctry.country_name  AS office_country,
+    cty2.city_name     AS dest_city,
+    ctry2.country_name AS dest_country,
+    dep.dep_name,
+    tr.cur_state
+  FROM trf tr
+  INNER JOIN employee emp
+  ON tr.emp_id = emp.id
+  INNER JOIN destination de
+  ON de.id = tr.destination_id
+  INNER JOIN office o
+  ON emp.office_id = o.id
+  INNER JOIN city cty
+  ON cty.id = o.city_id
+  INNER JOIN country ctry
+  ON ctry.id = cty.country_id
+  INNER JOIN city cty2
+  ON cty2.id = de.city_id
+  INNER JOIN country ctry2
+  ON ctry2.id = cty2.country_id
+  INNER JOIN department dep
+  ON emp.dep_id = dep.id;
