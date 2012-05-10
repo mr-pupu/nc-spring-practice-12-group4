@@ -7,15 +7,16 @@
     </servlet>  
     <servlet>
         <servlet-name>AJAXPlannedTrips</servlet-name>
-        <servlet-class>servlets.ajax.AJAXPlannedTrips</servlet-class>
+        <servlet-class>servlets.reports.AJAXPlannedTrips</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
-        <servlet>
+	<servlet>
         <servlet-name>AJAXCurrentTrips</servlet-name>
-        <servlet-class>servlets.ajax.AJAXCurrentTrips</servlet-class>
+        <servlet-class>servlets.reports.AJAXCurrentTrips</servlet-class>
+    </servlet>
     </servlet>
         <servlet>
         <servlet-name>AJAXAllMyTRFs</servlet-name>
@@ -37,7 +38,7 @@
         <url-pattern>/ajaxallmytrfs</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>AJAXDepartmentChiefHandler</servlet-name>
+        <servletrjnj-name>AJAXDepartmentChiefHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefHandler</servlet-class>
     </servlet>
     <servlet-mapping>
@@ -188,10 +189,6 @@
     <servlet>
         <servlet-name>JQGridServlet</servlet-name>
         <servlet-class>servlets.JQGridServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>jQGridTable</servlet-name>
-        <servlet-class>jQGrid.jQGridTable</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MainHandler</servlet-name>
