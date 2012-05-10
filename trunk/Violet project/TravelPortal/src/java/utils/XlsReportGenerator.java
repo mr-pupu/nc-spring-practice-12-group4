@@ -16,7 +16,7 @@ public class XlsReportGenerator {
     {
         HSSFWorkbook workbook = new HSSFWorkbook();
 
-        HSSFSheet firstSheet = workbook.createSheet("Trfs report");
+        HSSFSheet firstSheet = workbook.createSheet("TRFs report");
         HSSFRow rowName = firstSheet.createRow(0);
 
         //report row headers
@@ -51,8 +51,8 @@ public class XlsReportGenerator {
 
             String statusName = database.mapping.Trf.getStatus(Integer.parseInt(report_row[8].toString()));
             row.createCell(5).setCellValue(statusName);
-
         }
+        
         for (int i = 0; i < rowName.getLastCellNum(); i++) {
             firstSheet.autoSizeColumn(i);
         }
