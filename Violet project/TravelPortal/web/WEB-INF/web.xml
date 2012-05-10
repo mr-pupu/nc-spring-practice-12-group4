@@ -38,7 +38,7 @@
         <url-pattern>/ajaxallmytrfs</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servletrjnj-name>AJAXDepartmentChiefHandler</servlet-name>
+        <servlet-name>AJAXDepartmentChiefHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentChiefHandler</servlet-class>
     </servlet>
     <servlet-mapping>
