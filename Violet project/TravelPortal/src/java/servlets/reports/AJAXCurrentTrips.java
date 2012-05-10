@@ -1,23 +1,57 @@
-package servlets.ajax;
+package servlets.reports;
 
+import database.mapping.Office;
 import database.mapping.Trf;
 import database.utilities.AdministratorDesktop;
 import database.utilities.EmployeeDesktop;
+import database.utilities.HibernateUtil;
 import database.utilities.Reports;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import servlets.ajax.AJAXSendHandler;
 
 /**
  *
  * @author Merle
  */
 public class AJAXCurrentTrips extends AJAXSendHandler {
+
+    String department = "All";
+    String city = "All";
+    String country = "All";
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String depNAme) {
+        this.department = depNAme;
+    }
 
     /**
      * Processes requests for both HTTP
@@ -41,7 +75,28 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        handle(request, response);
+        System.out.println("Servlet AJAXCurrentTrips runned (GET)");
+        Object obj =  null;
+        try {
+        String ajaxdata = request.getParameter("ajaxdata");
+        obj = JSONValue.parse(ajaxdata);
+        } catch(NullPointerException e) {
+            e.printStackTrace();
+        }
+        JSONArray array = (JSONArray) obj;
+        Map<String, String> resultStrings = new HashMap<String, String>();
+        for (Object object : array) {
+            JSONObject someObj = (JSONObject) object;
+            resultStrings.putAll(someObj);
+        }
+        if (resultStrings.containsKey("department")) {
+            setDepartment(resultStrings.get("department"));
+        }
+        if (resultStrings.containsKey("office")) {
+            Office office = (Office) HibernateUtil.getSession().get(Office.class, Long.parseLong(resultStrings.get("office")));
+            setCity(office.getCity().getCityName());
+            setCountry(office.getCity().getCountry().getCountryName());
+        }
     }
 
     /**
@@ -72,9 +127,22 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                 int rows = Integer.parseInt(recordString);
                 int count = 100;
                 if (id != null) {
-                    
-                    String[][] trfs = Reports.CurrentTrf(page-1, rows);
-
+                    String[][] trfs = null;
+                    System.out.println(getCity());
+                    System.out.println(getCountry());
+                    System.out.println(getDepartment());
+                    if (getDepartment().equals("All") && getCountry().equals("All")) {
+                        trfs = Reports.CurrentTrf(page - 1, rows);
+                    }
+                    if (getDepartment().equals("All") && !getCountry().equals("All")) {
+                        trfs = Reports.CurrentTrfSameOffice(getCity(), getCountry(), page - 1, rows);
+                    }
+                    if (!getDepartment().equals("All") && getCountry().equals("All")) {
+                        trfs = Reports.CurrentTrfSameDepartment(getDepartment(), page - 1, rows);
+                    }
+                    if (!getDepartment().equals("All") && !getCountry().equals("All")) {
+                        trfs = Reports.CurrentTrfSameDepartmentOffice(getCity(), getCountry(), getDepartment(), page - 1, rows);
+                    }
                     JSONArray ja = new JSONArray();
 
                     for (int i = 0; i < trfs.length; ++i) {
@@ -84,19 +152,19 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                         JSONArray jaj = new JSONArray();
 
                         jaj.add(trfs[i][1] + ", " + trfs[i][2]);
-                        jaj.add(trfs[i][3]+" "+trfs[i][4]);
-                        jaj.add(trfs[i][5]+ " "+trfs[i][6]);
+                        jaj.add(trfs[i][3] + " " + trfs[i][4]);
+                        jaj.add(trfs[i][5] + " " + trfs[i][6]);
                         jaj.add(trfs[i][7]);
                         jaj.add(trfs[i][8]);
-                        
+
                         jo.put("cell", jaj);
                         ja.add(jo);
                     }
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
-                } 
-                    jsonObject.writeJSONString(response.getWriter());
+                }
+                jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
                 System.out.print("Wrong id format");
             }
