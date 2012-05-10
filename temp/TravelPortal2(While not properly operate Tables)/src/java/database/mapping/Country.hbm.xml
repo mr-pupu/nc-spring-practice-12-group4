@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated May 7, 2012 12:41:52 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="database.mapping.Country" table="COUNTRY" schema="GUEST">
+        <id name="id" type="long">
+            <column name="ID" precision="10" scale="0" />
+           <generator class="sequence">
+                <param name="sequence">country_id_seq</param>
+            </generator>
+        </id>
+        <property name="countryName" type="string">
+            <column name="COUNTRY_NAME" length="20" />
+        </property>
+        <set name="cities" inverse="true">
+            <key>
+                <column name="COUNTRY_ID" precision="10" scale="0" />
+            </key>
+            <one-to-many class="database.mapping.City" />
+        </set>
+    </class>
+</hibernate-mapping>
