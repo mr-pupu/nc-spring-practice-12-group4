@@ -2,17 +2,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <title>Bootstrap, from Twitter</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="">
-            <meta name="author" content="">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Bootstrap, from Twitter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-            <!-- Le styles -->
-            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+        <!-- Le styles -->
+        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
               rel="stylesheet">
         <style type="text/css">
             body {
@@ -46,19 +46,24 @@
             jsDatePick is distributed under the terms of the GNU General Public License.
             ****************************************************************************************
     -->
+    <jsp:include page="scripts.jsp"></jsp:include>
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/path.js">
+    </script>
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
+    </script>-->
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
+    </script>
     <link rel="stylesheet" type="text/css" media="all"
           href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
-    <!-- 
-    -->
-
-    <jsp:include page="scripts.jsp"></jsp:include>
-        <script type="text/javascript"
-        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
+    <script type="text/javascript"
+    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
     <script type="text/javascript"
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
-
-    <!-- 
-    -->
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
 
 </head>
 <body>
@@ -78,7 +83,6 @@
                 </div>
                 <div id="collapseOne" class="accordion-body collapse in">
                     <div class="accordion-inner">
-
                         <table class="table table-bordered table-condensed">
                             <thead>
                                 <tr>
@@ -106,31 +110,8 @@
                                     <td>Entering</td>
                                     <td>Some comment</td>
                                 </tr>
-                                <tr>
-                                    <td><a data-toggle="modal" href="#myModal"
-                                           class="btn btn-mini span1"><fmt:message
-                                                key="page.forms.buttonEdit" /></a></td>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
                             </tbody>
                         </table>
-                        <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -147,7 +128,7 @@
                 <div id="collapseTwo" class="accordion-body collapse">
                     <div class="accordion-inner">
 
-                        <form class="form-horizontal">
+<!--                        <form class="form-horizontal">
                             <fieldset>
                                 <div class="control-group">
                                     <label class="control-label" for="appendedInput">Calendar will be here</label>
@@ -158,8 +139,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </fieldset>
-                        </form>
+                           </fieldset>
+                       </form>-->
 
 
 
@@ -167,66 +148,23 @@
                             <tbody>
                                 <tr>
                                     <td><fmt:message key="page.forms.filterDepartment" /></td>
-                                    <td><select class="btn">
-                                            <option>&lt;All&gt;</option>
-                                            <option value="PA">ff</option>
-                                            <option value="CT">gg</option>
+                                    <td><select class="combobox" style="width : 180px;" id="department">
                                         </select></td>
                                     <td><fmt:message key="page.forms.filterTimeframe" /></td>
                                     <td><fmt:message key="page.forms.filterTimeframe.from" />
-                                        <input type="text" size="12" id="inputField1" /> 
+                                        <input type="text" size="12" id="beginDate" /> 
                                         <img src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
-                                             onmousedown="document.getElementById('inputField1').focus();"
+                                             onmousedown="document.getElementById('beginDate').focus();"
                                              width=20px; height=20px; id="image1" /> <!-- <input	type="text">XX</td> -->
                                     <td><fmt:message key="page.forms.filterTimeframe.to" /> <input
-                                            type="text" size="12" id="inputField2" /> <img
+                                            type="text" size="12" id="endDate" /> <img
                                             src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
-                                            onmousedown="document.getElementById('inputField2').focus();"
+                                            onmousedown="document.getElementById('endDate').focus();"
                                             width=20px; height=20px; id="image2" /> <!--<input type="text">XX</td>  -->
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th><fmt:message key="table.trfs.destination" /></th>
-                                    <th><fmt:message key="table.trfs.dateBegin" /></th>
-                                    <th><fmt:message key="table.trfs.dateEnd" /></th>
-                                    <th><fmt:message key="table.trfs.status" /></th>
-                                    <th><fmt:message key="table.trfs.comment" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                                <tr>
-                                    <td>Mexico Mexico</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Another comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="pagination span4 offset3">
-                                <ul>
-                                    <li><a href="#">&larr;</a></li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li class="disabled"><a href="#">...</a></li>
-                                    <li><a href="#">20</a></li>
-                                    <li><a href="#">21</a></li>
-                                    <li><a href="#">&rarr;</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <table id="allTRFs"> </table>
                     </div>
                 </div>
             </div>
