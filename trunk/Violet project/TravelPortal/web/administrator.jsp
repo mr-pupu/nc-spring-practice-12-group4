@@ -35,7 +35,7 @@
                 src="<%=request.getContextPath()%>/assets/js/adminjs/remove.js">
         </script>
         <script type='text/javascript'
-<!--                src="<%=request.getContextPath()%>/assets/js/grid.treegrid.js">-->
+<!--                src="<%=request.getContextPath()%>/assets/js/adminjs/grid.treegrid.js">-->
 
     </script>
     <script type="text/javascript"
@@ -45,10 +45,10 @@
             src="<%=request.getContextPath()%>/assets/js/adminjs/department-chief.js">
     </script>
     <script type='text/javascript'
-            src="<%=request.getContextPath()%>/assets/js/administrator-tree.js">
+            src="<%=request.getContextPath()%>/assets/js/adminjs/administrator-tree.js">
     </script>
     <script type='text/javascript'
-            src="<%=request.getContextPath()%>/assets/js/employee-administrator-table.js">
+            src="<%=request.getContextPath()%>/assets/js/adminjs/employee-administrator-table.js">
     </script>
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
