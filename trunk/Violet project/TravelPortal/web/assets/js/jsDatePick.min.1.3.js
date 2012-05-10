@@ -135,6 +135,7 @@ JsDatePick.prototype.setConfiguration = function(a) {
 			: "assets/img/calendar/";
 	this.oConfiguration.weekStartDay = (a.weekStartDay != null) ? a.weekStartDay
 			: 1;
+        this.oConfiguration.onAfterSelect = a.onAfterSelect;
 	this.selectedDayObject = {};
 	this.flag_DayMarkedBeforeRepopulation = false;
 	this.flag_aDayWasSelected = false;
@@ -263,13 +264,14 @@ JsDatePick.prototype.makeCalendar = function() {
 				n.parentNode.replaceChild(l, n);
 				l.appendChild(n);
 				n.setAttribute("globalNumber", this.globalNumber);
-				n.onclick = function() {
-					JsDatePick.getCalInstanceById(
-							this.getAttribute("globalNumber")).showCalendar()
-				};
+//				n.onclick = function() {
+//					JsDatePick.getCalInstanceById(
+//							this.getAttribute("globalNumber")).showCalendar()
+//				};
 				n.onfocus = function() {
 					JsDatePick.getCalInstanceById(
 							this.getAttribute("globalNumber")).showCalendar()
+                                        n.blur();
 				};
 				l.style.position = "relative";
 				this.initialZIndex++;
@@ -394,23 +396,22 @@ JsDatePick.prototype.senseDivider = function(a) {
 };
 JsDatePick.prototype.showCalendar = function() {
 	if (this.JsDatePickBox.style.display == "none") {
-		this.determineFieldDate();
-		this.JsDatePickBox.style.display = "block";
-		this.resizeCalendar();
-		this.executePopulationDelegateIfExists();
-		this.JsDatePickBox.onmouseover = function() {
-			document.onclick = function() {
-			}
-		};
-		this.JsDatePickBox.setAttribute("globalCalNumber", this.globalNumber);
-		this.JsDatePickBox.onmouseout = function() {
-			document.onclick = new Function("g_arrayOfUsedJsDatePickCals["
-					+ this.getAttribute("globalCalNumber")
-					+ "].closeCalendar();")
-		}
-	} else {
+            this.determineFieldDate();
+            this.JsDatePickBox.style.display = "block";
+            this.resizeCalendar();
+            this.executePopulationDelegateIfExists();
+            this.JsDatePickBox.onmouseover = function() {
+                document.onclick = function() {
+                }
+            };
+            this.JsDatePickBox.setAttribute("globalCalNumber", this.globalNumber);
+            this.JsDatePickBox.onmouseout = function() {
+                document.onclick = new Function("g_arrayOfUsedJsDatePickCals["
+                                + this.getAttribute("globalCalNumber")
+                                + "].closeCalendar();")
+            }
+	} else 
 		return
-	}
 };
 JsDatePick.prototype.isAvailable = function(c, a, b) {
 	if (c > this.oCurrentDay.year) {
@@ -625,7 +626,8 @@ JsDatePick.prototype.populateMainBox = function(h) {
 						+ "_dayNormal.gif) left top no-repeat"
 			}
 			d.setDaySelection(this);
-			d.executeOnSelectedDelegateIfExists()
+			d.executeOnSelectedDelegateIfExists();
+                        d.oConfiguration.onAfterSelect && d.oConfiguration.onAfterSelect();
 		};
 		if (this.isSelectedDay(j.getDate())) {
 			g.setAttribute("isSelected", 1);

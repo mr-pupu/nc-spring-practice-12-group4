@@ -14,6 +14,22 @@
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
 	<servlet>
+        <servlet-name>Comboboxhandler</servlet-name>
+        <servlet-class>servlets.travelSupport.Comboboxhandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Comboboxhandler</servlet-name>
+        <url-pattern>/comboboxhandler</url-pattern>
+    </servlet-mapping>
+	<servlet>
+        <servlet-name>TravelSupportAllTRFs</servlet-name>
+        <servlet-class>servlets.travelSupport.TravelSupportAllTRFs</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TravelSupportAllTRFs</servlet-name>
+        <url-pattern>/travelsupportalltrfs</url-pattern>
+    </servlet-mapping>
+	<servlet>
         <servlet-name>AJAXCurrentTrips</servlet-name>
         <servlet-class>servlets.reports.AJAXCurrentTrips</servlet-class>
     </servlet>
