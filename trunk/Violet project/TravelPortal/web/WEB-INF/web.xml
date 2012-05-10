@@ -170,7 +170,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>AJAXEmployeeHandler</servlet-name>
-        <servlet-class>servlets.ajax.AJAXEmployeeHandler</servlet-class>
+        <servlet-class>servlets.admin_servlets.AJAXEmployeeHandler</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AJAXEmployeeHandler</servlet-name>

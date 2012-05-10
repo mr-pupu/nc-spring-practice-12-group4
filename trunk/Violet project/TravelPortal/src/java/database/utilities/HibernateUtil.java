@@ -5,7 +5,6 @@
 package database.utilities;
 import database.mapping.*;
 import java.math.BigDecimal;
-//import database.mapping.Employee;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +15,7 @@ import org.hibernate.cfg.AnnotationConfiguration;
  * Hibernate Utility class with a convenient method to get Session Factory
  * object.
  *
- * @author allan
+ * @author Gangbang34
  */
 public class HibernateUtil {
 
@@ -48,6 +47,10 @@ public class HibernateUtil {
     }
     //the list of occupations
 
+    /**
+     * @author Allan
+     * @return 
+     */
     public static List<Occupation> OccupationsList() {
         Session s = getSession();
         String stmt = "select id, pos_name "
@@ -56,6 +59,10 @@ public class HibernateUtil {
         return (List<Occupation>) query.addEntity(Occupation.class).list();
     }
     
+    /**
+     * author Allan
+     * @return 
+     */
     public static List<Office> OfficesList() {
         Session s = getSession();
         String stmt = "select * "
@@ -64,6 +71,10 @@ public class HibernateUtil {
         return (List<Office>) query.addEntity(Office.class).list();
     }
     
+    /**
+     * @author Allan
+     * @return 
+     */
     public static List<Department> DepartmentsList() {
         Session s = getSession();
         String stmt = "select * "
@@ -72,6 +83,10 @@ public class HibernateUtil {
         return (List<Department>) query.addEntity(Department.class).list();
     }
     
+    /**
+     * @author Allan
+     * @return 
+     */
     public static List<Deprole> DeprolesList() {
         Session s = getSession();
         String stmt = "select * "
