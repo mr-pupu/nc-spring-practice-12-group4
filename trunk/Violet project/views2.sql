@@ -133,9 +133,9 @@ AS
 );
 
 --Author Sitner and Poluhovich
-CREATE OR REPLACE FORCE VIEW "GUEST"."TRFS_REPORT" ("ID", "FIRST_NAME", "SECOND_NAME", "BEGIN_DATE", "END_DATE", "OFFICE_CITY", "OFFICE_COUNTRY", "DEST_CITY", "DEST_COUNTRY", "DEP_NAME", "CUR_STATE")
+CREATE OR REPLACE FORCE VIEW "GUEST"."TRFS_REPORT" ("ID", "FIRST_NAME", "SECOND_NAME", "BEGIN_DATE", "END_DATE", "OFFICE_CITY", "OFFICE_COUNTRY", "DEST_CITY", "DEST_COUNTRY", "DEP_NAME", "CUR_STATE", "COMMENTARY")
 AS
-  SELECT tr.ID,
+ SELECT tr.ID,
     emp.first_name,
     emp.second_name,
     tr.begin_date,
@@ -145,7 +145,8 @@ AS
     cty2.city_name     AS dest_city,
     ctry2.country_name AS dest_country,
     dep.dep_name,
-    tr.cur_state
+    tr.cur_state,
+    commentary
   FROM trf tr
   INNER JOIN employee emp
   ON tr.emp_id = emp.id
@@ -162,7 +163,9 @@ AS
   INNER JOIN country ctry2
   ON ctry2.id = cty2.country_id
   INNER JOIN department dep
-  ON emp.dep_id = dep.id;
+  ON emp.dep_id = dep.id
+  INNER JOIN trfstate_lastdate tstate
+  ON tstate.trf_id = tr.id; 
 
 
 --Author Sitner and Poluhovich
@@ -210,3 +213,10 @@ AS
     ctry.country_name,
     emp.id,
     dep.dep_name;
+
+--Author Allan
+CREATE OR REPLACE VIEW trfstate_lastdate 
+as
+Select  trf_id, commentary
+From trfstate tstate1
+Where change_date=(select max(change_date) from trfstate tstate2 where tstate1.trf_id=tstate2.trf_id);
