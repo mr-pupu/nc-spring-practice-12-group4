@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bootstrap, from Twitter</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -38,7 +38,7 @@
               href="<%=request.getContextPath()%>/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed"
               href="<%=request.getContextPath()%>/assets/ico/apple-touch-icon-57-precomposed.png">
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <!-- 
             Copyright 2009 Itamar Arjuan
             jsDatePick is distributed under the terms of the GNU General Public License.
@@ -50,7 +50,7 @@
     </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
-    </script>-->
+    </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
     </script>
@@ -141,10 +141,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                                            <div>                 
+<!--                                            <div>                 
                                                 <table id="allTRFs"></table>
                                                 <div id="allTRFspager"></div> 
-                                            </div>
+                                            </div>-->
                     </div>
                 </div>
             </div>
