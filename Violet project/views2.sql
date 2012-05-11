@@ -163,3 +163,50 @@ AS
   ON ctry2.id = cty2.country_id
   INNER JOIN department dep
   ON emp.dep_id = dep.id;
+
+
+--Author Sitner and Poluhovich
+ CREATE OR REPLACE FORCE VIEW "GUEST"."TRF_STATE_DEPARTMENT" ("MAXDATE", "ID", "DESTINATION_ID", "CUSTOMER_ID", "EMP_ID", "BEGIN_DATE", "END_DATE", "CAR_RENTAL", "PAY_BY_CASH", "CUR_STATE", "PROJECT_MANAGER", "CITY_NAME", "COUNTRY_NAME", "EMPID", "DEP_NAME")
+AS
+  SELECT MAX(tst.change_date) maxdate,
+    tr."ID",
+    tr."DESTINATION_ID",
+    tr."CUSTOMER_ID",
+    tr."EMP_ID",
+    tr."BEGIN_DATE",
+    tr."END_DATE",
+    tr."CAR_RENTAL",
+    tr."PAY_BY_CASH",
+    tr."CUR_STATE",
+    tr."PROJECT_MANAGER",
+    cty.city_name,
+    ctry.country_name,
+    emp.id empid,
+    dep.dep_name
+  FROM trf tr
+  INNER JOIN employee emp
+  ON tr.emp_id = emp.id
+  INNER JOIN office o
+  ON emp.office_id = o.id
+  INNER JOIN city cty
+  ON cty.id = o.city_id
+  INNER JOIN country ctry
+  ON ctry.id = cty.country_id
+  INNER JOIN department dep
+  ON dep.id = emp.dep_id
+  INNER JOIN trfstate tst
+  ON tst.trf_id = tr.id
+  GROUP BY tr.id,
+    tr.emp_id,
+    tr.begin_date,
+    tr.end_date,
+    tr.car_rental,
+    tr.pay_by_cash,
+    tr.cur_state,
+    tr.customer_id,
+    tr.destination_id,
+    cty.city_name,
+    tr.project_manager,
+    ctry.country_name,
+    emp.id,
+    dep.dep_name;
