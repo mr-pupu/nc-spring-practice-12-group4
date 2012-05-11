@@ -83,35 +83,10 @@
                 </div>
                 <div id="collapseOne" class="accordion-body collapse in">
                     <div class="accordion-inner">
-                        <table class="table table-bordered table-condensed">
-                            <thead>
-                                <tr>
-                                    <th style="width: 20px;">
-                                        <button type="submit" class="btn btn-mini span1">
-                                            <fmt:message key="page.forms.buttonAdd" />
-                                        </button>
-                                    </th>
-                                    <th><fmt:message key="table.trfs.destination" /></th>
-                                    <th><fmt:message key="table.trfs.dateBegin" /></th>
-                                    <th><fmt:message key="table.trfs.dateEnd" /></th>
-                                    <th><fmt:message key="table.trfs.status" /></th>
-                                    <th><fmt:message key="table.trfs.comment" /></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <tr>
-                                    <td><a data-toggle="modal" href="#myModal"
-                                           class="btn btn-mini span1"><fmt:message
-                                                key="page.forms.buttonEdit" /></a></td>
-                                    <td>New York U.S.A</td>
-                                    <td>12.06.2012</td>
-                                    <td>12.08.2012</td>
-                                    <td>Entering</td>
-                                    <td>Some comment</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div>                 
+                            <table id="travelinprogress"></table>
+                            <div id="travelprogresspager"></div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,7 +139,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table id="allTRFs"> </table>
+                                            <div>                 
+                                                <table id="travelalltrfs"></table>
+                                                <div id="traveltrfspager"></div> 
+                                            </div>
                     </div>
                 </div>
             </div>

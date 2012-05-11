@@ -10,7 +10,7 @@ $(function() {
     
     jQuery("#inprogress").jqGrid(
     {
-        url:getContextPath() + "/ajaxinprogresstrf?id=1",
+        url:getContextPath() + "/ajaxinprogresstrf?travel=false",
         datatype : "json",
         height : 'auto',
         mtype: "POST",
