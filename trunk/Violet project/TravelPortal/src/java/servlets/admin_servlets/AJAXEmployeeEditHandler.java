@@ -1,13 +1,11 @@
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
- * Author Allan
  */
 package servlets.admin_servlets;
 
 
 import database.mapping.Employee;
-import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -20,7 +18,7 @@ import servlets.ajax.AJAXSendHandler;
 
 /**
  *
- * @author Merle
+ * @author Allan (base by Vlad)
  */
 public class AJAXEmployeeEditHandler extends AJAXSendHandler {
 
