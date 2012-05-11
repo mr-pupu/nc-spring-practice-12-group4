@@ -12,7 +12,7 @@ public class TravelSupportDesktop {
     
     private static String[][] fillRes(List resq)
 {
-     String[][] res = new String[resq.size()][8];
+     String[][] res = new String[resq.size()][9];
        DateFormat reportDateFormat = new SimpleDateFormat("dd-MM-yyyy");
    
         for (int i = 0;i < resq.size(); i++) {
@@ -34,7 +34,7 @@ public class TravelSupportDesktop {
             res[i][5] = begin_date;
             res[i][6] = end_date;
             res[i][7] = status;
-            res[i][7] = comment;
+            res[i][8] = comment;
        }
       return res;
 }
@@ -42,21 +42,23 @@ public class TravelSupportDesktop {
     //"in process" table
     //TRF the state of which is "Ready", and employee from "Employee Name field" 
     // works in the same country as logged employee
-    public static String[][] ReadyTRFsSameCountry(Integer id, Integer page, Integer num) {
+    public static String[][] ReadyTRFsSameCountry(String login, Integer page, Integer num) {
+        System.out.println("BUGAGAGAGAGAGAG");
          String prepared_statement = "select id, first_name, second_name, "
-                + " dest_city, dest_country, begin_date,end_date, cur_state, comment"
-                + " from (select rownum r, trfs_report.* "
-                + " from trfs_report "
+                + " dest_city, dest_country, begin_date,end_date, cur_state, commentary"
+                + " from (select rownum r, trfs_report.*"
+                + " from trfs_report"
                 + "    WHERE cur_state=3 AND office_country="
                 + "   (SELECT country_name"
                 + "   FROM emp_office "
-                + "    WHERE id=:id))"
-                + "    where r>:fromi and r<:toi";
+                + "    WHERE login=:login))"
+                + "    where r>:from and r<:to";
 
    Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
         List resq = s.createSQLQuery(prepared_statement)
+                .setString("login", login)
                 .setInteger("from", from)
                 .setInteger("to", to)
                 .list();
@@ -67,7 +69,7 @@ public class TravelSupportDesktop {
     //as logged employee
     //filter by TRFs, in which the last change of status occured during last month
     //
-    public static String[][] TrfLastMonthSameCountry(Integer id, Integer page, Integer num) {
+    public static String[][] TrfLastMonthSameCountry(String login, Integer page, Integer num) {
       
          String prepared_statement = "select id, first_name, second_name,"
                +"  dest_city, dest_country, begin_date,end_date, cur_state, commentary"
@@ -77,7 +79,7 @@ public class TravelSupportDesktop {
                   +"       AND office_country =            "
                   +"    (SELECT country_name       "
                    +"        FROM emp_office             "
-                   +"  WHERE id=:id))       "
+                   +"  WHERE login=:login))       "
                    +"       where r> :from and r< :to ";
  Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -85,7 +87,7 @@ public class TravelSupportDesktop {
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)
                 .setInteger("to", to)
-                .setInteger("id", id)
+                .setString("login", login)
                 .list();
         return fillRes(resq);
      }
@@ -99,7 +101,7 @@ public class TravelSupportDesktop {
      
         String prepared_statement = "select id, first_name, second_name,"
                +"  dest_city, dest_country, begin_date,end_date, cur_state, commentary"
-                +"  from (select rownum r, trfs_report.*"
+                +"  from (select rownum r, trfs_report.*,  tso.commentary"
                 +"  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
                  +"    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"        
                 + "AND dep_name=:department "

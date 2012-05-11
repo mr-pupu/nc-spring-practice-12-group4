@@ -9,7 +9,7 @@
         <title>Bootstrap, from Twitter</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="author" content="Allan and Dudinskiy(Filters)">
 
         <!-- Le styles -->
         <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
@@ -38,9 +38,7 @@
               href="<%=request.getContextPath()%>/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed"
               href="<%=request.getContextPath()%>/assets/ico/apple-touch-icon-57-precomposed.png">
-    </head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Insert title here</title>
     <!-- 
             Copyright 2009 Itamar Arjuan
             jsDatePick is distributed under the terms of the GNU General Public License.
@@ -64,6 +62,10 @@
     src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
+        <script type="text/javascript"
+        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/traveljs/travel-in-progress-trfs.js"></script>
+        <script type="text/javascript"
+        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/traveljs/travel-all-trfs.js"></script>
 
 </head>
 <body>
@@ -140,8 +142,8 @@
                             </tbody>
                         </table>
                                             <div>                 
-                                                <table id="travelalltrfs"></table>
-                                                <div id="traveltrfspager"></div> 
+                                                <table id="allTRFs"></table>
+                                                <div id="allTRFspager"></div> 
                                             </div>
                     </div>
                 </div>
