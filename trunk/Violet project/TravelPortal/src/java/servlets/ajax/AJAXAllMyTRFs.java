@@ -7,6 +7,7 @@ package servlets.ajax;
 import database.mapping.Trf;
 import database.utilities.AdministratorDesktop;
 import database.utilities.EmployeeDesktop;
+import database.utilities.TravelSupportDesktop;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -62,25 +63,30 @@ public class AJAXAllMyTRFs extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXAllMyTRFs runned");
-        String idString = request.getParameter("id");
+        String travelString = request.getParameter("travel");
         String pageString = request.getParameter("page");
         System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
         String login = (String) request.getSession().getAttribute("name");
         System.out.println("Records " + recordString);
         JSONObject jsonObject = new JSONObject();
-        if (idString != null) {
+        if (travelString != null) {
             try {
-                Long id = Long.parseLong(idString);
+                boolean travel = Boolean.parseBoolean(travelString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
                 int count = 500;
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
-                if (id != null) {
-                    
-                    String[][] trfs = EmployeeDesktop.allEmpsTRFs(login, 0, 20);
+                String[][] trfs;
+                    if(travel){
+                       // trfs = TravelSupportDesktop.TrfLastMonthSameCountry(login, 0, 20);
+                        trfs = EmployeeDesktop.allEmpsTRFs(login, 0, 20);
+                    }
+                    else{
+                        trfs = EmployeeDesktop.allEmpsTRFs(login, 0, 20);
+                    }
 
                     JSONArray ja = new JSONArray();
 
@@ -101,7 +107,6 @@ public class AJAXAllMyTRFs extends AJAXSendHandler {
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
-                } 
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
                 System.out.print("Wrong id format");
