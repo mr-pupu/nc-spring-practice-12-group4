@@ -100,7 +100,8 @@
                 </div>
                 <div class="span8" >
                     <c:forEach items="${list}" var="role">
-                        <input type="checkbox" class="checkbox" id="check<c:out value="${role.id}"/>">
+                        <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
+                                processRoleChange(id)}" class="checkbox" id="check<c:out value="${role.id}"/>">
                         <c:out value="${role.roleName}"/>&nbsp;&nbsp;
                     </c:forEach>
                     <br>
