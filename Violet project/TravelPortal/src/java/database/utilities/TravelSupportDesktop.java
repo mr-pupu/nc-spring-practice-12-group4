@@ -38,11 +38,33 @@ public class TravelSupportDesktop {
       return res;
 }
 
+
+    /**
+     * @author Allan
+     * @param login
+     * @return the total number of trfs in status ready in same country
+     * slow, but working
+     */
+    public static long CountReadyTRFsSameCountry(String login){
+        String prepared_statement = "select count(*)"
+                + " from (select rownum r, trfs_report.*"
+                + " from trfs_report"
+                + "    WHERE cur_state=3 AND office_country="
+                + "   (SELECT country_name"
+                + "   FROM emp_office "
+                + "    WHERE login=:login))";
+        Session s = HibernateUtil.getSession();
+        Long res = Long.parseLong(s.createSQLQuery(prepared_statement).
+                setString("login", login).list().get(0).toString());
+        return res;
+    }
+    
+    
+    
     //"in process" table
     //TRF the state of which is "Ready", and employee from "Employee Name field" 
     // works in the same country as logged employee
-    public static String[][] ReadyTRFsSameCountry(String login, Integer page, Integer num) {
-        System.out.println("BUGAGAGAGAGAGAG");
+    public static String[][] ReadyTRFsSameCountry(String login, int page, int rows) {
         System.out.println("login "+login);
          String prepared_statement = "select id, first_name, second_name, "
                 + " dest_city, dest_country, begin_date,end_date, cur_state, commentary"
@@ -55,8 +77,8 @@ public class TravelSupportDesktop {
                 + "    where r>:from and r<:to";
 
    Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
+        int from = (page-1)*rows;
+        int to = from+rows;
         List resq = s.createSQLQuery(prepared_statement)
                 .setString("login", login)
                 .setInteger("from", from)

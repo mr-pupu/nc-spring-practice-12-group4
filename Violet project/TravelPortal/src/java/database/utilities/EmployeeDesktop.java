@@ -10,12 +10,32 @@ import org.hibernate.Session;
 
 public class EmployeeDesktop {
 
+    
+    /**
+     * @author Allan
+     * @param login
+     * @return the total number of "in progress" trfs of current user
+     * slow but working
+     */
+    public static long CountEnteringRejectedTRF(String login){
+        String prepared_statement = "select count(*) "
+                + "from (select rownum r, employee_trfs.* "
+                + "from employee_trfs "
+                + "where (cur_state=1 or cur_state=0) and login=:login) ";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement).setString("login", login)
+                .list().get(0).toString());
+        return res;
+    }
+    
+    
     //TRFs, the author of which is the given employee,
     //and state is Entering or Rejected
-    public static String[][] EnteringRejectedTRF(String login, Integer page, Integer num) {
+    public static String[][] EnteringRejectedTRF(String login, int page, int rows) {
         Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
+        int from = (page-1)*rows;
+        int to = from+rows;
         String prepared_statement = "select id ,city_name, country_name, begin_date, end_date, cur_state, commentary "
                 + "from (select rownum r, employee_trfs.* "
                 + "from employee_trfs "

@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Merle
+ * @author Merle (edited by Allan)
  */
 public class AJAXInProgressTRF extends AJAXSendHandler {
 
@@ -72,16 +72,21 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                 boolean travel = Boolean.parseBoolean(travelString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                int count = 500;
+
+                long count;
+                if(travel) count = TravelSupportDesktop.
+                        CountReadyTRFsSameCountry(login);
+                else count = EmployeeDesktop.CountEnteringRejectedTRF(login);
+
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
                 String[][] trfs;
                     if(travel){
-                       trfs = TravelSupportDesktop.ReadyTRFsSameCountry(login, 0, 20);
+                       trfs = TravelSupportDesktop.ReadyTRFsSameCountry(login, page, rows);
                     }
                     else{
-                        trfs = EmployeeDesktop.EnteringRejectedTRF(login, 0, 20);
+                        trfs = EmployeeDesktop.EnteringRejectedTRF(login, page, rows);
                     }
 
                     JSONArray ja = new JSONArray();
