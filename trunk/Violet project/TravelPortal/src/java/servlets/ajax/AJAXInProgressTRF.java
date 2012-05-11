@@ -4,12 +4,9 @@
  */
 package servlets.ajax;
 
-import database.mapping.Trf;
-import database.utilities.AdministratorDesktop;
 import database.utilities.EmployeeDesktop;
 import database.utilities.TravelSupportDesktop;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +83,6 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                     else{
                         trfs = EmployeeDesktop.EnteringRejectedTRF(login, 0, 20);
                     }
-                    System.out.println("GGGGGG:"+trfs[0][0]);
 
                     JSONArray ja = new JSONArray();
 
@@ -102,7 +98,6 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                              jaj.add(trfs[i][3]);
                              jaj.add(trfs[i][4]);
                         }
-                        jaj.add(trfs[i][4]);
                         jaj.add(trfs[i][5]);
                         jaj.add(trfs[i][6]);
                         if(travel){
@@ -115,9 +110,6 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
-                    
-                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
-                    System.out.println(jsonObject);
                 
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {

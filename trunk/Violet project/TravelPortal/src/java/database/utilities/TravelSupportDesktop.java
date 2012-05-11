@@ -1,6 +1,5 @@
 package database.utilities;
 
-import database.mapping.Trf;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +22,7 @@ public class TravelSupportDesktop {
             String dest_country_name = (String) ((Object[]) resq.get(i))[4];
             String begin_date = reportDateFormat.format((Date) ((Object[]) resq.get(i))[5]);
             String end_date = reportDateFormat.format((Date) ((Object[]) resq.get(i))[6]);
-            String status = (String)((Object[]) resq.get(i))[7];
+            BigDecimal status = (BigDecimal)((Object[]) resq.get(i))[7];
             String comment = (String) ((Object[]) resq.get(i))[8];
 
             res[i][0] = trf_id.toString();
@@ -33,7 +32,7 @@ public class TravelSupportDesktop {
             res[i][4] = dest_country_name;
             res[i][5] = begin_date;
             res[i][6] = end_date;
-            res[i][7] = status;
+            res[i][7] = database.mapping.Trf.getStatus(status.intValue());
             res[i][8] = comment;
        }
       return res;
@@ -44,6 +43,7 @@ public class TravelSupportDesktop {
     // works in the same country as logged employee
     public static String[][] ReadyTRFsSameCountry(String login, Integer page, Integer num) {
         System.out.println("BUGAGAGAGAGAGAG");
+        System.out.println("login "+login);
          String prepared_statement = "select id, first_name, second_name, "
                 + " dest_city, dest_country, begin_date,end_date, cur_state, commentary"
                 + " from (select rownum r, trfs_report.*"
