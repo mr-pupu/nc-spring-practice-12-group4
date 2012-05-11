@@ -75,8 +75,8 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
 
                 long count;
                 if(travel) count = TravelSupportDesktop.
-                        CountReadyTRFsSameCountry(login);
-                else count = EmployeeDesktop.CountEnteringRejectedTRF(login);
+                        countReadyTRFsSameCountry(login);
+                else count = EmployeeDesktop.countEnteringRejectedTRF(login);
 
                 if ((page - 1) * rows > count) {
                     page = 1;

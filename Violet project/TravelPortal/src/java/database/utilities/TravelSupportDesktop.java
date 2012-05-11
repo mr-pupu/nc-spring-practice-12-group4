@@ -45,14 +45,13 @@ public class TravelSupportDesktop {
      * @return the total number of trfs in status ready in same country
      * slow, but working
      */
-    public static long CountReadyTRFsSameCountry(String login){
+    public static long countReadyTRFsSameCountry(String login){
         String prepared_statement = "select count(*)"
-                + " from (select rownum r, trfs_report.*"
                 + " from trfs_report"
                 + "    WHERE cur_state=3 AND office_country="
                 + "   (SELECT country_name"
                 + "   FROM emp_office "
-                + "    WHERE login=:login))";
+                + "    WHERE login=:login)";
         Session s = HibernateUtil.getSession();
         Long res = Long.parseLong(s.createSQLQuery(prepared_statement).
                 setString("login", login).list().get(0).toString());
@@ -74,7 +73,7 @@ public class TravelSupportDesktop {
                 + "   (SELECT country_name"
                 + "   FROM emp_office "
                 + "    WHERE login=:login))"
-                + "    where r>:from and r<:to";
+                + "    where r> :from and r<= :to";
 
    Session s = HibernateUtil.getSession();
         int from = (page-1)*rows;
@@ -102,7 +101,7 @@ public class TravelSupportDesktop {
                   +"    (SELECT country_name       "
                    +"        FROM emp_office             "
                    +"  WHERE login=:login))       "
-                   +"       where r> :from and r< :to ";
+                   +"       where r> :from and r<= :to ";
  Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
@@ -131,7 +130,7 @@ public class TravelSupportDesktop {
                   +"    (SELECT country_name       "
                    +"        FROM emp_office             "
                    +"  WHERE id=:id))       "
-                   +"       where r> :from and r< :to ";
+                   +"       where r> :from and r<= :to ";
 
   Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -157,7 +156,7 @@ public class TravelSupportDesktop {
                 + "    (SELECT country_name"
                 + "   FROM emp_office "
                 + "    WHERE id=:id))"
-                + "   where r>:fromi and r<:toi";
+                + "   where r>: from and r<= :to";
 
      Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -187,7 +186,7 @@ public class TravelSupportDesktop {
                 + "      (SELECT country_name  "
                 + "      FROM emp_office  "
                 + "      WHERE id=:id)) "
-                + "     where r > :toi and r< :fromi";
+                + "     where r > : to and r<= :from";
   Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;

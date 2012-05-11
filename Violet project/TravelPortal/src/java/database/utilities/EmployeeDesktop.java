@@ -17,7 +17,7 @@ public class EmployeeDesktop {
      * @return the total number of "in progress" trfs of current user
      * slow but working
      */
-    public static long CountEnteringRejectedTRF(String login){
+    public static long countEnteringRejectedTRF(String login){
         String prepared_statement = "select count(*) "
                 + "from (select rownum r, employee_trfs.* "
                 + "from employee_trfs "
@@ -40,7 +40,7 @@ public class EmployeeDesktop {
                 + "from (select rownum r, employee_trfs.* "
                 + "from employee_trfs "
                 + "where (cur_state=1 or cur_state=0) and login=:login) "
-                + "where r> :from and r< :to";
+                + "where r> :from and r<= :to";
 
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)
@@ -72,17 +72,27 @@ public class EmployeeDesktop {
         return res;
     }
 
+    public static long countAllEmpsTRFS(String login){
+        String prepared_statement = "select count(*) "
+                + "from employee_trfs "
+                + "where login=:login ";
+        
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
+                .setString("login", login).list().get(0).toString());
+        return res;
+    }
 
     //TRFs, which are created by given employee
-      public static String[][] allEmpsTRFs(String login, Integer page, Integer num) {
+      public static String[][] allEmpsTRFs(String login, int page, int rows) {
         Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
+        int from = (page-1)*rows;
+        int to = from+rows;
         String prepared_statement = "select id ,city_name, country_name, begin_date, end_date, cur_state, commentary "
                 + "from (select rownum r, employee_trfs.* "
                 + "from employee_trfs "
                 + "where login=:login) "
-                + "where r> :from and r< :to";
+                + "where r> :from and r<= :to";
 
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)

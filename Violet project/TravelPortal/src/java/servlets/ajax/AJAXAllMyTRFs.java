@@ -4,12 +4,8 @@
  */
 package servlets.ajax;
 
-import database.mapping.Trf;
-import database.utilities.AdministratorDesktop;
 import database.utilities.EmployeeDesktop;
-import database.utilities.TravelSupportDesktop;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -75,17 +71,17 @@ public class AJAXAllMyTRFs extends AJAXSendHandler {
                 boolean travel = Boolean.parseBoolean(travelString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                int count = 500;
+                long count = EmployeeDesktop.countAllEmpsTRFS(login);
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
                 String[][] trfs;
                     if(travel){
                        // trfs = TravelSupportDesktop.TrfLastMonthSameCountry(login, 0, 20);
-                        trfs = EmployeeDesktop.allEmpsTRFs(login, 0, 20);
+                        trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
                     }
                     else{
-                        trfs = EmployeeDesktop.allEmpsTRFs(login, 0, 20);
+                        trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
                     }
 
                     JSONArray ja = new JSONArray();
