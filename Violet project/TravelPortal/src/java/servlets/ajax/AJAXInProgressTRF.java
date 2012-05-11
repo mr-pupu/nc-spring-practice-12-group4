@@ -7,6 +7,7 @@ package servlets.ajax;
 import database.mapping.Trf;
 import database.utilities.AdministratorDesktop;
 import database.utilities.EmployeeDesktop;
+import database.utilities.TravelSupportDesktop;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -62,25 +63,30 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXInProgressTrfs runned");
-        String idString = request.getParameter("id");
+        String travelString= request.getParameter("travel");
         String pageString = request.getParameter("page");
         System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
         String login = (String) request.getSession().getAttribute("name");
         System.out.println("Records " + recordString);
         JSONObject jsonObject = new JSONObject();
-        if (idString != null) {
+        if (travelString!= null) {
             try {
-                Long id = Long.parseLong(idString);
+                boolean travel = Boolean.parseBoolean(travelString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
                 int count = 500;
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
-                if (id != null) {
-                    
-                    String[][] trfs = EmployeeDesktop.EnteringRejectedTRF(login, 0, 20);
+                String[][] trfs;
+                    if(travel){
+                       trfs = TravelSupportDesktop.ReadyTRFsSameCountry(login, 0, 20);
+                    }
+                    else{
+                        trfs = EmployeeDesktop.EnteringRejectedTRF(login, 0, 20);
+                    }
+                    System.out.println("GGGGGG:"+trfs[0][0]);
 
                     JSONArray ja = new JSONArray();
 
@@ -90,18 +96,29 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                         jo.put("id", trfs[i][0]);
                         JSONArray jaj = new JSONArray();
 
-                        jaj.add(trfs[i][1] + ", " + trfs[i][2]);
-                        jaj.add(trfs[i][3]);
+                        jaj.add(trfs[i][1] + " " + trfs[i][2]);
+                        if(travel) jaj.add(trfs[i][3]+", "+trfs[i][4]);
+                        else{
+                             jaj.add(trfs[i][3]);
+                             jaj.add(trfs[i][4]);
+                        }
                         jaj.add(trfs[i][4]);
                         jaj.add(trfs[i][5]);
                         jaj.add(trfs[i][6]);
+                        if(travel){
+                             jaj.add(trfs[i][7]);
+                             jaj.add(trfs[i][8]);
+                        }
                         jo.put("cell", jaj);
                         ja.add(jo);
                     }
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
-                } 
+                    
+                    System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAaa");
+                    System.out.println(jsonObject);
+                
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
                 System.out.print("Wrong id format");
