@@ -289,9 +289,9 @@ values (8,4,'completed: ok',to_date('04-JUN-12 16:16:10','DD-MON-RR HH24:MI:SS')
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (9,5,'not finished',to_date('10-MAY-12 09:08:11','DD-MON-RR HH24:MI:SS'),0,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (10,6,'wrong date',to_date('10-MAY-12 09:12:03','DD-MON-RR HH24:MI:SS'),1,4);
+values (10,6,'my trip',to_date('09-MAY-12 10:15:17','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (11,6,'my trip',to_date('09-MAY-12 10:15:17','DD-MON-RR HH24:MI:SS'),3,4);
+values (11,6,'wrong date',to_date('10-MAY-12 09:12:03','DD-MON-RR HH24:MI:SS'),1,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (12,7,'my trip',to_date('09-MAY-12 10:23:21','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
@@ -299,9 +299,9 @@ values (13,8,'my trip',to_date('09-MAY-12 10:45:17','DD-MON-RR HH24:MI:SS'),3,4)
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (14,9,'not finished',to_date('08-MAY-12 11:41:37','DD-MON-RR HH24:MI:SS'),0,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (15,10,'my trip',to_date('08-MAY-12 15:17:59','DD-MON-RR HH24:MI:SS'),3,4);
+values (15,10,'my trip',to_date('08-MAY-12 15:43:12','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (16,10,'not finished',to_date('08-MAY-12 15:51:12','DD-MON-RR HH24:MI:SS'),0,4);
+values (16,10,'not finished',to_date('08-MAY-12 15:17:59','DD-MON-RR HH24:MI:SS'),0,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (17,11,'my trip',to_date('07-MAY-12 19:13:01','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
@@ -309,13 +309,13 @@ values (18,12,'all ok',to_date('07-MAY-12 10:17:42','DD-MON-RR HH24:MI:SS'),4,4)
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (19,12,'my trip',to_date('07-MAY-12 9:42:11','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (20,13,'wrong date',to_date('06-MAY-12 17:26:43','DD-MON-RR HH24:MI:SS'),2,4);
+values (20,13,'my trip',to_date('06-MAY-12 15:01:13','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (21,13,'my trip',to_date('06-MAY-12 15:01:13','DD-MON-RR HH24:MI:SS'),3,4);
+values (21,13,'family problem',to_date('06-MAY-12 17:26:43','DD-MON-RR HH24:MI:SS'),2,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (22,14,'all ok',to_date('06-MAY-12 16:23:10','DD-MON-RR HH24:MI:SS'),4,4);
+values (22,14,'my trip',to_date('06-MAY-12 14:22:32','DD-MON-RR HH24:MI:SS'),3,4);
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
-values (23,14,'my trip',to_date('06-MAY-12 14:22:32','DD-MON-RR HH24:MI:SS'),3,4);
+values (23,14,'all ok',to_date('06-MAY-12 16:23:10','DD-MON-RR HH24:MI:SS'),4,4);
 
 Insert into TRFSTATE (ID,TRF_ID,COMMENTARY,CHANGE_DATE,STATUS,CHANGER) 
 values (24,15,'my trip (Andrew)',to_date('05-MAY-12 14:49:51','DD-MON-RR HH24:MI:SS'),3,5);
