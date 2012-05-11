@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  * 
- * by Gangbang34
+ * by Sitner and Poluhovich
  */
 
 $(function() {
@@ -10,7 +10,7 @@ $(function() {
     
     jQuery("#alltrfs").jqGrid(
     {
-        url:getContextPath() + "/ajaxallmytrfs?id=1",
+        url:getContextPath() + "/ajaxallmytrfs?travel=false",
         datatype : "json",
         height : 'auto',
         mtype: "POST",
