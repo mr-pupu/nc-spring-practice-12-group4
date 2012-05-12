@@ -13,17 +13,6 @@ $(window).bind('hashchange', function() {
 });
 
 function prepareTRF(){
-    $("#country").change(function() {
-        changeCountry($("#country option:selected").attr("sysId"));
-    });
-
-    $("#city").change(function() {
-        changeCity($("#city option:selected").attr("sysId"));
-    });
-
-    $("#hotelName").change(function() {
-        $('#hotelSite').val($("#hotelName option:selected").attr("site"));
-    }); 
     
     var dataAddHotelTitle = 'Add hotel <a class="close" onclick=\'$("#pop1").popover("toggle")\'>&times;</a>';
     var dataAddHotel = 'Hotel name <input type="text" id="hotelNameAdd"> <br>' +
@@ -38,37 +27,6 @@ function prepareTRF(){
     }); 
     
     checkTrfId()
-}
-
-function addDestination(){
-    alert('addingDestination');
-    var resultMap = [
-    {
-        'cityId':$("#city option:selected").attr("sysId")
-        },
-
-        {
-        'hotelName':$("#hotelNameAdd").val()
-        },
-
-        {
-        'hotelSite':$("#hotelSiteAdd").val()
-        }];
-    alert(JSON.stringify(resultMap));
-    $.ajax({
-        url: getContextPath() + "/ajaxdest",
-        type: "POST",
-        data: {
-            "ajaxdata" : JSON.stringify(resultMap)
-        },
-        dataType: "json",
-        success: function(result) {
-            changeCity($("#city option:selected").attr("sysId"));
-            alert('success'+ result['newDestinationId']);
-            $("#pop1").popover("toggle");
-            $('#hotelName option[sysid="' + result['newDestinationId'] + '"]').attr("selected", "selected");
-        }
-    });
 }
 
   
@@ -86,7 +44,7 @@ function checkTrfId(){
 }
 
 function getTravelTrfUsingAJAX(id){
-    $('#myModal').modal('show');
+    $('#editTravelTrfModal').modal('show');
     $("#accordion3").hide();
     $.getJSON(getContextPath() + "/ajaxtraveltrfedithandle?id="+id,
         function (data){
@@ -237,3 +195,33 @@ function prepareHotelsComboBox(combobox, data1, data2, id){
     });
 }
 
+function addDestination(){
+    alert('addingDestination');
+    var resultMap = [
+    {
+        'cityId':$("#city option:selected").attr("sysId")
+        },
+
+        {
+        'hotelName':$("#hotelNameAdd").val()
+        },
+
+        {
+        'hotelSite':$("#hotelSiteAdd").val()
+        }];
+    alert(JSON.stringify(resultMap));
+    $.ajax({
+        url: getContextPath() + "/ajaxdest",
+        type: "POST",
+        data: {
+            "ajaxdata" : JSON.stringify(resultMap)
+        },
+        dataType: "json",
+        success: function(result) {
+            changeCity($("#city option:selected").attr("sysId"));
+            alert('success'+ result['newDestinationId']);
+            $("#pop1").popover("toggle");
+            $('#hotelName option[sysid="' + result['newDestinationId'] + '"]').attr("selected", "selected");
+        }
+    });
+}

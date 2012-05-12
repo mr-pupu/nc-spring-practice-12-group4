@@ -45,8 +45,8 @@
                 ****************************************************************************************
         -->
         <jsp:include page="scripts.jsp"></jsp:include>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/path.js">
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
@@ -99,8 +99,8 @@
                     <div id="collapseOne" class="accordion-body collapse in">
                         <div class="accordion-inner">
                             <div>
-                                <a href="#1"
-                                   class="btn span1" id="traveledit">
+                                <a href="#"
+                                   class="btn btn-success" id="traveledit" style="width: 80px">
                                     <span class="user"><fmt:message
                                             key="page.forms.buttonEdit" /></span></a>
                                 <br>
@@ -147,11 +147,11 @@
                                 </tr>
                             </tbody>
                         </table>
-                                                                    <div>                 
-                                                                        <table id="allTRFs"></table>
-                                                                        <div id="allTRFspager"></div
- 
-                                                                    </div>
+                        <div>                 
+                            <table id="allTRFs"></table>
+                            <div id="allTRFspager"></div
+
+                        </div>
                     </div>
                 </div>
             </div>
