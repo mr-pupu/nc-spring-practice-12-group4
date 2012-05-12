@@ -85,6 +85,14 @@
                 </div>
                 <div id="collapseOne" class="accordion-body collapse in">
                     <div class="accordion-inner">
+                        <div>
+            <a href="#1"
+               class="btn span1" id="traveledit">
+                <span class="user"><fmt:message
+                    key="page.forms.buttonEdit" /></span></a>
+            <br>
+        </div>
+            <br> 
                         <div>                 
                             <table id="travelinprogress"></table>
                             <div id="travelprogresspager"></div> 

@@ -45,7 +45,7 @@ $(function() {
             return(true);
         },
         onSelectRow: function(id){
-            document.getElementById("a").setAttribute("href", '#'+id);
+            document.getElementById("employeeedit").setAttribute("href", '#'+id);
         },
         pager: $('#divid')
     });
