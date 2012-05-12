@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  * 
- * by Gangbang34
+ * by allan && Gangbang34
  */
 
 $(function() {
@@ -53,6 +53,7 @@ $(function() {
             repeatitems : false
         },
         caption: "TREE",
+        //        cellEdit: true,
         viewrecords: true,
         gridview: true,
         ExpandColumn: 'name', 
@@ -65,7 +66,11 @@ $(function() {
             jQuery("#emptable").jqGrid('setGridParam', 
             {
                 url: getContextPath() + "/ajaxemployeehandle?id=" + id
-                }).trigger("reloadGrid");
+            }).trigger("reloadGrid");
+            $('#ediButton').attr('onclick', 'if (confirm(\'Confirm edit?\')) { editDep('+id+')}');
+            var nm = ($('#tree').getRowData(id, true))['name'];
+            $('#depEdit').attr('value', nm);
+            $('#newButton').attr('onclick', 'if (confirm(\'Confirm new department?\')) { newDep()}');
             setCheckboxesAJAX(id);
             setDepartmentChiefAJAX(id);
         }
