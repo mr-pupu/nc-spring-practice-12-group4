@@ -55,17 +55,29 @@
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
     </script>
     <link rel="stylesheet" type="text/css" media="all"
-          href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
-    <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
-    <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/ui.jqgrid.css" />
+          href="<%=request.getContextPath()%>/assets/css/jsDatePick_ltr.min.css" />
+    
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/jsDatePick.min.1.3.js">
+    </script>
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
+    </script>
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="<%=request.getContextPath()%>/assets/css/smoothness/jquery-ui-1.7.3.custom.css" />
+    <link rel="stylesheet" type="text/css" media="screen" 
+          href="<%=request.getContextPath()%>/assets/css/ui.jqgrid.css" />
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
+    </script>
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/traveljs/travel-all-trfs.js">
+    </script>
+    <script type='text/javascript'
+            src="<%=request.getContextPath()%>/assets/js/traveljs/modal-travel-trf-edit-by-id.js">
+    </script>
         <script type="text/javascript"
-        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/traveljs/travel-in-progress-trfs.js"></script>
-        <script type="text/javascript"
-        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/traveljs/travel-all-trfs.js"></script>
+    src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
 
 </head>
 <body>
@@ -159,9 +171,6 @@
         </div>
     </div>
     <!-- /container -->
-
-    <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/calendar-init.js"></script>
-    <jsp:include page="modalform.jsp"></jsp:include>
+    <jsp:include page="modaltraveltrf.jsp"></jsp:include>
 </body>
 </html>
