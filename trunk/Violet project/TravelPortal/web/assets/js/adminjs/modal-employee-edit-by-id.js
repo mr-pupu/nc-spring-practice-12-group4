@@ -49,11 +49,6 @@ function getEmployeeUsingAJAX(id){
 }
 
 function fillEmployeeForm(data, id){
-    var string ="";
-    $.each(data, function(key, value) { 
-        string += '[' + key + ',' + value + '] ';
-    });
-    //alert(string);
     if(id>0){
         $('#firstName').val(data['firstName']);
         $('#lastName').val(data['lastName']);
