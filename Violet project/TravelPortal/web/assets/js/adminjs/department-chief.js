@@ -3,6 +3,7 @@
  * and open the template in the editor.
  * Author Allan
  */
+var chief=1;
 
 function setDepartmentChiefAJAX(id){
     $.getJSON(getContextPath() + "/ajaxdepartmentchiefhandle?id="+id,
@@ -19,6 +20,7 @@ function fillChiefCombobox(data){
     });
     //alert(string);
     prepareComboBox($("#depChief"), data['depemployees'], data['depemployeeId']);
+    chief= document.getElementById("depChief").selectedIndex;
 }
 
 function processChiefChange(id){
@@ -39,3 +41,8 @@ function processChiefChange(id){
         
     });
 }
+
+function cancelChiefChange(){
+     document.getElementById("depChief").selectedIndex=chief;
+}
+
