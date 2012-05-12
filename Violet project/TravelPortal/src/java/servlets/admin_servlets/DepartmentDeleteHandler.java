@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.json.simple.JSONObject;
 import servlets.ServletHandler;
 
 /**
@@ -54,30 +55,39 @@ public class DepartmentDeleteHandler extends ServletHandler {
         Session s = HibernateUtil.getSession();
         Transaction tx = s.beginTransaction();
         Department dep = (Department) HibernateUtil.getSession().get(Department.class, val.longValue());
+        JSONObject json = new JSONObject();
         //check if child deps exist
+        //alert code
+        //0 - successfully deleted
+        //1 - unable to delete because of child nodes
+        //2 - unable to delete for other reason
         if (!dep.getDepartments().isEmpty()) {
-            System.out.println("DOGGY");
+//            System.out.println("DOGGY");
             sendMessage(request, "Error", "Unable to delete department with child departments", "info");
             tx.rollback();
+            json.put("success", 1);
         } else {
             try {
                 s.delete(dep);
                 tx.commit();
                 s.flush();
+                json.put("success", 0);
             } catch (Exception e) {
                 tx.rollback();
                 System.out.println("Rolling back");
+                json.put("success", 2);
             } finally {
                 try {
-                    s.close();
-                    doDispatcher(request, response, "Error while deleting");
+//                    s.close();
+//                    doDispatcher(request, response, "Error while deleting");
                 } catch (Exception he) {
-                    doDispatcher(request, response, he.getMessage());
+//                    doDispatcher(request, response, he.getMessage());
                 }
             }
         }
-
-        doDispatcher(request, response,
-                "administrator.jsp");
+//        
+//        System.out.println(json);
+        json.writeJSONString(response.getWriter());
+//        doDispatcher(request, response, "1");
     }
 }
