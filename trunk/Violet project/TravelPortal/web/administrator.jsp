@@ -26,10 +26,14 @@
                 padding-top: 60px;
                 padding-bottom: 40px;
             }
+            .popover-inner {
+                width: 235px;
+
+            }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
-            <script type='text/javascript'
-                    src="<%=request.getContextPath()%>/assets/js/path.js">
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/adminjs/remove.js">
@@ -84,8 +88,11 @@
             <div class="row-fluid">
                 <div class="span4" >
                     <div >
-                        <button type="submit" class="btn btn-success">New</button>
-                        <button type="submit" class="btn btn-success">Edit</button>
+                        <button type="submit" class="btn btn-success" 
+                                onclick=' $("#pop2").popover("toggle"); alterPop()' 
+                                id="pop2" rel="popover2">New</button>
+                        <button type="submit" class="btn btn-success" 
+                                onclick='checkButton()' id="pop1" rel="popover">Edit</button>
                         <button type="submit" 
                                 onclick="if(jQuery('#tree').getGridParam('selrow')!=null){
                                     if (confirm('Confirm deletion?')) {
@@ -100,9 +107,8 @@
                 </div>
                 <div class="span8" >
                     <c:forEach items="${list}" var="role">
-                        <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
-                                processRoleChange(id)} else {cancelRoleChange(id)}" 
-                                class="checkbox" id="check<c:out value="${role.id}"/>">
+                        <input type="checkbox"  onchange="checkboxHandler(id)" 
+                               class="checkbox" id="check<c:out value="${role.id}"/>">
                         <c:out value="${role.roleName}"/>&nbsp;&nbsp;
                     </c:forEach>
                     <br>

@@ -212,6 +212,12 @@ $.ajax({
 });
 }
 
-
-
-
+function checkButton() {
+    if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
+        return;
+    }
+    else {
+        $('#pop1').popover("toggle"); 
+        alterPop();
+    }
+}
