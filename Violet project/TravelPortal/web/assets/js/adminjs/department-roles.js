@@ -72,3 +72,15 @@ function cancelRoleChange(checkid){
     }
 }
 }
+
+
+function checkboxHandler(id){
+    if ($('#tree').jqGrid('getGridParam', 'selrow') != null){
+        if (confirm('Confirm Role change?')) {
+            processRoleChange(id)
+        } 
+    else {
+        cancelRoleChange(id)
+    }
+    }
+}

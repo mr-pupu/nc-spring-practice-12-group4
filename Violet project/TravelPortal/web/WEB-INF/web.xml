@@ -2,6 +2,14 @@
 <web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>TravelPortal</display-name>
     <servlet>
+        <servlet-name>DepartmentAugmentHandler</servlet-name>
+        <servlet-class>servlets.admin_servlets.DepartmentAugmentHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DepartmentAugmentHandler</servlet-name>
+        <url-pattern>/departmentaugmenthandler</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
     </servlet>  
