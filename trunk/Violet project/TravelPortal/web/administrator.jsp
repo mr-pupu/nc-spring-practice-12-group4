@@ -116,7 +116,7 @@
                     <br>
                     <div align="right">
                         <a href="#-1" class="btn btn-success">New</a>
-                        <a id="a" href="#" class="btn btn-success">Edit</a>
+                        <a id="employeeedit" href="#" class="btn btn-success">Edit</a>
                         <button type="submit" 
                                 onclick="if(jQuery('#emptable').getGridParam('selrow')!=null){
                                 if (confirm('Confirm deletion?')) {

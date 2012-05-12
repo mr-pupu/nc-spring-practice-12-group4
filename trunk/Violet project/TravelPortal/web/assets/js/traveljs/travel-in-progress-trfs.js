@@ -34,10 +34,13 @@ $(function() {
             index : 'status'
         }, {
             name : 'comment',
-            index : 'comment'
+            index : 'comment',
+            width : 200
         }],
         //        autowidth: true,
         scrollOffset:0,
+        pgtext : "{0} of {1}",
+        recordtext : "{0} - {1} of {2}",
         viewrecords: true,
         jsonReader: {
             //                root: 'rows',
@@ -53,7 +56,7 @@ $(function() {
             return(true);
         },
         onSelectRow: function(id){
-            document.getElementById("a").setAttribute("href", '#'+id);
+            document.getElementById("traveledit").setAttribute("href", '#'+id);
         },
         pager: $('#travelprogresspager')
     });
