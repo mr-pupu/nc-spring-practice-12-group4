@@ -160,6 +160,7 @@ JsDatePick.prototype.resizeCalendar = function() {
 JsDatePick.prototype.closeCalendar = function() {
 	this.JsDatePickBox.style.display = "none";
 	document.onclick = function() {
+            
 	}
 };
 JsDatePick.prototype.populateFieldWithSelectedDate = function() {
@@ -406,9 +407,10 @@ JsDatePick.prototype.showCalendar = function() {
             };
             this.JsDatePickBox.setAttribute("globalCalNumber", this.globalNumber);
             this.JsDatePickBox.onmouseout = function() {
-                document.onclick = new Function("g_arrayOfUsedJsDatePickCals["
-                                + this.getAttribute("globalCalNumber")
-                                + "].closeCalendar();")
+                //fix unfocus message
+//                document.onclick = new Function("g_arrayOfUsedJsDatePickCals["
+//                                + this.getAttribute("globalCalNumber")
+//                                + "].closeCalendar();")
             }
 	} else 
 		return
