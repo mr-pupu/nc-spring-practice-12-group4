@@ -13,7 +13,7 @@
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <url-pattern>/employeedeletehandle</url-pattern>
     </servlet-mapping>
-	<servlet>
+    <servlet>
         <servlet-name>Comboboxhandler</servlet-name>
         <servlet-class>servlets.travelSupport.Comboboxhandler</servlet-class>
     </servlet>
@@ -21,7 +21,7 @@
         <servlet-name>Comboboxhandler</servlet-name>
         <url-pattern>/comboboxhandler</url-pattern>
     </servlet-mapping>
-	<servlet>
+    <servlet>
         <servlet-name>TravelSupportAllTRFs</servlet-name>
         <servlet-class>servlets.travelSupport.TravelSupportAllTRFs</servlet-class>
     </servlet>
@@ -29,7 +29,15 @@
         <servlet-name>TravelSupportAllTRFs</servlet-name>
         <url-pattern>/travelsupportalltrfs</url-pattern>
     </servlet-mapping>
-	<servlet>
+    <servlet>
+        <servlet-name>AJAXTravelTrfEditHandler</servlet-name>
+        <servlet-class>servlets.travel_servlets.AJAXTravelTrfEditHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXTravelTrfEditHandler</servlet-name>
+        <url-pattern>/ajaxtraveltrfedithandle</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AJAXCurrentTrips</servlet-name>
         <servlet-class>servlets.reports.AJAXCurrentTrips</servlet-class>
     </servlet>
@@ -37,19 +45,19 @@
         <servlet-name>AJAXAllMyTRFs</servlet-name>
         <servlet-class>servlets.ajax.AJAXAllMyTRFs</servlet-class>
     </servlet>    
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AJAXCurrentTrips</servlet-name>
         <url-pattern>/ajaxcurrenttrips</url-pattern>
     </servlet-mapping>
-        <servlet>
+    <servlet>
         <servlet-name>AJAXInProgressTRF</servlet-name>
         <servlet-class>servlets.ajax.AJAXInProgressTRF</servlet-class>
     </servlet>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AJAXInProgressTRF</servlet-name>
         <url-pattern>/ajaxinprogresstrf</url-pattern>
     </servlet-mapping>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AJAXAllMyTRFs</servlet-name>
         <url-pattern>/ajaxallmytrfs</url-pattern>
     </servlet-mapping>
@@ -69,11 +77,11 @@
         <servlet-name>AJAXDepartmentRolesHandler</servlet-name>
         <url-pattern>/ajaxdeproleshandle</url-pattern>
     </servlet-mapping>
-     <servlet>
+    <servlet>
         <servlet-name>AJAXDepartmentRolesProcess</servlet-name>
         <servlet-class>servlets.admin_servlets.AJAXDepartmentRolesProcess</servlet-class>
     </servlet>
-        <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>AJAXPlannedTrips</servlet-name>
         <url-pattern>/ajaxplannedtrips</url-pattern>
     </servlet-mapping>
@@ -113,7 +121,7 @@
         <servlet-name>CheckboxesHandler</servlet-name>
         <url-pattern>/checkboxeshandle</url-pattern>
     </servlet-mapping>
-	<servlet>
+    <servlet>
         <servlet-name>ReportsDataHandler</servlet-name>
         <servlet-class>servlets.reports.ReportsDataHandler</servlet-class>
     </servlet>
