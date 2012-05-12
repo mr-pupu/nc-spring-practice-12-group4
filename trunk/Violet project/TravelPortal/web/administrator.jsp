@@ -101,7 +101,8 @@
                 <div class="span8" >
                     <c:forEach items="${list}" var="role">
                         <input type="checkbox"  onchange="if (confirm('Confirm Role change?')) {
-                                processRoleChange(id)}" class="checkbox" id="check<c:out value="${role.id}"/>">
+                                processRoleChange(id)} else {cancelRoleChange(id)}" 
+                                class="checkbox" id="check<c:out value="${role.id}"/>">
                         <c:out value="${role.roleName}"/>&nbsp;&nbsp;
                     </c:forEach>
                     <br>
@@ -112,7 +113,7 @@
                     <select class="combobox"  id="depChief"  onchange="if 
                     (confirm('Confirm chief change?')) {
                         processChiefChange()
-                    }">  </select>
+                    }else{cancelChiefChange()}">  </select>
                     <br>
                     <div align="right">
                         <a href="#-1" class="btn btn-success">New</a>
