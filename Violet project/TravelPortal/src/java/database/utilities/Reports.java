@@ -55,6 +55,18 @@ private static String[][] fillRes(List resq)
                 .list();
         return fillRes(resq);
     }
+    
+     public static long countCurrentTRFs(){
+        String prepared_statement = "select count(*) "
+                + " from trfs_report "
+                + " where begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
+                .list().get(0).toString());
+        return res;
+    }
+    
     //TRF with current date filter by office
     public static String[][] CurrentTrfSameOffice(String city, String country, Integer page, Integer num) {
     
@@ -74,8 +86,22 @@ private static String[][] fillRes(List resq)
                 .setInteger("to", to).setString("country", country).setString("city", city)
                 .list();
         return fillRes(resq);
-
     }
+    
+     public static long countCurrentTRFsSameOffice(String city, String country){
+        String prepared_statement = "select count(*) "
+                +"from trfs_report "+
+                "where office_country=:country "+
+                "and office_city=:city  "+
+                "and begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
+                .setString("country", country).setString("city", city)
+                .list().get(0).toString());
+        return res;
+    }
+    
 
     //TRF with current date filter by department
     public static String[][] CurrentTrfSameDepartment(String department, Integer page, Integer num) {
@@ -93,8 +119,22 @@ private static String[][] fillRes(List resq)
                 .setInteger("from", from)
                 .setInteger("to", to).setString("department", department)
                 .list();
-        return fillRes(resq);  }
+        return fillRes(resq); 
+    }
 
+    public static long countCurrentTRFsSameDept(String dept){
+        String prepared_statement = "select count(*) "
+                +"from trfs_report "+
+                "where dep_name =:department "+
+                "and begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
+                .setString("department", dept)
+                .list().get(0).toString());
+        return res;
+    }
+    
     //TRF with current date filter by department and office
     public static String[][] CurrentTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
      
@@ -117,6 +157,26 @@ private static String[][] fillRes(List resq)
         return fillRes(resq);
     }
 
+     public static long countCurrentTRFsSameDeptOffice(String city, String country, String dept){
+        String prepared_statement = "select count(*) "
+                +"from trfs_report "+
+                "where office_country=:country "+
+                "and office_city=:city  "+
+                "AND dep_name =:department "+
+                "and begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(
+                s.createSQLQuery(prepared_statement)
+                .setString("country", country)
+                .setString("city", city)
+                .setString("department", dept)
+                .list().get(0)
+                .toString());
+        return res;
+    }
+    
+    
     //Excel Report Button
     //all TRFs with "Entering" state
     // with current year 
@@ -156,6 +216,18 @@ private static String[][] fillRes(List resq)
                 .setInteger("to", to)
                 .list();
         return fillRes(resq);         }
+    
+         public static long countPlannedTRFs(){
+        String prepared_statement = "select count(*) "
+                + " from trfs_report "
+                + " where begin_date> sysdate and cur_state=3";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
+                .list().get(0).toString());
+        return res;
+    }
+
 
     //planned trf with "Ready" current status + filter by department
     public static String[][] PlannedTrfSameDepartment(String department, Integer page, Integer num) {
@@ -176,6 +248,21 @@ private static String[][] fillRes(List resq)
         return fillRes(resq);
     }
     
+     public static long countPlannedTRFsSameDept(String dept){
+        String prepared_statement = "select count(*) "
+                + " from trfs_report "
+                + " where begin_date> sysdate and cur_state=3 AND dep_name=:department) ";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(
+                s.createSQLQuery(prepared_statement)
+                .setString("department", dept)
+                .list().get(0)
+                .toString());
+        return res;
+    }
+    
+    
     //planned trf with "Ready" current status + filter by department+filter by office
     public static String[][] PlannedTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
 
@@ -193,11 +280,32 @@ private static String[][] fillRes(List resq)
         Integer to = (page + 1) * num;
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)
-                .setInteger("to", to).setString("department", department).
-                setString("country", country).setString("city", city)
+                .setInteger("to", to)
+                .setString("department", department)
+                .setString("country", country)
+                .setString("city", city)
                 .list();
         return fillRes(resq);
 }
+    
+     public static long countPlannedTRFsSameOfficeDept(String dept, String city, String country){
+        String prepared_statement = "select count(*) "
+                + "from trfs_report "
+                + "where begin_date> sysdate and cur_state=3 AND dep_name=:department "
+                +" AND office_city=:city "
+                + "AND office_country=:country ";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(
+                s.createSQLQuery(prepared_statement)
+                .setString("department", dept)
+                .setString("country", country)
+                .setString("city", city)
+                .list().get(0)
+                .toString());
+        return res;
+     }
+     
     //planned trf with "Ready" current status + filter by office
  public static String[][] PlannedTrfSameOffice(String city, String country, Integer page, Integer num) {
            String prepared_statement = "select id, first_name, second_name, "
@@ -216,8 +324,26 @@ private static String[][] fillRes(List resq)
                 .setInteger("from", from)
                 .setInteger("to", to).setString("country", country).setString("city", city)
                 .list();
-        return fillRes(resq);    }
+        return fillRes(resq);  
+ }
 
+     public static long countPlannedTRFsSameOffice(String city, String country){
+        String prepared_statement = "select count(*) "
+                + "from trfs_report "
+                + "where begin_date> sysdate and cur_state=3 "
+                +" AND office_city=:city "
+                + "AND office_country=:country ";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(
+                s.createSQLQuery(prepared_statement)
+                .setString("country", country)
+                .setString("city", city)
+                .list().get(0)
+                .toString());
+        return res;
+     }
+ 
     //location of offices
     public static List GetOfficesLocation() {
         Session s = HibernateUtil.getSession();
@@ -225,5 +351,4 @@ private static String[][] fillRes(List resq)
                 + "FROM city_country";
         return (List) s.createSQLQuery(stmt).list();
     }
-
 }
