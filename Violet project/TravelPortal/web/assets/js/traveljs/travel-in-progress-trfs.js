@@ -9,6 +9,10 @@ $(function() {
     jQuery("#travelinprogress").jqGrid(
     {
         url:getContextPath() + "/ajaxinprogresstrf?travel=true",
+        loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         datatype : "json",
         height : 'auto',
         mtype: "POST",

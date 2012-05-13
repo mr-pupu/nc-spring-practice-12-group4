@@ -61,6 +61,10 @@ $(function() {
         tree_root_level: 0,
         //pager:"#tree",
         autowidth: true,
+        loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         onSelectRow: function(id){
             //            document.getElementById("a").setAttribute("href", '#'+id);
             jQuery("#emptable").jqGrid('setGridParam', 

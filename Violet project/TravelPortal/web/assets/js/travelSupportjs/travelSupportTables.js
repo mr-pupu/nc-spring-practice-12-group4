@@ -5,6 +5,10 @@ $(function() {
     jQuery("#allTRFs").jqGrid({
         ExpandColumn : 'name',
         url: getContextPath() +"/travelsupportalltrfs?type=AllTRFS",
+         loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         datatype: "json",
         mtype: "GET",
         rowNum:10, 

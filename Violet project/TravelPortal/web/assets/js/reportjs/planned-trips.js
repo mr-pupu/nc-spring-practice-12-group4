@@ -11,6 +11,10 @@ $(function() {
     {
         url:getContextPath() + "/ajaxplannedtrips?id=1",
         datatype : "json",
+        loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+        },
         height : 'auto',
         mtype: "POST",
         rowNum:10, //Number of records we want to show per page

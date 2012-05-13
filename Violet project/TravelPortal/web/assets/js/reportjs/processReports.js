@@ -19,6 +19,10 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxcurrenttrips",
+            error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -37,6 +41,10 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxcurrenttrips",
+           error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+           },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -55,6 +63,10 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxplannedtrips",
+            error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+               },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -73,6 +85,10 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxplannedtrips",
+            error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+            },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)

@@ -62,6 +62,7 @@ public class AJAXDepartmentChiefHandler extends AJAXSendHandler {
 
         System.out.println("AJAXDepartmentChiefHandler runned");
         String idString = request.getParameter("id");
+        
         JSONObject jsonObject = new JSONObject();
         if (idString != null) {
             try {

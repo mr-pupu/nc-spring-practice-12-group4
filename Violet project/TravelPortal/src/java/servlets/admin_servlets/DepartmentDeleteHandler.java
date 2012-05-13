@@ -48,11 +48,15 @@ public class DepartmentDeleteHandler extends ServletHandler {
     }
 
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         System.out.println("Servlet EmployeeDeleteHandler was runned");
         String idString = request.getParameter("id");
         System.out.println("id:" + idString);
         Long val = Long.parseLong(idString);
         Session s = HibernateUtil.getSession();
+//        if (request.getSession().getAttribute("name").toString()=="Viki"){
+//            response.sendRedirect("http://www.java.com");
+//        }
         Transaction tx = s.beginTransaction();
         Department dep = (Department) HibernateUtil.getSession().get(Department.class, val.longValue());
         JSONObject json = new JSONObject();
@@ -88,6 +92,7 @@ public class DepartmentDeleteHandler extends ServletHandler {
 //        
 //        System.out.println(json);
         json.writeJSONString(response.getWriter());
+        
 //        doDispatcher(request, response, "1");
     }
 }
