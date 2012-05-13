@@ -19,10 +19,6 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxcurrenttrips",
-            error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-       },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -36,15 +32,12 @@ $(document).ready(function(){
     function officeCurrentlyTrip() {
         var resultMap = [
         {
-            'office':$("#officeCurrentlyTrip option:selected").attr("sysId")
+            'officeId':$("#officeCurrentlyTrip option:selected").attr("sysId"),
+            'officeName':$("#officeCurrentlyTrip option:selected").val()
         }
         ];
         $.ajax({
             url: getContextPath() + "/ajaxcurrenttrips",
-           error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-           },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -63,10 +56,6 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/ajaxplannedtrips",
-            error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-               },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
@@ -80,15 +69,12 @@ $(document).ready(function(){
     function officePlannedTrips() {
         var resultMap = [
         {
-            'office':$("#officePlannedTrips option:selected").attr("sysId")
+            'officedId':$("#officePlannedTrips option:selected").attr("sysId"),
+            'officeName':$("#officePlannedTrips option:selected").val()
         }
         ];
         $.ajax({
             url: getContextPath() + "/ajaxplannedtrips",
-            error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-            },
             type: "GET",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
