@@ -1,6 +1,5 @@
 package database.utilities;
 
-import database.mapping.Trf;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -65,7 +64,7 @@ private static String[][] fillRes(List resq)
                 "from trfs_report  "+
                 "where office_country=:country "+
                 "and office_city=:city  "+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to ; ";
+                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
           
     Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -84,8 +83,8 @@ private static String[][] fillRes(List resq)
                  "office_city, office_country, dest_city, dest_country, begin_date,end_date "+
                 "from (select rownum r,  trfs_report.* "+
                 "from trfs_report  "+
-                "where dep_name =:department"+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to ; ";
+                "where dep_name =:department "+
+                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to ";
   
         Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -103,9 +102,9 @@ private static String[][] fillRes(List resq)
                  "office_city, office_country, dest_city, dest_country, begin_date,end_date "+
                 "from (select rownum r,  trfs_report.* "+
                 "from trfs_report  "+
-                "WHERE city_name =:city AND country_name = :country  "+
+                "WHERE office_city =:city AND office_country = :country  "+
                 "AND dep_name =:department "+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to; ";
+                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
           
     Session s = HibernateUtil.getSession();
         Integer from = num * page;
@@ -185,8 +184,8 @@ private static String[][] fillRes(List resq)
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 AND dep_name=:department "
-                +" AND city_name=:city "
-                + "AND country_name=:country) "
+                +" AND office_city=:city "
+                + "AND office_country=:country) "
                 + " where r>:from and r<:to ";
     
     Session s = HibernateUtil.getSession();
@@ -206,8 +205,8 @@ private static String[][] fillRes(List resq)
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 "
-                +" AND city_name=:city "
-                + "AND country_name=:country) "
+                +" AND office_city=:city "
+                + "AND office_country=:country) "
                 + " where r>:from and r<:to ";
 
     Session s = HibernateUtil.getSession();
