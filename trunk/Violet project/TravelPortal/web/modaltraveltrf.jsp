@@ -10,7 +10,7 @@
 <fmt:setBundle
     basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 
-<div id="editTravelTrfModal" class="modal hide fade" style="width: 680px; margin: -250px 0 -0 -380px;">
+<div id="editTravelTrfModal" class="modal hide fade" style="width: 720px; margin: -250px 0 -0 -380px;">
 
     <div class="modal-header">
         <meta name="author" content="Allan (base by Vlad)">
@@ -45,51 +45,51 @@
                     <div class="accordion-inner">
                         <form class="form-horizontal">
 
-                            <table cellspacing="10">
+                            <table cellspacing="10" >
                                 <tbody>
                                     <tr>
-                                        <td><fmt:message key="modal.form.employeeName" /></td>
+                                        <td width="120px"><fmt:message key="modal.form.employeeName" />:</td>
                                         <td><select class="combobox" style="width : 180px;" id="employee">
                                             </select></td>
                                         <td><span style="padding:0px 20px;"></span></td>
-                                        <td><fmt:message key="modal.form.office" /></td>
+                                        <td width="120px"><fmt:message key="modal.form.office" />:</td>
                                         <td id="office"></td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="modal.form.departureDate" /></td>
+                                        <td><fmt:message key="modal.form.departureDate" />:</td>
                                         <td> <div class="input-append" rel="calendarDiv" onclick="this.JsDatePickBox.style.display = 'none'">
-                                                <input style="width : 120px;" id="flightBeginDate" size="16" type="text"><span
+                                                <input style="width : 134px;" id="flightBeginDate" size="16" type="text"><span
                                                     class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/icon_calendar.png" 
-                                                 width=25px; height=25px;/></span>
+                                                                    width=25px; height=25px;/></span>
                                             </div></td>
                                         <td></td>
-                                        <td><fmt:message key="modal.form.returnDate" /> :</td>
+                                        <td><fmt:message key="modal.form.returnDate" />:</td>
                                         <td> <div class="input-append" rel="calendarDiv">
-                                                <input style="width : 120px;" id="flightEndDate" size="16" type="text"><span
+                                                <input style="width : 134px;" id="flightEndDate" size="16" type="text"><span
                                                     class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/icon_calendar.png" 
-                                                 width=25px; height=25px;/></span>
+                                                                    width=25px; height=25px;/></span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="modal.form.destinationCountry" /></td>
+                                        <td><fmt:message key="modal.form.destinationCountry" />:</td>
                                         <td><select class="combobox" style="width : 180px;" id="country">
                                             </select></td>
                                         <td></td>
-                                        <td><fmt:message key="modal.form.destinationCity" /></td>
+                                        <td><fmt:message key="modal.form.destinationCity" />:</td>
                                         <td><select class="combobox" style="width : 180px;" id="city">
                                             </select></td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="modal.form.lineManager" /> :</td>
+                                        <td><fmt:message key="modal.form.lineManager" />:</td>
                                         <td id="lineManager"></td>
                                         <td></td>
-                                        <td><fmt:message key="modal.form.projectManager" /></td>
+                                        <td><fmt:message key="modal.form.projectManager" />:</td>
                                         <td><select class="combobox" style="width : 180px;" id="projectManager">
                                             </select></td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="modal.form.hotelName" /> :</td>
+                                        <td><fmt:message key="modal.form.hotelName" />:</td>
                                         <td>
                                             <select class="combobox" style="width : 148px;" id="hotelName">
                                             </select>
@@ -97,11 +97,11 @@
                                                 <i class="icon-plus-sign"></i>
                                             </a></td>          
                                         <td></td>
-                                        <td><fmt:message key="modal.form.hotelWebSite" /> :</td>
+                                        <td><fmt:message key="modal.form.hotelWebSite" />:</td>
                                         <td id="hotelSite"></td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="modal.form.customer" /></td>
+                                        <td><fmt:message key="modal.form.customer" />:</td>
                                         <td><select class="combobox" style="width : 180px;" id="customer">
                                             </select></td>
                                         <td></td>
@@ -116,6 +116,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <br>
+                            Commentary: &nbsp;
+                            <textarea id="commentary" wrap="virtual" cols="100" ROWS="3" 
+                                      style="width :450px">Changing status commentary...</textarea>
                             <br>
                         </form>
                     </div>

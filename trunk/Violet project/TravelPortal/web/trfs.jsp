@@ -51,9 +51,9 @@
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
     </script>
-    <script type='text/javascript'
+<!--    <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
-    </script>
+    </script>-->
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
     </script>
@@ -64,9 +64,9 @@
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
     </script>
-    <script type='text/javascript'
+<!--    <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/travel-all-trfs.js">
-    </script>
+    </script>-->
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/modal-travel-trf-edit-by-id.js">
     </script>
