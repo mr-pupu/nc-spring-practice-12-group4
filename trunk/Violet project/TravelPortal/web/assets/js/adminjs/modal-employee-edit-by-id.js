@@ -20,8 +20,8 @@ $(document).ready(function(){
         placement: whereToPlace
     }); 
     var depNewTitle = 'New department <a class="close" onclick=\'$("#pop2").popover("toggle")\'>&times;</a>';
-    var depNew = 'Department name <input type="text" id="depNew" value=""> <br>' +
-        '<input type="button" id="newButton" class="btn" value="New" onclick="if (confirm(\'Confirm edit?\')) { newDep(null) }">'
+    var depNew = 'Department name <input type="text" id="depNew" value=""> <br>' +jj 
+       '<input type="button" id="newButton" class="btn" value="New" onclick="if (confirm(\'Confirm edit?\')) { newDep(null) }">'
     $('#pop2').attr("data-content", depNew);
     $('#pop2').attr("title", depNewTitle);
     //    $('#pop1').position = relative;

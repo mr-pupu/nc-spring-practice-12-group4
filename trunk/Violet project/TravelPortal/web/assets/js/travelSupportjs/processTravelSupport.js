@@ -23,6 +23,10 @@ $(document).ready(function(){
             ];
             $.ajax({
                 url: getContextPath() + "/travelsupportalltrfs",
+                error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+                },
                 type: "POST",
                 data: {
                     "ajaxdata" : JSON.stringify(resultMap)
@@ -45,6 +49,10 @@ $(document).ready(function(){
             ];
             $.ajax({
                 url: getContextPath() + "/travelsupportalltrfs",
+                error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
                 type: "POST",
                 data: {
                     "ajaxdata" : JSON.stringify(resultMap)
@@ -66,6 +74,10 @@ $(document).ready(function(){
         ];
         $.ajax({
             url: getContextPath() + "/travelsupportalltrfs",
+            error:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
             type: "POST",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)

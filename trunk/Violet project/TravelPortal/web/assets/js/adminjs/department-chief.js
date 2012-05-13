@@ -31,6 +31,10 @@ function processChiefChange(id){
         ];
         $.ajax({
         url: getContextPath() + "/ajaxdepchiefrocess",
+        loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         type: "POST",
         data: {
             "ajaxdata" : JSON.stringify(resultMap)

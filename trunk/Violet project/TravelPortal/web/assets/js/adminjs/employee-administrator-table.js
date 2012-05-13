@@ -10,6 +10,10 @@ $(function() {
     jQuery("#emptable").jqGrid(
     {
         url:getContextPath() + "/ajaxemployeehandle?id=1",
+         loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         datatype : "json",
         height : 'auto',
         mtype: "POST",
@@ -31,6 +35,7 @@ $(function() {
         pgtext : "{0} of {1}",
         recordtext : "{0} - {1} of {2}",
         viewrecords: true,
+       
         jsonReader: {
             //                root: 'rows',
             repeatitems: true

@@ -58,8 +58,9 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-
+        //response.sendRedirect("index.jsp");
         System.out.println("AJAXEmployeeHandler runned");
+        System.out.println(request.getSession().getAttribute("name").toString());
         String idString = request.getParameter("id");
         String pageString = request.getParameter("page");
         System.out.println("Page:" + pageString);

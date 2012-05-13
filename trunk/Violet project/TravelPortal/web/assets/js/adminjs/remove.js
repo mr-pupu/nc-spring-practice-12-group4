@@ -9,10 +9,15 @@ function removeEmployee(id){
         type:"GET",
         url: getContextPath() + "/employeedeletehandle",
         data: "id="+id,
-        success: function(res) {
-            $('#emptable').trigger("reloadGrid");
-            return 0;
+        error:function(){
+            alert('Can not run the servlet');
+            window.location.href="index.jsp" 
+       },
+        success: function(data) {
+           $('#emptable').trigger("reloadGrid");
+           return 0;
         }
+        
     });
 }
 
@@ -20,7 +25,7 @@ function removeDepartment(id) {
 //    setLeaf(id)
     var selparent = $('#tree').getRowData(id, true);
     var parent = $('#tree').getNodeParent(selparent);
-    $.getJSON(getContextPath() + "/departmentdeletehandle?id="+id,
+    $.getJSON(getContextPath()  +"/departmentdeletehandle?id="+id,
         function (data){
             
             if (data['success'] == 0) {

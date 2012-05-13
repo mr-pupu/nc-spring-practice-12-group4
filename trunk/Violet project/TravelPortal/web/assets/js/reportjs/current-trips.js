@@ -10,6 +10,10 @@ $(function() {
     jQuery("#currenttrips").jqGrid(
     {
         url:getContextPath() + "/ajaxcurrenttrips?id=1",
+         loaderror:function(){
+            alert('Error loading data');
+            window.location.href="index.jsp" 
+       },
         datatype : "json",
         height : 'auto',
         mtype: "POST",
