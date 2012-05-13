@@ -6,6 +6,10 @@ REM INSERTING into COUNTRY
 SET DEFINE OFF;
 Insert into COUNTRY (ID,COUNTRY_NAME) values (1,'Chili');
 Insert into COUNTRY (ID,COUNTRY_NAME) values (2,'Cuba');
+Insert into COUNTRY (ID,COUNTRY_NAME) values (3,'Brazil');
+Insert into COUNTRY (ID,COUNTRY_NAME) values (4,'U.S.A');
+Insert into COUNTRY (ID,COUNTRY_NAME) values (5,'Mexico');
+
 REM INSERTING into CITY
 SET DEFINE OFF;
 Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (1,'Santiago',1);
@@ -13,6 +17,16 @@ Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (2,'Talca',1);
 Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (3,'Habana',2);
 Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (4,'Santiago',2);
 Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (5,'Trinidad',2);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (6,'Rio De Janeiro',3);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (7,'San Paulo',3);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (8,'San Jose',3);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (9,'New York',4);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (10,'San Francisco',4);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (11,'Atlanta',4);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (12,'Mexico',5);
+Insert into CITY (ID,CITY_NAME,COUNTRY_ID) values (13,'San Jose',5);
+
+
 REM INSERTING into CUSTOMER
 SET DEFINE OFF;
 Insert into CUSTOMER (ID,CUST_NAME) values (1,'Intrade Corp');
@@ -161,10 +175,23 @@ Insert into EMPLOYEE (ID,FIRST_NAME,SECOND_NAME,EMAIL,LOGIN,PASSWORD,DEP_ID,POSI
 
 REM INSERTING into DESTINATION
 SET DEFINE OFF;
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (1,1,'Hayat','hayat.com',1);
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (2,2,'Hilton','hilton.com',1);
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (3,3,'Downtown','downtown.com',1);
-Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (4,5,'Brown','brown.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (1,6,'Hayat','hayat.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (2,7,'Hilton','hilton.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (3,8,'Downtown','downtown.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (4,9,'Plaza','plaza.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (5,10,'Brown','brown.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (6,11,'Cesar','casar.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (7,12,'Royal','royal.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (8,13,'Bayton','bayton.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (9,6,'Brazil','brazil.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (10,7,'Bueno','bueno.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (11,8,'Sunny','sunny.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (12,9,'Washington','washington.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (13,10,'Franklin','franklin.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (14,11,'Freedom','freedom.com',1);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (15,12,'CasinoRoyal','casinoroyal.com',0);
+Insert into DESTINATION (ID,CITY_ID,HOTELNAME,HOTELSITE,IS_APPROVED) values (16,13,'Prime','prime.com',0);
+
 REM INSERTING into DEPROLE
 SET DEFINE OFF;
 Insert into DEPROLE (ID,ROLE_NAME) values (1,'Common Department');
