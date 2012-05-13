@@ -126,7 +126,6 @@ String department = "All";
                     System.out.println(getDepartment());
                     if (getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.plannedTrfs(page-1, rows);
-                        System.out.println("what a fuck");
                     }
                     if (getDepartment().equals("All") && !getCountry().equals("All")) {
                         trfs = Reports.PlannedTrfSameOffice(getCity(), getCountry(), page - 1, rows);
