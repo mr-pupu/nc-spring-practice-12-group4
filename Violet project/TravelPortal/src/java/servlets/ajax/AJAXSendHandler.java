@@ -32,10 +32,10 @@ abstract public class AJAXSendHandler extends AJAXHandler {
 
     public static void putDatesToJson(JSONObject jsonObject, Date beginDate, Date endDate) {
         jsonObject.put("beginDate", getDateFormated(beginDate));
-        jsonObject.put("endDate", getDateFormated(beginDate));
+        jsonObject.put("endDate", getDateFormated(endDate));
     }
 
-    public static void putCountriesToJson(JSONObject jsonObject) {
+    public static void putCountriesToJSON(JSONObject jsonObject) {
         List<Country> countries = HibernateUtil.CountryList();
         Map<Long, String> countriesMap = new HashMap<Long, String>();
         for (Country country : countries) {
@@ -43,24 +43,25 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         }
         jsonObject.put("countries", countriesMap);
     }
-    /* Methods that put all offices and item <all> to json string
-     * @param json string with form data
-     * @author OleksandrDudinskyi
+    /*
+     * Methods that put all offices and item <all> to json string @param json
+     * string with form data @author OleksandrDudinskyi
      */
+
     public static void putAllOfficesToJSON(JSONObject jsonObject) {
         List<Office> offices = HibernateUtil.OfficesList();
         Map<Long, String> officesMap = new HashMap<Long, String>();
         for (Office office : offices) {
             officesMap.put(office.getId(), office.getOfficeName());
         }
-        officesMap.put((long) (offices.size()+1), "ALL");
+        officesMap.put((long) (offices.size() + 1), "ALL");
         jsonObject.put("offices", officesMap);
     }
     /*
-     * Methods that put all departments and item <all> to json string
-     * @param json string with form data
-     * @author OleksandrDudinskyi
+     * Methods that put all departments and item <all> to json string @param
+     * json string with form data @author OleksandrDudinskyi
      */
+
     public static void putAllDepartmentToJSON(JSONObject jsonObject) {
         List<Department> departments = HibernateUtil.DepartmentsList();
         Map<Long, String> departmentsMap = new HashMap<Long, String>();
@@ -71,82 +72,125 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("departments", departmentsMap);
         System.out.print(jsonObject);
     }
+
     
     /**
      * @author Allan
-     * @param jsonObject 
+     * @param jsonObject
+     * @param city 
+     */
+    public static void putHotelNamesToJSON(JSONObject jsonObject, City city){
+        Set<Destination> destinations = (city.getDestinations());
+        Map<Long, String> destinationsMap = new HashMap<Long, String>();
+        for (Destination dest : destinations) {
+            destinationsMap.put(dest.getId(), dest.getHotelname());
+        }
+        jsonObject.put("hotelNames", destinationsMap);
+    }
+    
+    
+    /**
+     * @author Allan
+     * @param jsonObject
+     * @param dep 
+     */
+    public static void putEmployeesSameDepToJSON(JSONObject jsonObject,
+            Department dep) {
+        Set<Employee> employees = dep.getEmployees();
+        Map<Long, String> employeesMap = new HashMap<Long, String>();
+        for (Employee emp : employees) {
+            employeesMap.put(emp.getId(), emp.getFirstName()+' '+emp.getSecondName());
+        }
+        jsonObject.put("employees", employeesMap);
+    }
+
+    /**
+     * @author Allan
+     * @param jsonObject
+     * @param office
+     */
+    public static void putOfficebyCityCountryToJSON(JSONObject jsonObject,
+            Office office) {
+        City city = office.getCity();
+        Country country = city.getCountry();
+        jsonObject.put("office", city.getCityName() + ", " + country.getCountryName());
+    }
+
+    /**
+     * @author Allan
+     * @param jsonObject
      */
     public static void putPositionsToJSON(JSONObject jsonObject) {
-       List<Occupation> positions = HibernateUtil.OccupationsList();
-       Map<Long, String> positionsMap = new HashMap<Long, String>();
-       for (Occupation pos: positions) {
+        List<Occupation> positions = HibernateUtil.OccupationsList();
+        Map<Long, String> positionsMap = new HashMap<Long, String>();
+        for (Occupation pos : positions) {
             positionsMap.put(pos.getId(), pos.getPosName());
         }
         jsonObject.put("positions", positionsMap);
     }
-    
+
     /**
-     * author Allan
+     * @author Allan
      * @param jsonObject
-     * @param dep 
+     * @param dep
      */
     public static void putDepEmployersToJSON(JSONObject jsonObject, Department dep) {
-       Set<Employee> depemployees= dep.getEmployees();
-       Map<Long, String> depemployeesMap = new HashMap<Long, String>();
-       for (Employee emp: depemployees) {
-            depemployeesMap.put(emp.getId(), emp.getFirstName()+' '+emp.getSecondName());
-       }
-       jsonObject.put("depemployees", depemployeesMap);
+        Set<Employee> depemployees = dep.getEmployees();
+        Map<Long, String> depemployeesMap = new HashMap<Long, String>();
+        for (Employee emp : depemployees) {
+            depemployeesMap.put(emp.getId(), emp.getFirstName() + ' ' + emp.getSecondName());
+        }
+        jsonObject.put("depemployees", depemployeesMap);
     }
-    
+
     /**
-     * author Allan
+     * @author Allan
      * @param jsonObject
-     * @param dep 
+     * @param dep
      */
     public static void putDepRolesToJSON(JSONObject jsonObject, Department dep) {
-       Set<Deprole> deproles= dep.getDeprole();
-       List<Deprole> allroles = HibernateUtil.DeprolesList();
-       ArrayList<Long> deprolesid= new ArrayList<Long>(); 
-       Map<Long, String> allrolesMap = new HashMap<Long, String>();
-       for (Deprole role: allroles) {
+        Set<Deprole> deproles = dep.getDeprole();
+        List<Deprole> allroles = HibernateUtil.DeprolesList();
+        ArrayList<Long> deprolesid = new ArrayList<Long>();
+        Map<Long, String> allrolesMap = new HashMap<Long, String>();
+        for (Deprole role : allroles) {
             allrolesMap.put(role.getId(), role.getRoleName());
-       }
-       for (Deprole role: deproles){
-           deprolesid.add(role.getId());
-       }
-       jsonObject.put("allroles", allrolesMap);
-       jsonObject.put("deproles", deprolesid);
-       jsonObject.put("rolesNumber", allroles.size());
+        }
+        for (Deprole role : deproles) {
+            deprolesid.add(role.getId());
+        }
+        jsonObject.put("allroles", allrolesMap);
+        jsonObject.put("deproles", deprolesid);
+        jsonObject.put("rolesNumber", allroles.size());
     }
-    
+
     /**
-     * author Allan
-     * @param jsonObject 
+     * @author Allan
+     * @param jsonObject
      */
     public static void putOfficesToJSON(JSONObject jsonObject) {
-       List<Office> offices = HibernateUtil.OfficesList();
-       Map<Long, String> officesMap = new HashMap<Long, String>();
-       for (Office office: offices) {
+        List<Office> offices = HibernateUtil.OfficesList();
+        Map<Long, String> officesMap = new HashMap<Long, String>();
+        for (Office office : offices) {
             officesMap.put(office.getId(), office.getOfficeName());
         }
         jsonObject.put("offices", officesMap);
     }
-     
+
     /**
      * @author Allan
-     * @param jsonObject 
+     * @param jsonObject
      */
     public static void putDepartmentsToJSON(JSONObject jsonObject) {
-       List<Department> departments = HibernateUtil.DepartmentsList();
-       Map<Long, String> departmentsMap = new HashMap<Long, String>();
-       for (Department dep: departments) {
+        List<Department> departments = HibernateUtil.DepartmentsList();
+        Map<Long, String> departmentsMap = new HashMap<Long, String>();
+        for (Department dep : departments) {
             departmentsMap.put(dep.getId(), dep.getDepName());
         }
         jsonObject.put("departments", departmentsMap);
     }
 
-    public static void putCitiesToJson(JSONObject jsonObject, Country country) {
+    public static void putCitiesToJSON(JSONObject jsonObject, Country country) {
         Set<City> cities = country.getCities();
         Map<Long, String> citiesMap = new HashMap<Long, String>();
         for (City city : cities) {
@@ -157,8 +201,9 @@ abstract public class AJAXSendHandler extends AJAXHandler {
 
     public static void putLineManagerByEmployeeLogin(JSONObject jsonObject, String login) {
         String[] arrLineManager = TrfEdit.LineManager(login);
-        String lineMgrName = arrLineManager[0];
-        jsonObject.put("lineManagerName", lineMgrName);
+        String SecondName = arrLineManager[0];
+        String FirstName = arrLineManager[1];
+        jsonObject.put("lineManagerName", FirstName+' '+SecondName);
     }
 
     public static void putProjectManagerToJSON(JSONObject jsonObject, Employee manager) {
@@ -174,8 +219,8 @@ abstract public class AJAXSendHandler extends AJAXHandler {
     public static void putCitiesAndCountriesToJSON(JSONObject jsonObject, City city) {
         jsonObject.put("cityId", city.getId());
         jsonObject.put("countryId", city.getCountry().getId());
-        putCountriesToJson(jsonObject);
-        putCitiesToJson(jsonObject, city.getCountry());
+        putCountriesToJSON(jsonObject);
+        putCitiesToJSON(jsonObject, city.getCountry());
     }
 
     public static void putCustomersToJSON(JSONObject jsonObject, Customer customer) {
@@ -189,7 +234,7 @@ abstract public class AJAXSendHandler extends AJAXHandler {
     }
 
     public static void putCustomersToJSON(JSONObject jsonObject) {
-       List<Customer> customers = TrfEdit.Customers();
+        List<Customer> customers = TrfEdit.Customers();
         Map<Long, String> customersMap = new HashMap<Long, String>();
         for (Customer eachCustomer : customers) {
             customersMap.put(eachCustomer.getId(), eachCustomer.getCustName());
@@ -208,6 +253,7 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("hotelNames", hotelNames);
         jsonObject.put("hotelSites", hotelSites);
     }
+
     public static void putChildDepartments(JSONObject json, Long id, int level) {
         List<Department> deps = AdministratorDesktop.ChildDeps(id);
         JSONArray jsarr = new JSONArray();
@@ -224,7 +270,7 @@ abstract public class AJAXSendHandler extends AJAXHandler {
             }
             js.put("parent", id.longValue());
             js.put("loadonce", true);
-            js.put("level", (level+1));
+            js.put("level", (level + 1));
             jsarr.add(js);
         }
         json.put("rows", jsarr);

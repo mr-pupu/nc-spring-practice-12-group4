@@ -17,7 +17,7 @@ function prepareTRF(){
     var dataAddHotelTitle = 'Add hotel <a class="close" onclick=\'$("#pop1").popover("toggle")\'>&times;</a>';
     var dataAddHotel = 'Hotel name <input type="text" id="hotelNameAdd"> <br>' +
     'Hotel website <input type="text" id="hotelSiteAdd"> <br>' +
-    '<input type="button" class="btn" value="Add" onclick="addDestination()">'
+    '<input type="button" class="btn" value="Add" onclick="verifyDestination()">'
     $('#pop1').attr("data-content", dataAddHotel);
     $('#pop1').attr("title", dataAddHotelTitle)
     $('#pop1').popover({
@@ -53,42 +53,26 @@ function getTravelTrfUsingAJAX(id){
 }
 
 function fillTravelTrfForm(data,id){
-    $('#employee').text(data['employeeName']);
-    $('#office').text(data['officeName']);
+    prepareComboBox($("#employee"), data['employees'], data['employeeId']);
+    $('#office').text(data['office']);
+    $('#beginDate').val(data['beginDate']);
+    $('#endDate').val(data['endDate']);
+    prepareComboBox($("#country"), data['countries'], data['countryId']);
+    prepareComboBox($("#city"), data['cities'], data['cityId'])
     $('#lineManager').text(data['lineManagerName']);
-    prepareComboBox($("#projectManager"), data['projectManagers'], data['projectManagerId'])
-    prepareComboBox($("#customer"), data['customers'], data['customerId'])
-    
-    if (id>0){
-        //Edit trf
-        $('#beginDate').val(data['beginDate']);
-        $('#endDate').val(data['endDate']);
-        prepareComboBox($("#country"), data['countries'], data['countryId']);
-        prepareComboBox($("#city"), data['cities'], data['cityId'])
-        prepareComboBox($("#hotelName"), data['hotelNames'], data['destinationId'])
-        $('#hotelSite').val(data['hotelSites'][data['destinationId']]);
-        if (data['payByCash']) {
-            $('#payByCash').attr("checked","checked")
-        } else {
-            $('#payByCash').removeAttr("checked")
-        }
-        if (data['carRental']) {
-            $('#car').attr("checked","true")
-        } else {
-            $('#car').removeAttr("checked")
-        }
-    } 
-    else {
-        //New trf
-        $("#city").empty();
-        $("#hotelName").empty();
-        $('#beginDate').val("");
-        $('#endDate').val("");
-        $('#hotelSite').val("");
+    prepareComboBox($("#projectManager"), data['employees'], data['projectManagerId']);
+    prepareComboBox($("#hotelName"), data['hotelNames'], data['destinationId']);
+    $('#hotelSite').text(data['hotelSite']);
+    prepareComboBox($("#customer"), data['customers'], data['customerId']);
+    if (data['carRental']) {
+        $('#carRental').attr("checked","true");
+    } else {
+        $('#carRental').removeAttr("checked");
+    }      
+    if (data['payByCash']) {
+        $('#payByCash').attr("checked","true");
+    } else {
         $('#payByCash').removeAttr("checked");
-        $('#car').removeAttr("checked")
-        prepareComboBox($("#country"), data['countries'], 'empty');
-    //prepareComboBox($("#city"), data['cities'], data['cityId'])
     }
     
     $("#accordion3").show();
@@ -115,39 +99,39 @@ function processTRF(state){
     var resultMap = [
     {
         'beginDate':$('#beginDate').val()
-        }, 
+    }, 
 
-        {
+    {
         'endDate':$('#endDate').val()
-        },
+    },
 
-        //{'cityId':$("#city option:selected").attr("sysId")},
+    //{'cityId':$("#city option:selected").attr("sysId")},
 
-        {
+    {
         'projectManagerId':$("#projectManager option:selected").attr("sysId")
-        },
+    },
 
-        //        {'hotelName':$('#hotelName').val()},
+    //        {'hotelName':$('#hotelName').val()},
 
-        //        {'hotelSite':$('#hotelSite').val()},
+    //        {'hotelSite':$('#hotelSite').val()},
 
-        {
+    {
         'destinationId':$("#hotelName option:selected").attr("sysId")
-        },
+    },
 
-        {
+    {
         'customerId':$("#customer option:selected").attr("sysId")
-        },
+    },
 
-        {
+    {
         'car':($('#car').attr("checked")!=undefined).toString()
-        },
+    },
 
-        {
+    {
         'payByCash':($('#payByCash').attr("checked")!=undefined).toString()
-        },
+    },
 
-        {
+    {
         'state':state
     }];
     alert(JSON.stringify(resultMap));
@@ -167,48 +151,34 @@ function processTRF(state){
 function changeCountry(id){
     $.getJSON(getContextPath() + "/ajaxcities?id="+id,
         function (data){
-            prepareComboBox($("#city"), data['cities'], 1);
+            prepareComboBox($("#city"), data['cities'], id);
             changeCity($("#city option:selected").attr("sysId"));
         });
 }
 
 function changeCity(id){
-    //loading message here
-    //alert("somesing, id = " + id);
     $.getJSON(getContextPath() + "/ajaxhotels?id="+id,
         function (data){
-            prepareHotelsComboBox($("#hotelName"), data['hotelNames'], data['hotelSites'], 1)
+            prepareHotelsComboBox($("#hotelName"), data['hotelNames'], data['hotelSites'], id)
             $('#hotelSite').val(data['hotelSites'][$("#hotelName option:selected").attr("sysId")]);
         });
 }
 
 
-
-function prepareHotelsComboBox(combobox, data1, data2, id){
-    combobox.empty();
-    $.each(data1, function(key, value) { 
-        var selected = "";
-        if (key == id) {
-            selected = 'selected="selected"';
-        }
-        combobox.prepend( $('<option ' + selected + ' sysid="' + key + '" site="' + data2[key] + '">' + value + '</option>'))
-    });
-}
-
-function addDestination(){
+function verifyDestination(){
     alert('addingDestination');
     var resultMap = [
     {
         'cityId':$("#city option:selected").attr("sysId")
-        },
+    },
 
-        {
+    {
         'hotelName':$("#hotelNameAdd").val()
-        },
+    },
 
-        {
+    {
         'hotelSite':$("#hotelSiteAdd").val()
-        }];
+    }];
     alert(JSON.stringify(resultMap));
     $.ajax({
         url: getContextPath() + "/ajaxdest",

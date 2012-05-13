@@ -4,11 +4,9 @@
  */
 package servlets.travel_servlets;
 
-import database.mapping.Employee;
 import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -70,56 +68,42 @@ public class AJAXTravelTrfEditHandler extends AJAXSendHandler {
                 Long id = Long.parseLong(idString);
                 Session hibernateSession = HibernateUtil.getSession();
                 Trf trf;
-                if (id > 0) {
+                
                     trf = (Trf) hibernateSession.get(Trf.class, (Long) id);
 
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
                     request.getSession().setAttribute("trf", trf);
 
-                    putEmployeeToJSON(jsonObject, trf.getEmployeeByEmpId());
-                    putOfficeToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
+                    putEmployeesSameDepToJSON(jsonObject, trf.getEmployeeByEmpId().getDepartment());
+                    jsonObject.put("employeeId", trf.getEmployeeByEmpId().getId());
+                    
+                    putOfficebyCityCountryToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
 
                     putDatesToJson(jsonObject, trf.getBeginDate(), trf.getEndDate());
 
-                    putCitiesAndCountriesToJSON(jsonObject, trf.getDestination().getCity());
+                    putCountriesToJSON(jsonObject);
+                    jsonObject.put("countryId", trf.getDestination().getCity().getCountry().getId());
+                    
+                    putCitiesToJSON(jsonObject, trf.getDestination().getCity().getCountry());
+                    jsonObject.put("cityId", trf.getDestination().getCity().getId());
 
                     putLineManagerByEmployeeLogin(jsonObject, trf.getEmployeeByEmpId().getLogin());
                     putProjectManagerToJSON(jsonObject, trf.getEmployeeByProjectManager());
+                    
+                    jsonObject.put("projectManagerId", trf.getEmployeeByProjectManager().getId());
 
+                    putHotelNamesToJSON(jsonObject, trf.getDestination().getCity());
                     jsonObject.put("destinationId", trf.getDestination().getId());
-                    putDestinationsToJSON(jsonObject, trf.getDestination().getCity());
+                    jsonObject.put("hotelSite", trf.getDestination().getHotelsite());
 
-                    putCustomersToJSON(jsonObject, trf.getCustomer());
+                    putCustomersToJSON(jsonObject);
+                    jsonObject.put("customerId", trf.getCustomer().getId());
 
                     jsonObject.put("carRental", trf.getCarRental());
                     jsonObject.put("payByCash", trf.getPayByCash());
 
                     jsonObject.writeJSONString(response.getWriter());
 
-                } else {
-                    String employeeLogin = (String) request.getSession().getAttribute("name");
-                    Long employeeId = HibernateUtil.EmpIdByLogin(employeeLogin);
-                    Employee employee = (Employee) hibernateSession.get(Employee.class, employeeId);
-
-                    putEmployeeToJSON(jsonObject, employee);
-                    putOfficeToJSON(jsonObject, employee.getOffice());
-
-                    putDatesToJson(jsonObject, new Date(), new Date());
-
-                    putCountriesToJson(jsonObject);    ///!!!!!!!!!!!!!!!!
-
-                    putLineManagerByEmployeeLogin(jsonObject, employeeLogin);
-                    putProjectManagerToJSON(jsonObject, employee);
-
-                    //jsonObject.put("destinationId", trf.getDestination().getId());              ///!!!!!!!!!!!!!!!!
-                    //putDestinationsToJSON(jsonObject, trf.getDestination().getCity());          ///!!!!!!!!!!!!!!!!
-
-                    putCustomersToJSON(jsonObject);
-
-                    //jsonObject.put("carRental", false);
-                    //jsonObject.put("payByCash", false);
-                    jsonObject.writeJSONString(response.getWriter());
-                }
             } catch (NumberFormatException e) {
                 System.out.print("Wrong id format");
             }

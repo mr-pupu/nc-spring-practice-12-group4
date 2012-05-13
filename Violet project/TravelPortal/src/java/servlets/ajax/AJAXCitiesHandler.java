@@ -49,7 +49,7 @@ public class AJAXCitiesHandler extends AJAXSendHandler {
                 Long id = Long.parseLong(idCountry);
                 Country country = (Country) HibernateUtil.getSession().get(Country.class, (long) id);
                 if (country != null) {
-                    putCitiesToJson(jsonObject, country);
+                    putCitiesToJSON(jsonObject, country);
                 } else {
                     System.out.println("City = null");
                 }

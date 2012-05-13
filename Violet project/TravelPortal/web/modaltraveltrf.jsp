@@ -10,7 +10,7 @@
 <fmt:setBundle
     basename="${localeBean.bundlePath}_${sessionScope.bundle}" />
 
-<div id="editTravelTrfModal" class="modal hide fade" style="width: 690px; margin: -250px 0 -0 -380px;">
+<div id="editTravelTrfModal" class="modal hide fade" style="width: 680px; margin: -250px 0 -0 -380px;">
 
     <div class="modal-header">
         <meta name="author" content="Allan (base by Vlad)">
@@ -49,7 +49,7 @@
                                 <tbody>
                                     <tr>
                                         <td><fmt:message key="modal.form.employeeName" /></td>
-                                        <td><select class="combobox" style="width : 140px;" id="employee">
+                                        <td><select class="combobox" style="width : 180px;" id="employee">
                                             </select></td>
                                         <td><span style="padding:0px 20px;"></span></td>
                                         <td><fmt:message key="modal.form.office" /></td>
@@ -96,7 +96,7 @@
                                             </a></td>          
                                         <td></td>
                                         <td><fmt:message key="modal.form.hotelWebSite" /> :</td>
-                                        <td><input type="text" disabled style="width : 170px;" id="hotelSite"></td>
+                                        <td id="hotelSite"></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.customer" /></td>
@@ -104,12 +104,12 @@
                                             </select></td>
                                         <td></td>
                                         <td><label class="checkbox">
-                                                <input type="checkbox" id="carRental"/><fmt:message key="modal.form.car" />
+                                                <input type="checkbox" id="carRental"/>
+                                                <fmt:message key="modal.form.car" />
                                             </label></td>
                                         <td><label class="checkbox">
-                                                <input type="checkbox" id="payByCash" <c:if test="${!deproles.contains('Travel Department')}">
-                                                       disabled
-                                                    </c:if>/><fmt:message key="modal.form.payByCash" />
+                                                <input type="checkbox" id="payByCash"/>
+                                                <fmt:message key="modal.form.payByCash" />
                                             </label></td>
                                     </tr>
                                 </tbody>
