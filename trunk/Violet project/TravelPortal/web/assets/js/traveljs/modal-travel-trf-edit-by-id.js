@@ -12,6 +12,7 @@ $(window).bind('hashchange', function() {
     prepareTRF();
 });
 
+
 function prepareTRF(){
     
     var dataAddHotelTitle = 'Add hotel <a class="close" onclick=\'$("#pop1").popover("toggle")\'>&times;</a>';
@@ -55,8 +56,8 @@ function getTravelTrfUsingAJAX(id){
 function fillTravelTrfForm(data,id){
     prepareComboBox($("#employee"), data['employees'], data['employeeId']);
     $('#office').text(data['office']);
-    $('#beginDate').val(data['beginDate']);
-    $('#endDate').val(data['endDate']);
+    $('#flightBeginDate').val(data['beginDate']);
+    $('#flightEndDate').val(data['endDate']);
     prepareComboBox($("#country"), data['countries'], data['countryId']);
     prepareComboBox($("#city"), data['cities'], data['cityId'])
     $('#lineManager').text(data['lineManagerName']);
