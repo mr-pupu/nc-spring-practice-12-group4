@@ -44,8 +44,9 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("countries", countriesMap);
     }
     /*
-     * Methods that put all offices and item <all> to json string @param json
-     * string with form data @author OleksandrDudinskyi
+     * Methods that put all offices and item <all> to json string 
+	 * @param json string with form data 
+	 * @author OleksandrDudinskyi
      */
 
     public static void putAllOfficesToJSON(JSONObject jsonObject) {
@@ -54,12 +55,13 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         for (Office office : offices) {
             officesMap.put(office.getId(), office.getOfficeName());
         }
-        officesMap.put((long) (offices.size() + 1), "ALL");
+        officesMap.put((long) (offices.size() + 1), "All");
         jsonObject.put("offices", officesMap);
     }
     /*
-     * Methods that put all departments and item <all> to json string @param
-     * json string with form data @author OleksandrDudinskyi
+     * Methods that put all departments and item <all> to json string 
+	 * @param json string with form data 
+	 * @author OleksandrDudinskyi
      */
 
     public static void putAllDepartmentToJSON(JSONObject jsonObject) {
@@ -70,7 +72,6 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         }
         departmentsMap.put((long) (departments.size() + 1), "All");
         jsonObject.put("departments", departmentsMap);
-        System.out.print(jsonObject);
     }
 
     

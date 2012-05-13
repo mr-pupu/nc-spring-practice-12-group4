@@ -1,14 +1,10 @@
 package servlets.reports;
 
 import database.mapping.Office;
-import database.mapping.Trf;
-import database.utilities.AdministratorDesktop;
-import database.utilities.EmployeeDesktop;
 import database.utilities.HibernateUtil;
 import database.utilities.Reports;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -92,10 +88,15 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
         if (resultStrings.containsKey("department")) {
             setDepartment(resultStrings.get("department"));
         }
-        if (resultStrings.containsKey("office")) {
-            Office office = (Office) HibernateUtil.getSession().get(Office.class, Long.parseLong(resultStrings.get("office")));
-            setCity(office.getCity().getCityName());
-            setCountry(office.getCity().getCountry().getCountryName());
+        if (resultStrings.containsKey("officeName")) {
+            if (resultStrings.get("officeName").equals("All")) {
+                setCity("All");
+                setCountry("All");
+            } else {
+                Office office = (Office) HibernateUtil.getSession().get(Office.class, Long.parseLong(resultStrings.get("officeId")));
+                setCity(office.getCity().getCityName());
+                setCountry(office.getCity().getCountry().getCountryName());
+            }
         }
     }
 

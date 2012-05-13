@@ -80,10 +80,15 @@ String department = "All";
         if (resultStrings.containsKey("department")) {
             setDepartment(resultStrings.get("department"));
         }
-        if (resultStrings.containsKey("office")) {
-            Office office = (Office) HibernateUtil.getSession().get(Office.class, Long.parseLong(resultStrings.get("office")));
-            setCity(office.getCity().getCityName());
-            setCountry(office.getCity().getCountry().getCountryName());
+        if (resultStrings.containsKey("officeName")) {
+            if (resultStrings.get("officeName").equals("All")) {
+                setCity("All");
+                setCountry("All");
+            } else {
+                Office office = (Office) HibernateUtil.getSession().get(Office.class, Long.parseLong(resultStrings.get("officedId")));
+                setCity(office.getCity().getCityName());
+                setCountry(office.getCity().getCountry().getCountryName());
+            }
         }
     }
 
