@@ -95,56 +95,54 @@ function prepareComboBox(combobox, data, id){
 
 
 
-function processTRF(state){
-    alert('processTRF');
+function processTRF(button){
+    //0 — save, 1 — reject, 2 — cancel, 4 - complete
+    var comment ="";
+    if(button!=0) comment = $('#commentary').val();
+    
     var resultMap = [
     {
-        'beginDate':$('#beginDate').val()
+        'employee':$("#employee option:selected").attr("sysId")
+    },
+    {
+        'beginDate':$('#flightBeginDate').val()
     }, 
 
     {
-        'endDate':$('#endDate').val()
+        'endDate':$('#flightEndDate').val()
     },
-
-    //{'cityId':$("#city option:selected").attr("sysId")},
-
     {
-        'projectManagerId':$("#projectManager option:selected").attr("sysId")
+        'projectManager':$("#projectManager option:selected").attr("sysId")
     },
-
-    //        {'hotelName':$('#hotelName').val()},
-
-    //        {'hotelSite':$('#hotelSite').val()},
-
     {
-        'destinationId':$("#hotelName option:selected").attr("sysId")
+        'destination' :$("#hotelName option:selected").attr("sysId")
     },
 
     {
-        'customerId':$("#customer option:selected").attr("sysId")
+        'customer':$("#customer option:selected").attr("sysId")
     },
 
     {
-        'car':($('#car').attr("checked")!=undefined).toString()
+        'carRental':($('#carRental').attr("checked")!=undefined).toString()
     },
 
     {
         'payByCash':($('#payByCash').attr("checked")!=undefined).toString()
     },
-
     {
-        'state':state
+        'status' : button
+    },
+    {
+        'commentary': comment
     }];
-    alert(JSON.stringify(resultMap));
     $.ajax({
-        url: getContextPath() + "/ajaxtrfsprocess",
+        url: getContextPath() + "/ajaxtraveltrfprocess?",
         type: "POST",
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
         },
         dataType: "json",
         success: function(result) {
-            alert('success')
         }
     });
 }
