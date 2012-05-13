@@ -59,7 +59,6 @@ $(document).ready(function(){
         }
     }
     function postDepartmentsSevlet() {
-//        console.log($("#department option:selected").val());
         var resultMap = [
         {
             'id':$("#department option:selected").val()
@@ -80,10 +79,9 @@ $(document).ready(function(){
     $.getJSON(getContextPath() + "/comboboxhandler",
         function (data){
             prepareComboBox($("#department"), data['departments']);
-            $('.combobox').combobox();
         });
     var beginDate = {
-        useMode:2,
+        useMode:2,			
         target:"beginDate",
         dateFormat:"%d/%m/%Y",
         onAfterSelect: function () {
@@ -117,6 +115,6 @@ $(document).ready(function(){
 function prepareComboBox(combobox, data){
     combobox.empty();
     $.each(data, function(key, value) { 
-        combobox.prepend( $('<option value="' + key + '">' + value + '</option>'));
+        combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'))
     });
 }

@@ -74,7 +74,7 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
 
             putDatesToJson(jsonObject, new Date(), new Date());
 
-            putCountriesToJson(jsonObject);    ///!!!!!!!!!!!!!!!!
+            putCountriesToJSON(jsonObject);    ///!!!!!!!!!!!!!!!!
 
             putLineManagerByEmployeeLogin(jsonObject, employeeLogin);
             putProjectManagerToJSON(jsonObject, employee);
