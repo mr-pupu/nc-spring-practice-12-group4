@@ -126,7 +126,7 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                 Long id = Long.parseLong(idString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                int count = 100;
+                long count = Reports.countCurrentTRFs();
                 if (id != null) {
                     String[][] trfs = null;
                     System.out.println(getCity());
