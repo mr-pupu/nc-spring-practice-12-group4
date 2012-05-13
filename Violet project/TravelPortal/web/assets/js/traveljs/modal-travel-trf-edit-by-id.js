@@ -143,6 +143,8 @@ function processTRF(button){
         },
         dataType: "json",
         success: function(result) {
+            $('#editTravelTrfModal').modal('hide');
+            $("#travelinprogress").trigger("reloadGrid") ;
         }
     });
 }
