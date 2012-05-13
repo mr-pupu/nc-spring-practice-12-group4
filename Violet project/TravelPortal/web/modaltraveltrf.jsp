@@ -57,15 +57,17 @@
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.departureDate" /></td>
-                                        <td> <div class="input-append" rel="calendarDiv">
-                                                <input style="width : 120px;" id="beginDate" size="16" type="text"><span
-                                                    class="add-on"><i class="icon-calendar"></i></span>
+                                        <td> <div class="input-append" rel="calendarDiv" onclick="this.JsDatePickBox.style.display = 'none'">
+                                                <input style="width : 120px;" id="flightBeginDate" size="16" type="text"><span
+                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/icon_calendar.png" 
+                                                 width=25px; height=25px;/></span>
                                             </div></td>
                                         <td></td>
                                         <td><fmt:message key="modal.form.returnDate" /> :</td>
                                         <td> <div class="input-append" rel="calendarDiv">
-                                                <input style="width : 120px;" id="endDate" size="16" type="text"><span
-                                                    class="add-on"><i class="icon-calendar"></i></span>
+                                                <input style="width : 120px;" id="flightEndDate" size="16" type="text"><span
+                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/icon_calendar.png" 
+                                                 width=25px; height=25px;/></span>
                                             </div>
                                         </td>
                                     </tr>

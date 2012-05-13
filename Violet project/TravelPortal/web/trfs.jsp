@@ -54,12 +54,6 @@
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
     </script>
-    <link rel="stylesheet" type="text/css" media="all"
-          href="<%=request.getContextPath()%>/assets/css/jsDatePick_ltr.min.css" />
-    
-    <script type='text/javascript'
-            src="<%=request.getContextPath()%>/assets/js/jsDatePick.min.1.3.js">
-    </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
     </script>
@@ -76,9 +70,11 @@
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/modal-travel-trf-edit-by-id.js">
     </script>
-        <script type="text/javascript"
-    src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
-
+          <link rel="stylesheet" type="text/css" media="all"
+          href="<%=request.getContextPath()%>/assets/css/jsDatePick_ltr.min.css" />
+    <script type="text/javascript"
+    src="<%=request.getContextPath()%>/assets/js/jsDatePick.min.1.3.js"></script>
+    
 </head>
 <body>
     <c:import url="menu.jsp">
@@ -138,9 +134,6 @@
                                 </div>
                            </fieldset>
                        </form>-->
-
-
-
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -152,15 +145,18 @@
                                         <input type="text" size="12" id="beginDate" /> 
                                         <img src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
                                              onmousedown="document.getElementById('beginDate').focus();"
-                                             width=20px; height=20px; id="image1" /> <!-- <input	type="text">XX</td> -->
+                                             width=20px; height=20px; id="image1" />  <input	type="text">XX</td> 
                                     <td><fmt:message key="page.forms.filterTimeframe.to" /> <input
                                             type="text" size="12" id="endDate" /> <img
                                             src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
                                             onmousedown="document.getElementById('endDate').focus();"
-                                            width=20px; height=20px; id="image2" /> <!--<input type="text">XX</td>  -->
+                                            width=20px; height=20px; id="image2" /> <input type="text">XX</td>  
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> 
+
+
+
 <!--                                            <div>                 
                                                 <table id="allTRFs"></table>
                                                 <div id="allTRFspager"></div> 
@@ -172,5 +168,7 @@
     </div>
     <!-- /container -->
     <jsp:include page="modaltraveltrf.jsp"></jsp:include>
+      <script type="text/javascript"
+    src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
 </body>
 </html>
