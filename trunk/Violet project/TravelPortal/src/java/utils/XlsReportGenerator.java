@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,8 +14,8 @@ import org.apache.poi.hssf.usermodel.*;
  * @author
  */
 public class XlsReportGenerator {
-    public static byte[] getReport(String login)
-    {
+
+    public static byte[] getReport(String login) throws IOException {
         HSSFWorkbook workbook = new HSSFWorkbook();
 
         HSSFSheet firstSheet = workbook.createSheet("TRFs report");
@@ -52,11 +54,12 @@ public class XlsReportGenerator {
             String statusName = database.mapping.Trf.getStatus(Integer.parseInt(report_row[8].toString()));
             row.createCell(5).setCellValue(statusName);
         }
-        
+
         for (int i = 0; i < rowName.getLastCellNum(); i++) {
             firstSheet.autoSizeColumn(i);
         }
-        return workbook.getBytes();
-
-    };
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        workbook.write(baos);
+        return baos.toByteArray();
+    }
 }
