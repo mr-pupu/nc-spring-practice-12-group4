@@ -1,6 +1,7 @@
 package servlets;
 
 import database.utilities.HibernateUtil;
+import database.utilities.TrfEdit;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -52,11 +53,12 @@ public class AuthHandler extends ServletHandler {
         if ((login != null) && (pass != null)) {
 //			String deprole = users.Users.getUserDeprole(login, pass);
             List deproles = HibernateUtil.DepDeproleByLogin(login, pass);
+            Long userId = TrfEdit.empIdByLogin(login);
             //if (login.equals("user") && pass.equals("pass")) {
             if (!deproles.isEmpty()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("name", login);
-
+                session.setAttribute("userId", userId);
                 session.setAttribute("deprole", deproles);
 
                 messageTitle = "Congratulations !";

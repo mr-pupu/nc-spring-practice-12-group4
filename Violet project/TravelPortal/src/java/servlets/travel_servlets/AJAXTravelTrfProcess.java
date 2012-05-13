@@ -124,8 +124,9 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             
             if(status!=0){
                 System.out.println("Creating trfstate");
-                String login = (String) request.getSession().getAttribute("login");
-                Long travelId = TrfEdit.empIdByLogin(login);
+                //String login = (String) request.getSession().getAttribute("login");
+                //Long travelId = TrfEdit.empIdByLogin(login);
+                Long travelId = (Long) request.getSession().getAttribute("userId");
                 
                 Trfstate newstate = new Trfstate();
                 newstate.setTrf(currTrf);
