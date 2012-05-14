@@ -48,17 +48,14 @@ public class DepartmentDeleteHandler extends ServletHandler {
     }
 
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
         System.out.println("Servlet EmployeeDeleteHandler was runned");
         String idString = request.getParameter("id");
         System.out.println("id:" + idString);
         Long val = Long.parseLong(idString);
         Session s = HibernateUtil.getSession();
-//        if (request.getSession().getAttribute("name").toString()=="Viki"){
-//            response.sendRedirect("http://www.java.com");
-//        }
         Transaction tx = s.beginTransaction();
-        Department dep = (Department) HibernateUtil.getSession().get(Department.class, val.longValue());
+        Department dep = (Department) s.get(Department.class, val.longValue());
+        s.refresh(dep);
         JSONObject json = new JSONObject();
         //check if child deps exist
         //alert code
@@ -67,19 +64,26 @@ public class DepartmentDeleteHandler extends ServletHandler {
         //2 - unable to delete for other reason
         if (!dep.getDepartments().isEmpty()) {
 //            System.out.println("DOGGY");
-            sendMessage(request, "Error", "Unable to delete department with child departments", "info");
+//            sendMessage(request, "Error", "Unable to delete department with child departments", "info");
             tx.rollback();
-            json.put("success", 1);
+            json.put("error", "error");
+            json.put("success", "Unable to delete department with child departments");
+            json.put("code", 1);
         } else {
             try {
                 s.delete(dep);
                 tx.commit();
                 s.flush();
-                json.put("success", 0);
+                json.put("error", "success");
+                json.put("success", "Department deleted");
+                json.put("code", 0);
             } catch (Exception e) {
                 tx.rollback();
                 System.out.println("Rolling back");
-                json.put("success", 2);
+                json.put("error", "error");
+                json.put("error", "The following database issue occured during deletion procedure " +
+                        e.getMessage());
+                json.put("code", 2);
             } finally {
                 try {
 //                    s.close();
@@ -91,8 +95,8 @@ public class DepartmentDeleteHandler extends ServletHandler {
         }
 //        
 //        System.out.println(json);
+        response.setContentType("application/json");
         json.writeJSONString(response.getWriter());
-        
 //        doDispatcher(request, response, "1");
     }
 }
