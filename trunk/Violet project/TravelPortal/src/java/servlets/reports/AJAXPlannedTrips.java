@@ -118,7 +118,7 @@ String department = "All";
                 Long id = Long.parseLong(idString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                long count = Reports.countPlannedTRFs();
+                long count = 0;
                 if (id != null) {
                     String[][] trfs = null;
                     System.out.println(getCity());
@@ -126,15 +126,19 @@ String department = "All";
                     System.out.println(getDepartment());
                     if (getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.plannedTrfs(page-1, rows);
+                        count = Reports.countPlannedTRFs();
                     }
                     if (getDepartment().equals("All") && !getCountry().equals("All")) {
                         trfs = Reports.PlannedTrfSameOffice(getCity(), getCountry(), page - 1, rows);
+                        count = Reports.countPlannedTRFsSameOffice(getCity(), getCountry());
                     }
                     if (!getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.PlannedTrfSameDepartment(getDepartment(), page - 1, rows);
+                        count = Reports.countPlannedTRFsSameDept(getDepartment());
                     }
                     if (!getDepartment().equals("All") && !getCountry().equals("All")) {
                         trfs = Reports.PlannedTrfSameDepartmentOffice(getCity(), getCountry(), getDepartment(), page - 1, rows);
+                        count = Reports.countPlannedTRFsSameOfficeDept(getCity(), getCountry(), getDepartment());
                     }
                     
                     JSONArray ja = new JSONArray();

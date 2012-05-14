@@ -251,7 +251,7 @@ private static String[][] fillRes(List resq)
      public static long countPlannedTRFsSameDept(String dept){
         String prepared_statement = "select count(*) "
                 + " from trfs_report "
-                + " where begin_date> sysdate and cur_state=3 AND dep_name=:department) ";
+                + " where begin_date> sysdate and cur_state=3 AND dep_name=:department ";
 
         Session s = HibernateUtil.getSession();
         long res = Long.parseLong(
