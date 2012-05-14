@@ -51,9 +51,9 @@
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
     </script>
-<!--    <script type='text/javascript'
+    <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/travelSupportjs/processTravelSupport.js">
-    </script>-->
+    </script>
     <script type='text/javascript'
             src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
     </script>
@@ -121,19 +121,6 @@
                 <div id="collapseTwo" class="accordion-body collapse">
                     <div class="accordion-inner">
 
-<!--                        <form class="form-horizontal">
-                            <fieldset>
-                                <div class="control-group">
-                                    <label class="control-label" for="appendedInput">Calendar will be here</label>
-                                    <div class="controls">
-                                        <div class="input-append" rel="calendarDiv">
-                                            <input class="span2" id="inputField3" size="16" type="text"><span
-                                                class="add-on"><i class="icon-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                           </fieldset>
-                       </form>-->
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -157,16 +144,16 @@
 
 
 
-<!--                                            <div>                 
+                                                           
                                                 <table id="allTRFs"></table>
                                                 <div id="allTRFspager"></div> 
-                                            </div>-->
+                                           
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /container -->
+<!--    <!-- /container -->
     <jsp:include page="modaltraveltrf.jsp"></jsp:include>
       <script type="text/javascript"
     src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>

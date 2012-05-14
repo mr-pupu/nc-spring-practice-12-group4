@@ -2,6 +2,14 @@
 <web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>TravelPortal</display-name>
     <servlet>
+        <servlet-name>AJAXTravelEmployeeHandler</servlet-name>
+        <servlet-class>servlets.ajax.AJAXTravelEmployeeHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AJAXTravelEmployeeHandler</servlet-name>
+        <url-pattern>/ajaxtravelemployee</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>AJAXTravelTrfProcess</servlet-name>
         <servlet-class>servlets.travel_servlets.AJAXTravelTrfProcess</servlet-class>
     </servlet>
@@ -20,7 +28,7 @@
     <servlet>
         <servlet-name>EmployeeDeleteHandler</servlet-name>
         <servlet-class>servlets.admin_servlets.EmployeeDeleteHandler</servlet-class>
-    </servlet>  
+    </servlet>
     <servlet>
         <servlet-name>AJAXPlannedTrips</servlet-name>
         <servlet-class>servlets.reports.AJAXPlannedTrips</servlet-class>
@@ -60,7 +68,7 @@
     <servlet>
         <servlet-name>AJAXAllMyTRFs</servlet-name>
         <servlet-class>servlets.ajax.AJAXAllMyTRFs</servlet-class>
-    </servlet>    
+    </servlet>
     <servlet-mapping>
         <servlet-name>AJAXCurrentTrips</servlet-name>
         <url-pattern>/ajaxcurrenttrips</url-pattern>
@@ -143,7 +151,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ReportsDataHandler</servlet-name>
-        <url-pattern>/reportsdatahandler</url-pattern>    
+        <url-pattern>/reportsdatahandler</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>AJAXDepartmentHandler</servlet-name>
