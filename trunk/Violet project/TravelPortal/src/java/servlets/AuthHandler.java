@@ -3,6 +3,7 @@ package servlets;
 import database.utilities.HibernateUtil;
 import database.utilities.TrfEdit;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -52,22 +53,31 @@ public class AuthHandler extends ServletHandler {
         String messageType;
         if ((login != null) && (pass != null)) {
 //			String deprole = users.Users.getUserDeprole(login, pass);
-            List deproles = HibernateUtil.DepDeproleByLogin(login, pass);
-            Long userId = TrfEdit.empIdByLogin(login);
-            //if (login.equals("user") && pass.equals("pass")) {
-            if (!deproles.isEmpty()) {
-                HttpSession session = request.getSession();
-                session.setAttribute("name", login);
-                session.setAttribute("userId", userId);
-                session.setAttribute("deprole", deproles);
+            try {
+                List deproles = HibernateUtil.DepDeproleByLogin(login, pass);
+//                Long userId = TrfEdit.empIdByLogin(login);
+                List id = TrfEdit.empIdByLogin(login);
+                //if (login.equals("user") && pass.equals("pass")) {
+                if (!deproles.isEmpty() && !id.isEmpty() && (id.size() == 1)) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("name", login);
+                    BigDecimal userId = (BigDecimal) (id.get(0));
+                    session.setAttribute("userId", userId.longValue());
+                    session.setAttribute("deprole", deproles);
 
-                messageTitle = "Congratulations !";
-                messageText = "Authorization process succed";
-                messageType = "success";
-            } else {
-                request.setAttribute("message", "Wrong name or password");
-                messageTitle = "Error occured !";
-                messageText = "Wrong login or password";
+                    messageTitle = "Congratulations !";
+                    messageText = "Authorization process succed";
+                    messageType = "success";
+                } else {
+                    request.setAttribute("message", "Wrong name or password");
+                    messageTitle = "Error occured !";
+                    messageText = "Wrong login or password";
+                    messageType = "error";
+                }
+            } catch (Exception e) {
+                messageTitle = "Error";
+                messageText = "An exception occured while processing your request "
+                        + e.getMessage();
                 messageType = "error";
             }
         } else {
