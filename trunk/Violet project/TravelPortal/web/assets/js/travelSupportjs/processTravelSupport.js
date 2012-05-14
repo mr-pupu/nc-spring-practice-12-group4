@@ -3,30 +3,50 @@
  */
 
 $(document).ready(function(){
+    // This function return a date object after accepting 
+    function getDateObject(dateString,dateSeperator)
+    {
+        var curValue=dateString;
+        var sepChar=dateSeperator;
+        var curPos=0;
+        var cDate,cMonth,cYear;
+
+        // day
+        curPos=dateString.indexOf(sepChar);
+        cDate=dateString.substring(0,curPos);
+        //mounth
+        endPos=dateString.indexOf(sepChar,curPos+1);
+        cMonth=dateString.substring(curPos+1,endPos);
+
+        //year
+        curPos=endPos;
+        endPos=curPos+5; 
+        cYear=curValue.substring(curPos+1,endPos);
+
+        //Create Date Object
+        dtObject=new Date(cYear,cMonth,cDate); 
+        return dtObject;
+    }
     function compareDate(firstDate, secondDate) {
-        correctFormat = firstDate.replace(/(\d+)\/(\d+)\/(\d+)/, "$3/$2/$1");
-        first = new Date(correctFormat);
-        correctFormat1 = secondDate.replace(/(\d+)\/(\d+)\/(\d+)/, "$3/$2/$1");
-        second = new Date(correctFormat1);
+        first = getDateObject(firstDate, "-");
+        second = getDateObject(secondDate, "-");
         if (first>second) {
             return false;
         } else {
             return true;
         }
     }
-    function postBeginDateToSevlet() {
+    function postDataToSevlet() {
         if (compareDate($("#beginDate").val(), $("#endDate").val())) {
             var resultMap = [
             {
-                'beginDate': $("#beginDate").val()
+                'beginDate': $("#beginDate").val(),
+                'endDate': $("#endDate").val(),
+                'depatmentName':$("#department option:selected").val()
             }
             ];
             $.ajax({
                 url: getContextPath() + "/travelsupportalltrfs",
-                error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-                },
                 type: "POST",
                 data: {
                     "ajaxdata" : JSON.stringify(resultMap)
@@ -39,94 +59,48 @@ $(document).ready(function(){
         } else {
             alert("Begin date later than end date");
         }
-    }
-    function postEndDateToSevlet() {
-        if (compareDate($("#beginDate").val(), $("#endDate").val())) {
-            var resultMap = [
-            {
-                'endDate': $("#endDate").val()
-            }
-            ];
-            $.ajax({
-                url: getContextPath() + "/travelsupportalltrfs",
-                error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-       },
-                type: "POST",
-                data: {
-                    "ajaxdata" : JSON.stringify(resultMap)
-                },
-                dataType: "json",
-                success: function(result) {
-                    $("#allTRFs").trigger("reloadGrid") 
-                }
-            });
-        } else {
-            alert("Begin date later than end date");
-        }
-    }
-    function postDepartmentsSevlet() {
-        var resultMap = [
-        {
-            'id':$("#department option:selected").val()
-        }
-        ];
-        $.ajax({
-            url: getContextPath() + "/travelsupportalltrfs",
-            error:function(){
-            alert('Error loading data');
-            window.location.href="index.jsp" 
-       },
-            type: "POST",
-            data: {
-                "ajaxdata" : JSON.stringify(resultMap)
-            },
-            dataType: "json",
-            success: function(result) {
-                $("#allTRFs").trigger("reloadGrid") 
-            }
-        }); 
     }
     $.getJSON(getContextPath() + "/comboboxhandler",
         function (data){
-            prepareComboBox($("#department"), data['departments']);
+            prepareSupportComboBox($("#department"), data['departments']);
+            postDataToSevlet();
         });
     var beginDate = {
         useMode:2,			
         target:"beginDate",
-        dateFormat:"%d/%m/%Y",
+        dateFormat:"%d-%m-%Y",
         onAfterSelect: function () {
-            postBeginDateToSevlet();
+            postDataToSevlet();
         }
     },
     endDate = {
         useMode:2,
         target:"endDate",
-        dateFormat:"%d/%m/%Y",
+        dateFormat:"%d-%m-%Y",
         onAfterSelect: function () {
-            postEndDateToSevlet();
+            postDataToSevlet();
         }
     };
     new JsDatePick(beginDate);
     new JsDatePick(endDate);
     var currentTime = new Date();
-    var beginMonth = currentTime.getMonth() -1;
-    var EndMonth = currentTime.getMonth();
+    var beginMonth = currentTime.getMonth();
+    var EndMonth = currentTime.getMonth()+1;
     var day = currentTime.getDate();
     var year = currentTime.getFullYear();
-    document.getElementById('beginDate').value = day + "/" + beginMonth + "/" + year;
-    document.getElementById('endDate').value = day + "/" + EndMonth + "/" + year;
-    postBeginDateToSevlet();
-    postEndDateToSevlet();
-    postDepartmentsSevlet()
+    document.getElementById('beginDate').value = day + "-" + beginMonth + "-" + year;
+    document.getElementById('endDate').value = day + "-" + EndMonth + "-" + year;
     $("#department").change(function(){
-        postDepartmentsSevlet()
+        postDataToSevlet();
     });
 });
-function prepareComboBox(combobox, data){
+function prepareSupportComboBox(combobox, data){
     combobox.empty();
     $.each(data, function(key, value) { 
-        combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'))
+        if (value!="All") {
+            combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'));
+        } else {
+            combobox.prepend( $('<option selected sysid="' + key + '">' + value + '</option>'));
+        }
     });
 }

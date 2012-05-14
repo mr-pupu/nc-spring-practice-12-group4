@@ -45,8 +45,8 @@
                 ****************************************************************************************
         -->
         <jsp:include page="scripts.jsp"></jsp:include>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/path.js">
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
@@ -127,19 +127,21 @@
                                 <tbody>
                                     <tr>
                                         <td><fmt:message key="page.forms.filterDepartment" /></td>
-                                        <td><select class="combobox" style="width : 180px;" id="department">
-                                            </select></td>
+                                        <td><select class="combobox" style="width : 500px;" id="department">
+                                            </select></td>                                        
+                                    </tr>
+                                    <tr>
                                         <td><fmt:message key="page.forms.filterTimeframe" /></td>
                                         <td><fmt:message key="page.forms.filterTimeframe.from" />
-                                            <input type="text" size="12" id="beginDate" /> 
+                                            <input type="text" class="span2" id="beginDate" /> 
                                             <img src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
                                                  onmousedown="document.getElementById('beginDate').focus();"
-                                                 width=20px; height=20px; id="image1" />  <input	type="text">XX</td> 
-                                        <td><fmt:message key="page.forms.filterTimeframe.to" /> <input
-                                                type="text" size="12" id="endDate" /> <img
+                                                 width=25px; height=25px; id="image1" /> 
+                                        <fmt:message key="page.forms.filterTimeframe.to" /> <input
+                                                type="text" class="span2" id="endDate" /> <img
                                                 src="<c:out value="${pageContext.request.contextPath}"/>/assets/img/calendar/icon_calendar.png"
                                                 onmousedown="document.getElementById('endDate').focus();"
-                                                width=20px; height=20px; id="image2" /> <input type="text">XX</td>  
+                                                width=25px; height=25px; id="image2" /> </td>
                                     </tr>
                                 </tbody>
                             </table> 
