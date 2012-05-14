@@ -89,10 +89,10 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
             String answer;
             if (checked) {
                 currDepartment.getDeprole().add(role);
-                answer = "'"+role.getRoleName()+"' role was granted"; 
+                answer = "'" + role.getRoleName() + "' role was granted";
             } else {
                 currDepartment.getDeprole().remove(role);
-                answer = "'"+role.getRoleName()+"' role was removed";
+                answer = "'" + role.getRoleName() + "' role was removed";
             }
 
             HibernateUtil.save(currDepartment);
@@ -104,7 +104,12 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
             js.put("success", answer);
             js.writeJSONString(response.getWriter());
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setContentType("application/json");
+            String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
     }
 }

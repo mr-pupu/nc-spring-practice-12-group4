@@ -5,6 +5,7 @@
 package servlets.admin_servlets;
 
 import database.mapping.Department;
+import database.mapping.Employee;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.util.HashMap;
@@ -79,16 +80,32 @@ public class AJAXDepartmentChiefProcess extends AJAXGetHandler {
             
             Long id = Long.parseLong(String.valueOf(request.getSession().getAttribute("depId")));
 
+
             Department currDepartment = (Department) HibernateUtil.getSession()
                     .get(Department.class, id.longValue());
 
             currDepartment.setManagerId(chiefId);
 
             HibernateUtil.save(currDepartment);
+            
+            Employee emp = (Employee) HibernateUtil.getSession().get(Employee.class, chiefId);
+            String answer= emp.getFirstName()+" "+emp.getSecondName()+
+                    " is now the head of department";
 
             System.out.println("changes done");
+            response.setContentType("application/json");
+            JSONObject js = new JSONObject();
+            js.put("error", "success");
+            js.put("success", answer);
+            System.out.println(js);
+            js.writeJSONString(response.getWriter());
         } catch (Exception e) {
-            e.printStackTrace();
+           response.setContentType("application/json");
+           String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
     }
 }
