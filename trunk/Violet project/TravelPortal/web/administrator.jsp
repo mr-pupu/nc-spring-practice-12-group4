@@ -58,9 +58,6 @@
         <script type="text/javascript"
                 src="<%=request.getContextPath()%>/assets/js/adminjs/modal-employee-edit-by-id.js">
         </script>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/adminjs/message-maker.js">
-        </script>
         <link
             href="<%=request.getContextPath()%>/assets/css/bootstrap-responsive.css"
             rel="stylesheet">
@@ -136,7 +133,8 @@
                         <br>
                         <div align="right">
                             <a href="#-1" class="btn btn-success">New</a>
-                            <a id ="employeeedit" href="#" class="btn btn-success">
+                            <a id ="employeeedit" href="#" onclick="checkEmployee()" 
+                               class="btn btn-success">
                                 Edit</a>
                             <button type="submit" 
                                     onclick="if(jQuery('#emptable').getGridParam('selrow')!=null){

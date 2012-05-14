@@ -27,6 +27,9 @@ src="<%=request.getContextPath()%>/assets/js/bootstrap-typeahead.js"></script>
 src="<%=request.getContextPath()%>/assets/js/jquery.jqGrid.src.js"></script>	
 <script type="text/javascript"
 src="<%=request.getContextPath()%>/assets/js/i18n/grid.locale-en.js"></script>
+<script type='text/javascript'
+        src="<%=request.getContextPath()%>/assets/js/adminjs/message-maker.js">
+</script>
 <!--<script type="text/javascript">
     
 </script>-->

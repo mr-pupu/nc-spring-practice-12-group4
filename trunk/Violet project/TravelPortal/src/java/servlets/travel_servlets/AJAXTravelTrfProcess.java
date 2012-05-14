@@ -6,7 +6,6 @@ package servlets.travel_servlets;
 
 import database.mapping.*;
 import database.utilities.HibernateUtil;
-import database.utilities.TrfEdit;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
@@ -141,8 +140,42 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             }
 
             System.out.println("changes done");
+            
+            JSONObject js = new JSONObject();
+            String answer;
+            switch(status){
+                case 0:
+                    answer = "TRF was saved";
+                    js.put("error", "success");
+                    break;
+                case 1:
+                    answer = "TRF was rejected";
+                    js.put("error", "success");
+                    break;
+                case 2:
+                    answer = "TRF was canceled";
+                    js.put("error", "success");
+                    break;
+                case 4:
+                    answer = "TRF was completed";
+                    js.put("error", "success");
+                    break;
+                default:
+                    answer = "Changes have been made";  
+                    js.put("error", "error");
+            }            
+            
+            response.setContentType("application/json");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setContentType("application/json");
+            String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
     }
 }
