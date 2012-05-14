@@ -140,14 +140,14 @@ function processTRF(button){
     $.ajax({
         url: getContextPath() + "/ajaxtraveltrfprocess?",
         type: "POST",
+        dataType: "json",
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
-        },
-        dataType: "json",
-        success: function(result) {
-            $('#editTravelTrfModal').modal('hide');
-            $("#travelinprogress").trigger("reloadGrid") ;
         }
+        }).done(function( msg ) {
+        addMessage(msg);
+        $('#editTravelTrfModal').modal('hide');
+        $('#travelinprogress').trigger("reloadGrid");
     });
 }
 

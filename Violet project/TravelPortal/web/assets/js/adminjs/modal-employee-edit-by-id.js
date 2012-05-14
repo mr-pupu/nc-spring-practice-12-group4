@@ -219,5 +219,18 @@ function processEmployee(){
 }
 
 
+function checkEmployee(){
+    if ($('#emptable').jqGrid('getGridParam', 'selrow') == null) {
+        var resultMap = [
+    {
+        "error" : "success"
+    }, 
+    {
+        "success" : $('#firstName').val()
+    }
+    ];
+    
+    addMessage(JSON.stringify(resultMap));
 
-
+    }
+}
