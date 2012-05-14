@@ -1,13 +1,11 @@
 package servlets.travelSupport;
 
-import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import database.utilities.TravelSupportDesktop;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import javax.servlet.http.HttpSession;
-import org.hibernate.Session;
 
 /**
  * Servlet, that sent date to allTRFs table.
@@ -73,7 +69,7 @@ public class TravelSupportAllTRFs extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Servlet TravelSuportAllTRFs runned (GET)");
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json");
         PrintWriter out = response.getWriter();
         System.out.println("TravelSupportTables Handler");
         String pageString = request.getParameter("page");
@@ -85,7 +81,7 @@ public class TravelSupportAllTRFs extends HttpServlet {
         System.out.println(getDepartment());
         try {
             if (request.getParameter("type").equals("AllTRFS")) {
-                setTravelSupportId(HibernateUtil.EmpIdByLogin(request.getSession().getAttribute("name").toString()).intValue());
+                setTravelSupportId(HibernateUtil.EmpIdByLogin(request.getSession().getAttribute("name").toString()).get(0).intValue());
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
                 int count = 100;
