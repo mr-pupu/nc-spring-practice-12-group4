@@ -126,7 +126,7 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                 Long id = Long.parseLong(idString);
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                long count = Reports.countCurrentTRFs();
+                long count = 0;
                 if (id != null) {
                     String[][] trfs = null;
                     System.out.println(getCity());
@@ -134,15 +134,19 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                     System.out.println(getDepartment());
                     if (getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.CurrentTrf(page - 1, rows);
+                        count = Reports.countCurrentTRFs();
                     }
                     if (getDepartment().equals("All") && !getCountry().equals("All")) {
                         trfs = Reports.CurrentTrfSameOffice(getCity(), getCountry(), page - 1, rows);
+                        count = Reports.countCurrentTRFsSameOffice(getCity(), getCountry());
                     }
                     if (!getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.CurrentTrfSameDepartment(getDepartment(), page - 1, rows);
+                        count = Reports.countCurrentTRFsSameDept(getDepartment());
                     }
                     if (!getDepartment().equals("All") && !getCountry().equals("All")) {
                         trfs = Reports.CurrentTrfSameDepartmentOffice(getCity(), getCountry(), getDepartment(), page - 1, rows);
+                        count = Reports.countCurrentTRFsSameDeptOffice(getCity(), getCountry(), getDepartment());
                     }
                     JSONArray ja = new JSONArray();
 
