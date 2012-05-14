@@ -7,10 +7,10 @@
 $(document).ready(function(){
     checkEmployeeId();
     var depEditTitle = 'Edit department <a class="close" onclick=\'$("#pop1").popover("toggle")\'>&times;</a>';
-    var depEdit = 'Department name <input type="text" id="depEdit" value=""> <br>' +
+    var depEdit = 'Department name <input type="text" size="100" id="depEdit" value=""> <br>' +
         '<input type="button" id="ediButton" class="btn" value="Edit" onclick="if (confirm(\'Confirm new department?\')) { newDep(null) }">'
     $('#pop1').attr("data-content", depEdit);
-    $('#pop1').attr("title", depEditTitle);
+//    $('#pop1').attr("title", depEditTitle);
     //    $('#pop1').position = relative;
     
     $('#pop1').popover({
@@ -20,17 +20,16 @@ $(document).ready(function(){
         placement: whereToPlace
     }); 
     var depNewTitle = 'New department <a class="close" onclick=\'$("#pop2").popover("toggle")\'>&times;</a>';
-    var depNew = 'Department name <input type="text" id="depNew" value=""> <br>' +jj 
-       '<input type="button" id="newButton" class="btn" value="New" onclick="if (confirm(\'Confirm edit?\')) { newDep(null) }">'
+    var depNew = 'Department name <input type="text" id="depNew" value=""> <br>' +
+        '<input type="button" id="newButton" class="btn" value="New" onclick="if (confirm(\'Confirm edit?\')) { newDep(null) }">'
     $('#pop2').attr("data-content", depNew);
     $('#pop2').attr("title", depNewTitle);
     //    $('#pop1').position = relative;
     
     $('#pop2').popover({
-        trigger : 'manual', 
+        trigger : 'manual',
         title : depEditTitle, 
-        content : depEdit,
-        placement: whereToPlace
+        content : depEdit
     }); 
 });
 
@@ -40,6 +39,7 @@ function whereToPlace() {
     if (myLeft < 500) return 'bottom';
     return 'bottom';
 }
+
 function alterPop() {
     if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
         return;
@@ -52,7 +52,17 @@ function alterPop() {
         $('#newButton').attr('onclick', 'if (confirm(\'Confirm new department?\')) { newDep('+id+')}');
     }
 };
-    
+
+function checkButton() {
+    if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
+        return;
+    }
+    else {
+        $('#pop1').popover("toggle"); 
+        alterPop();
+    }
+}
+
 $(window).bind('hashchange', function() {
     //window.location.reload();
     //alert(window.location)
@@ -212,12 +222,6 @@ $.ajax({
 });
 }
 
-function checkButton() {
-    if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
-        return;
-    }
-    else {
-        $('#pop1').popover("toggle"); 
-        alterPop();
-    }
-}
+
+
+
