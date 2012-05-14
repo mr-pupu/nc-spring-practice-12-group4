@@ -1,4 +1,4 @@
-package mailer;
+package utils;
 
 import java.io.*;
 import java.net.Socket;
@@ -23,7 +23,10 @@ public class MailSender {
         final String localhostName = conf.getProperty("localhostName");
         final String mailhost = conf.getProperty("mailhost");
 
-        try (Socket smtpPipe = new Socket(mailhost, SMTP_PORT)) {
+        
+        try
+        {
+            Socket smtpPipe = new Socket(mailhost, SMTP_PORT);
             BufferedReader in = new BufferedReader(
                     new InputStreamReader(smtpPipe.getInputStream()));
             PrintWriter out = new PrintWriter(
