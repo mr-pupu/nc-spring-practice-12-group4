@@ -146,12 +146,12 @@ public class TravelSupportDesktop {
     //as logged employee
     //filter by TRF's date
     //
-    public static String[][] TrfSameCountryFilterByDate(Integer id, Date begin_date, Date end_date, Integer page, Integer num) {
+    public static String[][] TrfSameCountryFilterByDate(Integer id, Date begin_date, Date end_date, int page, int rows) {
           String prepared_statement = "select id, first_name, second_name, "
-                + " dest_city, dest_country, begin_date,end_date, cur_state, comment"
+                + " dest_city, dest_country, begin_date,end_date, cur_state, commentary"
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
-                + "    WHERE begin_date >:begin_date AND end_date>:end_date "
+                + "    WHERE begin_date >:begin_date AND end_date<:end_date "
                 + "    AND country_name="
                 + "    (SELECT country_name"
                 + "   FROM emp_office "
@@ -159,11 +159,14 @@ public class TravelSupportDesktop {
                 + "   where r>: from and r<= :to";
 
      Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
+        int from = (page-1)*rows;
+        int to = from+rows;
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)
                 .setInteger("to", to)
+                .setInteger("id", id)
+                .setDate("begin_date", begin_date)
+                .setDate("end_date", end_date)
                 .list();
         return fillRes(resq);
    }
@@ -174,13 +177,13 @@ public class TravelSupportDesktop {
     //check department_name field in view
     //
     public static String[][] TrfSameCountryFilterByDateDepartment(Integer id, Date begin_date, 
-            Date end_date, String department, Integer page, Integer num) {
+            Date end_date, String department, int page, int rows) {
         
             String prepared_statement = "select id, first_name, second_name, "
                 + " dest_city, dest_country, begin_date,end_date, cur_state, comment"
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
-                + "      WHERE begin_date > :begin_date  AND end_date>:end_date  "
+                + "      WHERE begin_date > :begin_date  AND end_date<:end_date  "
                 + "     AND dep_name=:department  "
                 + "      AND country_name= "
                 + "      (SELECT country_name  "
@@ -188,11 +191,15 @@ public class TravelSupportDesktop {
                 + "      WHERE id=:id)) "
                 + "     where r > : to and r<= :from";
   Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
+        int from = (page-1)*rows;
+        int to = from+rows;
         List resq = s.createSQLQuery(prepared_statement)
                 .setInteger("from", from)
                 .setInteger("to", to)
+                .setDate("begin_date", begin_date)
+                .setDate("end_date", end_date)
+                .setInteger("id", id)
+                .setString("department", department)
                 .list();
         return fillRes(resq);
       }
