@@ -8,7 +8,9 @@ import database.mapping.Employee;
 import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,39 +58,44 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
         // TODO Auto-generated method stub
         handle(request, response);
     }
-
+    
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXTrfEditHandler runned");
-        if (request.getParameter("new") != null){
+        if (request.getParameter("new") != null) {
             Session hibernateSession = HibernateUtil.getSession();
             JSONObject jsonObject = new JSONObject();
-            String employeeLogin = (String)request.getSession().getAttribute("name");
-            Long employeeId = HibernateUtil.EmpIdByLogin(employeeLogin);
-            Employee employee = (Employee) hibernateSession.get(Employee.class, employeeId);
-            
-            putEmployeeToJSON(jsonObject, employee);
-            putOfficeToJSON(jsonObject, employee.getOffice());
+            String employeeLogin = (String) request.getSession().getAttribute("name");
+            List<BigDecimal> employeeId = HibernateUtil.EmpIdByLogin(employeeLogin);
+            if (!employeeId.isEmpty()) {
+                Employee employee = (Employee) hibernateSession.get(Employee.class, employeeId.get(0));
+                
+                putEmployeeToJSON(jsonObject, employee);
+                putOfficeToJSON(jsonObject, employee.getOffice());
+                
+                putDatesToJson(jsonObject, new Date(), new Date());
+                
+                putCountriesToJSON(jsonObject);    ///!!!!!!!!!!!!!!!!
 
-            putDatesToJson(jsonObject, new Date(), new Date());
+                putLineManagerByEmployeeLogin(jsonObject, employeeLogin);
+                putProjectManagerToJSON(jsonObject, employee);
 
-            putCountriesToJSON(jsonObject);    ///!!!!!!!!!!!!!!!!
+                //jsonObject.put("destinationId", trf.getDestination().getId());              ///!!!!!!!!!!!!!!!!
+                //putDestinationsToJSON(jsonObject, trf.getDestination().getCity());          ///!!!!!!!!!!!!!!!!
 
-            putLineManagerByEmployeeLogin(jsonObject, employeeLogin);
-            putProjectManagerToJSON(jsonObject, employee);
+                putCustomersToJSON(jsonObject);
 
-            //jsonObject.put("destinationId", trf.getDestination().getId());              ///!!!!!!!!!!!!!!!!
-            //putDestinationsToJSON(jsonObject, trf.getDestination().getCity());          ///!!!!!!!!!!!!!!!!
+                //jsonObject.put("carRental", false);
+                //jsonObject.put("payByCash", false);
 
-            putCustomersToJSON(jsonObject);
-
-            //jsonObject.put("carRental", false);
-            //jsonObject.put("payByCash", false);
-
-            jsonObject.put("state", -1);
-            jsonObject.writeJSONString(response.getWriter());
+                jsonObject.put("state", -1);
+                jsonObject.writeJSONString(response.getWriter());
+            } else {
+                jsonObject.put("error", "error");
+                jsonObject.put("success", "Nonexistent Employee");
+            }
         } else {
             String idString = request.getParameter("id");
             JSONObject jsonObject = new JSONObject();
@@ -104,24 +111,24 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
 
                         putEmployeeToJSON(jsonObject, trf.getEmployeeByEmpId());
                         putOfficeToJSON(jsonObject, trf.getEmployeeByEmpId().getOffice());
-
+                        
                         putDatesToJson(jsonObject, trf.getBeginDate(), trf.getEndDate());
-
+                        
                         putCitiesAndCountriesToJSON(jsonObject, trf.getDestination().getCity());
-
+                        
                         putLineManagerByEmployeeLogin(jsonObject, trf.getEmployeeByEmpId().getLogin());
                         putProjectManagerToJSON(jsonObject, trf.getEmployeeByProjectManager());
-
+                        
                         jsonObject.put("destinationId", trf.getDestination().getId());
                         putDestinationsToJSON(jsonObject, trf.getDestination().getCity());
-
+                        
                         putCustomersToJSON(jsonObject, trf.getCustomer());
-
+                        
                         jsonObject.put("carRental", trf.getCarRental());
                         jsonObject.put("payByCash", trf.getPayByCash());
-
+                        
                         jsonObject.put("state", trf.getCurState());
-
+                        
                         jsonObject.writeJSONString(response.getWriter());
                     } else {
                         System.out.println("TRF = null");
