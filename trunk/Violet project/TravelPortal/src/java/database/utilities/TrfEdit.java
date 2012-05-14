@@ -27,15 +27,16 @@ public class TrfEdit {
      * @return 
      * giving employee id by login
      */
-    public static Long empIdByLogin(String login) {
+    public static List empIdByLogin(String login) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT id "
                 + " FROM employee"
                 + " WHERE login=:login";
 
         List resList = s.createSQLQuery(prepared_statement).setString("login", login).list();
-        BigDecimal bigId =(BigDecimal) ((Object) resList.get(0));
-        return bigId.longValue();
+//        BigDecimal bigId =(BigDecimal) ((Object) resList.get(0));
+//        return bigId.longValue();
+        return resList;
      }
 
     //list of customers

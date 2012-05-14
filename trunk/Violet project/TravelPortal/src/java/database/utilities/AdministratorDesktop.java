@@ -46,17 +46,15 @@ public class AdministratorDesktop {
         List res = null;
         try {
             res = (List) s.createSQLQuery(prepared_statement).
-                addEntity(Department.class).setInteger("dep", id.intValue()).list();
+                    addEntity(Department.class).setInteger("dep", id.intValue()).list();
 //            res = (List) s.createQuery(prepared_statement).
 //                addEntity(Department.class).setInteger("dep", id.intValue()).list();
-        }
-        catch(JDBCException e) {
+        } catch (JDBCException e) {
             System.err.println(e.getMessage());
             System.out.println("Cause");
             System.out.println(e.getSQL());
-        }
-        finally{
-        return res;
+        } finally {
+            return res;
         }
     }
 
@@ -70,21 +68,22 @@ public class AdministratorDesktop {
         SQLQuery query = s.createSQLQuery(prepared_statement);
         java.util.List resq = query.setInteger("id", id).list();
         String[][] res = new String[resq.size()][3];
-        System.out.println((BigDecimal) ((Object[]) resq.get(0))[0]);
-        for (int i = 0; i < resq.size(); i++) {
-            BigDecimal empid = (BigDecimal) ((Object[]) resq.get(i))[0];
-            String name = (String) ((Object[]) resq.get(i))[1];
-            String pos = (String) ((Object[]) resq.get(i))[2];
+//        System.out.println((BigDecimal) ((Object[]) resq.get(0))[0]);
+        if (!resq.isEmpty()) {
+            for (int i = 0; i < resq.size(); i++) {
+                BigDecimal empid = (BigDecimal) ((Object[]) resq.get(i))[0];
+                String name = (String) ((Object[]) resq.get(i))[1];
+                String pos = (String) ((Object[]) resq.get(i))[2];
 
-            res[i][0] = empid.toString();
-            res[i][1] = name;
-            res[i][2] = pos;
+                res[i][0] = empid.toString();
+                res[i][1] = name;
+                res[i][2] = pos;
+            }
         }
-
         return res;
     }
     //count the total number of employees from the previous query
-    
+
     public static long CountEmpsInDepsAndSubdeps(Integer id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT COUNT(*) "
@@ -95,12 +94,12 @@ public class AdministratorDesktop {
         long res = Long.parseLong(s.createSQLQuery(prepared_statement).setInteger("id", id).list().get(0).toString());
         return res;
     }
-    
+
     //The same query, only with paging output
     public static String[][] SubsidiaryEmployeesPaged(Integer id, int page, int rows) {
         Session s = HibernateUtil.getSession();
         //prepare paging
-        int start = (page-1)*rows;
+        int start = (page - 1) * rows;
         int finish = start + rows;
         String prepared_statement = "SELECT empid, fullname, pos_name FROM "
                 + "(SELECT empid, first_name || ' ' || second_name fullname, pos_name, ROWNUM r "
@@ -108,23 +107,23 @@ public class AdministratorDesktop {
                 + "START WITH id=:id CONNECT BY prior id=parent_id) ORDER BY id, empid)"
                 + " WHERE r>:start AND r<=:finish";
         SQLQuery query = s.createSQLQuery(prepared_statement);
-        java.util.List resq = query.setInteger("id", id).setInteger("start", start)
-                .setInteger("finish", finish).list();
+        java.util.List resq = query.setInteger("id", id).setInteger("start", start).setInteger("finish", finish).list();
         String[][] res = new String[resq.size()][3];
-        System.out.println((BigDecimal) ((Object[]) resq.get(0))[0]);
-        for (int i = 0; i < resq.size(); i++) {
-            BigDecimal empid = (BigDecimal) ((Object[]) resq.get(i))[0];
-            String name = (String) ((Object[]) resq.get(i))[1];
-            String pos = (String) ((Object[]) resq.get(i))[2];
+//        System.out.println((BigDecimal) ((Object[]) resq.get(0))[0]);
+        if (!resq.isEmpty()) {
+            for (int i = 0; i < resq.size(); i++) {
+                BigDecimal empid = (BigDecimal) ((Object[]) resq.get(i))[0];
+                String name = (String) ((Object[]) resq.get(i))[1];
+                String pos = (String) ((Object[]) resq.get(i))[2];
 
-            res[i][0] = empid.toString();
-            res[i][1] = name;
-            res[i][2] = pos;
+                res[i][0] = empid.toString();
+                res[i][1] = name;
+                res[i][2] = pos;
+            }
         }
-
         return res;
     }
-    
+
     //the list of emps who work in current department
     public static List<String[]> EmpNameForDep(String dep_name) {
         Session s = HibernateUtil.getSession();
@@ -147,7 +146,7 @@ public class AdministratorDesktop {
         }
         return res;
     }
-    
+
     public static String[] getLeafsDeps() {
         Session s = HibernateUtil.getSession();
         String statement = "SELECT dep_name"
@@ -169,5 +168,4 @@ public class AdministratorDesktop {
         }
         return res;
     }
-
 }
