@@ -6,32 +6,18 @@
 $(document).ready(function(){
     $.getJSON(getContextPath() + "/reportsdatahandler",
         function (data){
-            prepareComboBox($("#departmentCurrentlyTrip"), data['departments']);
-            prepareComboBox($("#officeCurrentlyTrip"), data['offices']);
-            prepareComboBox($("#departmentPlannedTrips"), data['departments']);
-            prepareComboBox($("#officePlannedTrips"), data['offices']);
+            reportsComboBox($("#departmentCurrentlyTrip"), data['departments']);
+            reportsComboBox($("#officeCurrentlyTrip"), data['offices']);
+            reportsComboBox($("#departmentPlannedTrips"), data['departments']);
+            reportsComboBox($("#officePlannedTrips"), data['offices']);
+            CurrentlyTrip();
+            PlannedTrips();
         });
-    function departmentCurrentlyTrip() {
+    function CurrentlyTrip() {
+        console.log($("#departmentCurrentlyTrip option:selected").val());
         var resultMap = [
         {
-            'department':$("#departmentCurrentlyTrip option:selected").val()
-        }
-        ];
-        $.ajax({
-            url: getContextPath() + "/ajaxcurrenttrips",
-            type: "GET",
-            data: {
-                "ajaxdata" : JSON.stringify(resultMap)
-            },
-            dataType: "json",
-            success: function(result) {
-                $("#currenttrips").trigger("reloadGrid") 
-            }
-        });
-    }
-    function officeCurrentlyTrip() {
-        var resultMap = [
-        {
+            'department':$("#departmentCurrentlyTrip option:selected").val(),
             'officeId':$("#officeCurrentlyTrip option:selected").attr("sysId"),
             'officeName':$("#officeCurrentlyTrip option:selected").val()
         }
@@ -48,27 +34,10 @@ $(document).ready(function(){
             }
         });
     }
-    function departmentPlannedTrips() {
+    function PlannedTrips() {
         var resultMap = [
         {
-            'department':$("#departmentPlannedTrips option:selected").val()
-        }
-        ];
-        $.ajax({
-            url: getContextPath() + "/ajaxplannedtrips",
-            type: "GET",
-            data: {
-                "ajaxdata" : JSON.stringify(resultMap)
-            },
-            dataType: "json",
-            success: function(result) {
-                $("#plannedtrips").trigger("reloadGrid") 
-            }
-        }); 
-    }
-    function officePlannedTrips() {
-        var resultMap = [
-        {
+            'department':$("#departmentPlannedTrips option:selected").val(),
             'officedId':$("#officePlannedTrips option:selected").attr("sysId"),
             'officeName':$("#officePlannedTrips option:selected").val()
         }
@@ -85,26 +54,27 @@ $(document).ready(function(){
             }
         }); 
     }
-    departmentCurrentlyTrip();
-    officeCurrentlyTrip();
-    departmentPlannedTrips();
-    officePlannedTrips();
+    function reportsComboBox(combobox, data){
+        combobox.empty();
+        $.each(data, function(key, value) { 
+            if (value!="All") {
+                combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'));
+            } else {
+                console.log("yes");
+                combobox.prepend( $('<option selected sysid="' + key + '">' + value + '</option>'));
+            }
+        });
+    }
     $("#departmentCurrentlyTrip").change(function () {
-        departmentCurrentlyTrip();
+        CurrentlyTrip();
     });
     $("#officeCurrentlyTrip").change(function () {
-        officeCurrentlyTrip();
+        CurrentlyTrip();
     });
     $("#departmentPlannedTrips").change(function () {
-        departmentPlannedTrips();
+        PlannedTrips();
     });
     $("#officePlannedTrips").change(function () {
-        officePlannedTrips();
+        PlannedTrips();
     });
 });
-function prepareComboBox(combobox, data){
-    combobox.empty();
-    $.each(data, function(key, value) { 
-        combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'))
-    });
-}
