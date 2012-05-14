@@ -81,7 +81,7 @@ public class AJAXTravelTrfEditHandler extends AJAXSendHandler {
 
                     putDatesToJson(jsonObject, trf.getBeginDate(), trf.getEndDate());
 
-                    putCountriesToJSON(jsonObject);
+                    putDestCountriesToJSON(jsonObject);
                     jsonObject.put("countryId", trf.getDestination().getCity().getCountry().getId());
                     
                     putCitiesToJSON(jsonObject, trf.getDestination().getCity().getCountry());
