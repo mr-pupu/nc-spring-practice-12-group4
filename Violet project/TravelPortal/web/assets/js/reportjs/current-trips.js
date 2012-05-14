@@ -14,6 +14,7 @@ $(function() {
             alert('Error loading data');
             window.location.href="index.jsp" 
        },
+        hidegrid: false,
         datatype : "json",
         height : 'auto',
         mtype: "POST",

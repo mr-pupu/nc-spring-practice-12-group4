@@ -15,6 +15,7 @@ $(function() {
             alert('Error loading data');
             window.location.href="index.jsp" 
         },
+        hidegrid: false,
         height : 'auto',
         mtype: "POST",
         rowNum:10, //Number of records we want to show per page
