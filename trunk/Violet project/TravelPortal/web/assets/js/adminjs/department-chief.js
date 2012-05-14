@@ -30,19 +30,18 @@ function processChiefChange(id){
         }
         ];
         $.ajax({
-        url: getContextPath() + "/ajaxdepchiefrocess",
+        url: getContextPath() + "/ajaxdepchiefprocess",
         loaderror:function(){
             alert('Error loading data');
             window.location.href="index.jsp" 
        },
         type: "POST",
+        dataType: "json",
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
-            },
-        dataType: "json",
-        success: function(result) {
-        }
-        
+            }
+        }).done(function( msg ) {
+            addMessage(msg);  
     });
 }
 
