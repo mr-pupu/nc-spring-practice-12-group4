@@ -63,15 +63,6 @@ public class AdministratorDesktop {
     //the list of employees who work in current department or its subsidiaries
     public static String[][] EmpNamePosForDepAndChildDep(Integer id) {
         Session s = HibernateUtil.getSession();
-//        String prepared_statement = "SELECT employee.first_name "
-//                + //"SELECT employee.first_name, employee.second_name, occupation.pos_name "+
-//                "from employee join occupation on employee.position_id=occupation.id "
-//                + "join department  on employee.dep_id=department.id "
-//                + "where department.id=:id "
-//                + "or department.id in( "
-//                + "select id "
-//                + "from department "
-//                + "where department.parent_id=:id)";
 
         String prepared_statement = "SELECT empid, first_name || ' ' || second_name, pos_name "
                 + "FROM department_employee WHERE id IN (SELECT id FROM department "
@@ -108,15 +99,6 @@ public class AdministratorDesktop {
     //The same query, only with paging output
     public static String[][] SubsidiaryEmployeesPaged(Integer id, int page, int rows) {
         Session s = HibernateUtil.getSession();
-//        String prepared_statement = "SELECT employee.first_name "
-//                + //"SELECT employee.first_name, employee.second_name, occupation.pos_name "+
-//                "from employee join occupation on employee.position_id=occupation.id "
-//                + "join department  on employee.dep_id=department.id "
-//                + "where department.id=:id "
-//                + "or department.id in( "
-//                + "select id "
-//                + "from department "
-//                + "where department.parent_id=:id)";
         //prepare paging
         int start = (page-1)*rows;
         int finish = start + rows;
@@ -146,10 +128,6 @@ public class AdministratorDesktop {
     //the list of emps who work in current department
     public static List<String[]> EmpNameForDep(String dep_name) {
         Session s = HibernateUtil.getSession();
-//        String prepared_statement = "SELECT employee.first_name "
-//                + //"SELECT employee.first_name, employee.second_name "+
-//                "from employee join department on employee.dep_id=department.id "
-//                + "where department.dep_name=:dep_name";
 
         String prepared_statement = "SELECT first_name, second_name, pos_name "
                 + "FROM department_employee "
@@ -159,7 +137,6 @@ public class AdministratorDesktop {
         List<String[]> res = new ArrayList<String[]>();
 
         if (!rows.isEmpty()) {
-            //   for(Object row : rows)
             for (int i = 0; i < rows.size(); i++) {
                 String[] srow = new String[3];
                 srow[0] = (String) ((Object[]) rows.get(i))[0];

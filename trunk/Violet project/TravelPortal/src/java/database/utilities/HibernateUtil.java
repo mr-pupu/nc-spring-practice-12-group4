@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package database.utilities;
 import database.mapping.*;
 import java.math.BigDecimal;
@@ -21,16 +17,12 @@ public class HibernateUtil {
 
     private static final SessionFactory sessionFactory;
     private static final ThreadLocal curSession = new ThreadLocal();
-//    private static final ThreadLocal curTransaction = new ThreadLocal();
-//    private static Session session;
-//    private static Transaction transaction;
 
     static {
         try {
             // Create the SessionFactory from standard (hibernate.cfg.xml) 
             // config file.
             sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-//            sessionFactory = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             // Log the exception. 
             System.err.println("Initial SessionFactory creation failed." + ex);
@@ -96,7 +88,7 @@ public class HibernateUtil {
     }
 
     //id of employee with given login
-//edited by Merle
+    //edited by Merle
     public static Long EmpIdByLogin(String login) {
         Session s = getSession();
         String prepared_statement = "select id "
@@ -122,14 +114,7 @@ public class HibernateUtil {
         String prepared_statement = "SELECT id, role_name "
                 + "FROM emp_role "
                 + "WHERE login=:login AND password="
-                //+ "to_char(dbms_obfuscation_toolkit.MD5(input_string =>:password))";
                 + "to_char(DBMS_UTILITY.GET_HASH_VALUE ( :password, 0, 4096))";
-
-//                "select deprole.id "
-//                + "from deprole join roledep on deprole.id=roledep.role_id "
-//                + "join department on roledep.dep_id=department.id "
-//                + "join employee on employee.dep_id=department.id "
-//                + "where employee.login=:login";
 
         ArrayList arrList = (ArrayList) s.createSQLQuery(prepared_statement).
                 setString("login", login).setString("password", password).list();
@@ -162,15 +147,10 @@ public class HibernateUtil {
                 curSession.set(s);
                 System.out.println("Session opened " + s);
             }
-//            if (s == null) {
-//                s = sessionFactory.openSession();
-//                curSession.set(s);
-//            }
         } catch (HibernateException ex) {
             System.out.println("Error during session creation " + ex);
         }
         return s;
-//        return sessionFactory.getCurrentSession();
     }
 
     /**
@@ -189,7 +169,6 @@ public class HibernateUtil {
                 System.out.println("Close current session error: " + e.getMessage());
             }
         }
-//        getSession().close();
     }
 
     /**
