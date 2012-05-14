@@ -1,13 +1,25 @@
 package database.utilities;
 
+import database.mapping.Country;
 import database.mapping.Customer;
 import database.mapping.Trfstate;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 
 public class TrfEdit {
+    
+    public static List<Country> destCountryList() {
+        Session s = HibernateUtil.getSession();
+        String query = "SELECT distinct * from country "+
+        "WHERE id in (select country_id from city where id not in "+
+        "(select city_id from office))";
+        SQLQuery q = s.createSQLQuery(query);
+        return (List<Country>) q.addEntity(Country.class).list();
+    }
+
     
     /**
      * @author Allan

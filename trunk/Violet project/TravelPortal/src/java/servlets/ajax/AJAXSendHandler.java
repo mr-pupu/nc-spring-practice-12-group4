@@ -74,6 +74,20 @@ abstract public class AJAXSendHandler extends AJAXHandler {
         jsonObject.put("departments", departmentsMap);
     }
 
+  
+    
+    /**
+     * @author Allan
+     * @param jsonObject 
+     */
+    public static void putDestCountriesToJSON(JSONObject jsonObject) {
+        List<Country> countries = TrfEdit.destCountryList();
+        Map<Long, String> countriesMap = new HashMap<Long, String>();
+        for (Country country : countries) {
+            countriesMap.put(country.getId(), country.getCountryName());
+        }
+        jsonObject.put("countries", countriesMap);
+    }
     
     /**
      * @author Allan
