@@ -13,7 +13,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Bootstrap, from Twitter</title>
+        <title>Hardosoft Travel Portal</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="administrative page">
         <meta name="author" content="Allan and Gangbang34">
