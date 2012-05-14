@@ -72,29 +72,37 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
             JSONObject someObj = (JSONObject) object;
             resultStrings.putAll(someObj);
         }
-        
+
         Long depId;
         Long roleId;
         boolean checked;
-        
+
         try {
             depId = Long.parseLong(resultStrings.get("depId"));
-            
+
             roleId = Long.parseLong(resultStrings.get("roleId"));
             checked = Boolean.parseBoolean(resultStrings.get("checked"));
-            
+
             Department currDepartment = (Department) HibernateUtil.getSession().get(Department.class, depId);
-             Deprole role = (Deprole) HibernateUtil.getSession().get(Deprole.class, roleId);
-            
+            Deprole role = (Deprole) HibernateUtil.getSession().get(Deprole.class, roleId);
+
+            String answer;
             if (checked) {
                 currDepartment.getDeprole().add(role);
+                answer = "'"+role.getRoleName()+"' role was granted"; 
             } else {
                 currDepartment.getDeprole().remove(role);
+                answer = "'"+role.getRoleName()+"' role was removed";
             }
 
             HibernateUtil.save(currDepartment);
-            
+
             System.out.println("changes done");
+            response.setContentType("application/json");
+            JSONObject js = new JSONObject();
+            js.put("error", "success");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         } catch (Exception e) {
             e.printStackTrace();
         }
