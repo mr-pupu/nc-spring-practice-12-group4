@@ -98,6 +98,14 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
 
             Employee currEmployee = (Employee) request.getSession().getAttribute("employee");
             Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
+            
+            String answer;
+            if(currEmployee.getFirstName()==null){
+                answer = firstName + " "+ lastName + " was added to database";
+            }
+            else{
+                answer = firstName + " "+ lastName + " was successfully edited";
+            }
 
             currEmployee.setFirstName(firstName);
             currEmployee.setSecondName(lastName);
@@ -106,13 +114,26 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
             currEmployee.setDepartment((Department) hibernateSession.get(Department.class, (Long) departmentId));
             currEmployee.setEmail(email);
             currEmployee.setLogin(login);
-            if(password) currEmployee.setPassword(PasswordGenerator.createPassword(10));
+            if (password) {
+                currEmployee.setPassword(PasswordGenerator.createPassword(10));
+            }
 
             HibernateUtil.save(currEmployee);
 
             System.out.println("changes done");
+            response.setContentType("application/json");
+            JSONObject js = new JSONObject();
+            js.put("error", "success");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setContentType("application/json");
+            String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
     }
 }

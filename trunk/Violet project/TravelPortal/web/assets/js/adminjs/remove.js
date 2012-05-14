@@ -8,16 +8,10 @@ function removeEmployee(id){
     $.ajax({
         type:"GET",
         url: getContextPath() + "/employeedeletehandle",
-        data: "id="+id,
-        error:function(){
-            alert('Can not run the servlet');
-            window.location.href="index.jsp" 
-        },
-        success: function(data,textStatus, res) {
-            alert(data);
-            $('#emptable').trigger("reloadGrid");
-            return 0;
-        }
+        data: "id="+id
+    }).done(function( msg ) {
+        addMessage(msg);
+        $('#emptable').trigger("reloadGrid");
     });
 }
 
