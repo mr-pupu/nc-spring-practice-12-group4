@@ -180,7 +180,7 @@ public class TravelSupportDesktop {
             Date end_date, String department, int page, int rows) {
         
             String prepared_statement = "select id, first_name, second_name, "
-                + " dest_city, dest_country, begin_date,end_date, cur_state, comment"
+                + " dest_city, dest_country, begin_date,end_date, cur_state, commentary"
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + "      WHERE begin_date > :begin_date  AND end_date<:end_date  "
