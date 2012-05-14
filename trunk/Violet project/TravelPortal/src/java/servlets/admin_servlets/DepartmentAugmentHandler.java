@@ -1,8 +1,10 @@
 package servlets.admin_servlets;
 
 import database.mapping.Department;
+import database.mapping.Deprole;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.util.HashSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -83,6 +85,10 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 if ((idString != null) && (!idString.equals("")) && (!idString.equals("null"))) {
                     Long depid = Long.parseLong(idString);
                     newdep.setDepartment((Department) HibernateUtil.getSession().get(Department.class, depid.longValue()));
+                    Deprole dp = (Deprole)HibernateUtil.getSession().get(Deprole.class, (long)1);
+                    HashSet<Deprole> dset = new HashSet<Deprole>();
+                    dset.add(dp);
+                    newdep.setDeprole(dset);
                 }
                 System.out.println("DOGGY");
                 HibernateUtil.save(newdep);
