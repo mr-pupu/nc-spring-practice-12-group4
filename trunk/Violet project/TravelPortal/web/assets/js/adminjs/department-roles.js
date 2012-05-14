@@ -48,13 +48,12 @@ function processRoleChange(checkid){
         $.ajax({
             url: getContextPath() + "/ajaxdeprolesprocess",
             type: "POST",
+            dataType: "json",
             data: {
                 "ajaxdata" : JSON.stringify(resultMap)
-            },
-            dataType: "json",
-            success: function(result) {
             }
-        
+        }).done(function( msg ) {
+            addMessage(msg);
         });
     }
 }

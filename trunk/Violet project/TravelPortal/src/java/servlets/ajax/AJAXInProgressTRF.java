@@ -116,6 +116,7 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
                 
+                    response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
                 System.out.print("Wrong id format");
