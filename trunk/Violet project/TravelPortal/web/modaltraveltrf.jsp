@@ -49,7 +49,8 @@
                                 <tbody>
                                     <tr>
                                         <td width="120px"><fmt:message key="modal.form.employeeName" />:</td>
-                                        <td><select class="combobox" style="width : 180px;" id="employee">
+                                        <td><select class="combobox" onchange="employeeChange()" 
+                                                    style="width : 180px;" id="employee">
                                             </select></td>
                                         <td><span style="padding:0px 20px;"></span></td>
                                         <td width="120px"><fmt:message key="modal.form.office" />:</td>
@@ -57,7 +58,7 @@
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.departureDate" />:</td>
-                                        <td> <div class="input-append" rel="calendarDiv" onclick="this.JsDatePickBox.style.display = 'none'">
+                                        <td> <div class="input-append" rel="calendarDiv">
                                                 <input style="width : 134px;" id="flightBeginDate" size="16" type="text"><span
                                                     class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/icon_calendar.png" 
                                                                     width=25px; height=25px;/></span>
@@ -73,11 +74,13 @@
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="modal.form.destinationCountry" />:</td>
-                                        <td><select class="combobox" style="width : 180px;" id="country">
+                                        <td><select class="combobox" onchange="countryChange()" 
+                                                    style="width : 180px;" id="country">
                                             </select></td>
                                         <td></td>
                                         <td><fmt:message key="modal.form.destinationCity" />:</td>
-                                        <td><select class="combobox" style="width : 180px;" id="city">
+                                        <td><select class="combobox" onchange="cityChange()"
+                                                    style="width : 180px;" id="city">
                                             </select></td>
                                     </tr>
                                     <tr>
@@ -91,7 +94,7 @@
                                     <tr>
                                         <td><fmt:message key="modal.form.hotelName" />:</td>
                                         <td>
-                                            <select class="combobox" style="width : 148px;" id="hotelName">
+                                            <select class="combobox" onchange="hotelChange()" style="width : 148px;" id="hotelName">
                                             </select>
                                             <a class="btn btn-mini" onclick='$("#pop1").popover("toggle")' id="pop1" rel="popover" >
                                                 <i class="icon-plus-sign"></i>

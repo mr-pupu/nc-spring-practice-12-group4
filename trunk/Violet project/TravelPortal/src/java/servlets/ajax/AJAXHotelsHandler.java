@@ -5,10 +5,8 @@
 package servlets.ajax;
 
 import database.mapping.City;
-import database.mapping.Country;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

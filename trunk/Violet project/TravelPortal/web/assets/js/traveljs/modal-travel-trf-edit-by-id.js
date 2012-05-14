@@ -4,6 +4,8 @@
  * author : Allan
  */
 
+
+
 $(document).ready(function(){
     prepareTRF(); 
 });
@@ -149,19 +151,50 @@ function processTRF(button){
     });
 }
 
-function changeCountry(id){
-    $.getJSON(getContextPath() + "/ajaxcities?id="+id,
+function countryChange(){
+    var countryId = $("#country option:selected").attr("sysId");
+    $.getJSON(getContextPath() + "/ajaxcities?id="+countryId,
         function (data){
-            prepareComboBox($("#city"), data['cities'], id);
+            prepareComboBox($("#city"), data['cities'], 1);
             changeCity($("#city option:selected").attr("sysId"));
+        });
+    cityChange();
+}
+
+function cityChange(){
+    var cityId = $("#city option:selected").attr("sysId");
+    $.getJSON(getContextPath() + "/ajaxhotels?id="+cityId,
+        function (data){
+            prepareComboBox($("#hotelName"), data['hotelNames'], 1);
+            var hotelId = $("#hotelName option:selected").attr("sysId");
+            $.each(data['hotelSites'], function(key, value){
+                if (key == hotelId){
+                    $('#hotelSite').text(value);
+                }
+            });
+        });
+    hotelChange();
+}
+
+function hotelChange(){
+    var cityId = $("#city option:selected").attr("sysId");
+    var hotelId = $("#hotelName option:selected").attr("sysId");
+    $.getJSON(getContextPath() + "/ajaxhotels?id="+cityId,
+        function (data){
+            $.each(data['hotelSites'], function(key, value){
+                if (key == hotelId){
+                    $('#hotelSite').text(value);
+                }
+            });
         });
 }
 
-function changeCity(id){
-    $.getJSON(getContextPath() + "/ajaxhotels?id="+id,
+function employeeChange(){
+    var employeeId = $("#employee option:selected").attr("sysId");
+    $.getJSON(getContextPath() + "/ajaxtravelemployee?id="+employeeId,
         function (data){
-            prepareHotelsComboBox($("#hotelName"), data['hotelNames'], data['hotelSites'], id)
-            $('#hotelSite').val(data['hotelSites'][$("#hotelName option:selected").attr("sysId")]);
+           $('#office').text(data['office']);
+           $('#lineManager').text(data['lineManagerName']);
         });
 }
 

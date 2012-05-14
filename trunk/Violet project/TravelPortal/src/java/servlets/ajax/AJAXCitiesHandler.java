@@ -4,11 +4,9 @@
  */
 package servlets.ajax;
 
-import database.mapping.City;
 import database.mapping.Country;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,7 +45,7 @@ public class AJAXCitiesHandler extends AJAXSendHandler {
         if (idCountry != null) {
             try {
                 Long id = Long.parseLong(idCountry);
-                Country country = (Country) HibernateUtil.getSession().get(Country.class, (long) id);
+                Country country = (Country) HibernateUtil.getSession().get(Country.class, id);
                 if (country != null) {
                     putCitiesToJSON(jsonObject, country);
                 } else {
