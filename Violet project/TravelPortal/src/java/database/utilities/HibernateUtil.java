@@ -89,13 +89,13 @@ public class HibernateUtil {
 
     //id of employee with given login
     //edited by Merle
-    public static Long EmpIdByLogin(String login) {
+    public static List<BigDecimal> EmpIdByLogin(String login) {
         Session s = getSession();
         String prepared_statement = "select id "
                 + "from employee "
                 + "where login=:login";
         List<BigDecimal> idslist = s.createSQLQuery(prepared_statement).setString("login", login).list();
-        return idslist.get(0).longValue();
+        return idslist;
     }
 
     //ID of office in which given employee works
