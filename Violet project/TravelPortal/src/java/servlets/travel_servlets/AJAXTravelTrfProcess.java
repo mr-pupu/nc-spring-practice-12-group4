@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -118,21 +119,32 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             currTrf.setCarRental(car_rental);
             currTrf.setPayByCash(pay_by_cash);
             if(status!=0) currTrf.setCurState(status);
+            
+            Set<Trfstate> states = currTrf.getTrfstates();
+            long idComparator = 0;
+            Trfstate last = null;
+            if (status == 0) {
+                for (Trfstate st : states) {
+                    if (st.getId() > idComparator) {
+                        idComparator = st.getId();
+                        last = st;
+                    }
+                }
+                last.setCommentary(commentary);
+                HibernateUtil.save(last);
+            }
 
             HibernateUtil.save(currTrf);
             
             if(status!=0){
                 System.out.println("Creating trfstate");
-                //String login = (String) request.getSession().getAttribute("login");
-                //Long travelId = TrfEdit.empIdByLogin(login);
                 Long travelId = (Long) request.getSession().getAttribute("userId");
                 
                 Trfstate newstate = new Trfstate();
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
-                newstate.setChangeDate(new Date(System.currentTimeMillis()));
-                System.out.println(new Date(System.currentTimeMillis()));
+                newstate.setChangeDate(new Date());
                 newstate.setChanger(travelId);
                 System.out.println("Changer: "+String.valueOf(travelId));
                 

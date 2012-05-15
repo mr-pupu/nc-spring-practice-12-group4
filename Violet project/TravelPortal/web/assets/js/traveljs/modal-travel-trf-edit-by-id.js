@@ -99,8 +99,6 @@ function prepareComboBox(combobox, data, id){
 
 function processTRF(button){
     //0 — save, 1 — reject, 2 — cancel, 4 - complete
-    var comment ="";
-    if(button!=0) comment = $('#commentary').val();
     
     var resultMap = [
     {
@@ -135,7 +133,7 @@ function processTRF(button){
         'status' : button
     },
     {
-        'commentary': comment
+        'commentary': $('#commentary').val()
     }];
     $.ajax({
         url: getContextPath() + "/ajaxtraveltrfprocess?",

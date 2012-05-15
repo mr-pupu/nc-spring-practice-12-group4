@@ -4,30 +4,20 @@
  */
 package servlets.ajax;
 
-import database.mapping.City;
-import database.mapping.Customer;
-import database.mapping.Destination;
-import database.mapping.Employee;
-import database.mapping.Trf;
+import database.mapping.*;
 import database.utilities.HibernateUtil;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -75,6 +65,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             throws ServletException, IOException {
         System.out.println("Servlet AJAXTrfsProcess runned (POST)");
         String ajaxdata = request.getParameter("ajaxdata");
+        Long userId = (Long) request.getSession().getAttribute("userId");
         System.out.println(ajaxdata);
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
@@ -84,53 +75,111 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             resultStrings.putAll(someObj);
         }
 
-        Short state;
-        Long destinationId;
+        Long empId;
+        Date begin_date;
+        Date end_date;
+        Long managerId;
+        Long destId;
         Long customerId;
-        Long projectManagerId;
-        Date endDate;
-        Date beginDate;
-        boolean car;
-        boolean payByCash;
+        boolean car_rental;
+        boolean pay_by_cash;
+        Short status;
+        String commentary;
 
         try {
-            state = Short.parseShort(resultStrings.get("state"));
-            car = Boolean.parseBoolean(resultStrings.get("car"));
-            payByCash = Boolean.parseBoolean(resultStrings.get("payByCash"));
-            destinationId = Long.parseLong(resultStrings.get("destinationId"));
-            customerId = Long.parseLong(resultStrings.get("customerId"));
-            projectManagerId = Long.parseLong(resultStrings.get("projectManagerId"));
-            endDate = getDateFromString(resultStrings.get("endDate"));
-            beginDate = getDateFromString(resultStrings.get("beginDate"));
+            empId = Long.parseLong(resultStrings.get("employee"));
+            begin_date = getDateFromString(resultStrings.get("beginDate"));
+            end_date = getDateFromString(resultStrings.get("endDate"));
+            managerId = Long.parseLong(resultStrings.get("projectManager"));
+            destId = Long.parseLong(resultStrings.get("destination"));
+            customerId = Long.parseLong(resultStrings.get("customer"));
+            car_rental = Boolean.parseBoolean(resultStrings.get("carRental"));
+            pay_by_cash = Boolean.parseBoolean(resultStrings.get("payByCash"));
+            status = Short.parseShort(resultStrings.get("status"));
+            commentary = resultStrings.get("commentary");
 
-            //Check values here
-            
             Trf currTrf = (Trf) request.getSession().getAttribute("trf");
             Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
 
-            currTrf.setEndDate(endDate);
-            currTrf.setBeginDate(beginDate);
-            currTrf.setPayByCash(payByCash);
-            currTrf.setCarRental(car);
-            currTrf.setCustomer((Customer) hibernateSession.get(Customer.class, (Long) customerId));
-            currTrf.setEmployeeByProjectManager((Employee) hibernateSession.get(Employee.class, (Long) projectManagerId));
-            currTrf.setDestination((Destination) hibernateSession.get(Destination.class, (Long) destinationId));
-            if (!state.equals(new Long(0))){
-                currTrf.setCurState(state);
+            Employee emp = (Employee) hibernateSession.get(Employee.class, empId.longValue());
+            Employee manager = (Employee) hibernateSession.get(Employee.class, managerId.longValue());
+            Destination dest = (Destination) hibernateSession.get(Destination.class, destId.longValue());
+            Customer customer = (Customer) hibernateSession.get(Customer.class, customerId.longValue());
+
+            currTrf.setEmployeeByEmpId(emp);
+            currTrf.setBeginDate(begin_date);
+            currTrf.setEndDate(end_date);
+            currTrf.setEmployeeByProjectManager(manager);
+            currTrf.setDestination(dest);
+            currTrf.setCustomer(customer);
+            currTrf.setCarRental(car_rental);
+            if (status != 0) {
+                currTrf.setCurState(status);
             }
-            
-            hibernateSession.beginTransaction();
-            hibernateSession.save(currTrf);
-            hibernateSession.getTransaction().commit();
+
+            Set<Trfstate> states = currTrf.getTrfstates();
+            long idComparator = 0;
+            Trfstate last = null;
+            if (status == 0) {
+                for (Trfstate st : states) {
+                    if (st.getId() > idComparator) {
+                        idComparator = st.getId();
+                        last = st;
+                    }
+                }
+                last.setCommentary(commentary);
+                HibernateUtil.save(last);
+            }
+
+            HibernateUtil.save(currTrf);
+
+            if (status != 0) {
+                System.out.println("Creating trfstate");
+
+                Trfstate newstate = new Trfstate();
+                newstate.setTrf(currTrf);
+                newstate.setStatus(status);
+                newstate.setCommentary(commentary);
+                newstate.setChangeDate(new Date());
+                newstate.setChanger(userId);
+                System.out.println("Changer: " + String.valueOf(userId));
+
+                HibernateUtil.save(newstate);
+            }
 
             System.out.println("changes done");
+
+            JSONObject js = new JSONObject();
+            String answer;
+            switch (status) {
+                case 0:
+                    answer = "TRF was saved";
+                    js.put("error", "success");
+                    break;
+                case 2:
+                    answer = "TRF was canceled";
+                    js.put("error", "success");
+                    break;
+                case 3:
+                    answer = "TRF was commited";
+                    js.put("error", "success");
+                    break;
+                default:
+                    answer = "Changes have been made";
+                    js.put("error", "error");
+            }
+
+            response.setContentType("application/json");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setContentType("application/json");
+            String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
 
-
-        //ToDo check values
-
-        //ToDo commit changes
     }
 }

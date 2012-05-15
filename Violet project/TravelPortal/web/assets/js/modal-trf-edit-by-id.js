@@ -124,8 +124,6 @@ function prepareComboBox(combobox, data, id){
 
 function processTRF(button){
 //0 — save, 2 — cancel, 3 - commit
-    var comment ="";
-    if(button!=0) comment = $('#commentary').val();
     
     var resultMap = [
     {
@@ -152,15 +150,11 @@ function processTRF(button){
     {
         'carRental':($('#carRental').attr("checked")!=undefined).toString()
     },
-
-    {
-        'payByCash':($('#payByCash').attr("checked")!=undefined).toString()
-    },
     {
         'status' : button
     },
     {
-        'commentary': comment
+        'commentary': $('#commentary').val()
     }];
     $.ajax({
         url: getContextPath() + "/ajaxtrfsprocess?",
