@@ -6,7 +6,7 @@
 <div id="editTrfModal" class="modal hide fade" style="width: 720px; margin: -250px 0 -0 -380px;">
     <div class="modal-header">
         <a href="#" class="close" onclick="$('#editTrfModal').modal('hide')">&times;</a>
-        <h3>
+        <h3 id="editTrfmodalTitle">
             <fmt:message key="modal.form.header" />
         </h3>
     </div>
