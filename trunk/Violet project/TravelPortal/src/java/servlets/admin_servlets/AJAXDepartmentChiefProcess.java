@@ -6,9 +6,11 @@ package servlets.admin_servlets;
 
 import database.mapping.Department;
 import database.mapping.Employee;
+import database.mapping.Occupation;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -83,13 +85,30 @@ public class AJAXDepartmentChiefProcess extends AJAXGetHandler {
 
             Department currDepartment = (Department) HibernateUtil.getSession()
                     .get(Department.class, id.longValue());
+            
+            Employee ex_chief = (Employee) HibernateUtil.getSession().
+                    get(Employee.class, currDepartment.getManagerId());
+            
+            Employee chief = (Employee) HibernateUtil.getSession().
+                    get(Employee.class, chiefId);
+            
+            List<Occupation> positions = HibernateUtil.OccupationsList();
+            Occupation team_lead=null;
+            for(int i=0; i< positions.size(); i++){
+                if(positions.get(i).getPosName().equals("Team Lead")){
+                    team_lead= positions.get(i);
+                }
+            }
 
             currDepartment.setManagerId(chiefId);
+            chief.setOccupation(ex_chief.getOccupation());
+            ex_chief.setOccupation(team_lead);
 
             HibernateUtil.save(currDepartment);
-            
-            Employee emp = (Employee) HibernateUtil.getSession().get(Employee.class, chiefId);
-            String answer= emp.getFirstName()+" "+emp.getSecondName()+
+            HibernateUtil.save(ex_chief);
+            HibernateUtil.save(chief);
+
+            String answer= chief.getFirstName()+" "+chief.getSecondName()+
                     " is now the head of department";
 
             System.out.println("changes done");

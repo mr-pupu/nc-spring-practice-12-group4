@@ -42,6 +42,7 @@ function processChiefChange(id){
             }
         }).done(function( msg ) {
             addMessage(msg);  
+            $('#emptable').trigger("reloadGrid");
     });
 }
 
