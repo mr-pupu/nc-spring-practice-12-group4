@@ -77,6 +77,7 @@ function fillTravelTrfForm(data,id){
     } else {
         $('#payByCash').removeAttr("checked");
     }
+    $('#commentary').val(data['commentary']);
     
     $("#accordion3").show();
 }

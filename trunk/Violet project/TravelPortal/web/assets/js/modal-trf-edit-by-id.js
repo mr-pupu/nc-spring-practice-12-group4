@@ -86,6 +86,7 @@ function fillTrfForm(data, id){
         } else {
             $('#payByCash').removeAttr("checked");
         }
+        $('#commentary').val(data['commentary']);
     } else {
         //New trf
         prepareComboBox($("#employee"), data['employees'], data['employeeId']);
@@ -101,7 +102,7 @@ function fillTrfForm(data, id){
         prepareComboBox($("#customer"), data['customers'], 1);
         $('#carRental').removeAttr("checked");
         $('#payByCash').attr("checked","true");
-    
+        $('#commentary').val("Changing status commentary...");
     }
     
     $("#accordion3").show();
