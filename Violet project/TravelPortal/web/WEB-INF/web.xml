@@ -5,6 +5,14 @@
         <servlet-name>AJAXTravelEmployeeHandler</servlet-name>
         <servlet-class>servlets.ajax.AJAXTravelEmployeeHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DestinationApproval</servlet-name>
+        <servlet-class>servlets.travelSupport.DestinationApproval</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DestinationApprover</servlet-name>
+        <servlet-class>servlets.travelSupport.DestinationApprover</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AJAXTravelEmployeeHandler</servlet-name>
         <url-pattern>/ajaxtravelemployee</url-pattern>
@@ -224,6 +232,14 @@
     <servlet-mapping>
         <servlet-name>AJAXEmployeeHandler</servlet-name>
         <url-pattern>/ajaxemployeehandle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DestinationApproval</servlet-name>
+        <url-pattern>/destinationapproval</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DestinationApprover</servlet-name>
+        <url-pattern>/destinationapprover</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index</welcome-file>
