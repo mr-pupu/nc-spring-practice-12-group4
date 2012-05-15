@@ -79,7 +79,8 @@
     <div class="container">
         <div>
             <a href="#"
-               class="btn btn-success" id="editTrf" style="width: 80px">
+               class="btn btn-success" id="editTrf" onclick="checkTrf()" 
+               style="width: 80px">
                 <fmt:message key="page.forms.buttonEdit" /></a>
             <a href="#-1"
                class="btn btn-success" id="newTrf" style="width: 80px">New</a>

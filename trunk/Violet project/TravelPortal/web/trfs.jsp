@@ -97,7 +97,8 @@
                         <div class="accordion-inner">
                             <div>
                                 <a href="#"
-                                   class="btn btn-success" id="traveledit" style="width: 80px">
+                                   class="btn btn-success" id="traveledit" 
+                                   onclick="checkTrf()" style="width: 80px">
                                     <span class="user"><fmt:message
                                             key="page.forms.buttonEdit" /></span></a>
                                 <br>

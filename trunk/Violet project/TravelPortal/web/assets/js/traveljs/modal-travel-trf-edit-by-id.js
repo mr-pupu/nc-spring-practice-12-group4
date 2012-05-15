@@ -228,3 +228,10 @@ function verifyDestination(){
         }
     });
 }
+
+function checkTrf(){
+    if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
+        
+        addDynamicMessage("warning", "TRF for editing wasn't selected");
+    }
+}

@@ -221,16 +221,7 @@ function processEmployee(){
 
 function checkEmployee(){
     if ($('#emptable').jqGrid('getGridParam', 'selrow') == null) {
-        var resultMap = [
-    {
-        "error" : "success"
-    }, 
-    {
-        "success" : $('#firstName').val()
-    }
-    ];
-    
-    addMessage(JSON.stringify(resultMap));
-
+        
+        addDynamicMessage("warning", "Employee for editing wasn't selected");
     }
 }
