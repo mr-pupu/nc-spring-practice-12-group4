@@ -249,3 +249,10 @@ function addDestination(){
         }
     });
 }
+
+function checkTrf(){
+    if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
+        
+        addDynamicMessage("warning", "TRF for editing wasn't selected");
+    }
+}
