@@ -36,6 +36,8 @@ $(function() {
         }],
         //        autowidth: true,
         scrollOffset:0,
+        pgtext : "{0} of {1}",
+        recordtext : "{0} - {1} of {2}",
         viewrecords: true,
         jsonReader: {
             //                root: 'rows',
@@ -51,7 +53,7 @@ $(function() {
             return(true);
         },
         onSelectRow: function(id){
-            document.getElementById("a").setAttribute("href", '#'+id);
+            document.getElementById("editTrf").setAttribute("href", '#'+id);
         },
         pager: $('#progresspager')
     });

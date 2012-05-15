@@ -51,21 +51,21 @@
         <link rel="apple-touch-icon-precomposed"
               href="<%=request.getContextPath()%>/assets/ico/apple-touch-icon-57-precomposed.png">
     </head>
-    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Insert title here</title>
     <!-- 
             Copyright 2009 Itamar Arjuan
             jsDatePick is distributed under the terms of the GNU General Public License.
             ****************************************************************************************
     -->
     <link rel="stylesheet" type="text/css" media="all"
-          href="<c:out value="${pageContext.request.contextPath}"/>/assets/css/jsDatePick_ltr.min.css" />
+          href="<%=request.getContextPath()%>/assets/css/jsDatePick_ltr.min.css" />
     <!-- 
     -->
     <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/jsDatePick.min.1.3.js"></script>
+    src="<%=request.getContextPath()%>/assets/js/jsDatePick.min.1.3.js"></script>
     <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/path.js"></script>
+    src="<%=request.getContextPath()%>/assets/js/path.js"></script>
+    <script type="text/javascript"
+    src="<%=request.getContextPath()%>/assets/js/modal-trf-edit-by-id.js"></script>
     <!-- 
     -->
     <script type="text/javascript">
@@ -97,33 +97,32 @@
     <c:import url="menu.jsp">
         <c:param name="page" value="mytrfs"></c:param>
     </c:import>
+    <div class="container" id="notifier">
+    </div>
     <div class="container">
         <div>
-            <a href="#1"
-               class="btn span1"><fmt:message
-                    key="page.forms.buttonEdit" /></a>
-            <a href="#2"
-               class="btn span1">New</a>
+            <a href="#"
+               class="btn btn-success" id="editTrf" style="width: 80px">
+                <fmt:message key="page.forms.buttonEdit" /></a>
+            <a href="#-1"
+               class="btn btn-success" id="newTrf" style="width: 80px">New</a>
             <br>
         </div>
-            <br> 
+        <br> 
         <div>                 
             <table id="inprogress"></table>
             <div id="progresspager"></div> 
         </div>
         <br>
-            <table id="alltrfs"></table>
-            <div id="trfspager"></div> 
+        <table id="alltrfs"></table>
+        <div id="trfspager"></div> 
 
-        </div>
     </div>
-    </div>
-    <!-- /container -->
-    <jsp:include page="modalform.jsp"></jsp:include>
-        <script type="text/javascript"
-        src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/modal-trf-edit-by-id.js"></script>
-
+</div>
+</div>
+<!-- /container -->
+<jsp:include page="modalform.jsp"></jsp:include>
     <script type="text/javascript"
-    src="<c:out value="${pageContext.request.contextPath}"/>/assets/js/calendar-init.js"></script>
+    src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
 </body>
 </html>
