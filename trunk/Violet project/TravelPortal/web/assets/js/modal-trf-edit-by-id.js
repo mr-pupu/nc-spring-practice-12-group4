@@ -51,21 +51,17 @@ function getTrfUsingAJAX(id){
         function (data){
             fillTrfForm(data, id);
             if(id>0){
-                $('#modalTitle').text('TRF editing');
+                $('#editTrfmodalTitle').text('TRF editing');
             }
             else{
-                $('#modalTitle').text('TRF creating');
+                $('#editTrfmodalTitle').text('TRF creating');
             }
         });
 }
 
 function fillTrfForm(data, id){
-    $('#employee').text(data['employeeName']);
-    $('#office').text(data['officeName']);
-    $('#lineManager').text(data['lineManagerName']);
-    prepareComboBox($("#projectManager"), data['projectManagers'], data['projectManagerId'])
-    alert('fill employee');
-    prepareComboBox($("#customer"), data['customers'], data['customerId'])
+    
+    document.getElementById("payByCash").setAttribute("disabled",false);
     
     if (id>0){
         //Edit trf
@@ -92,19 +88,19 @@ function fillTrfForm(data, id){
         }
     } else {
         //New trf
-        prepareComboBox($("#employee"), data['employees'], 1);
+        prepareComboBox($("#employee"), data['employees'], data['employeeId']);
         $('#office').text(data['office']);
         $('#flightBeginDate').val(data['beginDate']);
         $('#flightEndDate').val(data['endDate']);
         prepareComboBox($("#country"), data['countries'], 1);
-        prepareComboBox($("#city"), data['cities'], 1)
+        prepareComboBox($("#city"), data['cities'], data['cityId'])
         $('#lineManager').text(data['lineManagerName']);
-        prepareComboBox($("#projectManager"), 1);
-        prepareComboBox($("#hotelName"), data['hotelNames'], 1);
+        prepareComboBox($("#projectManager"), data['projectManagerId']);
+        prepareComboBox($("#hotelName"), data['hotelNames'], data['destinationId']);
         $('#hotelSite').text(data['hotelSite']);
         prepareComboBox($("#customer"), data['customers'], 1);
         $('#carRental').removeAttr("checked");
-        $('#payByCash').removeAttr("checked");
+        $('#payByCash').attr("checked","true");
     
     }
     
