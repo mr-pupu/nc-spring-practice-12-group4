@@ -113,7 +113,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             currTrf.setDestination(dest);
             currTrf.setCustomer(customer);
             currTrf.setCarRental(car_rental);
-            if (status != 0) {
+            if (status != currTrf.getCurState()) {
                 currTrf.setCurState(status);
             }
 
@@ -133,7 +133,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
 
             HibernateUtil.save(currTrf);
 
-            if (status != 0) {
+            if (status != currTrf.getCurState()) {
                 System.out.println("Creating trfstate");
 
                 Trfstate newstate = new Trfstate();
