@@ -96,7 +96,7 @@ function fillTrfForm(data, id){
         prepareComboBox($("#country"), data['countries'], 1);
         prepareComboBox($("#city"), data['cities'], data['cityId'])
         $('#lineManager').text(data['lineManagerName']);
-        prepareComboBox($("#projectManager"), data['projectManagerId']);
+        prepareComboBox($("#projectManager"), data['employees'], data['projectManagerId']);
         prepareComboBox($("#hotelName"), data['hotelNames'], data['destinationId']);
         $('#hotelSite').text(data['hotelSite']);
         prepareComboBox($("#customer"), data['customers'], 1);
