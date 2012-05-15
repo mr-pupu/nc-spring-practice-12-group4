@@ -68,29 +68,6 @@
     src="<%=request.getContextPath()%>/assets/js/modal-trf-edit-by-id.js"></script>
     <!-- 
     -->
-    <script type="text/javascript">
-        window.onload = function(){
-            var first = new JsDatePick({
-                useMode:2,
-                target:"inputField1",
-                dateFormat:"%d-%M-%Y"
-            });
-            second = new JsDatePick({
-                useMode:2,
-                target:"inputField2",
-                dateFormat:"%d-%M-%Y"
-            });
-            third = new JsDatePick({
-                useMode:2,
-                target:"inputField3",
-                dateFormat:"%d-%M-%Y"
-            });
-        };
-    </script>
-
-
-
-
 
 </head>
 <body >
