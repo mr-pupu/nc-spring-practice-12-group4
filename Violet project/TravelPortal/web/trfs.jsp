@@ -135,14 +135,14 @@
                                         <td><fmt:message key="page.forms.filterTimeframe" /></td>
                                         <td><fmt:message key="page.forms.filterTimeframe.from" />
                                             <input type="text" class="span2" id="beginDate" /> 
-                                            <img src="<%=request.getContextPath()%>/assets/img/calendar/calendar1.png"
+                                            <img src="<%=request.getContextPath()%>/assets/img/calendar/calen.png"
                                                  onmousedown="document.getElementById('beginDate').focus();"
-                                                 width=30px; height=30px; id="image1" /> 
+                                                 width=26px; height=26px; id="image1" /> 
                                         <fmt:message key="page.forms.filterTimeframe.to" /> <input
                                                 type="text" class="span2" id="endDate" /> <img
-                                                src="<%=request.getContextPath()%>/assets/img/calendar/calendar1.png"
+                                                src="<%=request.getContextPath()%>/assets/img/calendar/calen.png"
                                                 onmousedown="document.getElementById('endDate').focus();"
-                                                width=30px; height=30px; id="image2" /> </td>
+                                                width=26px; height=26px; id="image2" /> </td>
                                     </tr>
                                 </tbody>
                             </table> 
