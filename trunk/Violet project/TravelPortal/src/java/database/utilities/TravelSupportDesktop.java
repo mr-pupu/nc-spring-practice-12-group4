@@ -1,5 +1,6 @@
 package database.utilities;
 
+import database.mapping.Destination;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -138,11 +139,11 @@ public class TravelSupportDesktop {
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + "    WHERE begin_date >:begin_date AND end_date<:end_date "
-                + "    AND office_country="
+                + "    AND country_name="
                 + "    (SELECT country_name"
                 + "   FROM emp_office "
                 + "    WHERE id=:id))"
-                + "   where r> :from and r<= :to";
+                + "   where r>: from and r<= :to";
 
         Session s = HibernateUtil.getSession();
         int from = (page - 1) * rows;
@@ -165,11 +166,11 @@ public class TravelSupportDesktop {
                 + " from trfs_report "
                 + "      WHERE begin_date > :begin_date  AND end_date<:end_date  "
                 + "     AND dep_name=:department  "
-                + "      AND office_country= "
+                + "      AND country_name= "
                 + "      (SELECT country_name  "
                 + "      FROM emp_office  "
                 + "      WHERE id=:id)) "
-                + "     where r > :to and r<= :from";
+                + "     where r > : to and r<= :from";
         Session s = HibernateUtil.getSession();
         int from = (page - 1) * rows;
         int to = from + rows;
@@ -199,5 +200,37 @@ public class TravelSupportDesktop {
         Session s = HibernateUtil.getSession();
         List resq = s.createSQLQuery(prepared_statement).list();
         return (List<String>) resq;
+    }
+    /**
+     * Select all destinations, which have the "approved" field set to zero,
+     * with respect to page number and amount of elements on the page
+     * @return a list of destinations
+     * @author Gangbang34
+     */
+    public static List<Destination> NonApprovedDestinationListPaged(int page, int rows) {
+        //prepare paging
+        int start = (page - 1) * rows;
+        int finish = start + rows;
+        String pps = "SELECT id, city_id, hotelname, hotelsite, is_approved "
+                + "FROM (SELECT destination.*, rownum r "
+                + "FROM destination "
+                + "WHERE is_approved = 0) "
+                + "WHERE r>:start AND r<:finish";
+        return (List<Destination>)HibernateUtil.getSession().createSQLQuery(pps).
+                addEntity(Destination.class).setInteger("start", start).
+                setInteger("finish", finish).list();
+    }
+    
+    /**
+     * Count the amount of non-approved destinations
+     * @return the amount of non-approved destinations
+     * @author Gangbang34
+     */
+    public static BigDecimal CountNoneApprovedDestinations() {
+        String pps = "SELECT COUNT(*) "
+                + "FROM destination "
+                + "WHERE is_approved = 0";
+        List res = HibernateUtil.getSession().createSQLQuery(pps).list();
+        return (BigDecimal)res.get(0);
     }
 }
