@@ -8,13 +8,13 @@ import java.util.List;
 import org.hibernate.Session;
 
 public class Reports {
-private static String[][] fillRes(List resq)
-{
-        
-     String[][] res = new String[resq.size()][9];
-    DateFormat reportDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-   
-        for (int i = 0;i < resq.size(); i++) {
+
+    private static String[][] fillRes(List resq) {
+
+        String[][] res = new String[resq.size()][9];
+        DateFormat reportDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        for (int i = 0; i < resq.size(); i++) {
             BigDecimal trf_id = (BigDecimal) ((Object[]) resq.get(i))[0];
             String name = (String) ((Object[]) resq.get(i))[1];
             String surname = (String) ((Object[]) resq.get(i))[2];
@@ -24,7 +24,7 @@ private static String[][] fillRes(List resq)
             String dest_country_name = (String) ((Object[]) resq.get(i))[6];
             String begin_date = reportDateFormat.format((Date) ((Object[]) resq.get(i))[7]);
             String end_date = reportDateFormat.format((Date) ((Object[]) resq.get(i))[8]);
-           
+
             res[i][0] = trf_id.toString();
             res[i][1] = name;
             res[i][2] = surname;
@@ -34,10 +34,11 @@ private static String[][] fillRes(List resq)
             res[i][6] = dest_country_name;
             res[i][7] = begin_date;
             res[i][8] = end_date;
-       }
-      return res;
-}
+        }
+        return res;
+    }
     //TRF with current date
+
     public static String[][] CurrentTrf(Integer page, Integer num) {
         String prepared_statement = "select id, first_name, second_name, "
                 + " office_city, office_country, dest_city, dest_country, begin_date,end_date"
@@ -45,138 +46,113 @@ private static String[][] fillRes(List resq)
                 + " from trfs_report "
                 + " where begin_date<sysdate and end_date>sysdate) "
                 + " where r>:from and r<:to ";
-  
-    Session s = HibernateUtil.getSession();
+
+        Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to)
-                .list();
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).list();
         return fillRes(resq);
     }
-    
-     public static long countCurrentTRFs(){
+
+    public static long countCurrentTRFs() {
         String prepared_statement = "select count(*) "
                 + " from trfs_report "
                 + " where begin_date<sysdate and end_date>sysdate";
 
         Session s = HibernateUtil.getSession();
-        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
-                .list().get(0).toString());
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement).list().get(0).toString());
         return res;
     }
-    
+
     //TRF with current date filter by office
     public static String[][] CurrentTrfSameOffice(String city, String country, Integer page, Integer num) {
-    
-        String prepared_statement ="select id, first_name, second_name, "+
-                 "office_city, office_country, dest_city, dest_country, begin_date,end_date "+
-                "from (select rownum r,  trfs_report.* "+
-                "from trfs_report  "+
-                "where office_country=:country "+
-                "and office_city=:city  "+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
-          
-    Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to).setString("country", country).setString("city", city)
-                .list();
-        return fillRes(resq);
-    }
-    
-     public static long countCurrentTRFsSameOffice(String city, String country){
-        String prepared_statement = "select count(*) "
-                +"from trfs_report "+
-                "where office_country=:country "+
-                "and office_city=:city  "+
-                "and begin_date<sysdate and end_date>sysdate";
+
+        String prepared_statement = "select id, first_name, second_name, "
+                + "office_city, office_country, dest_city, dest_country, begin_date,end_date "
+                + "from (select rownum r,  trfs_report.* "
+                + "from trfs_report  "
+                + "where office_country=:country "
+                + "and office_city=:city  "
+                + "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
 
         Session s = HibernateUtil.getSession();
-        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
-                .setString("country", country).setString("city", city)
-                .list().get(0).toString());
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("country", country).setString("city", city).list();
+        return fillRes(resq);
+    }
+
+    public static long countCurrentTRFsSameOffice(String city, String country) {
+        String prepared_statement = "select count(*) "
+                + "from trfs_report "
+                + "where office_country=:country "
+                + "and office_city=:city  "
+                + "and begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement).setString("country", country).setString("city", city).list().get(0).toString());
         return res;
     }
-    
 
     //TRF with current date filter by department
     public static String[][] CurrentTrfSameDepartment(String department, Integer page, Integer num) {
-        String prepared_statement ="select id, first_name, second_name, "+
-                 "office_city, office_country, dest_city, dest_country, begin_date,end_date "+
-                "from (select rownum r,  trfs_report.* "+
-                "from trfs_report  "+
-                "where dep_name =:department "+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to ";
-  
+        String prepared_statement = "select id, first_name, second_name, "
+                + "office_city, office_country, dest_city, dest_country, begin_date,end_date "
+                + "from (select rownum r,  trfs_report.* "
+                + "from trfs_report  "
+                + "where dep_name =:department "
+                + "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to ";
+
         Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to).setString("department", department)
-                .list();
-        return fillRes(resq); 
-    }
-
-    public static long countCurrentTRFsSameDept(String dept){
-        String prepared_statement = "select count(*) "
-                +"from trfs_report "+
-                "where dep_name =:department "+
-                "and begin_date<sysdate and end_date>sysdate";
-
-        Session s = HibernateUtil.getSession();
-        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
-                .setString("department", dept)
-                .list().get(0).toString());
-        return res;
-    }
-    
-    //TRF with current date filter by department and office
-    public static String[][] CurrentTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
-     
-        String prepared_statement ="select id, first_name, second_name, "+
-                 "office_city, office_country, dest_city, dest_country, begin_date,end_date "+
-                "from (select rownum r,  trfs_report.* "+
-                "from trfs_report  "+
-                "WHERE office_city =:city AND office_country = :country  "+
-                "AND dep_name =:department "+
-                "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
-          
-    Session s = HibernateUtil.getSession();
-        Integer from = num * page;
-        Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to).setString("country", country).setString("city", city)
-                .setString("department", department)
-                .list();
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("department", department).list();
         return fillRes(resq);
     }
 
-     public static long countCurrentTRFsSameDeptOffice(String city, String country, String dept){
+    public static long countCurrentTRFsSameDept(String dept) {
         String prepared_statement = "select count(*) "
-                +"from trfs_report "+
-                "where office_country=:country "+
-                "and office_city=:city  "+
-                "AND dep_name =:department "+
-                "and begin_date<sysdate and end_date>sysdate";
+                + "from trfs_report "
+                + "where dep_name =:department "
+                + "and begin_date<sysdate and end_date>sysdate";
+
+        Session s = HibernateUtil.getSession();
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement).setString("department", dept).list().get(0).toString());
+        return res;
+    }
+
+    //TRF with current date filter by department and office
+    public static String[][] CurrentTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
+
+        String prepared_statement = "select id, first_name, second_name, "
+                + "office_city, office_country, dest_city, dest_country, begin_date,end_date "
+                + "from (select rownum r,  trfs_report.* "
+                + "from trfs_report  "
+                + "WHERE office_city =:city AND office_country = :country  "
+                + "AND dep_name =:department "
+                + "and begin_date<sysdate and end_date>sysdate) where r>:from and r<:to";
+
+        Session s = HibernateUtil.getSession();
+        Integer from = num * page;
+        Integer to = (page + 1) * num;
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("country", country).setString("city", city).setString("department", department).list();
+        return fillRes(resq);
+    }
+
+    public static long countCurrentTRFsSameDeptOffice(String city, String country, String dept) {
+        String prepared_statement = "select count(*) "
+                + "from trfs_report "
+                + "where office_country=:country "
+                + "and office_city=:city  "
+                + "AND dep_name =:department "
+                + "and begin_date<sysdate and end_date>sysdate";
 
         Session s = HibernateUtil.getSession();
         long res = Long.parseLong(
-                s.createSQLQuery(prepared_statement)
-                .setString("country", country)
-                .setString("city", city)
-                .setString("department", dept)
-                .list().get(0)
-                .toString());
+                s.createSQLQuery(prepared_statement).setString("country", country).setString("city", city).setString("department", dept).list().get(0).toString());
         return res;
     }
-    
-    
+
     //Excel Report Button
     //all TRFs with "Entering" state
     // with current year 
@@ -185,17 +161,15 @@ private static String[][] fillRes(List resq)
         String prepared_statement = "SELECT first_name, second_name, "
                 + " office_city, office_country, dest_city, dest_country, begin_date,end_date, cur_state "
                 + "FROM trfs_report "
-                + "WHERE cur_state = 0 "
-                + "AND (extract (year from begin_date))=(select to_char(sysdate,'yyyy') from dual) "
+                + "WHERE  "
+                + "(extract (year from begin_date))=(select to_char(sysdate,'yyyy') from dual) "
                 + "AND (extract (year from end_date))=(select to_char(sysdate,'yyyy') from dual) "
                 + "AND office_country = "
                 + "(SELECT country_name "
                 + "FROM emp_office "
                 + "WHERE login = :name) ";
-    Session s = HibernateUtil.getSession();
-        List resq = s.createSQLQuery(prepared_statement)
-                .setString("name", login)
-                .list();
+        Session s = HibernateUtil.getSession();
+        List resq = s.createSQLQuery(prepared_statement).setString("name", login).list();
         return resq;
     }
 
@@ -208,26 +182,22 @@ private static String[][] fillRes(List resq)
                 + " where begin_date> sysdate and cur_state=3) "
                 + " where r>:from and r<:to ";
 
-    Session s = HibernateUtil.getSession();
+        Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to)
-                .list();
-        return fillRes(resq);         }
-    
-         public static long countPlannedTRFs(){
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).list();
+        return fillRes(resq);
+    }
+
+    public static long countPlannedTRFs() {
         String prepared_statement = "select count(*) "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3";
 
         Session s = HibernateUtil.getSession();
-        long res = Long.parseLong(s.createSQLQuery(prepared_statement)
-                .list().get(0).toString());
+        long res = Long.parseLong(s.createSQLQuery(prepared_statement).list().get(0).toString());
         return res;
     }
-
 
     //planned trf with "Ready" current status + filter by department
     public static String[][] PlannedTrfSameDepartment(String department, Integer page, Integer num) {
@@ -237,113 +207,88 @@ private static String[][] fillRes(List resq)
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 AND dep_name=:department) "
                 + " where r>:from and r<:to ";
-   
+
         Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to).setString("department", department)
-                .list();
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("department", department).list();
         return fillRes(resq);
     }
-    
-     public static long countPlannedTRFsSameDept(String dept){
+
+    public static long countPlannedTRFsSameDept(String dept) {
         String prepared_statement = "select count(*) "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 AND dep_name=:department ";
 
         Session s = HibernateUtil.getSession();
         long res = Long.parseLong(
-                s.createSQLQuery(prepared_statement)
-                .setString("department", dept)
-                .list().get(0)
-                .toString());
+                s.createSQLQuery(prepared_statement).setString("department", dept).list().get(0).toString());
         return res;
     }
-    
-    
+
     //planned trf with "Ready" current status + filter by department+filter by office
     public static String[][] PlannedTrfSameDepartmentOffice(String city, String country, String department, Integer page, Integer num) {
 
-           String prepared_statement = "select id, first_name, second_name, "
+        String prepared_statement = "select id, first_name, second_name, "
                 + " office_city, office_country, dest_city, dest_country, begin_date,end_date"
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 AND dep_name=:department "
-                +" AND office_city=:city "
+                + " AND office_city=:city "
                 + "AND office_country=:country) "
                 + " where r>:from and r<:to ";
-    
-    Session s = HibernateUtil.getSession();
+
+        Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to)
-                .setString("department", department)
-                .setString("country", country)
-                .setString("city", city)
-                .list();
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("department", department).setString("country", country).setString("city", city).list();
         return fillRes(resq);
-}
-    
-     public static long countPlannedTRFsSameOfficeDept(String dept, String city, String country){
+    }
+
+    public static long countPlannedTRFsSameOfficeDept(String dept, String city, String country) {
         String prepared_statement = "select count(*) "
                 + "from trfs_report "
                 + "where begin_date> sysdate and cur_state=3 AND dep_name=:department "
-                +" AND office_city=:city "
+                + " AND office_city=:city "
                 + "AND office_country=:country ";
 
         Session s = HibernateUtil.getSession();
         long res = Long.parseLong(
-                s.createSQLQuery(prepared_statement)
-                .setString("department", dept)
-                .setString("country", country)
-                .setString("city", city)
-                .list().get(0)
-                .toString());
+                s.createSQLQuery(prepared_statement).setString("department", dept).setString("country", country).setString("city", city).list().get(0).toString());
         return res;
-     }
-     
+    }
+
     //planned trf with "Ready" current status + filter by office
- public static String[][] PlannedTrfSameOffice(String city, String country, Integer page, Integer num) {
-           String prepared_statement = "select id, first_name, second_name, "
+    public static String[][] PlannedTrfSameOffice(String city, String country, Integer page, Integer num) {
+        String prepared_statement = "select id, first_name, second_name, "
                 + " office_city, office_country, dest_city, dest_country, begin_date,end_date"
                 + " from (select rownum r, trfs_report.* "
                 + " from trfs_report "
                 + " where begin_date> sysdate and cur_state=3 "
-                +" AND office_city=:city "
+                + " AND office_city=:city "
                 + "AND office_country=:country) "
                 + " where r>:from and r<:to ";
 
-    Session s = HibernateUtil.getSession();
+        Session s = HibernateUtil.getSession();
         Integer from = num * page;
         Integer to = (page + 1) * num;
-        List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("from", from)
-                .setInteger("to", to).setString("country", country).setString("city", city)
-                .list();
-        return fillRes(resq);  
- }
+        List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setString("country", country).setString("city", city).list();
+        return fillRes(resq);
+    }
 
-     public static long countPlannedTRFsSameOffice(String city, String country){
+    public static long countPlannedTRFsSameOffice(String city, String country) {
         String prepared_statement = "select count(*) "
                 + "from trfs_report "
                 + "where begin_date> sysdate and cur_state=3 "
-                +" AND office_city=:city "
+                + " AND office_city=:city "
                 + "AND office_country=:country ";
 
         Session s = HibernateUtil.getSession();
         long res = Long.parseLong(
-                s.createSQLQuery(prepared_statement)
-                .setString("country", country)
-                .setString("city", city)
-                .list().get(0)
-                .toString());
+                s.createSQLQuery(prepared_statement).setString("country", country).setString("city", city).list().get(0).toString());
         return res;
-     }
- 
+    }
+
     //location of offices
     public static List GetOfficesLocation() {
         Session s = HibernateUtil.getSession();

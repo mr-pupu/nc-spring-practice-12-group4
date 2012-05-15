@@ -160,6 +160,7 @@ String department = "All";
                     }
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
+                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
                     jsonObject.put("page", page);
                 } 
                     jsonObject.writeJSONString(response.getWriter());
