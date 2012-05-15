@@ -170,7 +170,7 @@ public class TravelSupportDesktop {
                 + "      (SELECT country_name  "
                 + "      FROM emp_office  "
                 + "      WHERE id=:id)) "
-                + "     where r > : to and r<= :from";
+                + "     where r > :to and r<= :from";
         Session s = HibernateUtil.getSession();
         int from = (page - 1) * rows;
         int to = from + rows;
