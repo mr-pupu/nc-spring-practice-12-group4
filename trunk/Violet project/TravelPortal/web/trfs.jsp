@@ -2,17 +2,17 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <title>Hardosoft Travel Portal</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <meta name="description" content="">
-            <meta name="author" content="Allan and Dudinskiy(Filters)">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Hardosoft Travel Portal</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Allan and Dudinskiy(Filters)">
 
-            <!-- Le styles -->
-            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+        <!-- Le styles -->
+        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
               rel="stylesheet">
         <style type="text/css">
             body {
@@ -45,8 +45,8 @@
                 ****************************************************************************************
         -->
         <jsp:include page="scripts.jsp"></jsp:include>
-            <script type='text/javascript'
-                    src="<%=request.getContextPath()%>/assets/js/path.js">
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/travelSupportjs/travelSupportTables.js">
@@ -64,9 +64,9 @@
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/traveljs/travel-in-progress-trfs.js">
         </script>
-        <!--    <script type='text/javascript'
-                    src="<%=request.getContextPath()%>/assets/js/traveljs/travel-all-trfs.js">
-            </script>-->
+        <script type='text/javascript'
+                src="<%=request.getContextPath()%>/assets/js/traveljs/destination-approval.js">
+        </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/traveljs/modal-travel-trf-edit-by-id.js">
         </script>
@@ -99,6 +99,7 @@
                                 <a href="#"
                                    class="btn btn-success" id="traveledit" 
                                    onclick="checkTrf()" style="width: 80px">
+
                                     <span class="user"><fmt:message
                                             key="page.forms.buttonEdit" /></span></a>
                                 <br>
@@ -129,7 +130,7 @@
                                     <tr>
                                         <td><fmt:message key="page.forms.filterDepartment" /></td>
                                         <td><select class="combobox" style="width : 500px;" id="department">
-                                            </select></td>                                        
+                                            </select></td>
                                     </tr>
                                     <tr>
                                         <td><fmt:message key="page.forms.filterTimeframe" /></td>
@@ -138,12 +139,13 @@
                                             <img src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
                                                  onmousedown="document.getElementById('beginDate').focus();"
                                                  width=22px; height=22px; id="image1" /> 
-                                        <fmt:message key="page.forms.filterTimeframe.to" /> <input
+                                            <fmt:message key="page.forms.filterTimeframe.to" /> <input
                                                 type="text" class="span2" id="endDate" /> <img
                                                 src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
                                                 onmousedown="document.getElementById('endDate').focus();"
                                                 width=22px; height=22px; id="image2" /> </td>
                                     </tr>
+
                                 </tbody>
                             </table> 
 
@@ -156,11 +158,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="accordion-group">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse"
+                           data-parent="#accordion2" href="#collapseThree">
+                            <h4>
+                                Unconfirmed destinations:
+                            </h4>
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="accordion-body collapse">
+                        <div class="accordion-inner">
+                            <div>
+                                <table id="dest"></table>
+                                <div id="destPager"></div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!--    <!-- /container -->
         <jsp:include page="modaltraveltrf.jsp"></jsp:include>
-            <script type="text/javascript"
-            src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
+        <script type="text/javascript"
+        src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
     </body>
 </html>
