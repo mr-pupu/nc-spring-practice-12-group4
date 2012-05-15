@@ -6,6 +6,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +32,10 @@ public class ReportSaver extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/x-msexcel");
-        response.setHeader("Content-Disposition", "attachment;filename=\"TrfReport.xls\"");
+        
+        int year = Calendar.getInstance().get(Calendar.YEAR);
         String login = (String) request.getSession().getAttribute("name");
+        response.setHeader("Content-Disposition", "attachment;filename=\""+login+","+year+".xls\"");
         ServletOutputStream sos= response.getOutputStream();
         try {
             byte[] report = utils.XlsReportGenerator.getReport(login);
