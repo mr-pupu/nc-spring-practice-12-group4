@@ -5,8 +5,10 @@
 package servlets.travel_servlets;
 
 import database.mapping.Trf;
+import database.mapping.Trfstate;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -101,6 +103,17 @@ public class AJAXTravelTrfEditHandler extends AJAXSendHandler {
 
                     jsonObject.put("carRental", trf.getCarRental());
                     jsonObject.put("payByCash", trf.getPayByCash());
+                    
+                    Set<Trfstate> states = trf.getTrfstates();
+                    long idComparator = 0;
+                    Trfstate last = null;
+                    for (Trfstate st : states) {
+                        if (st.getId() > idComparator) {
+                            idComparator = st.getId();
+                            last = st;
+                        }
+                    }
+                    jsonObject.put("commentary", last.getCommentary());
 
                     jsonObject.writeJSONString(response.getWriter());
 

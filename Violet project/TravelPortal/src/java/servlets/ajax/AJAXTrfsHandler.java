@@ -4,15 +4,13 @@
  */
 package servlets.ajax;
 
-import database.mapping.City;
-import database.mapping.Destination;
-import database.mapping.Employee;
-import database.mapping.Trf;
+import database.mapping.*;
 import database.utilities.HibernateUtil;
 import database.utilities.TrfEdit;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -110,6 +108,17 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
                     jsonObject.put("carRental", trf.getCarRental());
                     jsonObject.put("payByCash", trf.getPayByCash());
 
+                    Set<Trfstate> states = trf.getTrfstates();
+                    long idComparator = 0;
+                    Trfstate last = null;
+                    for (Trfstate st : states) {
+                        if (st.getId() > idComparator) {
+                            idComparator = st.getId();
+                            last = st;
+                        }
+                    }
+                    jsonObject.put("commentary", last.getCommentary());
+
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
                     trf = new Trf();
@@ -132,22 +141,22 @@ public class AJAXTrfsHandler extends AJAXSendHandler {
                     putDatesToJson(jsonObject, now, c.getTime());
                     putDestCountriesToJSON(jsonObject);
                     putCitiesToJSON(jsonObject, TrfEdit.destCountryList().get(0));
-                    
+
                     putLineManagerByEmployeeLogin(jsonObject, emp.getLogin());
                     putProjectManagerToJSON(jsonObject, emp);
                     jsonObject.put("projectManagerId", emp.getId());
-                    
-                    City city =(City) TrfEdit.destCountryList().get(0).
+
+                    City city = (City) TrfEdit.destCountryList().get(0).
                             getCities().toArray()[0];
                     putHotelNamesToJSON(jsonObject, city);
-                    
+
                     jsonObject.put("cityId", city.getId());
-                    
-                    Destination dest =(Destination) city.getDestinations().toArray()[0];
+
+                    Destination dest = (Destination) city.getDestinations().toArray()[0];
                     jsonObject.put("destinationId", dest.getId());
                     jsonObject.put("hotelSite", dest.getHotelsite());
                     putCustomersToJSON(jsonObject);
-                    
+
                     jsonObject.writeJSONString(response.getWriter());
                 }
 
