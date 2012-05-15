@@ -2,16 +2,16 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <jsp:include page="init.jsp"></jsp:include>
-<!DOCTYPE html>
-<html lang="en">
-<!-- Le styles -->
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Hardosoft Travel Portal</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="administrative page">
-        <meta name="author" content="Sitner and Poluhovich">
-        <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
+    <!DOCTYPE html>
+    <html lang="en">
+        <!-- Le styles -->
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>Hardosoft Travel Portal</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="description" content="administrative page">
+            <meta name="author" content="Sitner and Poluhovich">
+            <link href="<%=request.getContextPath()%>/assets/css/bootstrap.css"
               rel="stylesheet">
         <style type="text/css">
             body {	
@@ -20,8 +20,8 @@
             }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
-        <script type='text/javascript'
-                src="<%=request.getContextPath()%>/assets/js/path.js">
+            <script type='text/javascript'
+                    src="<%=request.getContextPath()%>/assets/js/path.js">
         </script>
         <script type='text/javascript'
                 src="<%=request.getContextPath()%>/assets/js/reportjs/planned-trips.js">
@@ -55,7 +55,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
         <div class="container">
             <br>
-
             <c:if test="${deproles.contains('Travel Department')}">
                 <button type="submit" class="btn" onclick="location.href='ReportSaver'">Excel report</button>
                 <br>
@@ -65,7 +64,7 @@
                     <a class="accordion-toggle" data-toggle="collapse"
                        data-parent="#accordion2" href="#collapseOne">
                         <h4>
-                            Current TRFs:
+                            <fmt:message key="page.reports.currentlyInTrip" />
                         </h4>
                     </a>
                 </div>
@@ -75,22 +74,22 @@
                             <tbody>
                                 <tr>
                                     <td><fmt:message key="page.reports.filter.department" /></td>
-                                        <td><select class="btn" id="departmentCurrentlyTrip" >
+                                    <td><select class="btn" id="departmentCurrentlyTrip" >
                                         </select></td>
                                     <td><fmt:message key="page.reports.filter.office" /></td>
-                                     <td><select class="btn" id="officeCurrentlyTrip">
+                                    <td><select class="btn" id="officeCurrentlyTrip">
                                         </select></td>
                                 </tr>
                             </tbody>
                         </table>
 
-
+                        <br>
                         <table id="currenttrips"></table>
                         <div id="currentpager"></div>          
                     </div>
                 </div>
             </div>
-                          <br>
+            <br>
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <a class="accordion-toggle" data-toggle="collapse"
@@ -110,12 +109,12 @@
                                     <td><select class="btn" id="departmentPlannedTrips">
                                         </select></td>
                                     <td><fmt:message key="page.reports.filter.office" /></td>
-                                   <td><select class="btn" id="officePlannedTrips">
+                                    <td><select class="btn" id="officePlannedTrips">
                                         </select></td>
                                 </tr>
                             </tbody>
                         </table>
-
+                        <br>
                         <table id="plannedtrips"></table>
                         <div id="plannedpager"></div>
                         <div class="row">

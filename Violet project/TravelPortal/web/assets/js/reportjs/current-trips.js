@@ -40,6 +40,8 @@ $(function() {
         }],
         //        autowidth: true,
         scrollOffset:0,
+        pgtext : "{0} of {1}",
+        recordtext : "{0} - {1} of {2}",
         viewrecords: true,
         jsonReader: {
             //                root: 'rows',
@@ -49,14 +51,7 @@ $(function() {
         //                records: function(obj) {return 22;}
         },
         multiselect : false,
-        caption : "Current TRFs: ",
-        beforeSelectRow: function(rowid, e){
-            jQuery("#currenttrips").jqGrid('resetSelection');
-            return(true);
-        },
-        onSelectRow: function(id){
-            document.getElementById("a").setAttribute("href", '#'+id);
-        },
+        
         pager: $('#currentpager')
     });
     var myGrid = jQuery("#currenttrips");

@@ -115,6 +115,7 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
+                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
                 
                     response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());

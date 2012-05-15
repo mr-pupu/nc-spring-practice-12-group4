@@ -168,6 +168,8 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
+                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
+                    
                 }
                 jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
