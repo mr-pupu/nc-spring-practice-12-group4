@@ -60,15 +60,15 @@
                                         <td><fmt:message key="modal.form.departureDate" />:</td>
                                         <td> <div class="input-append" rel="calendarDiv">
                                                 <input style="width : 134px;" id="flightBeginDate" size="16" type="text"><span
-                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/calen.png" 
-                                                                    width=26px; height=26px;/></span>
+                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg" 
+                                                                    width=22px; height=22px;/></span>
                                             </div></td>
                                         <td></td>
                                         <td><fmt:message key="modal.form.returnDate" />:</td>
                                         <td> <div class="input-append" rel="calendarDiv">
                                                 <input style="width : 134px;" id="flightEndDate" size="16" type="text"><span
-                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/calen.png" 
-                                                                    width=26px; height=26px;/></span>
+                                                    class="add-on"><img src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg" 
+                                                                    width=22px; height=22px;/></span>
                                             </div>
                                         </td>
                                     </tr>
