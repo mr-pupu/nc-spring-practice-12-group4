@@ -50,6 +50,7 @@ $(function() {
         caption : "In progress TRFs",
         beforeSelectRow: function(rowid, e){
             jQuery("#inprogress").jqGrid('resetSelection');
+            jQuery("#alltrfs").jqGrid('resetSelection');
             return(true);
         },
         onSelectRow: function(id){

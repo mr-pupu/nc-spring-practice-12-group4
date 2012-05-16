@@ -44,10 +44,11 @@ $(function() {
         //                total: function(obj) {return 1;},
         //                records: function(obj) {return 22;}
         },
-        multiselect : true,
+        multiselect : false,
         caption : "All my TRFs",
         beforeSelectRow: function(rowid, e){
             jQuery("#alltrfs").jqGrid('resetSelection');
+            jQuery("#inprogress").jqGrid('resetSelection');
             return(true);
         },
         onSelectRow: function(id){
