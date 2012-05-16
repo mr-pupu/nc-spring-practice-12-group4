@@ -116,7 +116,8 @@
                             <br>
                         </form>
                     </div>
-                </div><div class="accordion-group">
+                </div>
+                <div id="footerAccordion"  class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse"
                            data-parent="#accordion3" href="#collapseTwo1">
@@ -127,18 +128,16 @@
                     </div>
                     <div id="collapseTwo1" class="accordion-body collapse">
                         <div class="accordion-inner">
-                                <div>                 
+                            <div>                 
                                 <table id="statushistory"></table>
                                 <div id="statushistorypager"></div> 
-                                </div>
-                            <!-- <table id="statushistory"></table>
-                             <div id="statushistorypager"></div> -->
+                            </div>
                         </div>
-                     </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript"
-    src="<%=request.getContextPath()%>/assets/js/traveljs/status-history.js"></script>
+src="<%=request.getContextPath()%>/assets/js/traveljs/status-history.js"></script>
