@@ -130,16 +130,16 @@
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse"
-                           data-parent="#accordion3" href="#collapseTwo1">
+                           data-parent="#accordion3" href="#collapseTwo1" onclick="resizeGrid()">
                             <h4>
                                 <fmt:message key="modal.form.statushistory" />
                             </h4>
                         </a>
                     </div>
                     <div id="collapseTwo1" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <!--                            <table id="statushistory"></table>
-                                                        <div id="statushistorypager"></div> -->
+                        <div class="accordion-inner" id="inner">
+                            <table id="statushistory"></table>
+                            <div id="statushistorypager"></div> 
                         </div>
                     </div>
                 </div>
