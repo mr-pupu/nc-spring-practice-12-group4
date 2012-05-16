@@ -6,11 +6,9 @@ package servlets.ajax;
 
 import database.mapping.*;
 import database.utilities.HibernateUtil;
+import database.utilities.MailLists;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +16,7 @@ import org.hibernate.Session;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import utils.MailSender;
 
 /**
  *
@@ -115,6 +114,8 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             currTrf.setCarRental(car_rental);
             if (status != currTrf.getCurState()) {
                 currTrf.setCurState(status);
+                
+                MailSender.notifyByMail(status, currTrf.getId());
             }
 
             Set<Trfstate> states = currTrf.getTrfstates();
