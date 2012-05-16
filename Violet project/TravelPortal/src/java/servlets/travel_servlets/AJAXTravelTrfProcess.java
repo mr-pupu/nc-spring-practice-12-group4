@@ -69,7 +69,6 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             throws ServletException, IOException {
         System.out.println("Servlet AJAXTravelTrfProcess runned (POST)");
         String ajaxdata = request.getParameter("ajaxdata");
-        System.out.println(ajaxdata);
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();

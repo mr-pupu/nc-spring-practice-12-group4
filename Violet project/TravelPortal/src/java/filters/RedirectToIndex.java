@@ -1,4 +1,4 @@
-  package filters;
+package filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -17,7 +17,6 @@ public class RedirectToIndex implements Filter {
      * Default constructor. 
      */
     public RedirectToIndex() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -25,7 +24,6 @@ public class RedirectToIndex implements Filter {
 	 */
     @Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -33,16 +31,12 @@ public class RedirectToIndex implements Filter {
 	 */
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("FilterRedirectToIndex was entered");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/");
         dispatcher.forward(request, response);
 		// pass the request along the filter chain
-		System.out.println("Filter RedirectToIndex done his work");
 		chain.doFilter(request, response);
 	}
-
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
@@ -50,5 +44,4 @@ public class RedirectToIndex implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
-
 }

@@ -15,20 +15,16 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet Filter implementation class MyTrfsAccess
  */
 public class MyTrfsAccess implements Filter {
-
     /**
      * Default constructor. 
      */
     public MyTrfsAccess() {
-        // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see Filter#destroy()
 	 */
     @Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -38,7 +34,6 @@ public class MyTrfsAccess implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("Filter MyTrfsAccess was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		List<String> deprole = (List<String>) requestHttp.getSession().getAttribute("deprole");
 		if ((deprole!= null ) && (deprole.contains("Common Department") || 

@@ -21,23 +21,19 @@ public class TrfsAccess implements Filter {
      * Default constructor. 
      */
     public TrfsAccess() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("Filter TrfsAccess was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		List<String> deprole = (List<String>) requestHttp.getSession().getAttribute("deprole");
 		if ((deprole!= null ) && deprole.contains("Travel Department")) {
@@ -53,5 +49,4 @@ public class TrfsAccess implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
-
 }

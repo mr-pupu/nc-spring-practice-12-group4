@@ -43,13 +43,11 @@ public class MailSender {
             if (status == rejected) {
                 List<String> owner = MailLists.TRFOwnerMail(trfId);
                 if (owner != null) {
-                    System.out.println(owner.toString());
                    // MailSender.sendTo(owner, MailSender.rejected_subject, MailSender.rejected_body);
                 }
             } else if (status == ready || status == commit) {
                 List<String> supGroup = MailLists.notifyingGroupOnApprove(trfId);
                 if (supGroup != null) {
-                    System.out.println(supGroup.toString());
                    // MailSender.sendTo(supGroup, MailSender.approved_subject, MailSender.approved_body);
                 }
             }
@@ -68,8 +66,6 @@ public class MailSender {
                 return;
             }
             for (String recipient : recipients) {
-
-                System.out.println(recipient);
                 out.println("MAIL FROM:<" + sender + ">");
                 if (!okReturned(in.readLine())) {
                     continue;
