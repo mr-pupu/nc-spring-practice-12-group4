@@ -4,7 +4,6 @@
  */
 package servlets.admin_servlets;
 
-
 import database.mapping.Department;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
@@ -62,23 +61,29 @@ public class AJAXDepartmentChiefHandler extends AJAXSendHandler {
 
         System.out.println("AJAXDepartmentChiefHandler runned");
         String idString = request.getParameter("id");
-        
+
         JSONObject jsonObject = new JSONObject();
         if (idString != null) {
             try {
                 Long id = Long.parseLong(idString);
-                System.out.println("ID: "+String.valueOf(id));
-                
-                Department dep= (Department) HibernateUtil.getSession().get(Department.class, (Long) id);
+                System.out.println("ID: " + String.valueOf(id));
+
+                Department dep = (Department) HibernateUtil.getSession().get(Department.class, (Long) id);
 
                 request.getSession().setAttribute("depId", id);
 
                 putDepEmployersToJSON(jsonObject, dep);
                 jsonObject.put("depemployeeId", dep.getManagerId());
-                
+
+                response.setContentType("application/json");
                 jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }
