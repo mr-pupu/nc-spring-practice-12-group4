@@ -65,8 +65,9 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 Department edit = (Department) HibernateUtil.getSession().get(Department.class, depid.longValue());
                 edit.setDepName(depName);
                 HibernateUtil.save(edit);
-                resp.put("message", "data saved");
+                resp.put("success", "Edit successfull");
                 resp.put("errorCode", 0);
+                resp.put("error", "success");
                 JSONObject res = new JSONObject();
                 res.put("id", edit.getId());
                 res.put("name", edit.getDepName());
@@ -81,16 +82,15 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 }
                 Department newdep = new Department();
                 newdep.setDepName(depName);
-                
+
                 if ((idString != null) && (!idString.equals("")) && (!idString.equals("null"))) {
                     Long depid = Long.parseLong(idString);
                     newdep.setDepartment((Department) HibernateUtil.getSession().get(Department.class, depid.longValue()));
-                    Deprole dp = (Deprole)HibernateUtil.getSession().get(Deprole.class, (long)1);
+                    Deprole dp = (Deprole) HibernateUtil.getSession().get(Deprole.class, (long) 1);
                     HashSet<Deprole> dset = new HashSet<Deprole>();
                     dset.add(dp);
                     newdep.setDeprole(dset);
                 }
-                System.out.println("DOGGY");
                 HibernateUtil.save(newdep);
                 HibernateUtil.getSession().refresh(newdep);
                 JSONObject res = new JSONObject();
@@ -98,26 +98,26 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 res.put("name", newdep.getDepName());
                 if ((idString != null) && (!idString.equals("")) && (!idString.equals("null"))) {
                     res.put("parent", Long.parseLong(idString));
-                }
-                else {
+                } else {
                     res.put("parent", null);
                 }
                 if ((level != null) && (!level.equals(""))) {
                     res.put("level", Integer.parseInt(level));
-                }
-                else {
+                } else {
                     res.put("level", 0);
                 }
-                resp.put("message", "data saved");
+                resp.put("success", "Data saved successfully");
+                resp.put("error", "success");
                 resp.put("errorCode", 0);
                 resp.put("nodeid", newdep.getId());
                 resp.put("jsdata", res);
-                
+
                 resp.writeJSONString(response.getWriter());
             }
         } catch (RuntimeException exp) {
-            resp.put("message", exp);
+            resp.put("success", exp.getMessage());
             resp.put("errorCode", 1);
+            resp.put("error", "error");
             resp.writeJSONString(response.getWriter());
             System.out.println(resp);
         }
