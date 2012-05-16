@@ -104,7 +104,10 @@ function fillTrfForm(data, id){
         $('#payByCash').attr("checked","true");
         $('#commentary').val("Changing status commentary...");
     }
-    
+    jQuery("#statushistory").jqGrid('setGridParam', 
+            {
+                url: getContextPath() + "/ajaxstatushistory?id=" + id
+            }).trigger("reloadGrid");
     $("#accordion3").show();
 }
 
@@ -254,7 +257,8 @@ function checkTrf(button){
     var reg=/.*#(.*)/
     var arr=reg.exec(q);
     if(arr!=null){
-        var id = arr[1]; 
+        
+        var id = arr[1];
         var p;
         if(button=="edit"){
             if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
@@ -271,7 +275,7 @@ function checkTrf(button){
 
         if((p=="#"+id)&&(id!="")){
             $('#editTrfModal').modal('show');
-        }  
+        }
     }
     else{
         if (button=="edit"&&$('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
@@ -289,4 +293,8 @@ function accordion(button){
     else{
         document.getElementById("footerAccordion").style.display = "";
     }
+}
+
+function resizeGrid() {
+    $('#statushistory').setGridWidth($('#inner').width());
 }
