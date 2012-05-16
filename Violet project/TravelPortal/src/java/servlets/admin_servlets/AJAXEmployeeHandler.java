@@ -16,7 +16,7 @@ import servlets.ajax.AJAXSendHandler;
 
 /**
  *
- * @author Gangbang34 and Allan
+ * @author Lunin Oleg and Allan
  */
 public class AJAXEmployeeHandler extends AJAXSendHandler {
 
@@ -60,12 +60,11 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
         //response.sendRedirect("index.jsp");
         System.out.println("AJAXEmployeeHandler runned");
-        System.out.println(request.getSession().getAttribute("name").toString());
+
         String idString = request.getParameter("id");
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
-        System.out.println("Records " + recordString);
+
         JSONObject jsonObject = new JSONObject();
         if (idString != null) {
             try {
@@ -74,7 +73,7 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
                 int rows = Integer.parseInt(recordString);
                 //total amount of entries
                 long count = AdministratorDesktop.CountEmpsInDepsAndSubdeps(id.intValue());
-                if ((page-1)*rows > count) {
+                if ((page - 1) * rows > count) {
                     page = 1;
                 }
                 if (id != null) {
@@ -93,16 +92,26 @@ public class AJAXEmployeeHandler extends AJAXSendHandler {
 
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
-                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
+                    jsonObject.put("total", ((count / rows) + ((count % rows > 0) ? 1 : 0)));
                     jsonObject.put("page", page);
-                    System.out.println(jsonObject);
+
+                    response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
-                    System.out.println("Employee = null");
-                    jsonObject.writeJSONString(response.getWriter());
+                    response.setContentType("application/json");
+                    String answer = "Server problem occured";
+                    JSONObject js = new JSONObject();
+                    js.put("error", "error");
+                    js.put("success", answer);
+                    js.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }
