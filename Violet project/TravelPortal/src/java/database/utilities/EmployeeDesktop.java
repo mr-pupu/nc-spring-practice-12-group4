@@ -1,6 +1,7 @@
 package database.utilities;
 
 import database.mapping.Trf;
+import database.mapping.Trfstate;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -122,5 +123,25 @@ public class EmployeeDesktop {
         }
 
         return res;
+    }
+      public static int HistoryCount(int id) {
+        String pps = "SELECT COUNT(*) "
+                + "FROM trfstate "
+                + "WHERE trf_id=:id";
+        return  HibernateUtil.getSession().createSQLQuery(pps).setInteger("id", id).list().size();
+    }
+
+ public static List<Trfstate> HistoryPaged(int id, int page, int rows) {
+        //prepare paging
+        int start = (page - 1) * rows;
+        int finish = start + rows;
+        String pps = "SELECT id, trf_id, commentary, change_date, status, changer "
+                + "FROM (SELECT trfstate.*, rownum r "
+                + "FROM trfstate "
+                + "WHERE trf_id = :id) "
+                + "WHERE r>:start AND r<:finish";
+        return (List<Trfstate>) HibernateUtil.getSession().createSQLQuery(pps).
+                addEntity(Trfstate.class).setInteger("id", id).setInteger("start", start)
+                .setInteger("finish", finish).list();
     }
 }
