@@ -98,8 +98,10 @@
     </div>
 </div>
 </div>
+ 
 <!-- /container -->
 <jsp:include page="modalform.jsp"></jsp:include>
+
     <script type="text/javascript"
     src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
 </body>
