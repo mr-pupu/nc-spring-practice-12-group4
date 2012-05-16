@@ -21,7 +21,6 @@ public class LocaleCheck implements Filter {
      * Default constructor. 
      */
     public LocaleCheck() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -29,7 +28,6 @@ public class LocaleCheck implements Filter {
 	 */
     @Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -37,7 +35,6 @@ public class LocaleCheck implements Filter {
 	 */
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		System.out.println("Filter LocalCheck was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		HttpSession session = requestHttp.getSession();
 		//java.util.ResourceBundle locale = (java.util.ResourceBundle)session.getAttribute("resourceBoundle");
@@ -59,5 +56,4 @@ public class LocaleCheck implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
-
 }

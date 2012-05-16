@@ -7,10 +7,7 @@ public class LocalizationsBean {
 	private static Map<String, String> localizations = new HashMap<String,String>();
 	private static String bundlePath = "localizations.text";
 	public LocalizationsBean(){
-            
-                Locale.setDefault(new Locale("en", "US"));
-                System.out.println("Charset : " + Charset.defaultCharset().displayName());
-                
+        Locale.setDefault(new Locale("en", "US"));
 		List<Locale> locales = new ArrayList<Locale>();
 		locales.add(new Locale("en", "EN"));   //default
 		locales.add(new Locale("ru", "RU"));

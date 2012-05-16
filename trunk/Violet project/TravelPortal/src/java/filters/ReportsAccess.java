@@ -10,17 +10,14 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
  * Servlet Filter implementation class ReportsAccess
  */
 public class ReportsAccess implements Filter {
-
     /**
      * Default constructor. 
      */
     public ReportsAccess() {
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -28,7 +25,6 @@ public class ReportsAccess implements Filter {
 	 */
     @Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -36,9 +32,7 @@ public class ReportsAccess implements Filter {
 	 */
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("Filter ReportsAccess was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		List<String> deprole = (List<String>) requestHttp.getSession().getAttribute("deprole");
 		if ((deprole!= null ) && (deprole.contains("Common Department") 
@@ -56,5 +50,4 @@ public class ReportsAccess implements Filter {
 	public void init(FilterConfig fConfig) throws ServletException {
 		// TODO Auto-generated method stub
 	}
-
 }

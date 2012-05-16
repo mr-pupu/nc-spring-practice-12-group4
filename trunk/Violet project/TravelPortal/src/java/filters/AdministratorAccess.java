@@ -21,15 +21,12 @@ public class AdministratorAccess implements Filter {
      * Default constructor. 
      */
     public AdministratorAccess() {
-        // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see Filter#destroy()
 	 */
     @Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
@@ -37,9 +34,7 @@ public class AdministratorAccess implements Filter {
 	 */
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("Filter AdministratorAccess was entered");
 		HttpServletRequest requestHttp = (HttpServletRequest)request;
 		List<String> deprole = (List<String>) requestHttp.getSession().getAttribute("deprole");
 //		if ((deprole!= null ) && deprole.equals("Administrator")) {
@@ -50,7 +45,6 @@ public class AdministratorAccess implements Filter {
 		}
 		// pass the request along the filter chain
 	}
-
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
