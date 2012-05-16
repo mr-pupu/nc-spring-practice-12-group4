@@ -72,12 +72,17 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         System.out.println("Servlet AJAXCurrentTrips runned (GET)");
-        Object obj =  null;
+        Object obj = null;
         try {
-        String ajaxdata = request.getParameter("ajaxdata");
-        obj = JSONValue.parse(ajaxdata);
-        } catch(NullPointerException e) {
-            e.printStackTrace();
+            String ajaxdata = request.getParameter("ajaxdata");
+            obj = JSONValue.parse(ajaxdata);
+        } catch (NullPointerException e) {
+            response.setContentType("application/json");
+            String answer = "Server problem occured";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();
@@ -168,12 +173,18 @@ public class AJAXCurrentTrips extends AJAXSendHandler {
                     jsonObject.put("rows", ja);
                     jsonObject.put("records", count);
                     jsonObject.put("page", page);
-                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
-                    
+                    jsonObject.put("total", ((count / rows) + ((count % rows > 0) ? 1 : 0)));
+
                 }
+                response.setContentType("application/json");
                 jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }
