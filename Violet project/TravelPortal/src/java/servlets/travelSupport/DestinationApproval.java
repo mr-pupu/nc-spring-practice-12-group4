@@ -64,10 +64,10 @@ public class DestinationApproval extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
         //response.sendRedirect("index.jsp");
         System.out.println("DestinationApproval runned");
+        
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
-        System.out.println("Records " + recordString);
+
         int page = Integer.parseInt(pageString);
         int rows = Integer.parseInt(recordString);
         long count = TravelSupportDesktop.CountNoneApprovedDestinations().longValue();
@@ -101,7 +101,7 @@ public class DestinationApproval extends AJAXSendHandler {
             ja.add(jo);
         }
         resp.put("rows", ja);
-        System.out.println(resp);
+
         response.setContentType("application/json");
         resp.writeJSONString(response.getWriter());
     }
