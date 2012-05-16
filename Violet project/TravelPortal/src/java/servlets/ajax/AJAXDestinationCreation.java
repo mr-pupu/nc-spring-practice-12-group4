@@ -4,6 +4,7 @@
  */
 package servlets.ajax;
 
+import database.mapping.City;
 import database.mapping.Destination;
 import database.mapping.Trf;
 import database.utilities.HibernateUtil;
@@ -20,7 +21,7 @@ import org.json.simple.JSONValue;
 
 /**
  *
- * @author Merle
+ * @author Allan (base by Vlad)
  */
 public class AJAXDestinationCreation extends AJAXGetHandler {
 
@@ -64,7 +65,6 @@ public class AJAXDestinationCreation extends AJAXGetHandler {
             throws ServletException, IOException {
         System.out.println("Servlet AJAXTrfsProcess runned (POST)");
         String ajaxdata = request.getParameter("ajaxdata");
-        System.out.println(ajaxdata);
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();
@@ -82,25 +82,34 @@ public class AJAXDestinationCreation extends AJAXGetHandler {
             hotelSite = resultStrings.get("hotelSite");
             cityId = Long.parseLong(resultStrings.get("cityId"));
 
-            Trf currTrf = (Trf) request.getSession().getAttribute("trf");
-            Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
-
             //Creation of destination
+            Destination dest = new Destination();
+            
+            Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
+            
+            City city = (City) hibernateSession.get(City.class, cityId);
+            
+            dest.setCity(city);
+            dest.setHotelname(hotelName);
+            dest.setHotelsite(hotelSite);
+            dest.setIsApproved(false);
+            
+            HibernateUtil.save(dest);
+            
+            JSONObject js = new JSONObject();
 
-            HibernateUtil.getSession().beginTransaction();
-            HibernateUtil.getSession().save(new Destination());
-            HibernateUtil.getSession().getTransaction().commit();
-            JSONObject jsonObject = new JSONObject();
-
-
-            System.out.println("changes done");
+            response.setContentType("application/json");
+            js.put("error", "success");
+            js.put("success", "New destination was added");
+            js.writeJSONString(response.getWriter());
+            
         } catch (Exception e) {
-            e.printStackTrace();
+            response.setContentType("application/json");
+            String answer = "Server problem, changes could not be done";
+            JSONObject js = new JSONObject();
+            js.put("error", "error");
+            js.put("success", answer);
+            js.writeJSONString(response.getWriter());
         }
-
-
-        //ToDo check values
-
-        //ToDo commit changes
     }
 }
