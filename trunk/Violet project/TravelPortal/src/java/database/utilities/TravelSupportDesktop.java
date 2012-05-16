@@ -88,7 +88,7 @@ public class TravelSupportDesktop {
 
         String prepared_statement = "select id, first_name, second_name,"
                 + "  dest_city, dest_country, begin_date,end_date, cur_state, commentary"
-                + "  from (select rownum r, trfs_report.*,  tso.commentary"
+                + "  from (select rownum r, trfs_report.* "
                 + "  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
                 + "    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"
                 + "       AND office_country =            "
