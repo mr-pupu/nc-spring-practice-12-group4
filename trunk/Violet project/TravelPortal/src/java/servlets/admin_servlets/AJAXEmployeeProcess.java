@@ -67,8 +67,8 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Servlet AJAXEmployeeProcess runned (POST)");
+       
         String ajaxdata = request.getParameter("ajaxdata");
-        System.out.println(ajaxdata);
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();
@@ -120,7 +120,6 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
 
             HibernateUtil.save(currEmployee);
 
-            System.out.println("changes done");
             response.setContentType("application/json");
             JSONObject js = new JSONObject();
             js.put("error", "success");

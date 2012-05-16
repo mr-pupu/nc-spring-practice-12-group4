@@ -4,7 +4,6 @@
  */
 package servlets.admin_servlets;
 
-
 import database.mapping.Employee;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
@@ -68,9 +67,8 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
             try {
                 Long id = Long.parseLong(idString);
                 Session hibernateSession = HibernateUtil.getSession();
-                System.out.println("ID: "+String.valueOf(id));
                 Employee emp;
-                if(id>0){
+                if (id > 0) {
                     emp = (Employee) hibernateSession.get(Employee.class, (Long) id);
 
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
@@ -79,38 +77,38 @@ public class AJAXEmployeeEditHandler extends AJAXSendHandler {
                     jsonObject.put("employeeId", emp.getId());
                     jsonObject.put("firstName", emp.getFirstName());
                     jsonObject.put("lastName", emp.getSecondName());
-                    
+
                     putPositionsToJSON(jsonObject);
                     jsonObject.put("positionId", emp.getOccupation().getId());
                     putOfficesToJSON(jsonObject);
                     jsonObject.put("officeId", emp.getOffice().getId());
-                    
-                    System.out.println(jsonObject);
-                    
+
                     putDepartmentsToJSON(jsonObject);
                     jsonObject.put("departmentId", emp.getDepartment().getId());
-                    
-                    
-                    
+
                     jsonObject.put("email", emp.getEmail());
                     jsonObject.put("login", emp.getLogin());
-                    
-                    //System.out.println(jsonObject);
 
+                    response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());
                 } else {
-                    System.out.println("Employee = null");
                     emp = new Employee();
-                    
+
                     request.getSession().setAttribute("hibernateSession", hibernateSession);
                     request.getSession().setAttribute("employee", emp);
                     putPositionsToJSON(jsonObject);
                     putOfficesToJSON(jsonObject);
                     putDepartmentsToJSON(jsonObject);
+                    response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }
