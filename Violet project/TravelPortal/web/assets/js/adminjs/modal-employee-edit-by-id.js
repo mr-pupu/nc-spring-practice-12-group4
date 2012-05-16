@@ -55,7 +55,6 @@ function alterPop() {
 
 function checkButton() {
     if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
-        addDynamicMessage('error', 'Select a department first');
         return;
     }
     else {
@@ -80,7 +79,6 @@ function newDep(id) {
                 //            alert(data['jsdata']);
                 $('#tree').jqGrid('addChildNode', data['nodeid'], id, data['jsdata']);
                 $("#pop2").popover("toggle");
-                addMessage(data);
             });
     }
     else {
@@ -91,7 +89,6 @@ function newDep(id) {
                 //            alert(data['jsdata']);
                 $('#tree').jqGrid('addChildNode',data['nodeid'],id, data['jsdata']);
                 $("#pop2").popover("toggle");
-                addMessage(data);
             });
     } 
 }
@@ -227,22 +224,30 @@ function checkEmployee(button){
     var q = window.location;
     var reg=/.*#(.*)/
     var arr=reg.exec(q);
-    var id = arr[1]; 
-    var p;
-    if(button=="edit"){
-        if ($('#emptable').jqGrid('getGridParam', 'selrow') == null) {
+    if(arr!=null){
+        var id = arr[1]; 
+        var p;
+        if(button=="edit"){
+            if ($('#emptable').jqGrid('getGridParam', 'selrow') == null) {
         
-            addDynamicMessage("warning", "Employee for editing wasn't selected");
+                addDynamicMessage("warning", "Employee for editing wasn't selected");
+            }
+            else{
+                p = document.getElementById("employeeedit").getAttribute("href");
+            }
         }
         else{
-            p = document.getElementById("employeeedit").getAttribute("href");
+            p = document.getElementById("employeenew").getAttribute("href");
         }
-    }
-    else{
-        p = document.getElementById("employeenew").getAttribute("href");
-    }
 
-    if((p=="#"+id)&&(id!="")){
-       $('#editEmployeeModal').modal('show');
+        if((p=="#"+id)&&(id!="")){
+            $('#editEmployeeModal').modal('show');
+        }
+    } 
+    else{
+        if (button=="edit"&&$('#emptable').jqGrid('getGridParam', 'selrow') == null) {
+        
+            addDynamicMessage("warning", "TRF for editing wasn't selected");
+        }
     }
 }

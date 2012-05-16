@@ -255,24 +255,32 @@ function checkTrf(button){
     var q = window.location;
     var reg=/.*#(.*)/
     var arr=reg.exec(q);
-    var id = arr[1]; 
-    var p;
-    if(button=="edit"){
-        if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
+    if(arr!=null){
+        var id = arr[1]; 
+        var p;
+        if(button=="edit"){
+            if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
+        
+                addDynamicMessage("warning", "TRF for editing wasn't selected");
+            }
+            else{
+                p = document.getElementById("editTrf").getAttribute("href");
+            }
+        }
+        else{
+            p = "#"+id;
+        }
+
+        if((p=="#"+id)&&(id!="")){
+            $('#editTrfModal').modal('show');
+        }  
+    }
+    else{
+        if (button=="edit"&&$('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
         
             addDynamicMessage("warning", "TRF for editing wasn't selected");
         }
-        else{
-            p = document.getElementById("editTrf").getAttribute("href");
-        }
     }
-    else{
-        p = "#"+id;
-    }
-
-    if((p=="#"+id)&&(id!="")){
-        $('#editTrfModal').modal('show');
-    }  
 }
 
 
@@ -281,6 +289,6 @@ function accordion(button){
         document.getElementById("footerAccordion").style.display = "none";
     }
     else{
-         document.getElementById("footerAccordion").style.display = "";
+        document.getElementById("footerAccordion").style.display = "";
     }
 }
