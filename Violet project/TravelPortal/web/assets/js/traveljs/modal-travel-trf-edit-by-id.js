@@ -143,7 +143,7 @@ function processTRF(button){
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
         }
-        }).done(function( msg ) {
+    }).done(function( msg ) {
         addMessage(msg);
         $('#editTravelTrfModal').modal('hide');
         $('#travelinprogress').trigger("reloadGrid");
@@ -192,8 +192,8 @@ function employeeChange(){
     var employeeId = $("#employee option:selected").attr("sysId");
     $.getJSON(getContextPath() + "/ajaxtravelemployee?id="+employeeId,
         function (data){
-           $('#office').text(data['office']);
-           $('#lineManager').text(data['lineManagerName']);
+            $('#office').text(data['office']);
+            $('#lineManager').text(data['lineManagerName']);
         });
 }
 
@@ -230,8 +230,23 @@ function verifyDestination(){
 }
 
 function checkTrf(){
+    var q = window.location;
+    var reg=/.*#(.*)/
+    var arr=reg.exec(q);
+    var id = arr[1]; 
+    var p;
+    var temp = new Array();
     if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
         
         addDynamicMessage("warning", "TRF for editing wasn't selected");
+    }
+    else{
+        p = document.getElementById("traveledit").getAttribute("href");
+        temp = arr[0].split('#');
+    }
+   
+    if((p=="#"+id)&&(id!="")){
+        window.location = temp[0]+"#";
+        window.location = temp[0]+"#"+id;
     }
 }
