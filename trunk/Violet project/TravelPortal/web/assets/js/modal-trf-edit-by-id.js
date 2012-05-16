@@ -251,6 +251,7 @@ function addDestination(){
 }
 
 function checkTrf(button){
+    accordion(button);
     var q = window.location;
     var reg=/.*#(.*)/
     var arr=reg.exec(q);
@@ -272,4 +273,14 @@ function checkTrf(button){
     if((p=="#"+id)&&(id!="")){
         $('#editTrfModal').modal('show');
     }  
+}
+
+
+function accordion(button){
+    if(button=="new"){
+        document.getElementById("footerAccordion").style.display = "none";
+    }
+    else{
+         document.getElementById("footerAccordion").style.display = "";
+    }
 }
