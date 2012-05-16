@@ -79,10 +79,10 @@
     <div class="container">
         <div>
             <a href="#"
-               class="btn btn-success" id="editTrf" onclick="checkTrf()" 
+               class="btn btn-success" id="editTrf" onclick="checkTrf('edit')" 
                style="width: 80px">
                 <fmt:message key="page.forms.buttonEdit" /></a>
-            <a href="#-1"
+            <a href="#-1" onclick="checkTrf('new')"
                class="btn btn-success" id="newTrf" style="width: 80px">New</a>
             <br>
         </div>
@@ -98,10 +98,8 @@
     </div>
 </div>
 </div>
- 
 <!-- /container -->
 <jsp:include page="modalform.jsp"></jsp:include>
-
     <script type="text/javascript"
     src="<%=request.getContextPath()%>/assets/js/calendar-init.js"></script>
 </body>

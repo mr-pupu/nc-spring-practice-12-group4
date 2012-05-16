@@ -132,8 +132,9 @@
                         }else{cancelChiefChange()}">  </select>
                         <br>
                         <div align="right">
-                            <a href="#-1" class="btn btn-success">New</a>
-                            <a id ="employeeedit" href="#" onclick="checkEmployee()" 
+                            <a id ="employeenew" href="#-1" class="btn btn-success" 
+                               onclick="checkEmployee('new')">New</a>
+                            <a id ="employeeedit" href="#" onclick="checkEmployee('edit')" 
                                class="btn btn-success">
                                 Edit</a>
                             <button type="submit" 

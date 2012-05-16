@@ -124,7 +124,7 @@ function prepareComboBox(combobox, data, id){
 
 
 function processTRF(button){
-//0 — save, 2 — cancel, 3 - commit
+    //0 — save, 2 — cancel, 3 - commit
     
     var resultMap = [
     {
@@ -164,7 +164,7 @@ function processTRF(button){
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
         }
-        }).done(function( msg ) {
+    }).done(function( msg ) {
         addMessage(msg);
         $('#editTrfModal').modal('hide');
         $('#inprogress').trigger("reloadGrid");
@@ -213,8 +213,8 @@ function employeeChange(){
     var employeeId = $("#employee option:selected").attr("sysId");
     $.getJSON(getContextPath() + "/ajaxtravelemployee?id="+employeeId,
         function (data){
-           $('#office').text(data['office']);
-           $('#lineManager').text(data['lineManagerName']);
+            $('#office').text(data['office']);
+            $('#lineManager').text(data['lineManagerName']);
         });
 }
 
@@ -250,9 +250,31 @@ function addDestination(){
     });
 }
 
-function checkTrf(){
-    if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
+function checkTrf(button){
+    var q = window.location;
+    var reg=/.*#(.*)/
+    var arr=reg.exec(q);
+    var id = arr[1]; 
+    var p;
+    var temp = new Array();
+    if(button=="edit"){
+        if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
         
-        addDynamicMessage("warning", "TRF for editing wasn't selected");
+            addDynamicMessage("warning", "TRF for editing wasn't selected");
+        }
+        else{
+            p = document.getElementById("editTrf").getAttribute("href");
+            temp = arr[0].split('#');
+        }
     }
+    else{
+        p = "#"+id;
+        temp = arr[0].split('#');
+    }
+
+    if((p=="#"+id)&&(id!="")){
+        window.location = temp[0]+"#";
+        window.location = temp[0]+"#"+id;
+    }
+    
 }
