@@ -98,7 +98,7 @@
                                         if (confirm('Confirm deletion?')) {
                                             removeDepartment(jQuery('#tree').getGridParam('selrow'))
                                         }
-                                    }" 
+                                    } else { addDynamicMessage('error', 'Select a department first');}" 
                                     class="btn btn-danger">
                                 Remove
                             </button>
