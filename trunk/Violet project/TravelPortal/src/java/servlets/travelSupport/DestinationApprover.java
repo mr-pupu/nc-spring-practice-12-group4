@@ -81,6 +81,8 @@ public class DestinationApprover extends HttpServlet {
                 tx.commit();
                 json.put("error", "success");
                 json.put("success", "Destination deleted");
+                
+                response.setContentType("application/json");
                 json.writeJSONString(response.getWriter());
             }
         }
@@ -88,6 +90,8 @@ public class DestinationApprover extends HttpServlet {
             tx.rollback();
             json.put("error", "error");
             json.put("success", e.getMessage());
+            
+            response.setContentType("application/json");
             json.writeJSONString(response.getWriter());
         }
     }

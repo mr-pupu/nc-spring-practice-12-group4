@@ -39,6 +39,8 @@ public class Comboboxhandler extends HttpServlet {
             Session hibernateSession = HibernateUtil.getSession();
             request.getSession().setAttribute("hibernateSession", hibernateSession);
             AJAXSendHandler.putAllDepartmentToJSON(jsonObject);
+            
+            response.setContentType("application/json");
             jsonObject.writeJSONString(response.getWriter());
         } finally {            
             out.close();

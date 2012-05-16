@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import javax.rmi.CORBA.Tie;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -138,14 +137,13 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             HibernateUtil.save(currTrf);
 
             if (status != 0) {
-                System.out.println("Creating trfstate");
+                
                 Long travelId = (Long) request.getSession().getAttribute("userId");
 
                 Trfstate newstate = new Trfstate();
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
-//                newstate.setChangeDate(new Date());
                 newstate.setChangeDate(new Timestamp(new Date().getTime()));
                 newstate.setChanger(travelId);
                 System.out.println("Changer: " + String.valueOf(travelId));
