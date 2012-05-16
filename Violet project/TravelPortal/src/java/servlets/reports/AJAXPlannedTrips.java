@@ -107,11 +107,11 @@ String department = "All";
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXInProgressTrfs runned");
+        
         String idString = request.getParameter("id");
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
-        System.out.println("Records " + recordString);
+
         JSONObject jsonObject = new JSONObject();
         if (idString != null) {
             try {
@@ -121,9 +121,7 @@ String department = "All";
                 long count = 0;
                 if (id != null) {
                     String[][] trfs = null;
-                    System.out.println(getCity());
-                    System.out.println(getCountry());
-                    System.out.println(getDepartment());
+
                     if (getDepartment().equals("All") && getCountry().equals("All")) {
                         trfs = Reports.plannedTrfs(page-1, rows);
                         count = Reports.countPlannedTRFs();
@@ -165,7 +163,12 @@ String department = "All";
                 } 
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }

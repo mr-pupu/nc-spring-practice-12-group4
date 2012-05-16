@@ -144,15 +144,12 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
-//                newstate.setChangeDate(new Date());
                 newstate.setChangeDate(new Timestamp(new Date().getTime()));
                 newstate.setChanger(userId);
-                System.out.println("Changer: " + String.valueOf(userId));
 
                 HibernateUtil.save(newstate);
             }
 
-            System.out.println("changes done");
 
             JSONObject js = new JSONObject();
             String answer;
