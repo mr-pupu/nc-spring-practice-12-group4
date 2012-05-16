@@ -36,26 +36,20 @@ public class AJAXStatusHistory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
-        JSONObject jsonObject = new JSONObject();
+        
         System.out.println("AJAXStatusHistory runned");
-//       int id=Integer.parseInt(request.getParameter("id"));
-//        System.out.println(id);
+       
+        JSONObject jsonObject = new JSONObject();
+
         String idString = request.getParameter("id");
-        System.out.println("Id " + idString);
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
-        String login = (String) request.getSession().getAttribute("name");
+
         if (idString != null) {
             try {
             if (request.getSession().getAttribute("name") != null) {
-
-                System.out.println("Records " + recordString);
                 
                 Long id = Long.parseLong(idString);
-
-
 
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
@@ -63,10 +57,9 @@ public class AJAXStatusHistory extends HttpServlet {
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
-                System.out.println(count);
-                List<Trfstate> statuses = EmployeeDesktop.HistoryPaged(id.intValue(), page, rows);
 
-
+                List<Trfstate> statuses = EmployeeDesktop.
+                        HistoryPaged(id.intValue(), page, rows);
 
                 JSONArray ja = new JSONArray();
 
@@ -88,10 +81,12 @@ public class AJAXStatusHistory extends HttpServlet {
                 jsonObject.put("rows", ja);
                 jsonObject.put("records", count);
                 jsonObject.put("page", page);
+                
+                response.setContentType("application/json");
                 jsonObject.writeJSONString(response.getWriter());
-                System.out.print(jsonObject);
             } else {
-                ((HttpServletResponse) response).sendRedirect(request.getContextPath() + "/");
+                response.setContentType("application/json");
+                ((HttpServletResponse) response).sendRedirect(request.getContextPath() + "/");  
                 jsonObject.put("error", "error");
                 jsonObject.put("success", "Access not permitted");
                 jsonObject.writeJSONString(response.getWriter());
@@ -99,6 +94,7 @@ public class AJAXStatusHistory extends HttpServlet {
             }
             }
             catch (RuntimeException e) {
+                response.setContentType("application/json");
                 jsonObject.put("error", "error");
                 jsonObject.put("success", e.getMessage());
                 jsonObject.writeJSONString(response.getWriter());

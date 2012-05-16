@@ -16,7 +16,7 @@ import org.json.simple.JSONObject;
 
 /**
  *
- * @author Merle (edited by Allan)
+ * @author Vlad (edited by Allan)
  */
 public class AJAXInProgressTRF extends AJAXSendHandler {
 
@@ -60,12 +60,12 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXInProgressTrfs runned");
+        
         String travelString= request.getParameter("travel");
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
         String login = (String) request.getSession().getAttribute("name");
-        System.out.println("Records " + recordString);
+
         JSONObject jsonObject = new JSONObject();
         if (travelString!= null) {
             try {
@@ -120,7 +120,12 @@ public class AJAXInProgressTRF extends AJAXSendHandler {
                     response.setContentType("application/json");
                     jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }

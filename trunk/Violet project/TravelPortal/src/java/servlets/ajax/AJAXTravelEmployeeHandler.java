@@ -4,7 +4,6 @@
  */
 package servlets.ajax;
 
-import database.mapping.Country;
 import database.mapping.Employee;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
@@ -51,12 +50,23 @@ public class AJAXTravelEmployeeHandler extends AJAXSendHandler {
                     putOfficebyCityCountryToJSON(jsonObject, emp.getOffice());
                     putLineManagerByEmployeeLogin(jsonObject, emp.getLogin());
                 } else {
-                    System.out.println("City = null");
+                    response.setContentType("application/json");
+                    String answer = "Server problem occured";
+                    JSONObject js = new JSONObject();
+                    js.put("error", "error");
+                    js.put("success", answer);
+                    js.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
+        response.setContentType("application/json");
         jsonObject.writeJSONString(response.getWriter());
     }
 }

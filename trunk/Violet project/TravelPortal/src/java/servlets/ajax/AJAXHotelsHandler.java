@@ -40,21 +40,35 @@ public class AJAXHotelsHandler extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXHotelsHandler runned");
+
         String idCity = request.getParameter("id");
         JSONObject jsonObject = new JSONObject();
         if (idCity != null) {
             try {
                 Long id = Long.parseLong(idCity);
-                City city = (City) HibernateUtil.getSession().get(City.class, (long) id);
+                City city = (City) HibernateUtil.getSession().
+                        get(City.class, (long) id);
+
                 if (city != null) {
                     putDestinationsToJSON(jsonObject, city);
                 } else {
-                    System.out.println("city = null");
+                    response.setContentType("application/json");
+                    String answer = "Server problem occured";
+                    JSONObject js = new JSONObject();
+                    js.put("error", "error");
+                    js.put("success", answer);
+                    js.writeJSONString(response.getWriter());
                 }
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
+        response.setContentType("application/json");
         jsonObject.writeJSONString(response.getWriter());
     }
 }
