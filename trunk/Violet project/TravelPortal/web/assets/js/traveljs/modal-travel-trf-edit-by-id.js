@@ -233,17 +233,25 @@ function checkTrf(){
     var q = window.location;
     var reg=/.*#(.*)/
     var arr=reg.exec(q);
-    var id = arr[1]; 
-    var p;
-    if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
+    if(arr!=null){
+        var id = arr[1]; 
+        var p;
+        if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
         
-        addDynamicMessage("warning", "TRF for editing wasn't selected");
+            addDynamicMessage("warning", "TRF for editing wasn't selected");
+        }
+        else{
+            p = document.getElementById("traveledit").getAttribute("href");
+        }
+   
+        if((p=="#"+id)&&(id!="")){
+            $('#editTravelTrfModal').modal('show');
+        }
     }
     else{
-        p = document.getElementById("traveledit").getAttribute("href");
-    }
-   
-    if((p=="#"+id)&&(id!="")){
-        $('#editTravelTrfModal').modal('show');
+        if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
+        
+            addDynamicMessage("warning", "TRF for editing wasn't selected");
+        }
     }
 }
