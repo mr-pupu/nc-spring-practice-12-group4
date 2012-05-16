@@ -5,12 +5,10 @@
 package servlets.travel_servlets;
 
 import database.mapping.*;
+import database.utilities.*;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +17,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import servlets.ajax.AJAXGetHandler;
+import utils.MailSender;
 
 /**
  *
@@ -97,18 +96,14 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             pay_by_cash = Boolean.parseBoolean(resultStrings.get("payByCash"));
             status = Short.parseShort(resultStrings.get("status"));
             commentary = resultStrings.get("commentary");
-            
+
             Trf currTrf = (Trf) request.getSession().getAttribute("trf");
             Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
-            
-            Employee emp = (Employee) hibernateSession
-                    .get(Employee.class, empId.longValue());
-            Employee manager = (Employee) hibernateSession
-                    .get(Employee.class, managerId.longValue());
-            Destination dest = (Destination) hibernateSession
-                    .get(Destination.class, destId.longValue());
-            Customer customer = (Customer) hibernateSession
-                    .get(Customer.class, customerId.longValue());
+
+            Employee emp = (Employee) hibernateSession.get(Employee.class, empId.longValue());
+            Employee manager = (Employee) hibernateSession.get(Employee.class, managerId.longValue());
+            Destination dest = (Destination) hibernateSession.get(Destination.class, destId.longValue());
+            Customer customer = (Customer) hibernateSession.get(Customer.class, customerId.longValue());
 
             currTrf.setEmployeeByEmpId(emp);
             currTrf.setBeginDate(begin_date);
@@ -118,8 +113,12 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             currTrf.setCustomer(customer);
             currTrf.setCarRental(car_rental);
             currTrf.setPayByCash(pay_by_cash);
-            if(status!=0) currTrf.setCurState(status);
-            
+            if (status != 0) {
+                currTrf.setCurState(status);
+                MailSender.notifyByMail(status, currTrf.getId());
+            }
+            //add mail notifying
+
             Set<Trfstate> states = currTrf.getTrfstates();
             long idComparator = 0;
             Trfstate last = null;
@@ -135,27 +134,27 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
             }
 
             HibernateUtil.save(currTrf);
-            
-            if(status!=0){
+
+            if (status != 0) {
                 System.out.println("Creating trfstate");
                 Long travelId = (Long) request.getSession().getAttribute("userId");
-                
+
                 Trfstate newstate = new Trfstate();
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
                 newstate.setChangeDate(new Date());
                 newstate.setChanger(travelId);
-                System.out.println("Changer: "+String.valueOf(travelId));
-                
+                System.out.println("Changer: " + String.valueOf(travelId));
+
                 HibernateUtil.save(newstate);
             }
 
             System.out.println("changes done");
-            
+
             JSONObject js = new JSONObject();
             String answer;
-            switch(status){
+            switch (status) {
                 case 0:
                     answer = "TRF was saved";
                     js.put("error", "success");
@@ -173,14 +172,14 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
                     js.put("error", "success");
                     break;
                 default:
-                    answer = "Changes have been made";  
+                    answer = "Changes have been made";
                     js.put("error", "error");
-            }            
-            
+            }
+
             response.setContentType("application/json");
             js.put("success", answer);
             js.writeJSONString(response.getWriter());
-            
+
         } catch (Exception e) {
             response.setContentType("application/json");
             String answer = "Server problem, changes could not be done";

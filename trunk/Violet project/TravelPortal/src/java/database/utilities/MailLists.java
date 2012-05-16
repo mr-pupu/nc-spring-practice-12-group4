@@ -9,7 +9,7 @@ import org.hibernate.Session;
  */
 public class MailLists {
 
-    public static List<String> notifyingGroupOnApprove(Integer emp_id) {
+    public static List<String> notifyingGroupOnApprove(Integer trf_id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement =
                  "SELECT email "
@@ -20,19 +20,19 @@ public class MailLists {
                 + "  WHERE country_name = "
                 + " (SELECT country_name"
                 + " FROM emp_office WHERE id = "
-                + " (select emp_id from trf where id = :id)) )"
+                + " (select emp_id from trf where id = :id)))"
                 + " AND id IN"
                 + " (SELECT empid "
                 + "FROM emp_role "
                 + "WHERE role_name = 'Travel Department')";
 
         List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("id", emp_id).list();
+                .setInteger("id", trf_id).list();
         
         return (List<String>)resq;
     }
     
-    public static List<String> TRFOwnerMail(Integer trf_id) {
+    public static List<String> TRFOwnerMail(long trf_id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement =
         "select email "+
@@ -42,7 +42,7 @@ public class MailLists {
                         "from trf "+
                         "where id=:trf_id)";
         List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("trf_id", trf_id).list();
+                .setLong("trf_id", trf_id).list();
         
         return (List<String>)resq;
     }
