@@ -6,9 +6,12 @@ package servlets.ajax;
 
 import database.mapping.*;
 import database.utilities.HibernateUtil;
-import database.utilities.MailLists;
 import java.io.IOException;
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -141,7 +144,8 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
-                newstate.setChangeDate(new Date());
+//                newstate.setChangeDate(new Date());
+                newstate.setChangeDate(new Timestamp(new Date().getTime()));
                 newstate.setChanger(userId);
                 System.out.println("Changer: " + String.valueOf(userId));
 

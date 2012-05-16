@@ -4,13 +4,11 @@
  */
 package servlets.ajax;
 
-import database.mapping.Employee;
 import database.mapping.Trf;
 import database.mapping.Trfstate;
 import database.utilities.EmployeeDesktop;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +23,7 @@ import org.json.simple.JSONObject;
  */
 public class AJAXStatusHistory extends HttpServlet {
 
+    private static final SimpleDateFormat sf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss" );
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -37,63 +36,76 @@ public class AJAXStatusHistory extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-      JSONObject jsonObject = new JSONObject(); 
-       System.out.println("AJAXStatusHistory runned");
+        response.setContentType("application/json");
+        JSONObject jsonObject = new JSONObject();
+        System.out.println("AJAXStatusHistory runned");
 //       int id=Integer.parseInt(request.getParameter("id"));
 //        System.out.println(id);
+        String idString = request.getParameter("id");
+        System.out.println("Id " + idString);
         String pageString = request.getParameter("page");
         System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
         String login = (String) request.getSession().getAttribute("name");
-        if (request.getSession().getAttribute("name")!=null){
-            
-        System.out.println("Records " + recordString);
-        
-        
-            
-      
+        if (idString != null) {
+            try {
+            if (request.getSession().getAttribute("name") != null) {
+
+                System.out.println("Records " + recordString);
+                
+                Long id = Long.parseLong(idString);
+
+
+
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                long count = EmployeeDesktop.HistoryCount(1);
+                long count = EmployeeDesktop.HistoryCount(id.intValue()).longValue();
                 if ((page - 1) * rows > count) {
                     page = 1;
                 }
-                               System.out.println(count);   
-                List<Trfstate> statuses = EmployeeDesktop.HistoryPaged(1, page, rows);
-                        
-                                      
+                System.out.println(count);
+                List<Trfstate> statuses = EmployeeDesktop.HistoryPaged(id.intValue(), page, rows);
 
-                    JSONArray ja = new JSONArray();
 
-                    for (int i = 0; i < statuses.size(); ++i) {
 
-                        JSONObject jo = new JSONObject();
-                        jo.put("id", 1);
-                        JSONArray jaj = new JSONArray();
+                JSONArray ja = new JSONArray();
 
-                        jaj.add(statuses.get(i).getChangeDate().toString());
-                        jaj.add(Trf.getStatus(statuses.get(i).getStatus()));
-                        jaj.add(statuses.get(i).getTrf().getEmployeeByEmpId().getFirstName()+
-                                statuses.get(i).getTrf().getEmployeeByEmpId().getSecondName());
-                        jaj.add(statuses.get(i).getCommentary());
-                     
-                        jo.put("cell", jaj);
-                        ja.add(jo);
-                    }
-                    jsonObject.put("rows", ja);
-                    jsonObject.put("records", count);
-                    jsonObject.put("page", page);
-                    jsonObject.writeJSONString(response.getWriter());
-          System.out.print(jsonObject);
+                for (int i = 0; i < statuses.size(); ++i) {
+
+                    JSONObject jo = new JSONObject();
+                    jo.put("id", 1);
+                    JSONArray jaj = new JSONArray();
+
+                    jaj.add(sf.format(statuses.get(i).getChangeDate()));
+                    jaj.add(Trf.getStatus(statuses.get(i).getStatus()));
+                    jaj.add(statuses.get(i).getTrf().getEmployeeByEmpId().getFirstName()
+                            + " " + statuses.get(i).getTrf().getEmployeeByEmpId().getSecondName());
+                    jaj.add(statuses.get(i).getCommentary());
+
+                    jo.put("cell", jaj);
+                    ja.add(jo);
+                }
+                jsonObject.put("rows", ja);
+                jsonObject.put("records", count);
+                jsonObject.put("page", page);
+                jsonObject.writeJSONString(response.getWriter());
+                System.out.print(jsonObject);
+            } else {
+                ((HttpServletResponse) response).sendRedirect(request.getContextPath() + "/");
+                jsonObject.put("error", "error");
+                jsonObject.put("success", "Access not permitted");
+                jsonObject.writeJSONString(response.getWriter());
+
             }
-   
-        else{
-    ((HttpServletResponse) response).sendRedirect(request.getContextPath()+"/");
-    jsonObject.put("error", "You have no permissions");
-                    jsonObject.writeJSONString(response.getWriter());
-    
-}
+            }
+            catch (RuntimeException e) {
+                jsonObject.put("error", "error");
+                jsonObject.put("success", e.getMessage());
+                jsonObject.writeJSONString(response.getWriter());
+            }
+        }
+            
+            
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
