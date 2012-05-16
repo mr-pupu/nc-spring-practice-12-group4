@@ -117,8 +117,7 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
                 currTrf.setCurState(status);
                 MailSender.notifyByMail(status, currTrf.getId());
             }
-            //add mail notifying
-
+            
             Set<Trfstate> states = currTrf.getTrfstates();
             long idComparator = 0;
             Trfstate last = null;
