@@ -16,7 +16,7 @@
         <property name="commentary" type="string">
             <column name="COMMENTARY" length="1000" />
         </property>
-        <property name="changeDate" type="date">
+        <property name="changeDate" type="java.sql.Timestamp">
             <column name="CHANGE_DATE" length="7" />
         </property>
         <property name="status" type="java.lang.Short">
