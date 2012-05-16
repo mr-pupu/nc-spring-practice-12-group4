@@ -1,5 +1,4 @@
 $(function() {
-    alert('true');
     jQuery("#statushistory").jqGrid(
     {
         url:getContextPath() + "/ajaxstatushistory",
