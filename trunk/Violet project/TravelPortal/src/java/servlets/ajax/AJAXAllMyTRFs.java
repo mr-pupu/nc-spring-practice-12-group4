@@ -59,12 +59,11 @@ public class AJAXAllMyTRFs extends AJAXSendHandler {
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
         System.out.println("AJAXAllMyTRFs runned");
+
         String travelString = request.getParameter("travel");
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
         String login = (String) request.getSession().getAttribute("name");
-        System.out.println("Records " + recordString);
         JSONObject jsonObject = new JSONObject();
         if (travelString != null) {
             try {
@@ -76,38 +75,43 @@ public class AJAXAllMyTRFs extends AJAXSendHandler {
                     page = 1;
                 }
                 String[][] trfs;
-                    if(travel){
-                       // trfs = TravelSupportDesktop.TrfLastMonthSameCountry(login, 0, 20);
-                        trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
-                    }
-                    else{
-                        trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
-                    }
+                if (travel) {
+                    // trfs = TravelSupportDesktop.TrfLastMonthSameCountry(login, 0, 20);
+                    trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
+                } else {
+                    trfs = EmployeeDesktop.allEmpsTRFs(login, page, rows);
+                }
 
-                    JSONArray ja = new JSONArray();
+                JSONArray ja = new JSONArray();
 
-                    for (int i = 0; i < trfs.length; ++i) {
+                for (int i = 0; i < trfs.length; ++i) {
 
-                        JSONObject jo = new JSONObject();
-                        jo.put("id", trfs[i][0]);
-                        JSONArray jaj = new JSONArray();
+                    JSONObject jo = new JSONObject();
+                    jo.put("id", trfs[i][0]);
+                    JSONArray jaj = new JSONArray();
 
-                        jaj.add(trfs[i][1] + ", " + trfs[i][2]);
-                        jaj.add(trfs[i][3]);
-                        jaj.add(trfs[i][4]);
-                        jaj.add(trfs[i][5]);
-                        jaj.add(trfs[i][6]);
-                        jo.put("cell", jaj);
-                        ja.add(jo);
-                    }
-                    jsonObject.put("rows", ja);
-                    jsonObject.put("records", count);
-                    jsonObject.put("page", page);
-                    jsonObject.put("total", ((count/rows) + ((count%rows > 0) ? 1 : 0)));
-                    
-                    jsonObject.writeJSONString(response.getWriter());
+                    jaj.add(trfs[i][1] + ", " + trfs[i][2]);
+                    jaj.add(trfs[i][3]);
+                    jaj.add(trfs[i][4]);
+                    jaj.add(trfs[i][5]);
+                    jaj.add(trfs[i][6]);
+                    jo.put("cell", jaj);
+                    ja.add(jo);
+                }
+                jsonObject.put("rows", ja);
+                jsonObject.put("records", count);
+                jsonObject.put("page", page);
+                jsonObject.put("total", ((count / rows) + ((count % rows > 0) ? 1 : 0)));
+
+                response.setContentType("application/json");
+                jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         }
     }
