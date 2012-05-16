@@ -64,7 +64,6 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
             throws ServletException, IOException {
         System.out.println("Servlet AJAXDepartmentRolesProcess runned (POST)");
         String ajaxdata = request.getParameter("ajaxdata");
-        System.out.println(ajaxdata);
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();
@@ -97,7 +96,6 @@ public class AJAXDepartmentRolesProcess extends AJAXGetHandler {
 
             HibernateUtil.save(currDepartment);
 
-            System.out.println("changes done");
             response.setContentType("application/json");
             JSONObject js = new JSONObject();
             js.put("error", "success");
