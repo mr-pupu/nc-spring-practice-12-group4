@@ -9,6 +9,8 @@ import database.mapping.Trf;
 import database.mapping.Trfstate;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,6 +73,7 @@ public class DestinationApprover extends HttpServlet {
                     tstate.setChanger(Long.parseLong(request.getSession().getAttribute("userId").toString()));
                     tstate.setTrf(tr);
                     tstate.setStatus((short)1);
+                    tstate.setChangeDate(new Timestamp(new Date().getTime()));
                     tstate.setCommentary("Please choose another destination");
                     s.save(tstate);
                 }

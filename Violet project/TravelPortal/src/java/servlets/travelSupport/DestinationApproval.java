@@ -91,9 +91,11 @@ public class DestinationApproval extends AJAXSendHandler {
             jaj.add(d.getHotelsite());
             jaj.add(d.getCity().getCityName());
             jaj.add(d.getCity().getCountry().getCountryName());
-            jaj.add("<a href='#' onclick=\"approver("+d.getId()+", true)\">"
+            jaj.add("<a href='#' onclick=\"if (confirm('Approve destination?')) {"
+                    + "approver("+d.getId()+", true)}\">"
                     + "<i class=\"icon-ok\"></i></a>");
-            jaj.add("<a href='#' onclick=\"approver("+d.getId()+", false)\">"
+            jaj.add("<a href='#' onclick=\"if (confirm('Reject destination?')) {"
+                    + "approver("+d.getId()+", false)}\">"
                     + "<i class=\"icon-remove\"></i></a>");
             jo.put("cell", jaj);
             ja.add(jo);
