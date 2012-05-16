@@ -55,6 +55,7 @@ function alterPop() {
 
 function checkButton() {
     if ($('#tree').jqGrid('getGridParam', 'selrow') == null) {
+        addDynamicMessage('error', 'Select a department first');
         return;
     }
     else {
@@ -79,6 +80,7 @@ function newDep(id) {
                 //            alert(data['jsdata']);
                 $('#tree').jqGrid('addChildNode', data['nodeid'], id, data['jsdata']);
                 $("#pop2").popover("toggle");
+                addMessage(data);
             });
     }
     else {
@@ -89,6 +91,7 @@ function newDep(id) {
                 //            alert(data['jsdata']);
                 $('#tree').jqGrid('addChildNode',data['nodeid'],id, data['jsdata']);
                 $("#pop2").popover("toggle");
+                addMessage(data);
             });
     } 
 }
