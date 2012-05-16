@@ -13,16 +13,16 @@ public class MailSender {
 
     static {
         try {
-            serverConfig.load(new FileInputStream("src/mailer/config.properties"));
+            serverConfig.load(new FileInputStream("src/utils/config.properties"));
         } catch (IOException ex) {
         }
     }
     final static String localhostName = serverConfig.getProperty("localhostName");
     final static String mailhost = serverConfig.getProperty("mailhost");
-    final static String sender = serverConfig.getProperty("noreply");
+    final static String sender = serverConfig.getProperty("noreplyAddr");
     final static String SMTP_OK_CODE = serverConfig.getProperty("SMTPOkCode");
     
-    final static int SMTP_PORT = Integer.parseInt(serverConfig.getProperty("port"));
+    final static int SMTP_PORT = 25;//Integer.parseInt(serverConfig.getProperty("port"));
     
     static final String mail_footer = "\n\nIf you think you have "
             + "received this email by accident, please"
@@ -36,7 +36,9 @@ public class MailSender {
 
     static public void notifyByMail(int status, Long trfId)
     {
-            final int ready = 3;
+        System.out.println("Status"+status+", trf id:"+ trfId);
+            final int ready = 4;
+            final int commit = 3;
             final int rejected = 1;
             if (status == rejected) {
                 List<String> owner = MailLists.TRFOwnerMail(trfId);
@@ -44,8 +46,8 @@ public class MailSender {
                     System.out.println(owner.toString());
                    // MailSender.sendTo(owner, MailSender.rejected_subject, MailSender.rejected_body);
                 }
-            } else if (status == ready) {
-                List<String> supGroup = MailLists.TRFOwnerMail(trfId);
+            } else if (status == ready || status == commit) {
+                List<String> supGroup = MailLists.notifyingGroupOnApprove(trfId);
                 if (supGroup != null) {
                     System.out.println(supGroup.toString());
                    // MailSender.sendTo(supGroup, MailSender.approved_subject, MailSender.approved_body);

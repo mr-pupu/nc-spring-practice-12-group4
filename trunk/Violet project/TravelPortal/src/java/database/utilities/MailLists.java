@@ -9,7 +9,7 @@ import org.hibernate.Session;
  */
 public class MailLists {
 
-    public static List<String> notifyingGroupOnApprove(Integer trf_id) {
+    public static List<String> notifyingGroupOnApprove(long trf_id) {
         Session s = HibernateUtil.getSession();
         String prepared_statement =
                  "SELECT email "
@@ -27,7 +27,7 @@ public class MailLists {
                 + "WHERE role_name = 'Travel Department')";
 
         List resq = s.createSQLQuery(prepared_statement)
-                .setInteger("id", trf_id).list();
+                .setLong("id", trf_id).list();
         
         return (List<String>)resq;
     }
