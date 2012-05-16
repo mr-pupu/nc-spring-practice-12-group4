@@ -25,18 +25,13 @@ function removeDepartment(id) {
                 $('#tree').jqGrid('delTreeNode', id);
             
                 if (parent!= null) {
-                    //                alert(($('#tree').jqGrid('getNodeChildren', parent)).length);
-                    //                if (($('#tree').jqGrid('getNodeChildren', parent)).length == 0) {
-                    //                    window.location.reload();
-                    //                    var top_rowid = $('#tree tbody:first-child tr:first').attr('id');
-                    //                    var top_rowid = $("tr:first","#tree").attr("id");
                     $("#tree").setSelection(parent.id, true);
                 //                }
                 }
                 else {
                     $("#tree").setSelection($('#tree').jqGrid('getDataIDs')[0], true);
                 }
-                addMessage(data);
             }
+            addMessage(data);
         });
 }
