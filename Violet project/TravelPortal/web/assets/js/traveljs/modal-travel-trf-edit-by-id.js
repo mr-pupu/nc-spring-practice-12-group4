@@ -80,6 +80,11 @@ function fillTravelTrfForm(data,id){
     $('#commentary').val(data['commentary']);
     
     $("#accordion3").show();
+    jQuery("#statushistory").jqGrid('setGridParam', 
+    {
+        url: getContextPath() + "/ajaxstatushistory?id=" + id
+    }).trigger("reloadGrid");
+    $("#accordion3").show();
 }
 
 function prepareComboBox(combobox, data, id){
@@ -252,4 +257,8 @@ function checkTrf(){
             addDynamicMessage("warning", "TRF for editing wasn't selected");
         }
     }
+}
+
+function resizeGrid() {
+    $('#statushistory').setGridWidth($('#inner').width());
 }
