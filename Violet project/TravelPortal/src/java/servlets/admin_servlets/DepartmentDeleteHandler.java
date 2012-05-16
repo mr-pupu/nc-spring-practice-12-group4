@@ -49,8 +49,8 @@ public class DepartmentDeleteHandler extends ServletHandler {
 
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Servlet EmployeeDeleteHandler was runned");
+        
         String idString = request.getParameter("id");
-        System.out.println("id:" + idString);
         Long val = Long.parseLong(idString);
         Session s = HibernateUtil.getSession();
         Transaction tx = s.beginTransaction();
@@ -63,8 +63,6 @@ public class DepartmentDeleteHandler extends ServletHandler {
         //1 - unable to delete because of child nodes
         //2 - unable to delete for other reason
         if (!dep.getDepartments().isEmpty()) {
-//            System.out.println("DOGGY");
-//            sendMessage(request, "Error", "Unable to delete department with child departments", "info");
             tx.rollback();
             json.put("error", "error");
             json.put("success", "Unable to delete department with child departments");
@@ -79,7 +77,6 @@ public class DepartmentDeleteHandler extends ServletHandler {
                 json.put("code", 0);
             } catch (Exception e) {
                 tx.rollback();
-                System.out.println("Rolling back");
                 json.put("error", "error");
                 json.put("error", "The following database issue occured during deletion procedure " +
                         e.getMessage());
@@ -93,10 +90,8 @@ public class DepartmentDeleteHandler extends ServletHandler {
                 }
             }
         }
-//        
-//        System.out.println(json);
+
         response.setContentType("application/json");
         json.writeJSONString(response.getWriter());
-//        doDispatcher(request, response, "1");
     }
 }

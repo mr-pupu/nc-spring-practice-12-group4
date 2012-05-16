@@ -49,12 +49,11 @@ public class DepartmentAugmentHandler extends ServletHandler {
 
     private void handle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("Servlet DepartmentAugmentHandler was runned");
+        
         String action = request.getParameter("action");
-        System.out.println("Performing " + action);
         String idString = request.getParameter("depid");
         String level = request.getParameter("level");
         JSONObject resp = new JSONObject();
-        System.out.println("id:" + idString);
         try {
             if (action.equals("edit")) {
                 String depName = request.getParameter("depEdit");
@@ -73,8 +72,10 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 res.put("name", edit.getDepName());
                 resp.put("jsdata", res);
                 HibernateUtil.getSession().clear();
+                
+                response.setContentType("application/json");
                 resp.writeJSONString(response.getWriter());
-                System.out.println(resp);
+
             } else if (action.equals("new")) {
                 String depName = request.getParameter("depNew");
                 if ((depName == null) || (depName.equals(""))) {
@@ -112,15 +113,15 @@ public class DepartmentAugmentHandler extends ServletHandler {
                 resp.put("nodeid", newdep.getId());
                 resp.put("jsdata", res);
 
+                response.setContentType("application/json");
                 resp.writeJSONString(response.getWriter());
             }
         } catch (RuntimeException exp) {
+            response.setContentType("application/json");
             resp.put("success", exp.getMessage());
             resp.put("errorCode", 1);
             resp.put("error", "error");
             resp.writeJSONString(response.getWriter());
-            System.out.println(resp);
         }
-//        doDispatcher(request, response, "1");
     }
 }
