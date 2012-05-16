@@ -17,7 +17,7 @@ function prepareTRF(){
     var dataAddHotelTitle = 'Add hotel <a class="close" onclick=\'$("#pop1").popover("toggle")\'>&times;</a>';
     var dataAddHotel = 'Hotel name <input type="text" id="hotelNameAdd"> <br>' +
     'Hotel website <input type="text" id="hotelSiteAdd"> <br>' +
-    '<input type="button" class="btn" value="Add" onclick="verifyDestination()">'
+    '<input type="button" class="btn" value="Add" onclick="addDestination()">'
     $('#pop1').attr("data-content", dataAddHotel);
     $('#pop1').attr("title", dataAddHotelTitle)
     $('#pop1').popover({
@@ -220,7 +220,6 @@ function employeeChange(){
 
 
 function addDestination(){
-    alert('addingDestination');
     var resultMap = [
     {
         'cityId':$("#city option:selected").attr("sysId")
@@ -233,21 +232,20 @@ function addDestination(){
     {
         'hotelSite':$("#hotelSiteAdd").val()
     }];
-    alert(JSON.stringify(resultMap));
     $.ajax({
         url: getContextPath() + "/ajaxdest",
         type: "POST",
+        dataType: "json",
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
-        },
-        dataType: "json",
-        success: function(result) {
-            changeCity($("#city option:selected").attr("sysId"));
-            alert('success'+ result['newDestinationId']);
-            $("#pop1").popover("toggle");
-            $('#hotelName option[sysid="' + result['newDestinationId'] + '"]').attr("selected", "selected");
         }
-    });
+         }).done(function( msg ) {
+        addMessage(msg);
+        cityChange();
+            $("#pop1").popover("toggle");
+            $('#hotelName option[sysid="' + result['newDestinationId'] + 
+                '"]').attr("selected", "selected");
+    });       
 }
 
 function checkTrf(button){
