@@ -235,18 +235,15 @@ function checkTrf(){
     var arr=reg.exec(q);
     var id = arr[1]; 
     var p;
-    var temp = new Array();
     if ($('#travelinprogress').jqGrid('getGridParam', 'selrow') == null) {
         
         addDynamicMessage("warning", "TRF for editing wasn't selected");
     }
     else{
         p = document.getElementById("traveledit").getAttribute("href");
-        temp = arr[0].split('#');
     }
    
     if((p=="#"+id)&&(id!="")){
-        window.location = temp[0]+"#";
-        window.location = temp[0]+"#"+id;
+        $('#editTravelTrfModal').modal('show');
     }
 }

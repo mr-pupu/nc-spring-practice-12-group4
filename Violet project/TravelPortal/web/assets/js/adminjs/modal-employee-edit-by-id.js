@@ -226,7 +226,6 @@ function checkEmployee(button){
     var arr=reg.exec(q);
     var id = arr[1]; 
     var p;
-    var temp = new Array();
     if(button=="edit"){
         if ($('#emptable').jqGrid('getGridParam', 'selrow') == null) {
         
@@ -234,16 +233,13 @@ function checkEmployee(button){
         }
         else{
             p = document.getElementById("employeeedit").getAttribute("href");
-            temp = arr[0].split('#');
         }
     }
     else{
         p = document.getElementById("employeenew").getAttribute("href");
-        temp = arr[0].split('#');
     }
 
     if((p=="#"+id)&&(id!="")){
-        window.location = temp[0]+"#";
-        window.location = temp[0]+"#"+id;
+       $('#editEmployeeModal').modal('show');
     }
 }
