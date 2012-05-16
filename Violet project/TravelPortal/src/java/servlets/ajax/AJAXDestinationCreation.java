@@ -6,7 +6,6 @@ package servlets.ajax;
 
 import database.mapping.City;
 import database.mapping.Destination;
-import database.mapping.Trf;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
 import java.util.HashMap;
@@ -85,7 +84,8 @@ public class AJAXDestinationCreation extends AJAXGetHandler {
             //Creation of destination
             Destination dest = new Destination();
             
-            Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
+            Session hibernateSession = (Session) request.getSession().
+                    getAttribute("hibernateSession");
             
             City city = (City) hibernateSession.get(City.class, cityId);
             

@@ -56,29 +56,33 @@ public class AJAXDepartmentHandler extends AJAXSendHandler {
         // TODO Auto-generated method stub
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
         System.out.println("AJAXDepartmentHandler runned");
-//        String idString = request.getParameter("id");
-        System.out.println("Nodeid " + request.getParameter("nodeid"));
+
         String nodeid = request.getParameter("nodeid");
         String n_level = request.getParameter("n_level");
-        System.out.println(n_level);
+
         JSONObject jsonObject = new JSONObject();
         if (nodeid != null) {
             try {
                 Long id = Long.parseLong(nodeid);
                 int level = Integer.parseInt(n_level);
-//                Trf trf = null;
+
                 putChildDepartments(jsonObject, id, level);
+                
+                response.setContentType("application/json");
                 jsonObject.writeJSONString(response.getWriter());
             } catch (NumberFormatException e) {
-                System.out.print("Wrong id format");
+                response.setContentType("application/json");
+                String answer = "Server problem occured";
+                JSONObject js = new JSONObject();
+                js.put("error", "error");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
             }
         } else {
             putHeadDepartments(jsonObject);
             jsonObject.put("level", 0);
-//            jsonObject.put("parent", null);
-//            jsonObject.put("isLeaf", true);
-//            jsonObject.put("expanded", true);
-            System.out.println(jsonObject);
+
+            response.setContentType("application/json");
             jsonObject.writeJSONString(response.getWriter());
         }
     }
