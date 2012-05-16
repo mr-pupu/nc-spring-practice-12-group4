@@ -26,6 +26,7 @@ import servlets.ajax.AJAXTrfsHandler;
 public class TravelSupportAllTRFs extends HttpServlet {
 
     String department = "All";
+    boolean lastMonthSameCountry = true;
     Date beginDate = new Date();
     Date endDate = new Date();
 
@@ -75,11 +76,8 @@ public class TravelSupportAllTRFs extends HttpServlet {
         System.out.println("Servlet TravelSuportAllTRFs runned (GET)");
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
-        System.out.println("TravelSupportTables Handler");
         String pageString = request.getParameter("page");
-        System.out.println("Page:" + pageString);
         String recordString = request.getParameter("rows");
-        System.out.println("Records " + recordString);
         try {
             if (request.getParameter("type").equals("AllTRFS")) {
                 setTravelSupportId(HibernateUtil.EmpIdByLogin(request.getSession().getAttribute("name").toString()).get(0).intValue());
@@ -87,9 +85,16 @@ public class TravelSupportAllTRFs extends HttpServlet {
                 int rows = Integer.parseInt(recordString);
                 int count = 100;
                 String[][] alltrfs = null;
-                if (getDepartment().equals("All")) {
+                if (getDepartment().equals("All") && lastMonthSameCountry) {
+                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountry(request.getSession().getAttribute("name").toString(), page, count);
+                }
+                if (!getDepartment().equals("All") && lastMonthSameCountry) {
+                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountryFilterByDepartment(getTravelSupportId(), getDepartment(), page, count);
+                }
+                if (getDepartment().equals("All") && !lastMonthSameCountry) {
                     alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDate(getTravelSupportId(), getBeginDate(), getEndDate(), page, rows);
-                } else {
+                }
+                if (!getDepartment().equals("All") && !lastMonthSameCountry) {
                     alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment(), page, rows);
                 }
                 JSONObject json = new JSONObject();
@@ -145,24 +150,17 @@ public class TravelSupportAllTRFs extends HttpServlet {
             JSONObject someObj = (JSONObject) object;
             resultStrings.putAll(someObj);
         }
-        if (resultStrings.containsKey("depatmentName")) {
-            setDepartment(resultStrings.get("depatmentName"));
-        }
-        if (resultStrings.containsKey("beginDate")) {
-            try {
-                System.out.println(resultStrings.get("beginDate"));
+        setDepartment(resultStrings.get("depatmentName"));
+        try {
+            if (!resultStrings.get("beginDate").equals("") && !resultStrings.get("endDate").equals("")) {
+                lastMonthSameCountry = false;
                 setBeginDate(AJAXTrfsHandler.getDateFromString(resultStrings.get("beginDate")));
-                System.out.println(getBeginDate());
-            } catch (ParseException ex) {
-                Logger.getLogger(TravelSupportAllTRFs.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        if (resultStrings.containsKey("endDate")) {
-            try {
                 setEndDate(AJAXTrfsHandler.getDateFromString(resultStrings.get("endDate")));
-            } catch (ParseException ex) {
-                Logger.getLogger(TravelSupportAllTRFs.class.getName()).log(Level.SEVERE, null, ex);
+            } else {
+                lastMonthSameCountry = true;
             }
+        } catch (ParseException ex) {
+            Logger.getLogger(TravelSupportAllTRFs.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

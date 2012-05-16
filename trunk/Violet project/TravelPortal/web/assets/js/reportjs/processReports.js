@@ -14,7 +14,6 @@ $(document).ready(function(){
             PlannedTrips();
         });
     function CurrentlyTrip() {
-        console.log($("#departmentCurrentlyTrip option:selected").val());
         var resultMap = [
         {
             'department':$("#departmentCurrentlyTrip option:selected").val(),
@@ -60,7 +59,6 @@ $(document).ready(function(){
             if (value!="All") {
                 combobox.prepend( $('<option sysid="' + key + '">' + value + '</option>'));
             } else {
-                console.log("yes");
                 combobox.prepend( $('<option selected sysid="' + key + '">' + value + '</option>'));
             }
         });

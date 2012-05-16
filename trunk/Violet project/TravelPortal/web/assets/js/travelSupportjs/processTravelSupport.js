@@ -37,7 +37,11 @@ $(document).ready(function(){
         }
     }
     function postDataToSevlet() {
-        if (compareDate($("#beginDate").val(), $("#endDate").val())) {
+        var firstDate = $("#beginDate").val();
+        var secondDate = $("#endDate").val();
+        if (firstDate != "" && secondDate != "" && !compareDate(firstDate, secondDate)) {
+            addDynamicMessage("warning", "Begin date later than end date");
+        } else {
             var resultMap = [
             {
                 'beginDate': $("#beginDate").val(),
@@ -56,9 +60,7 @@ $(document).ready(function(){
                     $("#allTRFs").trigger("reloadGrid") 
                 }
             });
-        } else {
-            alert("Begin date later than end date");
-        }
+        } 
     }
     $.getJSON(getContextPath() + "/comboboxhandler",
         function (data){
@@ -83,13 +85,6 @@ $(document).ready(function(){
     };
     new JsDatePick(beginDate);
     new JsDatePick(endDate);
-    var currentTime = new Date();
-    var beginMonth = currentTime.getMonth();
-    var EndMonth = currentTime.getMonth()+1;
-    var day = currentTime.getDate();
-    var year = currentTime.getFullYear();
-    document.getElementById('beginDate').value = day + "-" + beginMonth + "-" + year;
-    document.getElementById('endDate').value = day + "-" + EndMonth + "-" + year;
     $("#department").change(function(){
         postDataToSevlet();
     });

@@ -112,7 +112,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="accordion-group">
                     <div class="accordion-heading">
                         <a class="accordion-toggle" data-toggle="collapse"
@@ -124,37 +123,34 @@
                     </div>
                     <div id="collapseTwo" class="accordion-body collapse">
                         <div class="accordion-inner">
-
                             <table class="table">
                                 <tbody>
                                     <tr>
-                                        <td><fmt:message key="page.forms.filterDepartment" /></td>
-                                        <td><select class="combobox" style="width : 500px;" id="department">
+                                        <td class="span2"><fmt:message key="page.forms.filterDepartment" /></td>
+                                        <td class="span11"><select class="combobox" style="width : 500px;" id="department">
                                             </select></td>
                                     </tr>
                                     <tr>
-                                        <td><fmt:message key="page.forms.filterTimeframe" /></td>
-                                        <td><fmt:message key="page.forms.filterTimeframe.from" />
-                                            <input type="text" class="span2" id="beginDate" /> 
-                                            <img src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
-                                                 onmousedown="document.getElementById('beginDate').focus();"
-                                                 width=22px; height=22px; id="image1" /> 
-                                            <fmt:message key="page.forms.filterTimeframe.to" /> <input
-                                                type="text" class="span2" id="endDate" /> <img
-                                                src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
-                                                onmousedown="document.getElementById('endDate').focus();"
-                                                width=22px; height=22px; id="image2" /> </td>
+                                        <td class="span2">
+                                            <fmt:message key="page.forms.filterTimeframe" />
+                                        </td>
+                                        <td>
+                                                <fmt:message key="page.forms.filterTimeframe.from" />
+                                                <input type="text" class="span2" id="beginDate" /> 
+                                                <img src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
+                                                     onmousedown="document.getElementById('beginDate').focus();"
+                                                     width=22px; height=22px; id="image1" /> 
+                                                <fmt:message key="page.forms.filterTimeframe.to" /> <input
+                                                    type="text" class="span2" id="endDate" /> <img
+                                                    src="<%=request.getContextPath()%>/assets/img/calendar/calen7.jpg"
+                                                    onmousedown="document.getElementById('endDate').focus();"
+                                                    width=22px; height=22px; id="image2" /> </td>
+                                        </div>
                                     </tr>
-
                                 </tbody>
-                            </table> 
-
-
-
-
+                            </table>
                             <table id="allTRFs"></table>
                             <div id="allTRFspager"></div> 
-
                         </div>
                     </div>
                 </div>
