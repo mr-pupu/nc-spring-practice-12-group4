@@ -21,6 +21,7 @@ import servlets.ajax.AJAXTrfsHandler;
 
 /**
  * Servlet, that sent date to allTRFs table.
+ *
  * @author OleksandrDudinskyi
  */
 public class TravelSupportAllTRFs extends HttpServlet {
@@ -63,8 +64,10 @@ public class TravelSupportAllTRFs extends HttpServlet {
         this.endDate = endDate;
     }
 
-    /** 
-     * Handles the HTTP <code>GET</code> method.
+    /**
+     * Handles the HTTP
+     * <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -83,19 +86,24 @@ public class TravelSupportAllTRFs extends HttpServlet {
                 setTravelSupportId(HibernateUtil.EmpIdByLogin(request.getSession().getAttribute("name").toString()).get(0).intValue());
                 int page = Integer.parseInt(pageString);
                 int rows = Integer.parseInt(recordString);
-                int count = 100;
+                long count = 0;
                 String[][] alltrfs = null;
-                if (getDepartment().equals("All") && lastMonthSameCountry) {      
-                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountry(request.getSession().getAttribute("name").toString(), page-1, rows);
+                if (getDepartment().equals("All") && lastMonthSameCountry) {
+                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountry(request.getSession().getAttribute("name").toString(), page - 1, rows);
+                    count = TravelSupportDesktop.countTrfLastMonthSameCountry(request.getSession().getAttribute("name").toString());
                 }
                 if (!getDepartment().equals("All") && lastMonthSameCountry) {
-                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountryFilterByDepartment(getTravelSupportId(), getDepartment(), page, count);
+                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountryFilterByDepartment(getTravelSupportId(), getDepartment(), page, rows);
+                    count = TravelSupportDesktop.countTrfLastMonthSameCountryFilterByDepartment(getTravelSupportId(), getDepartment());
                 }
                 if (getDepartment().equals("All") && !lastMonthSameCountry) {
                     alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDate(getTravelSupportId(), getBeginDate(), getEndDate(), page, rows);
+                    count = TravelSupportDesktop.countTrfSameCountryFilterByDate(getTravelSupportId(), getBeginDate(), getEndDate());
+
                 }
                 if (!getDepartment().equals("All") && !lastMonthSameCountry) {
-                    alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment(), page-1, rows);
+                    alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment(), page - 1, rows);
+                    count = TravelSupportDesktop.countTrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment());
                 }
                 JSONObject json = new JSONObject();
                 if (alltrfs.length != 0) {
@@ -119,6 +127,7 @@ public class TravelSupportAllTRFs extends HttpServlet {
                     json.put("page", page);
                     json.put("error", "success");
                     json.put("success", "All TRFs");
+                    json.put("total", ((count / rows) + ((count % rows > 0) ? 1 : 0)));
                 } else {
                     json.put("error", "info");
                     json.put("success", "No trfs there");
@@ -131,8 +140,10 @@ public class TravelSupportAllTRFs extends HttpServlet {
         }
     }
 
-    /** 
-     * Handles the HTTP <code>POST</code> method.
+    /**
+     * Handles the HTTP
+     * <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -164,8 +175,9 @@ public class TravelSupportAllTRFs extends HttpServlet {
         }
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override
