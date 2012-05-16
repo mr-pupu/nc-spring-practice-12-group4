@@ -85,8 +85,8 @@ public class TravelSupportAllTRFs extends HttpServlet {
                 int rows = Integer.parseInt(recordString);
                 int count = 100;
                 String[][] alltrfs = null;
-                if (getDepartment().equals("All") && lastMonthSameCountry) {
-                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountry(request.getSession().getAttribute("name").toString(), page, count);
+                if (getDepartment().equals("All") && lastMonthSameCountry) {      
+                    alltrfs = TravelSupportDesktop.TrfLastMonthSameCountry(request.getSession().getAttribute("name").toString(), page-1, rows);
                 }
                 if (!getDepartment().equals("All") && lastMonthSameCountry) {
                     alltrfs = TravelSupportDesktop.TrfLastMonthSameCountryFilterByDepartment(getTravelSupportId(), getDepartment(), page, count);
@@ -95,7 +95,7 @@ public class TravelSupportAllTRFs extends HttpServlet {
                     alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDate(getTravelSupportId(), getBeginDate(), getEndDate(), page, rows);
                 }
                 if (!getDepartment().equals("All") && !lastMonthSameCountry) {
-                    alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment(), page, rows);
+                    alltrfs = TravelSupportDesktop.TrfSameCountryFilterByDateDepartment(getTravelSupportId(), getBeginDate(), getEndDate(), getDepartment(), page-1, rows);
                 }
                 JSONObject json = new JSONObject();
                 if (alltrfs.length != 0) {
