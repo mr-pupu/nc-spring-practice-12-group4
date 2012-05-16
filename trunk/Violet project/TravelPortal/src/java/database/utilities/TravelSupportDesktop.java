@@ -114,7 +114,7 @@ public class TravelSupportDesktop {
                 + "  from (select rownum r, trfs_report.* "
                 + "  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
                 + "    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"
-                + " AND dep_name=:department "
+                + "AND dep_name=:department "
                 + "       AND office_country =            "
                 + "    (SELECT country_name       "
                 + "        FROM emp_office             "
@@ -176,8 +176,70 @@ public class TravelSupportDesktop {
         List resq = s.createSQLQuery(prepared_statement).setInteger("from", from).setInteger("to", to).setDate("begin_date", begin_date).setDate("end_date", end_date).setInteger("id", id).setString("department", department).list();
         return fillRes(resq);
     }
-//Destination cities
 
+    public static long countTrfLastMonthSameCountry(String login) {
+        String prepared_statement = "select count(*)"
+                + "  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
+                + "    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"
+                + "       AND office_country =            "
+                + "    (SELECT country_name       "
+                + "        FROM emp_office             "
+                + "  WHERE login=:login)       ";
+        Session s = HibernateUtil.getSession();
+        Long resq = Long.parseLong(s.createSQLQuery(prepared_statement).
+                setString("login", login).list().get(0).toString());
+        return resq;
+    }
+
+    public static long countTrfLastMonthSameCountryFilterByDepartment(Integer id, String department) {
+
+        String prepared_statement = "select count(*)"
+                + "  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
+                + "    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"
+                + "AND dep_name=:department "
+                + "       AND office_country =            "
+                + "    (SELECT country_name       "
+                + "        FROM emp_office             "
+                + "  WHERE id=:id)      ";
+
+        Session s = HibernateUtil.getSession();
+        Long resq = Long.parseLong(s.createSQLQuery(prepared_statement).setInteger("id", id).setString("department", department).list().get(0).toString());
+        return resq;
+    }
+
+    public static long countTrfSameCountryFilterByDate(Integer id, Date begin_date, Date end_date) {
+        String prepared_statement = "select count(*) "
+                + " from trfs_report "
+                + "    WHERE begin_date >:begin_date AND end_date<:end_date "
+                + "    AND office_country="
+                + "    (SELECT country_name"
+                + "   FROM emp_office "
+                + "    WHERE id=:id)";
+
+        Session s = HibernateUtil.getSession();
+        Long resq = Long.parseLong(s.createSQLQuery(prepared_statement).
+                setInteger("id", id).setDate("begin_date", begin_date).
+                setDate("end_date", end_date).list().get(0).toString());
+        return resq;
+    }
+
+    public static long countTrfSameCountryFilterByDateDepartment(Integer id, Date begin_date,
+            Date end_date, String department) {
+
+        String prepared_statement = "select count(*) "
+                + " from trfs_report "
+                + "      WHERE begin_date > :begin_date  AND end_date<:end_date  "
+                + "     AND dep_name=:department  "
+                + "      AND office_country= "
+                + "      (SELECT country_name  "
+                + "      FROM emp_office  "
+                + "      WHERE id=:id) ";
+        Session s = HibernateUtil.getSession();
+        Long resq = Long.parseLong(s.createSQLQuery(prepared_statement).setDate("begin_date", begin_date).setDate("end_date", end_date).setInteger("id", id).setString("department", department).list().get(0).toString());
+        return resq;
+    }
+
+//Destination cities
     public static List<String> DestinationCities() {
         String prepared_statement = "select distinct city_name "
                 + "from city "
