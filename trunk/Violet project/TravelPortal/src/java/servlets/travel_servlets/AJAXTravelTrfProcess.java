@@ -5,10 +5,14 @@
 package servlets.travel_servlets;
 
 import database.mapping.*;
-import database.utilities.*;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.util.*;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import javax.rmi.CORBA.Tie;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -142,7 +146,8 @@ public class AJAXTravelTrfProcess extends AJAXGetHandler {
                 newstate.setTrf(currTrf);
                 newstate.setStatus(status);
                 newstate.setCommentary(commentary);
-                newstate.setChangeDate(new Date());
+//                newstate.setChangeDate(new Date());
+                newstate.setChangeDate(new Timestamp(new Date().getTime()));
                 newstate.setChanger(travelId);
                 System.out.println("Changer: " + String.valueOf(travelId));
 
