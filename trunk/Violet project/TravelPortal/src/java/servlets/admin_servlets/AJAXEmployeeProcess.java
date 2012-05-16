@@ -10,7 +10,9 @@ import database.mapping.Occupation;
 import database.mapping.Office;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -115,7 +117,9 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
             currEmployee.setEmail(email);
             currEmployee.setLogin(login);
             if (password) {
-                currEmployee.setPassword(PasswordGenerator.createPassword(10));
+                String newPassword = PasswordGenerator.createPassword(10);
+                currEmployee.setPassword(newPassword);
+                utils.MailSender.sendPassword(login, email, newPassword);
             }
 
             HibernateUtil.save(currEmployee);
