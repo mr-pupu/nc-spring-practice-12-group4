@@ -3,7 +3,6 @@ package servlets.admin_servlets;
 import database.mapping.Employee;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -66,15 +65,13 @@ public class EmployeeDeleteHandler extends ServletHandler {
                 String answer = emp.getFirstName() + " " + emp.getSecondName()
                         + " was deleted from database";
 
-                System.out.println("changes done");
-                response.setContentType("application/json");
                 JSONObject js = new JSONObject();
                 js.put("error", "success");
                 js.put("success", answer);
                 
                 HibernateUtil.delete(emp);
                 
-                System.out.println(js);
+                response.setContentType("application/json");
                 js.writeJSONString(response.getWriter());
 
             }
