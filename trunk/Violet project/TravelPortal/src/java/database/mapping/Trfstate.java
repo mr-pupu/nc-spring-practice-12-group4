@@ -2,6 +2,7 @@ package database.mapping;
 // Generated May 7, 2012 12:41:52 AM by Hibernate Tools 3.2.1.GA
 
 
+import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -18,7 +19,7 @@ public class Trfstate  implements java.io.Serializable {
      private long id;
      private Trf trf;
      private String commentary;
-     private Date changeDate;
+     private Timestamp changeDate;
      private Short status;
      private Long changer;
 
@@ -29,7 +30,7 @@ public class Trfstate  implements java.io.Serializable {
     public Trfstate(long id) {
         this.id = id;
     }
-    public Trfstate(long id, Trf trf, String commentary, Date changeDate, Short status, Long changer) {
+    public Trfstate(long id, Trf trf, String commentary, Timestamp changeDate, Short status, Long changer) {
        this.id = id;
        this.trf = trf;
        this.commentary = commentary;
@@ -69,11 +70,11 @@ public class Trfstate  implements java.io.Serializable {
     }
     @Temporal(TemporalType.DATE)
     @Column(name="CHANGE_DATE", length=7)
-    public Date getChangeDate() {
+    public Timestamp getChangeDate() {
         return this.changeDate;
     }
     
-    public void setChangeDate(Date changeDate) {
+    public void setChangeDate(Timestamp changeDate) {
         this.changeDate = changeDate;
     }
     
