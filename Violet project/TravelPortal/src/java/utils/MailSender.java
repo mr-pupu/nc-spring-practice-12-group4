@@ -21,10 +21,8 @@ public class MailSender {
     final static String mailhost = serverConfig.getProperty("mailhost");
     final static String sender = serverConfig.getProperty("noreplyAddr");
     final static String SMTP_OK_CODE = serverConfig.getProperty("SMTPOkCode");
-    
     final static int SMTP_PORT = 25;//Integer.parseInt(serverConfig.getProperty("port"));
-    
-    static final String mail_footer = "\n\nIf you think you have "
+    public static final String mail_footer = "\n\nIf you think you have "
             + "received this email by accident, please"
             + " contact the aministrator (admin@hardosoft.com)";
     public static final String rejected_subject = "Your Travel Request Form has been rejected";
@@ -34,25 +32,34 @@ public class MailSender {
     public static final String approved_body = "New travel to your country submitted. "
             + "Please, check updates on your desktop at Hardosoft Travel Portal.";
 
-    static public void notifyByMail(int status, Long trfId)
-    {
-        System.out.println("Status"+status+", trf id:"+ trfId);
-            final int ready = 4;
-            final int commit = 3;
-            final int rejected = 1;
-            if (status == rejected) {
-                List<String> owner = MailLists.TRFOwnerMail(trfId);
-                if (owner != null) {
-                   // MailSender.sendTo(owner, MailSender.rejected_subject, MailSender.rejected_body);
-                }
-            } else if (status == ready || status == commit) {
-                List<String> supGroup = MailLists.notifyingGroupOnApprove(trfId);
-                if (supGroup != null) {
-                   // MailSender.sendTo(supGroup, MailSender.approved_subject, MailSender.approved_body);
-                }
+    static public void notifyByMail(int status, Long trfId) {
+        System.out.println("Status" + status + ", trf id:" + trfId);
+        final int commited = 3;
+        final int rejected = 1;
+        if (status == rejected) {
+            List<String> owner = MailLists.TRFOwnerMail(trfId);
+            if (owner != null) {
+               //  MailSender.sendTo(owner, MailSender.rejected_subject, 
+                //         MailSender.rejected_body + mail_footer);
             }
+        } else if (status == commited) {
+            List<String> supGroup = MailLists.notifyingGroupOnApprove(trfId);
+            if (supGroup != null) {
+              //   MailSender.sendTo(supGroup, MailSender.approved_subject,
+              //           MailSender.approved_body + mail_footer);
+            }
+        }
     }
-    
+
+    static public void sendPassword(String login, String recpt, String newPassword) {
+        List<String> recpts = new ArrayList<String>();
+        recpts.add(recpt);
+//        utils.MailSender.sendTo(recpts, "Your password has been changed",
+//                "Hello, " + login + "! Your information is updated and new "
+//                + "password is: <b>" + newPassword + "<b>"
+//                + utils.MailSender.mail_footer);
+    }
+
     static public void sendTo(List<String> recipients, String subject, String body) {
         try {
             Socket smtpPipe = new Socket(mailhost, SMTP_PORT);
@@ -76,7 +83,7 @@ public class MailSender {
                 }
                 out.println("DATA");
                 out.println("Subject:" + subject);
-                out.println(body + mail_footer);
+                out.println(body);
                 out.println(".");
                 in.readLine();
                 if (!okReturned(in.readLine())) {

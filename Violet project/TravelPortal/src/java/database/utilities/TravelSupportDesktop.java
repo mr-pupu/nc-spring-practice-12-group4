@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.List;
 import org.hibernate.Session;
 
-
 public class TravelSupportDesktop {
 
     private static String[][] fillRes(List resq) {
@@ -115,7 +114,7 @@ public class TravelSupportDesktop {
                 + "  from (select rownum r, trfs_report.* "
                 + "  from trfs_report JOIN trf_state_office tso ON tso.id=trfs_report.id "
                 + "    WHERE extract (month from maxdate)=(select to_char(sysdate,'mm') from dual)"
-                + "AND dep_name=:department "
+                + " AND dep_name=:department "
                 + "       AND office_country =            "
                 + "    (SELECT country_name       "
                 + "        FROM emp_office             "
@@ -178,6 +177,7 @@ public class TravelSupportDesktop {
         return fillRes(resq);
     }
 //Destination cities
+
     public static List<String> DestinationCities() {
         String prepared_statement = "select distinct city_name "
                 + "from city "
@@ -201,9 +201,11 @@ public class TravelSupportDesktop {
         List resq = s.createSQLQuery(prepared_statement).list();
         return (List<String>) resq;
     }
+
     /**
      * Select all destinations, which have the "approved" field set to zero,
      * with respect to page number and amount of elements on the page
+     *
      * @return a list of destinations
      * @author Gangbang34
      */
@@ -216,13 +218,14 @@ public class TravelSupportDesktop {
                 + "FROM destination "
                 + "WHERE is_approved = 0) "
                 + "WHERE r>:start AND r<:finish";
-        return (List<Destination>)HibernateUtil.getSession().createSQLQuery(pps).
+        return (List<Destination>) HibernateUtil.getSession().createSQLQuery(pps).
                 addEntity(Destination.class).setInteger("start", start).
                 setInteger("finish", finish).list();
     }
-    
+
     /**
      * Count the amount of non-approved destinations
+     *
      * @return the amount of non-approved destinations
      * @author Gangbang34
      */
@@ -231,6 +234,6 @@ public class TravelSupportDesktop {
                 + "FROM destination "
                 + "WHERE is_approved = 0";
         List res = HibernateUtil.getSession().createSQLQuery(pps).list();
-        return (BigDecimal)res.get(0);
+        return (BigDecimal) res.get(0);
     }
 }
