@@ -256,7 +256,6 @@ function checkTrf(button){
     var arr=reg.exec(q);
     var id = arr[1]; 
     var p;
-    var temp = new Array();
     if(button=="edit"){
         if ($('#inprogress').jqGrid('getGridParam', 'selrow') == null) {
         
@@ -264,17 +263,13 @@ function checkTrf(button){
         }
         else{
             p = document.getElementById("editTrf").getAttribute("href");
-            temp = arr[0].split('#');
         }
     }
     else{
         p = "#"+id;
-        temp = arr[0].split('#');
     }
 
     if((p=="#"+id)&&(id!="")){
-        window.location = temp[0]+"#";
-        window.location = temp[0]+"#"+id;
-    }
-    
+        $('#editTrfModal').modal('show');
+    }  
 }
