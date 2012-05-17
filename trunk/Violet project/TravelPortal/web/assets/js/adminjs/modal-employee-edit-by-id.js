@@ -3,6 +3,7 @@
  * and open the template in the editor.
  * author : Allan
  */
+var trfId;
 
 $(document).ready(function(){
     checkEmployeeId();
@@ -146,6 +147,7 @@ function getEmployeeUsingAJAX(id){
 }
 
 function fillEmployeeForm(data, id){
+    trfId = id;
     
     if(id>0){
         $('#firstName').val(data['firstName']);
@@ -266,3 +268,32 @@ function checkEmployee(button){
         }
     }
 }
+
+
+function passwordHandler(){
+    if(trfId>0){
+        if($('#password').attr("checked")!=undefined){
+            if (confirm('Confirm employees password change?')) {
+            } 
+            else {
+                $('#password').removeAttr("checked");   
+            } 
+        }
+        else{
+            if (confirm('Cancel employees password change?')) {
+            } 
+            else {
+                $('#password').attr("checked","true");    
+            } 
+        }
+    }
+    else{
+        if($('#password').attr("checked")!=undefined){
+        }
+        else{
+            alert("You can't create employee without password!")
+                $('#password').attr("checked","true");    
+        }
+    }
+}
+
