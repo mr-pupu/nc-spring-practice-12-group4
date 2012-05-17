@@ -68,7 +68,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
         System.out.println("Servlet AJAXTrfsProcess runned (POST)");
         String ajaxdata = request.getParameter("ajaxdata");
         Long userId = (Long) request.getSession().getAttribute("userId");
-        System.out.println(ajaxdata);
+
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
         Map<String, String> resultStrings = new HashMap<String, String>();
@@ -84,7 +84,6 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
         Long destId;
         Long customerId;
         boolean car_rental;
-        boolean pay_by_cash;
         Short status;
         String commentary;
 
@@ -96,7 +95,6 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             destId = Long.parseLong(resultStrings.get("destination"));
             customerId = Long.parseLong(resultStrings.get("customer"));
             car_rental = Boolean.parseBoolean(resultStrings.get("carRental"));
-            pay_by_cash = Boolean.parseBoolean(resultStrings.get("payByCash"));
             status = Short.parseShort(resultStrings.get("status"));
             commentary = resultStrings.get("commentary");
 
@@ -108,6 +106,8 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             Destination dest = (Destination) hibernateSession.get(Destination.class, destId.longValue());
             Customer customer = (Customer) hibernateSession.get(Customer.class, customerId.longValue());
 
+            Short old_status=currTrf.getCurState();
+            
             currTrf.setEmployeeByEmpId(emp);
             currTrf.setBeginDate(begin_date);
             currTrf.setEndDate(end_date);
@@ -115,7 +115,8 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             currTrf.setDestination(dest);
             currTrf.setCustomer(customer);
             currTrf.setCarRental(car_rental);
-            if (status != currTrf.getCurState()) {
+            currTrf.setPayByCash(true);
+            if (status != old_status) {
                 currTrf.setCurState(status);
                 
                 MailSender.notifyByMail(status, currTrf.getId());
@@ -137,7 +138,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
 
             HibernateUtil.save(currTrf);
 
-            if (status != currTrf.getCurState()) {
+            if (status != old_status) {
                 System.out.println("Creating trfstate");
 
                 Trfstate newstate = new Trfstate();
