@@ -86,7 +86,7 @@ public class TrfEdit {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT mansurname, manname "
                 + "FROM employee_managers "
-                + "WHERE login=:login";
+                + "WHERE login=:login AND manlogin != :login";
 
         List resList = s.createSQLQuery(prepared_statement).setString("login", login).list();
 
