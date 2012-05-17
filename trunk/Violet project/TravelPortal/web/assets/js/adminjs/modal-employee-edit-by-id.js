@@ -214,9 +214,21 @@ function processEmployee(){
             "ajaxdata" : JSON.stringify(resultMap)
         }
     }).done(function( msg ) {
-        addMessage(msg);
-        $('#editEmployeeModal').modal('hide');
-        $('#emptable').trigger("reloadGrid");
+        if (msg['errata'] == null) {
+            addMessage(msg);
+            $('#editEmployeeModal').modal('hide');
+            $('#emptable').trigger("reloadGrid");
+        }
+        else {
+            $.each($('[name=checkable]'), function(key, value) {
+                $(value).removeClass();
+            });
+            $('.hello').empty();
+            $.each(msg['errata'], function(key, value) {
+                $('#'+value['field']).parent().addClass("control-group error").
+                append('<label class=\"hello\">' + value['err'] + '</label>');
+            })
+        }
     });
         
 }
