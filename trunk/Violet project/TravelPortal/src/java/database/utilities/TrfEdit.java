@@ -3,7 +3,6 @@ package database.utilities;
 import database.mapping.Country;
 import database.mapping.Customer;
 import database.mapping.Trfstate;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.SQLQuery;
@@ -86,7 +85,7 @@ public class TrfEdit {
     public static String[] DepManagerNameByLogin(String login) {
         Session s = HibernateUtil.getSession();
         String prepared_statement = "SELECT mansurname, manname "
-                + "FROM employee_managers_department "
+                + "FROM employee_managers "
                 + "WHERE login=:login";
 
         List resList = s.createSQLQuery(prepared_statement).setString("login", login).list();
