@@ -33,20 +33,19 @@ public class MailSender {
             + "Please, check updates on your desktop at Hardosoft Travel Portal.";
 
     static public void notifyByMail(int status, Long trfId) {
-        System.out.println("Status" + status + ", trf id:" + trfId);
         final int commited = 3;
         final int rejected = 1;
         if (status == rejected) {
             List<String> owner = MailLists.TRFOwnerMail(trfId);
             if (owner != null) {
-               //  MailSender.sendTo(owner, MailSender.rejected_subject, 
-                //         MailSender.rejected_body + mail_footer);
+                 MailSender.sendTo(owner, MailSender.rejected_subject, 
+                         MailSender.rejected_body + mail_footer);
             }
         } else if (status == commited) {
             List<String> supGroup = MailLists.notifyingGroupOnApprove(trfId);
             if (supGroup != null) {
-              //   MailSender.sendTo(supGroup, MailSender.approved_subject,
-              //           MailSender.approved_body + mail_footer);
+                 MailSender.sendTo(supGroup, MailSender.approved_subject,
+                         MailSender.approved_body + mail_footer);
             }
         }
     }
@@ -54,10 +53,10 @@ public class MailSender {
     static public void sendPassword(String login, String recpt, String newPassword) {
         List<String> recpts = new ArrayList<String>();
         recpts.add(recpt);
-//        utils.MailSender.sendTo(recpts, "Your password has been changed",
-//                "Hello, " + login + "! Your information is updated and new "
-//                + "password is: <b>" + newPassword + "<b>"
-//                + utils.MailSender.mail_footer);
+        utils.MailSender.sendTo(recpts, "Your password has been changed",
+                "Hello, " + login + "! Your information is updated and new "
+                + "password is: <b>" + newPassword + "<b>"
+                + utils.MailSender.mail_footer);
     }
 
     static public void sendTo(List<String> recipients, String subject, String body) {
@@ -89,6 +88,7 @@ public class MailSender {
                 if (!okReturned(in.readLine())) {
                     continue;
                 }
+                System.out.println("Mail sent to :"+recipient);
             }
             out.println("QUIT");
             smtpPipe.close();
