@@ -10,9 +10,7 @@ import database.mapping.Occupation;
 import database.mapping.Office;
 import database.utilities.HibernateUtil;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +20,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import servlets.ajax.AJAXGetHandler;
+import utils.InputChecker;
 import utils.PasswordGenerator;
 
 /**
@@ -69,7 +68,7 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         System.out.println("Servlet AJAXEmployeeProcess runned (POST)");
-       
+
         String ajaxdata = request.getParameter("ajaxdata");
         Object obj = JSONValue.parse(ajaxdata);
         JSONArray array = (JSONArray) obj;
@@ -98,38 +97,59 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
             login = resultStrings.get("login");
             password = Boolean.parseBoolean(resultStrings.get("password"));
 
-            Employee currEmployee = (Employee) request.getSession().getAttribute("employee");
-            Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
-            
-            String answer;
-            if(currEmployee.getFirstName()==null){
-                answer = firstName + " "+ lastName + " was added to database";
+            JSONArray errata = new JSONArray();
+            //run a series of checks
+            if (InputChecker.nameCheck(firstName, "firstName") != null) {
+                errata.add(InputChecker.nameCheck(firstName, "firstName"));
             }
-            else{
-                answer = firstName + " "+ lastName + " was successfully edited";
+            if (InputChecker.nameCheck(lastName, "lastName") != null) {
+                errata.add(InputChecker.nameCheck(lastName, "lastName"));
             }
-
-            currEmployee.setFirstName(firstName);
-            currEmployee.setSecondName(lastName);
-            currEmployee.setOccupation((Occupation) hibernateSession.get(Occupation.class, (Long) positionId));
-            currEmployee.setOffice((Office) hibernateSession.get(Office.class, (Long) officeId));
-            currEmployee.setDepartment((Department) hibernateSession.get(Department.class, (Long) departmentId));
-            currEmployee.setEmail(email);
-            currEmployee.setLogin(login);
-            if (password) {
-                String newPassword = PasswordGenerator.createPassword(10);
-                currEmployee.setPassword(newPassword);
-                utils.MailSender.sendPassword(login, email, newPassword);
+            if (InputChecker.emailCheck(email, "email") != null) {
+                errata.add(InputChecker.emailCheck(email, "email"));
             }
+            if (InputChecker.loginCheck(login, "login") != null) {
+                errata.add(InputChecker.loginCheck(login, "login"));
+            }
+            if (errata.isEmpty()) {
+                Employee currEmployee = (Employee) request.getSession().getAttribute("employee");
+                Session hibernateSession = (Session) request.getSession().getAttribute("hibernateSession");
 
-            HibernateUtil.save(currEmployee);
+                String answer;
+                if (currEmployee.getFirstName() == null) {
+                    answer = firstName + " " + lastName + " was added to database";
+                } else {
+                    answer = firstName + " " + lastName + " was successfully edited";
+                }
 
-            response.setContentType("application/json");
-            JSONObject js = new JSONObject();
-            js.put("error", "success");
-            js.put("success", answer);
-            js.writeJSONString(response.getWriter());
-            
+                currEmployee.setFirstName(firstName);
+                currEmployee.setSecondName(lastName);
+                currEmployee.setOccupation((Occupation) hibernateSession.get(Occupation.class, (Long) positionId));
+                currEmployee.setOffice((Office) hibernateSession.get(Office.class, (Long) officeId));
+                currEmployee.setDepartment((Department) hibernateSession.get(Department.class, (Long) departmentId));
+                currEmployee.setEmail(email);
+                currEmployee.setLogin(login);
+                if (password) {
+                    String newPassword = PasswordGenerator.createPassword(10);
+                    currEmployee.setPassword(newPassword);
+                    utils.MailSender.sendPassword(login, email, newPassword);
+                }
+
+                HibernateUtil.save(currEmployee);
+
+                response.setContentType("application/json");
+                JSONObject js = new JSONObject();
+                js.put("error", "success");
+                js.put("success", answer);
+                js.writeJSONString(response.getWriter());
+            }
+            else {
+                response.setContentType("application/json");
+                JSONObject js = new JSONObject();
+                js.put("errata", errata);
+                System.out.println(js);
+                js.writeJSONString(response.getWriter());
+            }
         } catch (Exception e) {
             response.setContentType("application/json");
             String answer = "Server problem, changes could not be done";
@@ -138,5 +158,6 @@ public class AJAXEmployeeProcess extends AJAXGetHandler {
             js.put("success", answer);
             js.writeJSONString(response.getWriter());
         }
+
     }
 }
