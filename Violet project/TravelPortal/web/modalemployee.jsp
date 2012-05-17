@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
                                     <td colspan="2"><label class="checkbox" <td style="width : 150px;">
-                                                <input type="checkbox" id="password"/>
+                                                <input type="checkbox" id="password" onchange="passwordHandler(id)"/>
                                                 Generate new password
                                             </label>
                                     </td>
