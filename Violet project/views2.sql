@@ -20,7 +20,7 @@ FROM employee emp INNER JOIN department sub ON emp.dep_id = sub.id, department s
   --of upper level departments (provided they exist)
 CREATE OR replace VIEW employee_managers
   AS
-SELECT emp.id, emp.first_name, emp.login, emp.second_name, dep.dep_name, man.first_name manname, man.second_name mansurname
+SELECT emp.id, emp.first_name, emp.login, emp.second_name, dep.dep_name, man.first_name manname, man.second_name mansurname, man.login manlogin
   FROM employee emp INNER JOIN department dep ON emp.dep_id=dep.id
   INNER JOIN employee man ON dep.manager_id = man.id;
 
