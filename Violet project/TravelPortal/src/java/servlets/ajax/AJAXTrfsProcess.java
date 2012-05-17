@@ -84,6 +84,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
         Long destId;
         Long customerId;
         boolean car_rental;
+        boolean pay_by_cash;
         Short status;
         String commentary;
 
@@ -95,6 +96,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             destId = Long.parseLong(resultStrings.get("destination"));
             customerId = Long.parseLong(resultStrings.get("customer"));
             car_rental = Boolean.parseBoolean(resultStrings.get("carRental"));
+            pay_by_cash = Boolean.parseBoolean(resultStrings.get("payByCash"));
             status = Short.parseShort(resultStrings.get("status"));
             commentary = resultStrings.get("commentary");
 
@@ -115,7 +117,7 @@ public class AJAXTrfsProcess extends AJAXGetHandler {
             currTrf.setDestination(dest);
             currTrf.setCustomer(customer);
             currTrf.setCarRental(car_rental);
-            currTrf.setPayByCash(true);
+            currTrf.setPayByCash(pay_by_cash);
             if (status != old_status) {
                 currTrf.setCurState(status);
                 

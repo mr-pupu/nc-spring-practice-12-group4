@@ -105,9 +105,9 @@ function fillTrfForm(data, id){
         $('#commentary').val("Changing status commentary...");
     }
     jQuery("#statushistory").jqGrid('setGridParam', 
-            {
-                url: getContextPath() + "/ajaxstatushistory?id=" + id
-            }).trigger("reloadGrid");
+    {
+        url: getContextPath() + "/ajaxstatushistory?id=" + id
+    }).trigger("reloadGrid");
     $("#accordion3").show();
 }
 
@@ -153,6 +153,9 @@ function processTRF(button){
 
     {
         'carRental':($('#carRental').attr("checked")!=undefined).toString()
+    },
+    {
+        'payByCash':($('#payByCash').attr("checked")!=undefined).toString()  
     },
     {
         'status' : button
@@ -242,12 +245,12 @@ function addDestination(){
         data: {
             "ajaxdata" : JSON.stringify(resultMap)
         }
-         }).done(function( msg ) {
+    }).done(function( msg ) {
         addMessage(msg);
         cityChange();
-            $("#pop1").popover("toggle");
-            $('#hotelName option[sysid="' + result['newDestinationId'] + 
-                '"]').attr("selected", "selected");
+        $("#pop1").popover("toggle");
+        $('#hotelName option[sysid="' + result['newDestinationId'] + 
+            '"]').attr("selected", "selected");
     });       
 }
 
