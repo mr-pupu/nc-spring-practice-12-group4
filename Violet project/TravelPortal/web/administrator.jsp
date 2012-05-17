@@ -30,7 +30,12 @@
             }
             .popover-inner {
                 position: absolute;
-            } 
+            }
+            .modal {
+                overflow-y:auto;
+                max-height:90%;
+                margin-top:-45%;
+            }
         </style>
         <jsp:include page="scripts.jsp"></jsp:include>
         <script type='text/javascript'
