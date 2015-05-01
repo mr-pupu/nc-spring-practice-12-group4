@@ -1,0 +1,1 @@
+This is the project for spring practice of group 4 of KPI based NC educational center
